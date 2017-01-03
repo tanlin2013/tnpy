@@ -1,5 +1,5 @@
 """
-This file contains several algorithms which are based on the Matrix Product State (MPS) ansatz. The main operations are based on Python module Numpy, Scipy and PRIMME. 
+This file contains several algorithms which are based on the Matrix Product State (MPS) ansatz.
 
 * Infinite Size Density Matrix Renormalization Group (iDMRG)
 * Infinte Time Evolution Bond Decimation (iTEBD)
