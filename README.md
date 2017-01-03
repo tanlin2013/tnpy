@@ -1,2 +1,15 @@
 # Tensor-Network
-An algorithm for physics studies.
+The algorithms for physics studies. 
+
+# Python version:
+
+  # Requirments:
+    Numpy
+    Scipy
+    PRIMME
+
+# c++ version:
+
+  # Requirments:
+    Uni10
+    PRIMME
