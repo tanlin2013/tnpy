@@ -6,7 +6,7 @@ This project contains several algorithms which are based on the Matrix Product S
 * Finite Size Density Matrix Renormalization Group (fDMRG)
 * Finte Time Evolution Bond Decimation (fTEBD)
 
-This work is still on progress...
+This work is still in progress...
 
 # Python version:
 
