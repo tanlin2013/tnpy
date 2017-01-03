@@ -1,5 +1,5 @@
 # Tensor-Network
-This project contains several algorithms which are based on the Matrix Product State (MPS) ansatz, and is used for the studies of physics. 
+This project contains several algorithms which are based on the Matrix Product State (MPS) ansatz, and is used for the studies of physics in (1+1) dimensions. 
 
 * Infinite Size Density Matrix Renormalization Group (iDMRG)
 * Infinte Time Evolution Bond Decimation (iTEBD)
