@@ -6,8 +6,7 @@ import numpy as np
 from scipy import sparse
 import Primme
 
-class operation:
-    
+class MPS:   
     def __init__(self,d,chi):
         """
         * Parameters:
@@ -58,13 +57,28 @@ class operation:
         else:
             return Gs 
         
-    def initialize_EnvLs(self):
+    def initialize_EnvLs(self,whichMPS):
 
         return
     
-    def initialize_EnvRs(self):
+    def initialize_EnvRs(self,whichMPS):
     
         return
     
     def 
+
+class contraction: 
+    def __int__(self):
+        
+def eigensolver():
+    """
+    This function is a warpper of PRIMME function eigsh().
+    """
+    return
+
+def Trotter_Suzuki_Decomposition():
+    """
+    """
+    return
+
 
