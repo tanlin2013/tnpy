@@ -1,15 +1,20 @@
 # Tensor-Network
-The algorithms for physics studies. 
+This project contains several algorithms which are based on the Matrix Product State (MPS) ansatz, and is used for the studies of physics. 
+
+* Infinite Size Density Matrix Renormalization Group (iDMRG)
+* Infinte Time Evolution Bond Decimation (iTEBD)
+* Finite Size Density Matrix Renormalization Group (fDMRG)
+* Finte Time Evolution Bond Decimation (fTEBD) 
 
 # Python version:
 
-  # Requirments:
-    Numpy
-    Scipy
-    PRIMME
+  * Requirments:
+    * Numpy
+    * Scipy
+    * PRIMME
 
 # c++ version:
 
-  # Requirments:
-    Uni10
-    PRIMME
+  * Requirments:
+    * Uni10
+    * PRIMME
