@@ -73,17 +73,36 @@ class MPS:
     
     def normalize_MPS(self,Gs,SVMs,order):
         """
-        An helper function of initialize_MPS(). Left or Right normalize the MPS.
+        An helper function of initialize_MPS(). Left or Right normalize the MPS which is in standard (GL) representation.
         
         * Parameters:
             * Gs: list of ndarray
             * SVMs: list of ndarray
-            * order: string
+            * order: string, {'L','R'}
         * Returns:
             * Gs: list of ndarray
         """
-        
-        return
+        size=len(Gs)
+        if order=='L':
+            
+        elif order=='R':
+            
+        else:
+            raise ValueError('The order must be either L or R.')
+        for site in range(size):
+            if site==0:
+                theta=Gs[site]
+            else:
+                theta=np.ndarray.reshape(Gs[site],())
+        X,S,Y=np.linalg.svd(theta,full_matrices=False)
+        if site==1:
+        else:
+        if site==size-1:
+        else:
+        if order=='L':
+            return Gs
+        else:
+            return Gs
     
     def initialize_EnvLs(self,whichMPS):
         """
