@@ -39,16 +39,30 @@ class MPS:
                 A list of Singular Value Matrices.
         """
         
-        Gs=[]    
+        Gs=[] ; if svm: SVMs=[]   
         if whichMPS=='i':
             for i in range(2):
                 Gs.append(np.random.rand(self.chi,self.d,self.chi))
-            if svm:
-                SVMs=[]
-                for i in range(2):
-                    SVMs.append(np.diagflat(np.random.rand(self.chi)))
+                if svm: SVMs.append(np.diagflat(np.random.rand(self.chi)))
         elif whichMPS=='f':
-            
+            size_parity=size%2
+            for site in range(size):        
+                if size_parity==0:
+                    if site==0 or site==size-1:
+                        self.Gs.append(np.random.rand(self.d,min(self.d,self.chi)))
+                    elif site<=size/2-1 and site!=0:
+                        self.Gs.append(np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**(site+1),self.chi)))
+                    elif site>size/2-1 and site!=size-1:
+                        self.Gs.append(np.random.rand(min(self.d**(size-site),self.chi),self.d,min(self.d**(size-1-site),self.chi)))
+                elif size_parity==1:
+                    if site==0 or site==size-1:
+                        self.Gs.append(np.random.rand(self.d,min(self.d,self.chi)))
+                    elif site<size/2 and site!=0:
+                        self.Gs.append(np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**(site+1),self.chi)))
+                    elif site==size/2:
+                        self.Gs.append(np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**site,self.chi)))
+                    elif site>size/2 and site!=size-1:
+                        self.Gs.append(np.random.rand(min(self.d**(size-site),self.chi),self.d,min(self.d**(size-1-site),self.chi)))
         else:
             raise ValueError('only iMPS and fMPS are supported.')
         
@@ -70,11 +84,20 @@ class MPS:
 class contraction: 
     def __int__(self):
         
-def eigensolver():
+def eigensolver(H,psi):
     """
     This function is a warpper of PRIMME function eigsh().
+    
+    * Parameters:
+        * H: ndarray
+        * psi: array
+    * Returns:
+        * evals:
+        * evecs:
     """
-    return
+    A=sparse.csr_matrix(H)
+    evals,evecs,stats=Primme.eigsh(A,k=1,which='SA',v0=psi,tol=self.tolerance,return_stats=True)                                    
+    return evals[0],evecs
 
 def Trotter_Suzuki_Decomposition():
     """
