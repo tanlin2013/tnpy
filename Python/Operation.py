@@ -73,7 +73,7 @@ class MPS:
     
     def normalize_MPS(self,Gs,SVMs,order):
         """
-        An helper function of initialize_MPS(). Left or Right normalize the MPS which is in standard (GL) representation.
+        A helper function of initialize_MPS(). Left or Right normalize the MPS which is in standard (GL) representation.
         
         * Parameters:
             * Gs: list of ndarray
@@ -83,11 +83,9 @@ class MPS:
             * Gs: list of ndarray
         """
         size=len(Gs)
-        if order=='L':
-            
-        elif order=='R':
-            
-        else:
+        if order=='R':
+            Gs=Gs.reverse()
+        elif order!='L':
             raise ValueError('The order must be either L or R.')
         for site in range(size):
             if site==0:
@@ -95,12 +93,16 @@ class MPS:
             else:
                 theta=np.ndarray.reshape(Gs[site],())
         X,S,Y=np.linalg.svd(theta,full_matrices=False)
-        if site==1:
+        if site==0:
+            Gs[site+1]=np.tensordot()
         else:
+            Gs[site+1]=np.tensordot()
         if site==size-1:
+            Gs[site]=np.ndarray.reshape(,())
         else:
-        if order=='L':
-            return Gs
+            Gs[site]=np.ndarray.reshape(,())
+        if order=='R':
+            return Gs.reverse()
         else:
             return Gs
     
