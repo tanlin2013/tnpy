@@ -39,7 +39,7 @@ class MPS:
         
         """ Check the input variables"""
         if whichMPS=='f': 
-            if cononical_form is None or size is None:
+            if not cononical_form in ['L','R','GL'] or type(size) is not int:
                 raise ValueError('canonical_form and size must be specified when whichMPS='f'.')        
         
         Gs=[] ; SVMs=[]
@@ -51,24 +51,12 @@ class MPS:
             return Gs,SVMs    
         elif whichMPS=='f':
             """ Create the fMPS in the standard (GL) representation """
-            size_parity=size%2
-            for site in range(size):        
-                if size_parity==0:
-                    if site==0 or site==size-1:
-                        Gs.append(np.random.rand(self.d,min(self.d,self.chi)))
-                    elif site<=size/2-1 and site!=0:
-                        Gs.append(np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**(site+1),self.chi)))
-                    elif site>size/2-1 and site!=size-1:
-                        Gs.append(np.random.rand(min(self.d**(size-site),self.chi),self.d,min(self.d**(size-1-site),self.chi)))
-                elif size_parity==1:
-                    if site==0 or site==size-1:
-                        Gs.append(np.random.rand(self.d,min(self.d,self.chi)))
-                    elif site<size/2 and site!=0:
-                        Gs.append(np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**(site+1),self.chi)))
-                    elif site==size/2:
-                        Gs.append(np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**site,self.chi)))
-                    elif site>size/2 and site!=size-1:
-                        Gs.append(np.random.rand(min(self.d**(size-site),self.chi),self.d,min(self.d**(size-1-site),self.chi)))
+            for site in range(size):
+                if site==size-1:
+                    Gs.append(np.random.rand(self.d,self.chi))
+                else:
+                    Gs.append(np.random.rand(self.chi,self.d,self.chi))
+                    SVMs.append(np.diagflat(np.random.rand(self.chi)))
             """ Left- or right-normalized the MPS """
             if canonical_form=='L':
                 
@@ -88,8 +76,13 @@ class MPS:
         An helper function of initialize_MPS(). Left or Right normalize the MPS.
         
         * Parameters:
+            * Gs: list of ndarray
+            * SVMs: list of ndarray
+            * order: string
         * Returns:
+            * Gs: list of ndarray
         """
+        
         return
     
     def initialize_EnvLs(self,whichMPS):
