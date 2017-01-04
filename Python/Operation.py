@@ -64,8 +64,7 @@ class MPS:
                     elif site>size/2 and site!=size-1:
                         self.Gs.append(np.random.rand(min(self.d**(size-site),self.chi),self.d,min(self.d**(size-1-site),self.chi)))
         else:
-            raise ValueError('only iMPS and fMPS are supported.')
-        
+            raise ValueError('only iMPS and fMPS are supported.')        
         if svm:
             return Gs,SVMs
         else:
@@ -77,12 +76,19 @@ class MPS:
     
     def initialize_EnvRs(self,whichMPS):
     
-        return
-    
-    def 
+        return    
 
 class contraction: 
     def __int__(self):
+        
+    def transfer_operator(self):    
+        return
+    
+    def update_EnvLs(self):
+        return
+
+    def update_EnvRs(self):
+        return
         
 def eigensolver(H,psi):
     """
@@ -104,4 +110,16 @@ def Trotter_Suzuki_Decomposition():
     """
     return
 
-
+def inverse_SVM(A):
+    """
+    Compute the inverse of Singular Value Matrix.
+    
+    * Parameters:
+        A: ndarray
+            The Singular Value Matrix wants to be convert.
+    * Returns:
+        A_inv: ndarray
+            The inverse of Singular Value Matrix.
+    """
+    
+    return A_inv
