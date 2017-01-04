@@ -45,6 +45,7 @@ class MPS:
                 Gs.append(np.random.rand(self.chi,self.d,self.chi))
                 if svm: SVMs.append(np.diagflat(np.random.rand(self.chi)))
         elif whichMPS=='f':
+            """ Create the fMPS """
             size_parity=size%2
             for site in range(size):        
                 if size_parity==0:
@@ -63,6 +64,7 @@ class MPS:
                         self.Gs.append(np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**site,self.chi)))
                     elif site>size/2 and site!=size-1:
                         self.Gs.append(np.random.rand(min(self.d**(size-site),self.chi),self.d,min(self.d**(size-1-site),self.chi)))
+            """ """            
         else:
             raise ValueError('only iMPS and fMPS are supported.')        
         if svm:
