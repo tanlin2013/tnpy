@@ -18,32 +18,36 @@ class MPS:
         self.d=d
         self.chi=chi
         
-    def initialize_MPS(self,whichMPS,svm,canonical_form,size):
+    def initialize_MPS(self,whichMPS,canonical_form=None,size=None):
         """
         Randomly initialize the MPS.
     
         * Parameters:
             * whichMPS: string, {'i','f'} 
                 If whichMPS='i', an infinite MPS is initialized. Otherwise if whichMPS='f', a finite MPS is created.            
-            * svm: bool
-                If Ture, the Singular Value Matrices will be returned. Else the Singular Value Matrices will be multiplied into MPS.
-            * canonical_form: string, {'L','R'}, optional
-                If whichMPS='f', fMPS can be either Left-normalized or Right-normalized.
+            * canonical_form: string, {'L','R','GL'}, optional
+                If whichMPS='f', fMPS can be represented as left-normalized, right-normalized or the standard (Gamma-Lambda representation) MPS.
             * size: int, optional
-                If whichMPS='f', the system size is needed. 
+                If whichMPS='f', the size of system is needed. 
         
         * Returns: 
             * Gs: list of ndarray
-                A list of rank-3 tensors which represents the MPS. The order of tensor is (chi,d,chi) or (d,chi) if the boundaries are considered.  
+                A list of rank-3 tensors which represents the MPS. The order of tensor is (chi,d,chi) or (d,chi) for the boundaries if fMPS is considered.  
             * SVMs: list of ndarray
-                A list of Singular Value Matrices.
+                A list of Singular Value Matrices. SVMs is always return for iMPS. But, for the fMPS SVMs only return when canonical_form='GL'.
         """
         
-        Gs=[] ; if svm: SVMs=[]   
+        """ Check input variables"""
+        if whichMPS=='f': 
+            if cononical_form is None or size is None:
+                raise ValueError('canonical_form and size must be specified when whichMPS='f'.')        
+        Gs=[] ; SVMs=[]
         if whichMPS=='i':
-            for i in range(2):
+            """ Create the iMPS """
+            for site in range(2):
                 Gs.append(np.random.rand(self.chi,self.d,self.chi))
-                if svm: SVMs.append(np.diagflat(np.random.rand(self.chi)))
+                SVMs.append(np.diagflat(np.random.rand(self.chi)))
+            return Gs,SVMs    
         elif whichMPS=='f':
             """ Create the fMPS """
             size_parity=size%2
@@ -67,16 +71,17 @@ class MPS:
             """ Left- or Right-normalized the MPS """
             if canonical_form=='L':
                 
+                return Gs
             elif canonical_form=='R':
                 
+                return Gs
+            elif canonical_form=='GL':
+                
+                return Gs,SVMs
             else:
                 raise ValueError('Only Left- or Right-normalized canonical form are supported.')    
         else:
             raise ValueError('Only iMPS and fMPS are supported.')        
-        if svm:
-            return Gs,SVMs
-        else:
-            return Gs 
         
     def initialize_EnvLs(self,whichMPS):
 
