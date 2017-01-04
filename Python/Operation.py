@@ -34,10 +34,10 @@ class MPS:
             * Gs: list of ndarray
                 A list of rank-3 tensors which represents the MPS. The order of tensor is (chi,d,chi) or (d,chi) for the boundaries if fMPS is considered.  
             * SVMs: list of ndarray
-                A list of Singular Value Matrices. SVMs is always return for iMPS. But, for the fMPS SVMs only return when canonical_form='GL'.
+                A list of singular value matrices. SVMs is always return for iMPS. But, for the fMPS SVMs only return when canonical_form='GL'.
         """
         
-        """ Check input variables"""
+        """ Check the input variables"""
         if whichMPS=='f': 
             if cononical_form is None or size is None:
                 raise ValueError('canonical_form and size must be specified when whichMPS='f'.')        
@@ -49,7 +49,7 @@ class MPS:
                 SVMs.append(np.diagflat(np.random.rand(self.chi)))
             return Gs,SVMs    
         elif whichMPS=='f':
-            """ Create the fMPS """
+            """ Create the fMPS in GL representation """
             size_parity=size%2
             for site in range(size):        
                 if size_parity==0:
@@ -68,18 +68,17 @@ class MPS:
                         self.Gs.append(np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**site,self.chi)))
                     elif site>size/2 and site!=size-1:
                         self.Gs.append(np.random.rand(min(self.d**(size-site),self.chi),self.d,min(self.d**(size-1-site),self.chi)))
-            """ Left- or Right-normalized the MPS """
+            """ Left- or right-normalized the MPS """
             if canonical_form=='L':
                 
                 return Gs
             elif canonical_form=='R':
                 
                 return Gs
-            elif canonical_form=='GL':
-                
+            elif canonical_form=='GL':                
                 return Gs,SVMs
             else:
-                raise ValueError('Only Left- or Right-normalized canonical form are supported.')    
+                raise ValueError('Only the standard (GL), left- and right-normalized canonical form are supported.')    
         else:
             raise ValueError('Only iMPS and fMPS are supported.')        
         
