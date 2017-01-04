@@ -41,6 +41,7 @@ class MPS:
         if whichMPS=='f': 
             if cononical_form is None or size is None:
                 raise ValueError('canonical_form and size must be specified when whichMPS='f'.')        
+        
         Gs=[] ; SVMs=[]
         if whichMPS=='i':
             """ Create the iMPS """
@@ -49,25 +50,25 @@ class MPS:
                 SVMs.append(np.diagflat(np.random.rand(self.chi)))
             return Gs,SVMs    
         elif whichMPS=='f':
-            """ Create the fMPS in GL representation """
+            """ Create the fMPS in the standard (GL) representation """
             size_parity=size%2
             for site in range(size):        
                 if size_parity==0:
                     if site==0 or site==size-1:
-                        self.Gs.append(np.random.rand(self.d,min(self.d,self.chi)))
+                        Gs.append(np.random.rand(self.d,min(self.d,self.chi)))
                     elif site<=size/2-1 and site!=0:
-                        self.Gs.append(np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**(site+1),self.chi)))
+                        Gs.append(np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**(site+1),self.chi)))
                     elif site>size/2-1 and site!=size-1:
-                        self.Gs.append(np.random.rand(min(self.d**(size-site),self.chi),self.d,min(self.d**(size-1-site),self.chi)))
+                        Gs.append(np.random.rand(min(self.d**(size-site),self.chi),self.d,min(self.d**(size-1-site),self.chi)))
                 elif size_parity==1:
                     if site==0 or site==size-1:
-                        self.Gs.append(np.random.rand(self.d,min(self.d,self.chi)))
+                        Gs.append(np.random.rand(self.d,min(self.d,self.chi)))
                     elif site<size/2 and site!=0:
-                        self.Gs.append(np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**(site+1),self.chi)))
+                        Gs.append(np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**(site+1),self.chi)))
                     elif site==size/2:
-                        self.Gs.append(np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**site,self.chi)))
+                        Gs.append(np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**site,self.chi)))
                     elif site>size/2 and site!=size-1:
-                        self.Gs.append(np.random.rand(min(self.d**(size-site),self.chi),self.d,min(self.d**(size-1-site),self.chi)))
+                        Gs.append(np.random.rand(min(self.d**(size-site),self.chi),self.d,min(self.d**(size-1-site),self.chi)))
             """ Left- or right-normalized the MPS """
             if canonical_form=='L':
                 
@@ -78,16 +79,29 @@ class MPS:
             elif canonical_form=='GL':                
                 return Gs,SVMs
             else:
-                raise ValueError('Only the standard (GL), left- and right-normalized canonical form are supported.')    
+                raise ValueError('Only the standard (GL), Left- and Right-normalized canonical form are supported.')    
         else:
             raise ValueError('Only iMPS and fMPS are supported.')        
+    
+    def normalize_MPS(self,Gs,SVMs,order):
+        """
+        An helper function of initialize_MPS(). Left or Right normalize the MPS.
         
+        * Parameters:
+        * Returns:
+        """
+        return
+    
     def initialize_EnvLs(self,whichMPS):
-
+        """
+        Create an initial left enviroment for either iDMRG or fDMRG algorithm.
+        """
         return
     
     def initialize_EnvRs(self,whichMPS):
-    
+        """
+        Create an initial right enviroment for either iDMRG or fDMRG algorithm.
+        """
         return    
 
 class contraction: 
@@ -124,14 +138,14 @@ def Trotter_Suzuki_Decomposition():
 
 def inverse_SVM(A):
     """
-    Compute the inverse of Singular Value Matrix.
+    Compute the inverse of singular value matrix.
     
     * Parameters:
         A: ndarray
-            The Singular Value Matrix wants to be convert.
+            The singular value matrix wants to be convert.
     * Returns:
         A_inv: ndarray
-            The inverse of Singular Value Matrix.
+            The inverse of singular value matrix.
     """
     
     return A_inv
