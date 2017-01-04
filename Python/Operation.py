@@ -64,9 +64,15 @@ class MPS:
                         self.Gs.append(np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**site,self.chi)))
                     elif site>size/2 and site!=size-1:
                         self.Gs.append(np.random.rand(min(self.d**(size-site),self.chi),self.d,min(self.d**(size-1-site),self.chi)))
-            """ """            
+            """ Left- or Right-normalized the MPS """
+            if canonical_form=='L':
+                
+            elif canonical_form=='R':
+                
+            else:
+                raise ValueError('Only Left- or Right-normalized canonical form are supported.')    
         else:
-            raise ValueError('only iMPS and fMPS are supported.')        
+            raise ValueError('Only iMPS and fMPS are supported.')        
         if svm:
             return Gs,SVMs
         else:
