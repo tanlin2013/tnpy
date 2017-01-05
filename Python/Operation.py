@@ -112,12 +112,20 @@ class MPS:
         """
         Create an initial left enviroment for either iDMRG or fDMRG algorithm.
         """
+        if whichMPS='i':
+        elif whichMPS='f':
+        else:
+            raise ValueError('')
         return
     
     def initialize_EnvRs(self,whichMPS):
         """
         Create an initial right enviroment for either iDMRG or fDMRG algorithm.
         """
+        if whichMPS='i':
+        elif whichMPS='f':
+        else:
+            
         return    
 
 class contraction: 
