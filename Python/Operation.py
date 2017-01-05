@@ -77,14 +77,14 @@ class MPS:
         
         * Parameters:
             * Gs: list of ndarray
-                The fMPS    
+                The fMPS wants to be left- or right-normalized.  
             * SVMs: list of ndarray
-            
+                The fMPS wants to be left- or right-normalized.
             * order: string, {'L','R'}
-            
+                Specified the direction of normalization.
         * Returns:
             * Gs: list of ndarray
-            
+                Left- or right-normalized MPS.
         """
         N=len(Gs)
         if order=='R':
