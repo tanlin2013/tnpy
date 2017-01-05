@@ -59,10 +59,10 @@ class MPS:
                     SVMs.append(np.diagflat(np.random.rand(self.chi)))
             """ Left- or right-normalized the MPS """
             if canonical_form=='L':
-                
+                Gs=self.normalize_MPS(Gs,SVMs,order='L')
                 return Gs
             elif canonical_form=='R':
-                
+                Gs.self.normalize_MPS(Gs,SVMs,order='R')
                 return Gs
             elif canonical_form=='GL':                
                 return Gs,SVMs
