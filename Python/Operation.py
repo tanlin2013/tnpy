@@ -112,14 +112,30 @@ class MPS:
         else:
             return Gs
     
-    def initialize_EnvLs(self,whichMPS):
+    def initialize_EnvLs(self,whichMPS,D,M):
         """
         Create an initial left enviroment for either iDMRG or fDMRG algorithm.
+        
+        * Parameters:
+            * whichMPS: string
+            * D: int, optinal
+            * M: ndarray, optional
+        * Returns:
+            * L: list of ndarray
         """
         if whichMPS='i':
-            
+            vL=np.zeros(D)
+            vL[0]=1.0
+            L=np.kron(vL,np.identity(self.chi,dtype=float))      
+            L=np.ndarray.reshape(L,(self.chi,D,self.chi))
         elif whichMPS='f':
-            
+            for site in range(N-1):
+            M=self.MPO_H(site)
+            if site==0:
+                envL=self.transfer_operator(M,site)             
+            else:    
+                envL=self.update_envL(envL,M,site)            
+            L.append(envL)     
         else:
             raise ValueError('')
         return
@@ -127,9 +143,13 @@ class MPS:
     def initialize_EnvRs(self,whichMPS):
         """
         Create an initial right enviroment for either iDMRG or fDMRG algorithm.
+        
         """
         if whichMPS='i':
-            
+            vL=np.zeros(D)
+            vL[-1]=1.0
+            R=np.kron(np.identity(self.chi,dtype=float),vR)
+            R=np.ndarray.reshape(R,(self.chi,D,self.chi)) 
         elif whichMPS='f':
             
         else:
