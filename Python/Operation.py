@@ -18,7 +18,7 @@ class MPS:
         self.d=d
         self.chi=chi
         
-    def initialize_MPS(self,whichMPS,canonical_form=None,size=None):
+    def initialize_MPS(self,whichMPS,canonical_form=None,N=None):
         """
         Randomly initialize the MPS.
     
@@ -27,8 +27,8 @@ class MPS:
                 If whichMPS='i', an infinite MPS is initialized. Otherwise if whichMPS='f', a finite MPS is created.            
             * canonical_form: string, {'L','R','GL'}, optional
                 If whichMPS='f', fMPS can be represented as left-normalized, right-normalized or the standard (Gamma-Lambda representation) MPS.
-            * size: int, optional
-                If whichMPS='f', the size of system is needed. 
+            * N: int, optional
+                If whichMPS='f', the size of system N is needed. 
         
         * Returns: 
             * Gs: list of ndarray
@@ -39,7 +39,7 @@ class MPS:
         
         """ Check the input variables"""
         if whichMPS=='f': 
-            if not cononical_form in ['L','R','GL'] or type(size) is not int:
+            if not cononical_form in ['L','R','GL'] or type(N) is not int:
                 raise ValueError('canonical_form and size must be specified when whichMPS='f'.')        
         
         Gs=[] ; SVMs=[]
@@ -51,8 +51,8 @@ class MPS:
             return Gs,SVMs    
         elif whichMPS=='f':
             """ Create the fMPS in the standard (GL) representation """
-            for site in range(size):
-                if site==size-1:
+            for site in range(N):
+                if site==N-1:
                     Gs.append(np.random.rand(self.d,self.chi))
                 else:
                     Gs.append(np.random.rand(self.chi,self.d,self.chi))
@@ -73,7 +73,7 @@ class MPS:
     
     def normalize_MPS(self,Gs,SVMs,order):
         """
-        A helper function of initialize_MPS(). Left or Right normalize the MPS which is in standard (GL) representation.
+        Left or Right normalize the MPS which is in the standard (GL) representation.
         
         * Parameters:
             * Gs: list of ndarray
@@ -82,25 +82,27 @@ class MPS:
         * Returns:
             * Gs: list of ndarray
         """
-        size=len(Gs)
+        N=len(Gs)
         if order=='R':
             Gs=Gs.reverse()
+            SVMs=SVMs.reverse()
         elif order!='L':
             raise ValueError('The order must be either L or R.')
-        for site in range(size):
+        for site in range(N-1):
             if site==0:
-                theta=Gs[site]
+                theta=np.tensordot(Gs[site],SVMs[site],axes=(1,0))
             else:
-                theta=np.ndarray.reshape(Gs[site],())
+                theta=np.tensordot(Gs[site],SVMs[site],axes=(2,0))
+                theta=np.ndarray.reshape(theta,(self.d*Gs[site].shape[0],Gs[site].shape[2]))
         X,S,Y=np.linalg.svd(theta,full_matrices=False)
+        if site==N-2:
+            Gs[site+1]=np.tensordot(Gs[site+1],np.dot(np.diagflat(S),Y),axes=(1,1))
+        else:
+            Gs[site+1]=np.tensordot(np.dot(np.diagflat(S),Y),Gs[site+1],axes=(1,0))
         if site==0:
-            Gs[site+1]=np.tensordot()
+            Gs[site]=np.ndarray.reshape(X,(self.d,Gs[site].shape[1]))
         else:
-            Gs[site+1]=np.tensordot()
-        if site==size-1:
-            Gs[site]=np.ndarray.reshape(,())
-        else:
-            Gs[site]=np.ndarray.reshape(,())
+            Gs[site]=np.ndarray.reshape(X,(Gs[site].shape[0],self.d,Gs[site].shape[2]))
         if order=='R':
             return Gs.reverse()
         else:
