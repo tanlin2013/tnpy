@@ -73,14 +73,18 @@ class MPS:
     
     def normalize_MPS(self,Gs,SVMs,order):
         """
-        Left or Right normalize the MPS which is in the standard (GL) representation.
+        Left or Right normalize the fMPS which is in the standard (GL) representation.
         
         * Parameters:
             * Gs: list of ndarray
+                The fMPS    
             * SVMs: list of ndarray
+            
             * order: string, {'L','R'}
+            
         * Returns:
             * Gs: list of ndarray
+            
         """
         N=len(Gs)
         if order=='R':
@@ -113,7 +117,9 @@ class MPS:
         Create an initial left enviroment for either iDMRG or fDMRG algorithm.
         """
         if whichMPS='i':
+            
         elif whichMPS='f':
+            
         else:
             raise ValueError('')
         return
@@ -123,9 +129,11 @@ class MPS:
         Create an initial right enviroment for either iDMRG or fDMRG algorithm.
         """
         if whichMPS='i':
-        elif whichMPS='f':
-        else:
             
+        elif whichMPS='f':
+            
+        else:
+            raise ValueError('')    
         return    
 
 class contraction: 
