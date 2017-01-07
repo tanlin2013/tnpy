@@ -7,24 +7,27 @@ from scipy import sparse
 import Primme
 
 class MPS:   
-    def __init__(self,d,chi):
+    def __init__(self,whichMPS,d,chi):
         """
         * Parameters:
+            * whichMPS: string, {'i','f'} 
+                If whichMPS='i', an infinite MPS is initialized. Otherwise if whichMPS='f', a finite MPS is created.  
             * d: int
                 The physical bond dimension which is associated to the dimension of single-particle Hilbert space.
             * chi: int
                 The visual bond dimension to be keep after the Singular Value Decomposition (SVD).               
         """
+        if whichMPS!='i' and whichMPS!='f':
+            raise ValueError('Only iMPS and fMPS are supported.')
+        self.whichPMS=whichMPS
         self.d=d
         self.chi=chi
         
-    def initialize_MPS(self,whichMPS,canonical_form=None,N=None):
+    def initialize_MPS(self,canonical_form=None,N=None):
         """
         Randomly initialize the MPS.
     
-        * Parameters:
-            * whichMPS: string, {'i','f'} 
-                If whichMPS='i', an infinite MPS is initialized. Otherwise if whichMPS='f', a finite MPS is created.            
+        * Parameters:          
             * canonical_form: string, {'L','R','GL'}, optional
                 If whichMPS='f', fMPS can be represented as left-normalized, right-normalized or the standard (Gamma-Lambda representation) MPS.
             * N: int, optional
@@ -38,24 +41,25 @@ class MPS:
         """
         
         """ Check the input variables"""
-        if whichMPS=='f': 
+        if self.whichMPS=='f': 
             if not cononical_form in ['L','R','GL'] or type(N) is not int:
                 raise ValueError('canonical_form and size must be specified when whichMPS='f'.')        
         
         Gs=[] ; SVMs=[]
-        if whichMPS=='i':
+        if self.whichMPS=='i':
             """ Create the iMPS """
             for site in range(2):
                 Gs.append(np.random.rand(self.chi,self.d,self.chi))
                 SVMs.append(np.diagflat(np.random.rand(self.chi)))
             return Gs,SVMs    
-        elif whichMPS=='f':
+        elif self.whichMPS=='f':
             """ Create the fMPS in the standard (GL) representation """
             for site in range(N):
-                if site==N-1:
+                if site==0 or site==N-1:
                     Gs.append(np.random.rand(self.d,self.chi))
                 else:
                     Gs.append(np.random.rand(self.chi,self.d,self.chi))
+                if site<N-1:
                     SVMs.append(np.diagflat(np.random.rand(self.chi)))
             """ Left- or right-normalized the MPS """
             if canonical_form=='L':
@@ -67,9 +71,7 @@ class MPS:
             elif canonical_form=='GL':                
                 return Gs,SVMs
             else:
-                raise ValueError('Only the standard (GL), Left- and Right-normalized canonical form are supported.')    
-        else:
-            raise ValueError('Only iMPS and fMPS are supported.')        
+                raise ValueError('Only the standard (GL), Left- and Right-normalized canonical form are supported.')          
     
     def normalize_MPS(self,Gs,SVMs,order):
         """
@@ -112,33 +114,31 @@ class MPS:
         else:
             return Gs
     
-    def initialize_EnvLs(self,whichMPS,D,M):
+    def initialize_EnvLs(self,D,M):
         """
         Create an initial left enviroment for either iDMRG or fDMRG algorithm.
         
         * Parameters:
-            * whichMPS: string
             * D: int, optinal
             * M: ndarray, optional
         * Returns:
             * L: list of ndarray
         """
-        if whichMPS='i':
+        if self.whichMPS='i':
             vL=np.zeros(D)
             vL[0]=1.0
             L=np.kron(vL,np.identity(self.chi,dtype=float))      
             L=np.ndarray.reshape(L,(self.chi,D,self.chi))
-        elif whichMPS='f':
+        elif self.whichMPS='f':
+            L=[]
             for site in range(N-1):
-            M=self.MPO_H(site)
-            if site==0:
-                envL=self.transfer_operator(M,site)             
-            else:    
-                envL=self.update_envL(envL,M,site)            
-            L.append(envL)     
-        else:
-            raise ValueError('')
-        return
+                M=self.MPO_H(site)
+                if site==0:
+                    envL=contraction.transfer_operator(M,site)             
+                else:    
+                    envL=contraction.update_envL(envL,M,site)            
+                L.append(envL)     
+        return L
     
     def initialize_EnvRs(self,whichMPS):
         """
@@ -152,12 +152,13 @@ class MPS:
             R=np.ndarray.reshape(R,(self.chi,D,self.chi)) 
         elif whichMPS='f':
             
-        else:
-            raise ValueError('')    
-        return    
+        return R    
 
 class contraction: 
     def __int__(self):
+        self.N=N
+        self.Gs=Gs
+        self.SVMs=SVMs
         
     def transfer_operator(self):    
         return
