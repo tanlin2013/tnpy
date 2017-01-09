@@ -14,23 +14,20 @@ import numpy as np
 import Operation
 
 class iDMRG:
-    def __init__(self,MPO,Gs,SVMs,N,d,D,chi):
-        """
-        Define the global objects of iDMRG class.
-        """
+    def __init__(self,MPO,Gs,SVMs,N,d,chi):
         self.MPO=MPO
         self.Gs=Gs
         self.SVMs=SVMs
         self.N=N
         self.d=d
-        self.D=D
         self.chi=chi
     
     def initialize_Env(self):
-        vL=np.zeros(self.D)
+        D=self.MPO(0).shape[1]
+        vL=np.zeros(D)
         vL[0]=1.0
         L=np.kron(vL,np.identity(self.chi,dtype=float))      
-        L=np.ndarray.reshape(L,(self.chi,self.D,self.chi))
+        L=np.ndarray.reshape(L,(self.chi,D,self.chi))
         vR=np.zeros(D)
         vR[-1]=1.0
         R=np.kron(np.identity(self.chi,dtype=float),vR)
@@ -92,12 +89,11 @@ class iTEBD:
     def time_evolution(self):   
         
 class fDMRG:
-    def __init__(self,MPO,Gs,N,d,chi,tolerence,maxsweep):
+    def __init__(self,MPO,Gs,N,d,chi,tolerence=1e-12,maxsweep=200):
         self.MPO=MPO
         self.Gs=GS
         self.N=N
         self.d=d
-        self.D=D
         self.chi=chi
         self.tolerence=tolerence
         self.maxsweep=maxsweep
@@ -106,36 +102,36 @@ class fDMRG:
         L=[] ; R=[]
         for site in xrange(self.N-1):
             if site==0:
-                EnvL=self.transfer_operator(self.MPO(site))             
+                EnvL=Operation.transfer_operator(self.MPO(site))             
             else:    
-                EnvL=self.update_envL(EnvL,site)            
+                EnvL=self.update_EnvL(EnvL,site)            
             L.append(EnvL)                       
         for site in xrange(self.N-1,0,-1):
             if site==self.N-1:
-                EnvR=self.transfer_operator(self.MPO(site))
+                EnvR=Operation.transfer_operator(self.MPO(site))
             else:
-                EnvR=self.update_envR(EnvR,site)            
+                EnvR=self.update_EnvR(EnvR,site)            
             R.append(EnvR)      
         return L,R
         
     def update_EnvL(self,envL,site):
         M=self.MPO(site)
         if site==self.l-1:
-            envL=np.tensordot(np.tensordot(np.tensordot(envL,self.Gs[site],axes=(0,1)),M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,1],[1,0]))
+            EnvL=np.tensordot(np.tensordot(np.tensordot(EnvL,self.Gs[site],axes=(0,1)),M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,1],[1,0]))
         else:
-            envL=np.tensordot(np.tensordot(np.tensordot(envL,self.Gs[site],axes=(0,0)),M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,2],[0,1]))
-        return envL
+            EnvL=np.tensordot(np.tensordot(np.tensordot(EnvL,self.Gs[site],axes=(0,0)),M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,2],[0,1]))
+        return EnvL
 
     def update_EnvR(self,envR,site):
         M=self.MPO(site)
         if site==0: 
-            envR=np.tensordot(np.tensordot(np.tensordot(envR,self.Gs[site],axes=(0,1)),M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,1],[1,0]))   
+            EnvR=np.tensordot(np.tensordot(np.tensordot(EnvR,self.Gs[site],axes=(0,1)),M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,1],[1,0]))   
         else:
-            envR=np.tensordot(np.tensordot(np.tensordot(envR,self.Gs[site],axes=(0,2)),M,axes=([0,3],[3,0])),np.conjugate(self.Gs[site]),axes=([0,3],[2,1]))
-        return envR    
+            EnvR=np.tensordot(np.tensordot(np.tensordot(EnvR,self.Gs[site],axes=(0,2)),M,axes=([0,3],[3,0])),np.conjugate(self.Gs[site]),axes=([0,3],[2,1]))
+        return EnvR    
 
     def effH(self,L,R,site):
-        M=self.MPO_H(site)
+        M=self.MPO(site)
         if site==0:
             dimH=self.d*self.Gs[site].shape[1]
             H=np.tensordot(M,R[self.N-2-site],axes=(1,1))
@@ -155,8 +151,16 @@ class fDMRG:
         return H,psi
         
     def variational_optimize(self):
+        L,R=self.initialize_Env()
+        for sweep in xrange(1,self.maxsweep):
+            
 
     def convergence(self):
+        
 
 class fTEBD:
     def __init__(self):
+        
+    def time_evolution(self):
+        
+        
