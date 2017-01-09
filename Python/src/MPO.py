@@ -6,6 +6,6 @@ Sz=np.array([[1,0],[0,-1]],dtype=float)
 I2=np.identity(2,dtype=float)
 O2=np.zeros((2,2),dtype=float)
 
-def Thirring():
+def MPO():
     
     return M
