@@ -56,9 +56,7 @@ class iDMRG:
             theta=np.ndarray.reshape(theta,(self.chi*self.d,self.chi*self.d))
             X,S,Y=np.linalg.svd(theta,full_matrices=False)
             # truncation           
-            X=X[:,0:self.chi]
-            Y=Y[0:self.chi,:]
-            S=S[0:self.chi]             
+            X=X[:,0:self.chi] ; S=S[0:self.chi] ; Y=Y[0:self.chi,:]                         
             self.SVMs[A]=np.diagflat(S/np.linalg.norm(S))
             # form the new configuration
             X=np.ndarray.reshape(X,(self.chi,self.d,self.chi))
@@ -152,11 +150,57 @@ class fDMRG:
         
     def variational_optimize(self):
         L,R=self.initialize_Env()
+        E0=0.0 ; t0=time.clock()
         for sweep in xrange(1,self.maxsweep):
             
-
-    def convergence(self):
+        # Right Sweep         
+        for site in xrange(self.N-1):
+            # construct H & diagonalize it; psi is an initial guess for eigensolver    
+            H,psi=self.effH(L,R,site)
+            E,theta=Operation.eigensolver(H,psi)
+            # SVD
+            if site==0:
+                theta=np.ndarray.reshape(theta,(self.d,self.Gs[site].shape[1])) 
+            else:    
+                theta=np.ndarray.reshape(theta,(self.d*self.Gs[site].shape[0],self.Gs[site].shape[2]))                       
+            X,S,Y=np.linalg.svd(theta,full_matrices=False)
+            # truncation
+            dim=min(len(S),self.chi)
+            X=X[:,0:dim] ; S=S[0:dim] ; Y=Y[0:dim,:]
+            S=np.diagflat(S/np.linalg.norm(S))
+            # form the new configuration               
+            if site==self.N-2:
+                self.Gs[site+1]=np.tensordot(self.Gs[site+1],np.dot(S,Y),axes=(1,1))
+            else:
+                self.Gs[site+1]=np.tensordot(np.dot(S,Y),self.Gs[site+1],axes=(1,0))                           
+            if site==0:                    
+                self.Gs[site]=np.ndarray.reshape(X,(self.d,dim))
+                EnvL=Operation.transfer_operator(self.MPO(site))
+            else:
+                self.Gs[site]=np.ndarray.reshape(X,(self.Gs[site].shape[0],self.d,dim))                                       
+                EnvL=self.update_EnvL(EnvL,site)                    
+            L[site]=EnvL                                                     
+        # check convergence for right-sweep  
+        envL=self.update_envL(EnvL,self.N-1).item()  
+        dE=E0-E ; E0=E                            
+        if self.convergence(sweep-0.5,E,dE,var):
+            t=(time.clock()-t0)/((sweep-0.5)*60.0)
+            return break
         
+    def convergence(self,sweep,E,dE,var): # print error msgs and check convergence for main routine
+        warnings.simplefilter("always")        
+        if var < 0.0:
+            warnings.warn("PrecisionError: encounter negative variance. bad rounding before the subtraction, variance = <H^2> - <H>^2 .")
+        if dE < 0.0:
+            warnings.warn("PrecisionError: encounter negative dE. bad rounding before the subtraction, dE=-(E(sweep)-E(sweep-0.5)).")            
+        if sweep==self.maxsweep-1 and dE > self.tolerance: 
+            warnings.warn("ConvergenceError: convergence is not yet achieved before reaching the maxsweep.")
+            return True       
+        if dE < self.tolerance:
+            self.maxsweep=sweep
+            return True
+        else:
+            return False
 
 class fTEBD:
     def __init__(self):
