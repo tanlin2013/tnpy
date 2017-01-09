@@ -152,10 +152,22 @@ class fDMRG:
         L,R=self.initialize_Env()
         E0=0.0 ; t0=time.clock()
         for sweep in xrange(1,self.maxsweep):
-            
+            if sweep%2==0:
+                
+                # check convergence for right-sweep  
+                envL=self.update_envL(EnvL,self.N-1).item()  
+                dE=E0-E ; E0=E                            
+                if self.convergence(sweep-0.5,E,dE,var):
+                    t=(time.clock()-t0)/((sweep-0.5)*60.0)
+                    break
+            else:
+                
+        return
+    
+    def sweeping(self,L,R):    
         # Right Sweep         
         for site in xrange(self.N-1):
-            # construct H & diagonalize it; psi is an initial guess for eigensolver    
+            # construct effH & diagonalize it; psi is an initial guess for eigensolver    
             H,psi=self.effH(L,R,site)
             E,theta=Operation.eigensolver(H,psi)
             # SVD
@@ -180,12 +192,7 @@ class fDMRG:
                 self.Gs[site]=np.ndarray.reshape(X,(self.Gs[site].shape[0],self.d,dim))                                       
                 EnvL=self.update_EnvL(EnvL,site)                    
             L[site]=EnvL                                                     
-        # check convergence for right-sweep  
-        envL=self.update_envL(EnvL,self.N-1).item()  
-        dE=E0-E ; E0=E                            
-        if self.convergence(sweep-0.5,E,dE,var):
-            t=(time.clock()-t0)/((sweep-0.5)*60.0)
-            return break
+            return E,L
         
     def convergence(self,sweep,E,dE,var): # print error msgs and check convergence for main routine
         warnings.simplefilter("always")        
