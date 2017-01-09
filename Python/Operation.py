@@ -48,13 +48,13 @@ class MPS:
         Gs=[] ; SVMs=[]
         if self.whichMPS=='i':
             """ Create the iMPS """
-            for site in range(2):
+            for site in xrange(2):
                 Gs.append(np.random.rand(self.chi,self.d,self.chi))
                 SVMs.append(np.diagflat(np.random.rand(self.chi)))
             return Gs,SVMs    
         elif self.whichMPS=='f':
             """ Create the fMPS in the standard (GL) representation """
-            for site in range(N):
+            for site in xrange(N):
                 if site==0 or site==N-1:
                     Gs.append(np.random.rand(self.d,self.chi))
                 else:
@@ -94,7 +94,7 @@ class MPS:
             SVMs=SVMs.reverse()
         elif order!='L':
             raise ValueError('The order must be either L or R.')
-        for site in range(N-1):
+        for site in xrange(N-1):
             if site==0:
                 theta=np.tensordot(Gs[site],SVMs[site],axes=(1,0))
             else:
@@ -116,21 +116,6 @@ class MPS:
     
     def to_GL_rep(self,Gs):
         
-        return
-
-class contraction: 
-    def __int__(self):
-        self.N=N
-        self.Gs=Gs
-        self.SVMs=SVMs
-        
-    def transfer_operator(self):    
-        return
-    
-    def update_EnvLs(self):
-        return
-
-    def update_EnvRs(self):
         return
         
 def eigensolver(H,psi):
@@ -170,5 +155,22 @@ def inverse_SVM(A):
         A_inv: ndarray
             The inverse of singular value matrix.
     """
-    
+    A=np.diag(A)
+    A_inv=np.zeros(len(A))
+    for i in xrange(len(A)):        
+        if A[i]==0:
+            A_inv[i]=0.0
+        else:
+            A_inv[i]=1.0/A[i]
+        A_inv=np.diagflat(A_inv) 
     return A_inv
+
+def transfer_operator(Gs,A):
+    if Gs.ndim==2:
+        trans=np.tensordot(Gs,np.tensordot(A,np.conjugate(Gs),axes=(2,0)),axes=(0,0))
+    else:                        
+        trans=np.tensordot(Gs,np.tensordot(A,np.conjugate(Gs),axes=(2,1)),axes=(1,0))
+        trans=np.swapaxes(trans,1,2)
+        trans=np.swapaxes(trans,3,4)
+        trans=np.swapaxes(trans,2,3)
+    return trans    
