@@ -8,11 +8,13 @@ This file contains several algorithms which are based on the Matrix Product Stat
 
 """
 
+import time
+import warnings
 import numpy as np
 import Operation
 
 class iDMRG:
-    def __init__(self,MPO,Gs,SVMs,N,d,D,chi,tolerence):
+    def __init__(self,MPO,Gs,SVMs,N,d,D,chi):
         """
         Define the global objects of iDMRG class.
         """
@@ -23,7 +25,6 @@ class iDMRG:
         self.d=d
         self.D=D
         self.chi=chi
-        self.tolerence=tolerence
     
     def initialize_Env(self):
         vL=np.zeros(self.D)
@@ -34,46 +35,128 @@ class iDMRG:
         vR[-1]=1.0
         R=np.kron(np.identity(self.chi,dtype=float),vR)
         R=np.ndarray.reshape(R,(self.chi,D,self.chi))
-        return L,R 
-  
-    def warm_up_optimize(self):
-        L,R
+        return L,R
     
-    def convergence(self):  
-
+    def effH(self,ML,MR):        
+        H=np.tensordot(np.tensordot(L,ML,axes=(1,1)),np.tensordot(MR,R,axes=(3,1)),axes=(4,1))                                  
+        H=np.swapaxes(H,1,4)
+        H=np.swapaxes(H,3,6)
+        H=np.swapaxes(H,1,2)
+        H=np.swapaxes(H,5,6)
+        H=np.ndarray.reshape(H,(self.chi**2*self.d**2,self.chi**2*self.d**2)) 
+        return H
+    
+    def warm_up_optimize(self):
+        L,R=self.initialize_Env()
+        for length in xrange(self.N/2):
+            A=length%2
+            B=(length+1)%2
+            ML=self.MPO(A) ; MR=self.MPO(B)
+            # optimize 2 new-added sites in the center
+            H=self.effH(ML,MR)                      
+            E,theta=Operation.eigensolver(H)       
+            # SVD
+            theta=np.ndarray.reshape(theta,(self.chi*self.d,self.chi*self.d))
+            X,S,Y=np.linalg.svd(theta,full_matrices=False)
+            # truncation           
+            X=X[:,0:self.chi]
+            Y=Y[0:self.chi,:]
+            S=S[0:self.chi]             
+            self.SVMs[A]=np.diagflat(S/np.linalg.norm(S))
+            # form the new configuration
+            X=np.ndarray.reshape(X,(self.chi,self.d,self.chi))
+            Y=np.ndarray.reshape(Y,(self.chi,self.d,self.chi))
+            if length==1:
+                self.Gs[A]=X
+                self.Gs[B]=Y
+            else:
+                SVM_inv=Operation.inverse_SVM(self.SVMs[B])
+                self.Gs[A]=np.tensordot(SVM_inv,X,axes=(1,0))
+                self.Gs[B]=np.tensordot(Y,SVM_inv,axes=(2,0))
+            # update the environment
+            if length==1:
+                EnvL=np.tensordot(np.tensordot(self.Gs[A],ML,axes=(1,0)),np.conjugate(self.Gs[A]),axes=(3,1))
+                L=np.tensordot(L,EnvL,axes=([0,1,2],[0,2,4]))
+                EnvR=np.tensordot(np.tensordot(self.Gs[B],MR,axes=(1,0)),np.conjugate(self.Gs[B]),axes=(3,1))
+                R=np.tensordot(EnvR,R,axes=([1,3,5],[0,1,2]))
+            else:    
+                EnvL=np.tensordot(np.tensordot(np.tensordot(self.SVMs[B],self.Gs[A],axes=(1,0)),ML,axes=(1,0)),np.tensordot(self.SVMs[B],np.conjugate(self.Gs[A]),axes=(1,0)),axes=(3,1))                        
+                L=np.tensordot(L,EnvL,axes=([0,1,2],[0,2,4]))
+                EnvR=np.tensordot(np.tensordot(np.tensordot(self.Gs[B],self.SVMs[B],axes=(2,0)),ML,axes=(1,0)),np.tensordot(np.conjugate(self.Gs[B]),self.SVMs[B],axes=(2,0)),axes=(3,1))
+                R=np.tensordot(EnvR,R,axes=([1,3,5],[0,1,2]))
+        return E
     
 class iTEBD:
     def __init__(self):
     
     def time_evolution(self):   
-    
-    
-    
+        
 class fDMRG:
-    def __init__(self,MPO,Gs,d,chi,tolerence):
+    def __init__(self,MPO,Gs,N,d,chi,tolerence,maxsweep):
         self.MPO=MPO
-  
-    def initialize_Env(self,direction):
-        if direction=='L':
-            L=[]
-            for site in range(N-1):
-                M=self.MPO(site)
-                if site==0:
-                    envL=contraction.transfer_operator(M,site)             
-                else:    
-                    envL=contraction.update_envL(envL,M,site)            
-                L.append(envL)   
-            return L  
-        elif direction='R':    
-            return R
-    
-    def update_Env(self):  
-  
-    def effH(self):
-  
+        self.Gs=GS
+        self.N=N
+        self.d=d
+        self.D=D
+        self.chi=chi
+        self.tolerence=tolerence
+        self.maxsweep=maxsweep
+        
+    def initialize_Env(self):
+        L=[] ; R=[]
+        for site in xrange(self.N-1):
+            if site==0:
+                EnvL=self.transfer_operator(self.MPO(site))             
+            else:    
+                EnvL=self.update_envL(EnvL,site)            
+            L.append(EnvL)                       
+        for site in xrange(self.N-1,0,-1):
+            if site==self.N-1:
+                EnvR=self.transfer_operator(self.MPO(site))
+            else:
+                EnvR=self.update_envR(EnvR,site)            
+            R.append(EnvR)      
+        return L,R
+        
+    def update_EnvL(self,envL,site):
+        M=self.MPO(site)
+        if site==self.l-1:
+            envL=np.tensordot(np.tensordot(np.tensordot(envL,self.Gs[site],axes=(0,1)),M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,1],[1,0]))
+        else:
+            envL=np.tensordot(np.tensordot(np.tensordot(envL,self.Gs[site],axes=(0,0)),M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,2],[0,1]))
+        return envL
+
+    def update_EnvR(self,envR,site):
+        M=self.MPO(site)
+        if site==0: 
+            envR=np.tensordot(np.tensordot(np.tensordot(envR,self.Gs[site],axes=(0,1)),M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,1],[1,0]))   
+        else:
+            envR=np.tensordot(np.tensordot(np.tensordot(envR,self.Gs[site],axes=(0,2)),M,axes=([0,3],[3,0])),np.conjugate(self.Gs[site]),axes=([0,3],[2,1]))
+        return envR    
+
+    def effH(self,L,R,site):
+        M=self.MPO_H(site)
+        if site==0:
+            dimH=self.d*self.Gs[site].shape[1]
+            H=np.tensordot(M,R[self.N-2-site],axes=(1,1))
+            H=np.swapaxes(H,1,2)
+        elif site==self.N-1:
+            dimH=self.d*self.Gs[site].shape[1]
+            H=np.tensordot(L[site-1],M,axes=(1,1))
+            H=np.swapaxes(H,1,2)              
+        else:
+            dimH=self.d*self.Gs[site].shape[0]*self.Gs[site].shape[2]
+            H=np.tensordot(L[site-1],np.tensordot(M,R[self.N-2-site],axes=(3,1)),axes=(1,1))
+            H=np.swapaxes(H,1,3)
+            H=np.swapaxes(H,2,4)
+            H=np.swapaxes(H,1,4)
+        H=np.ndarray.reshape(H,(dimH,dimH))
+        psi=np.ndarray.reshape(self.Gs[site],(dimH,1))
+        return H,psi
+        
     def variational_optimize(self):
-  
+
     def convergence(self):
-  
+
 class fTEBD:
     def __init__(self):
