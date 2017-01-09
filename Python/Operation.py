@@ -114,13 +114,17 @@ class MPS:
         else:
             return Gs
     
+    def to_GL_rep(self,Gs):
+        
+        return
+    
     def initialize_EnvLs(self,D,M):
         """
-        Create an initial left enviroment for either iDMRG or fDMRG algorithm.
+        Create an initial left enviroment for iDMRG or fDMRG algorithm.
         
         * Parameters:
             * D: int, optinal
-            * M: ndarray, optional
+            * Ms: list of ndarray, optional
         * Returns:
             * L: list of ndarray
         """
@@ -132,7 +136,7 @@ class MPS:
         elif self.whichMPS='f':
             L=[]
             for site in range(N-1):
-                M=self.MPO_H(site)
+                M=Ms(site)
                 if site==0:
                     envL=contraction.transfer_operator(M,site)             
                 else:    
@@ -142,7 +146,7 @@ class MPS:
     
     def initialize_EnvRs(self,whichMPS):
         """
-        Create an initial right enviroment for either iDMRG or fDMRG algorithm.
+        Create an initial right enviroment for iDMRG or fDMRG algorithm.
         
         """
         if whichMPS='i':
