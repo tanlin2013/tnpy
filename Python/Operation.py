@@ -117,46 +117,6 @@ class MPS:
     def to_GL_rep(self,Gs):
         
         return
-    
-    def initialize_EnvLs(self,D,M):
-        """
-        Create an initial left enviroment for iDMRG or fDMRG algorithm.
-        
-        * Parameters:
-            * D: int, optinal
-            * Ms: list of ndarray, optional
-        * Returns:
-            * L: list of ndarray
-        """
-        if self.whichMPS='i':
-            vL=np.zeros(D)
-            vL[0]=1.0
-            L=np.kron(vL,np.identity(self.chi,dtype=float))      
-            L=np.ndarray.reshape(L,(self.chi,D,self.chi))
-        elif self.whichMPS='f':
-            L=[]
-            for site in range(N-1):
-                M=Ms(site)
-                if site==0:
-                    envL=contraction.transfer_operator(M,site)             
-                else:    
-                    envL=contraction.update_envL(envL,M,site)            
-                L.append(envL)     
-        return L
-    
-    def initialize_EnvRs(self,whichMPS):
-        """
-        Create an initial right enviroment for iDMRG or fDMRG algorithm.
-        
-        """
-        if whichMPS='i':
-            vL=np.zeros(D)
-            vL[-1]=1.0
-            R=np.kron(np.identity(self.chi,dtype=float),vR)
-            R=np.ndarray.reshape(R,(self.chi,D,self.chi)) 
-        elif whichMPS='f':
-            
-        return R    
 
 class contraction: 
     def __int__(self):
@@ -187,6 +147,12 @@ def eigensolver(H,psi):
     A=sparse.csr_matrix(H)
     evals,evecs,stats=Primme.eigsh(A,k=1,which='SA',v0=psi,tol=self.tolerance,return_stats=True)                                    
     return evals[0],evecs
+
+def svd():
+    """
+    This function is a wrapper of PRIMME svd().
+    """
+    return
 
 def Trotter_Suzuki_Decomposition():
     """
