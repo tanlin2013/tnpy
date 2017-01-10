@@ -152,17 +152,21 @@ class fDMRG:
         L,R=self.initialize_Env()
         E0=0.0 ; t0=time.clock()
         for sweep in xrange(1,self.maxsweep):
-            if sweep%2==0:
-                
-                # check convergence for right-sweep  
-                envL=self.update_envL(EnvL,self.N-1).item()  
+            if sweep%2==1: # Right Sweep
+                E,L=self.sweeping(L,R)
                 dE=E0-E ; E0=E                            
                 if self.convergence(sweep-0.5,E,dE,var):
                     t=(time.clock()-t0)/((sweep-0.5)*60.0)
                     break
-            else:
-                
-        return
+            else: # Left Sweep
+                self.Gs.reverse()
+                E,R=self.sweeping(R,L)
+                self.Gs.reverse()
+                dE=E0-E ; E0=E 
+                if self.convergence(sweep,E,dE,var):
+                    t=(time.clock()-t0)/(sweep*60.0)
+                    break
+        return E,t
     
     def sweeping(self,L,R):    
         # Right Sweep         
