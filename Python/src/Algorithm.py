@@ -148,7 +148,7 @@ class fDMRG:
         psi=np.ndarray.reshape(self.Gs[site],(dimH,1))
         return H,psi
         
-    def variational_optimize(self):
+    def variational_optimize(self,return_stats=True):
         L,R=self.initialize_Env()
         E0=0.0 ; t0=time.clock()
         for sweep in xrange(1,self.maxsweep):
@@ -166,7 +166,11 @@ class fDMRG:
                 if self.convergence(sweep,E,dE,var):
                     t=(time.clock()-t0)/(sweep*60.0)
                     break
-        return E,t
+        if return_stats:
+            stats=[dE,sweep,t]
+            return E,stats
+        else:
+            return E
     
     def sweeping(self,L,R):    
         # Right Sweep         
