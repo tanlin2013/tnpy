@@ -130,16 +130,16 @@ def eigensolver(H,psi):
         * evecs:
     """
     A=sparse.csr_matrix(H)
-    evals,evecs,stats=Primme.eigsh(A,k=1,which='SA',v0=psi,tol=self.tolerance,return_stats=True)                                    
+    evals,evecs=Primme.eigsh(A,k=1,which='SA',v0=psi,tol=1e-12)                                    
     return evals[0],evecs
 
-def svd():
+def svd(A):
     """
     This function is a wrapper of PRIMME svd().
     """
-    return
+    return X,S,Y
 
-def Trotter_Suzuki_Decomposition():
+def Trotter_Suzuki_Decomposition(h,order):
     """
     """
     return
