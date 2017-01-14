@@ -23,7 +23,7 @@ class MPS:
         self.d=d
         self.chi=chi
         
-    def initialize_MPS(self,canonical_form=None,N=None):
+    def initialize_MPS(self,canonical_form='R',N=None):
         """
         Randomly initialize the MPS.
     
@@ -114,7 +114,7 @@ class MPS:
         else:
             return Gs
     
-    def to_GL_rep(self,Gs):
+    def to_GL_rep(self,Gs,direction):
         
         return
         
@@ -133,15 +133,17 @@ def eigensolver(H,psi):
     evals,evecs=Primme.eigsh(A,k=1,which='SA',v0=psi,tol=1e-12)                                    
     return evals[0],evecs
 
-def svd(A):
+def svd(A,chi):
     """
     This function is a wrapper of PRIMME svd().
     """
-    return X,S,Y
+    u,s,vt=Primme.svd(A,k=chi)
+    return u,s,vt
 
 def Trotter_Suzuki_Decomposition(h,order):
     """
     """
+    
     return
 
 def inverse_SVM(A):
