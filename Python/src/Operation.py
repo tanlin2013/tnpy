@@ -19,7 +19,7 @@ class MPS:
         """
         if whichMPS!='i' and whichMPS!='f':
             raise ValueError('Only iMPS and fMPS are supported.')
-        self.whichPMS=whichMPS
+        self.whichMPS=whichMPS
         self.d=d
         self.chi=chi
         
