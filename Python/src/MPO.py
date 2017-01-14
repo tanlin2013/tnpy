@@ -12,21 +12,24 @@ class MPO:
         self.I2=np.identity(2,dtype=float)
         self.O2=np.zeros((2,2),dtype=float)
 
-    def MPO(self,site):
-        M=np.array(elem)
-        if whichMPS=='f':
-            if site==0:
-                M=M[0,:,:,:]                      
-                M=np.swapaxes(M,0,1)
-            elif site==self.N-1:
-                M=M[:,self.D-1,:,:]
-                M=np.swapaxes(M,0,1)        
-            else:               
+    def MPO(self):
+        MPOlist=[]
+        for site in xrange(self.N):
+            M=np.array(self.elem(site))
+            if whichMPS=='f':
+                if site==0:
+                    M=M[0,:,:,:]                      
+                    M=np.swapaxes(M,0,1)
+                elif site==self.N-1:
+                    M=M[:,self.D-1,:,:]
+                    M=np.swapaxes(M,0,1)        
+                else:               
+                    M=np.swapaxes(M,0,3)
+                    M=np.swapaxes(M,0,2)
+                    M=np.swapaxes(M,1,3)
+            elif whichMPS=='i':            
                 M=np.swapaxes(M,0,3)
                 M=np.swapaxes(M,0,2)
                 M=np.swapaxes(M,1,3)
-        elif whichMPS=='i':            
-            M=np.swapaxes(M,0,3)
-            M=np.swapaxes(M,0,2)
-            M=np.swapaxes(M,1,3)
-        return M
+            MPOlist.append(M)
+        return MPOlist
