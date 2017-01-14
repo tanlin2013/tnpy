@@ -23,7 +23,7 @@ class MPS:
         self.d=d
         self.chi=chi
         
-    def initialize_MPS(self,canonical_form='R',N=None):
+    def initialize_MPS(self,N=None,canonical_form='R'):
         """
         Randomly initialize the MPS.
     
@@ -42,7 +42,7 @@ class MPS:
         
         """ Check the input variables"""
         if self.whichMPS=='f': 
-            if not cononical_form in ['L','R','GL'] or type(N) is not int:
+            if not canonical_form in ['L','R','GL'] or type(N) is not int:
                 raise ValueError('canonical_form and size must be specified when whichMPS='f'.')        
         
         Gs=[] ; SVMs=[]
@@ -66,7 +66,7 @@ class MPS:
                 Gs=self.normalize_MPS(Gs,SVMs,order='L')
                 return Gs
             elif canonical_form=='R':
-                Gs.self.normalize_MPS(Gs,SVMs,order='R')
+                Gs=self.normalize_MPS(Gs,SVMs,order='R')
                 return Gs
             elif canonical_form=='GL':                
                 return Gs,SVMs
@@ -90,8 +90,8 @@ class MPS:
         """
         N=len(Gs)
         if order=='R':
-            Gs=Gs.reverse()
-            SVMs=SVMs.reverse()
+            Gs.reverse()
+            SVMs.reverse()
         elif order!='L':
             raise ValueError('The order must be either L or R.')
         for site in xrange(N-1):
@@ -110,9 +110,8 @@ class MPS:
         else:
             Gs[site]=np.ndarray.reshape(X,(Gs[site].shape[0],self.d,Gs[site].shape[2]))
         if order=='R':
-            return Gs.reverse()
-        else:
-            return Gs
+            Gs.reverse()
+        return Gs
     
     def to_GL_rep(self,Gs,direction):
         
