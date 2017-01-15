@@ -11,7 +11,7 @@ This file contains several algorithms which are based on the Matrix Product Stat
 import time
 import warnings
 import numpy as np
-import Operation
+import operation
 
 class iDMRG:
     def __init__(self,MPO,Gs,SVMs,N,d,chi):
