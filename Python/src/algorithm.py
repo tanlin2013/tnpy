@@ -237,14 +237,14 @@ class fDMRG:
         else:
             return E
         
-    def convergence(self,sweep,E,dE): # print error msgs and check convergence of the main routine
+    def convergence(self,sweep,E,dE): # print warning messages and check the convergence of main routine
         warnings.simplefilter("always")        
         if dE < 0.0:
-            warnings.warn("PrecisionError: encounter negative dE. bad rounding before the subtraction, dE=-(E(sweep)-E(sweep-0.5)).")            
+            warnings.warn("ValueWarning: Encounter negative dE=E(sweep-0.5)-E(sweep).")            
         if sweep==self.maxsweep-1 and dE > self.tolerance: 
-            warnings.warn("ConvergenceError: convergence is not yet achieved before reaching the maxsweep.")
+            warnings.warn("ConvergenceWarning: Convergence is not yet achieved before the maxsweep has reached.")
             return True       
-        if dE < self.tolerance:
+        if 0.0 < dE < self.tolerance:
             self.maxsweep=sweep
             return True
         else:
