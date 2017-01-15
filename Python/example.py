@@ -26,7 +26,7 @@ if __name__=='__main__':
         M=MPO.assign_to_MPO(elem,site)    
         return M
 
-    simulation=Algorithm.fDMRG(M,Gs,N,d,chi)
+    simulation=algorithm.fDMRG(M,Gs,N,d,chi)
     E,stats=simulation.variational_optimize()
     Gs=simulation.Gs()
 
