@@ -112,7 +112,7 @@ class fDMRG:
             R.append(EnvR)      
         return L,R
         
-    def update_EnvL(self,envL,site):
+    def update_EnvL(self,EnvL,site):
         M=self.MPO(site)
         if site==self.l-1:
             EnvL=np.tensordot(np.tensordot(np.tensordot(EnvL,self.Gs[site],axes=(0,1)),M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,1],[1,0]))
@@ -120,7 +120,7 @@ class fDMRG:
             EnvL=np.tensordot(np.tensordot(np.tensordot(EnvL,self.Gs[site],axes=(0,0)),M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,2],[0,1]))
         return EnvL
 
-    def update_EnvR(self,envR,site):
+    def update_EnvR(self,EnvR,site):
         M=self.MPO(site)
         if site==0: 
             EnvR=np.tensordot(np.tensordot(np.tensordot(EnvR,self.Gs[site],axes=(0,1)),M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,1],[1,0]))   
@@ -148,64 +148,94 @@ class fDMRG:
         psi=np.ndarray.reshape(self.Gs[site],(dimH,1))
         return H,psi
         
-    def variational_optimize(self,return_stats=True):
+    def variational_optimize(self,show_stats=True,return_stats=True):
         L,R=self.initialize_Env()
         E0=0.0 ; t0=time.clock()
         for sweep in xrange(1,self.maxsweep):
-            if sweep%2==1: # Right Sweep
-                E,L=self.sweeping(L,R)
-                dE=E0-E ; E0=E                            
-                if self.convergence(sweep-0.5,E,dE,var):
-                    t=(time.clock()-t0)/((sweep-0.5)*60.0)
-                    break
-            else: # Left Sweep
-                self.Gs.reverse()
-                E,R=self.sweeping(R,L)
-                self.Gs.reverse()
-                dE=E0-E ; E0=E 
-                if self.convergence(sweep,E,dE,var):
-                    t=(time.clock()-t0)/(sweep*60.0)
-                    break
+            #--------------------------------------------------------------------------------------------
+            # Right Sweep         
+            for site in xrange(self.N-1):
+                # construct effH & diagonalize it; psi is an initial guess of eigenvector    
+                H,psi=self.effH(L,R,site)
+                E,theta=self.eigensolver(H,psi)
+                if show_stats:
+                    print "site%d," % site,"E/N= %.12f" % E
+                # SVD
+                if site==0:
+                    theta=np.ndarray.reshape(theta,(self.d,self.Gs[site].shape[1])) 
+                else:    
+                    theta=np.ndarray.reshape(theta,(self.d*self.Gs[site].shape[0],self.Gs[site].shape[2]))                       
+                X,S,Y=np.linalg.svd(theta,full_matrices=False)
+                # truncation
+                dim=min(len(S),self.chi)
+                X=X[:,0:dim] ; S=S[0:dim] ; Y=Y[0:dim,:]
+                S=np.diagflat(S/np.linalg.norm(S))
+                # form the new configuration               
+                if site==self.N-2:
+                    self.Gs[site+1]=np.tensordot(self.Gs[site+1],np.dot(S,Y),axes=(1,1))
+                else:
+                    self.Gs[site+1]=np.tensordot(np.dot(S,Y),self.Gs[site+1],axes=(1,0))                           
+                if site==0:                    
+                    self.Gs[site]=np.ndarray.reshape(X,(self.d,dim))
+                    EnvL=Operation.transfer_operator(self.Gs[site],self.MPO(site))
+                else:
+                    self.Gs[site]=np.ndarray.reshape(X,(self.Gs[site].shape[0],self.d,dim))                                       
+                    EnvL=self.update_EnvL(EnvL,site)                   
+                L[site]=EnvL                                                     
+            # check convergence of right-sweep   
+            dE=E0-E ; E0=E
+            if show_stats:
+                print "sweep %.1f," % (sweep-0.5),"E/N= %.12f," % E,"dE= %.4e," % dE                               
+            if self.convergence(sweep-0.5,E,dE):
+                sweep=sweep-0.5
+                t=(time.clock()-t0)/(sweep*60.0)
+                break                       
+            #--------------------------------------------------------------------------------------------               
+            # Left Sweep
+            for site in xrange(self.N-1,0,-1):
+                # construct H & diagonalize it; psi is an initial guess of eigenvector                  
+                H,psi=self.effH(L,R,site)
+                E,theta=self.eigensolver(H,psi)
+                if show_stats:
+                    print "site%d," % site,"E/N= %.12f" % E
+                # SVD
+                if site==self.N-1:
+                    theta=np.ndarray.reshape(theta,(self.Gs[site].shape[1],self.d))    
+                else:    
+                    theta=np.ndarray.reshape(theta,(self.Gs[site].shape[0],self.d*self.Gs[site].shape[2]))            
+                X,S,Y=np.linalg.svd(theta,full_matrices=False)
+                # truncation
+                dim=min(len(S),self.chi)
+                X=X[:,0:dim] ; S=S[0:dim] ; Y=Y[0:dim,:]
+                S=np.diagflat(S/np.linalg.norm(S))
+                # form the new configuration              
+                if site==1:
+                    self.Gs[site-1]=np.tensordot(self.Gs[site-1],np.dot(X,S),axes=(1,0))
+                else:
+                    self.Gs[site-1]=np.tensordot(self.Gs[site-1],np.dot(X,S),axes=(2,0))
+                if site==self.N-1:                    
+                    self.Gs[site]=np.ndarray.reshape(Y,(self.d,self.Gs[site].shape[1]))
+                    EnvR=Operation.transfer_operator(self.Gs[site],self.MPO(site))
+                else:
+                    self.Gs[site]=np.ndarray.reshape(Y,(self.Gs[site].shape[0],self.d,self.Gs[site].shape[2]))                      
+                    EnvR=self.update_EnvR(envR,site)                                                
+                R[self.N-1-site]=EnvR           
+            # check convergence of left-sweep
+            dE=E0-E ; E0=E
+            if show_stats:
+                print "sweep %d," % sweep,"E/N= %.12f," % E,"dE= %.4e," % dE,"var= %.4e" % var                   
+            if self.convergence(sweep,E,dE):
+                t=(time.clock()-t0)/(sweep*60.0)
+                break
+            #--------------------------------------------------------------------------------------------
         if return_stats:
             stats=[dE,sweep,t]
             return E,stats
         else:
             return E
-    
-    def sweeping(self,L,R):    
-        # Right Sweep         
-        for site in xrange(self.N-1):
-            # construct effH & diagonalize it; psi is an initial guess for eigensolver    
-            H,psi=self.effH(L,R,site)
-            E,theta=Operation.eigensolver(H,psi)
-            # SVD
-            if site==0:
-                theta=np.ndarray.reshape(theta,(self.d,self.Gs[site].shape[1])) 
-            else:    
-                theta=np.ndarray.reshape(theta,(self.d*self.Gs[site].shape[0],self.Gs[site].shape[2]))                       
-            X,S,Y=np.linalg.svd(theta,full_matrices=False)
-            # truncation
-            dim=min(len(S),self.chi)
-            X=X[:,0:dim] ; S=S[0:dim] ; Y=Y[0:dim,:]
-            S=np.diagflat(S/np.linalg.norm(S))
-            # form the new configuration               
-            if site==self.N-2:
-                self.Gs[site+1]=np.tensordot(self.Gs[site+1],np.dot(S,Y),axes=(1,1))
-            else:
-                self.Gs[site+1]=np.tensordot(np.dot(S,Y),self.Gs[site+1],axes=(1,0))                           
-            if site==0:                    
-                self.Gs[site]=np.ndarray.reshape(X,(self.d,dim))
-                EnvL=Operation.transfer_operator(self.MPO(site))
-            else:
-                self.Gs[site]=np.ndarray.reshape(X,(self.Gs[site].shape[0],self.d,dim))                                       
-                EnvL=self.update_EnvL(EnvL,site)                    
-            L[site]=EnvL                                                     
-            return E,L
         
-    def convergence(self,sweep,E,dE,var): # print error msgs and check convergence for main routine
+    def convergence(self,sweep,E,dE): # print error msgs and check convergence of the main routine
         warnings.simplefilter("always")        
-        if var < 0.0:
-            warnings.warn("PrecisionError: encounter negative variance. bad rounding before the subtraction, variance = <H^2> - <H>^2 .")
         if dE < 0.0:
             warnings.warn("PrecisionError: encounter negative dE. bad rounding before the subtraction, dE=-(E(sweep)-E(sweep-0.5)).")            
         if sweep==self.maxsweep-1 and dE > self.tolerance: 
