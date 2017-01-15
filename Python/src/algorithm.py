@@ -89,7 +89,7 @@ class iTEBD:
 class fDMRG:
     def __init__(self,MPO,Gs,N,d,chi,tolerence=1e-12,maxsweep=200):
         self.MPO=MPO
-        self.Gs=GS
+        self.Gs=Gs
         self.N=N
         self.d=d
         self.chi=chi
@@ -100,13 +100,13 @@ class fDMRG:
         L=[] ; R=[]
         for site in xrange(self.N-1):
             if site==0:
-                EnvL=operation.transfer_operator(self.MPO(site))             
+                EnvL=operation.transfer_operator(self.Gs[site],self.MPO(site))             
             else:    
                 EnvL=self.update_EnvL(EnvL,site)            
             L.append(EnvL)                       
         for site in xrange(self.N-1,0,-1):
             if site==self.N-1:
-                EnvR=operation.transfer_operator(self.MPO(site))
+                EnvR=operation.transfer_operator(self.Gs[site],self.MPO(site))
             else:
                 EnvR=self.update_EnvR(EnvR,site)            
             R.append(EnvR)      
@@ -114,7 +114,7 @@ class fDMRG:
         
     def update_EnvL(self,EnvL,site):
         M=self.MPO(site)
-        if site==self.l-1:
+        if site==self.N-1:
             EnvL=np.tensordot(np.tensordot(np.tensordot(EnvL,self.Gs[site],axes=(0,1)),M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,1],[1,0]))
         else:
             EnvL=np.tensordot(np.tensordot(np.tensordot(EnvL,self.Gs[site],axes=(0,0)),M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,2],[0,1]))
