@@ -13,6 +13,7 @@ This file contains several algorithms which are based on the Matrix Product Stat
 #include <tuple>
 #include <uni10.hpp>
 #include <primme.h>
+#include <operation>
 using namespace std;
 using namespace uni10;
 
