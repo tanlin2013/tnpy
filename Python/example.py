@@ -1,9 +1,9 @@
 import numpy as np
 import sys ; sys.path.append("./src")
-import Operation
-import Algorithm
-import Measurement
-import MPO
+import operation
+import algorithm
+import measurement
+import operators
 
 if __name__=='__main__':
 
@@ -13,21 +13,18 @@ if __name__=='__main__':
     D=3   # visual bond dim of MPO   
     chi=10  # visual bond dim of MPS
 
-    MPS=Operation.MPS(whichMPS,d,chi)
+    MPS=operation.MPS(whichMPS,d,chi)
     Gs=MPS.initialize_MPS(N)
     
-    MPO=MPO.MPO(whichMPS,N,D)
-    Sp=np.array([[0,1],[0,0]],dtype=float)
-    Sm=np.array([[0,0],[1,0]],dtype=float)
-    Sz=0.5*np.array([[1,0],[0,-1]],dtype=float)
-    I2=np.identity(2,dtype=float)
-    O2=np.zeros((2,2),dtype=float)
+    def M(site):
+        MPO=operators.MPO(whichMPS,N,D)
+        Sp,Sm,Sz,I2,O2=operators.spin_operators()
 
-    elem=[[Sp,Sm,I2],
-          [O2,O2,Sm],
-          [O2,O2,Sp]]
-    MPO.elem=elem    
-    M=MPO.MPO()
+        elem=[[Sp,Sm,I2],
+              [O2,O2,Sm],
+              [O2,O2,Sp]]
+        M=MPO.assign_to_MPO(elem,site)    
+        return M
 
     simulation=Algorithm.fDMRG(M,Gs,N,d,chi)
     E,stats=simulation.variational_optimize()
