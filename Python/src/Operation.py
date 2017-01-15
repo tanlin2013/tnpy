@@ -27,11 +27,11 @@ class MPS:
         """
         Randomly initialize the MPS.
     
-        * Parameters:          
-            * canonical_form: string, {'L','R','GL'}, optional
-                If whichMPS='f', fMPS can be represented as left-normalized, right-normalized or the standard (Gamma-Lambda representation) MPS.
+        * Parameters:
             * N: int, optional
-                If whichMPS='f', the size of system N is needed. 
+                If whichMPS='f', the size of system N is needed.           
+            * canonical_form: string, {'L','R','GL'}, default='R'
+                If whichMPS='f', fMPS can be represented as left-normalized, right-normalized or the standard (Gamma-Lambda representation) MPS.            
         
         * Returns: 
             * Gs: list of ndarray
@@ -40,7 +40,7 @@ class MPS:
                 A list of singular value matrices. SVMs is always return for iMPS. But, for the fMPS SVMs only return when canonical_form='GL'.
         """
         
-        """ Check the input variables"""
+        """ Check the input variables """
         if self.whichMPS=='f': 
             if not canonical_form in ['L','R','GL'] or type(N) is not int:
                 raise ValueError('canonical_form and size must be specified when whichMPS='f'.')        
@@ -53,35 +53,45 @@ class MPS:
                 SVMs.append(np.diagflat(np.random.rand(self.chi)))
             return Gs,SVMs    
         elif self.whichMPS=='f':
-            """ Create the fMPS in the standard (GL) representation """
-            for site in xrange(N):
-                if site==0 or site==N-1:
-                    Gs.append(np.random.rand(self.d,self.chi))
-                else:
-                    Gs.append(np.random.rand(self.chi,self.d,self.chi))
-                if site<N-1:
-                    SVMs.append(np.diagflat(np.random.rand(self.chi)))
+            """ Create the fMPS """
+            N_parity=N%2
+            for site in xrange(N):        
+                if N_parity==0:
+                    if site==0 or site==N-1:
+                        Gs.append(np.random.rand(self.d,min(self.d,self.chi)))
+                    elif site<=N/2-1 and site!=0:
+                        Gs.append(np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**(site+1),self.chi)))
+                    elif site>N/2-1 and site!=N-1:
+                        Gs.append(np.random.rand(min(self.d**(N-site),self.chi),self.d,min(self.d**(N-1-site),self.chi)))
+                elif N_parity==1:
+                    if site==0 or site==N-1:
+                        Gs.append(np.random.rand(self.d,min(self.d,self.chi)))
+                    elif site<N/2 and site!=0:
+                        Gs.append(np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**(site+1),self.chi)))
+                    elif site==N/2:
+                        Gs.append(np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**site,self.chi)))
+                    elif site>N/2 and site!=N-1:
+                        Gs.append(np.random.rand(min(self.d**(N-site),self.chi),self.d,min(self.d**(N-1-site),self.chi)))        
             """ Left- or right-normalized the MPS """
             if canonical_form=='L':
-                Gs=self.normalize_MPS(Gs,SVMs,order='L')
+                Gs=self.normalize_MPS(Gs,order='L')
                 return Gs
             elif canonical_form=='R':
-                Gs=self.normalize_MPS(Gs,SVMs,order='R')
+                Gs=self.normalize_MPS(Gs,order='R')
                 return Gs
-            elif canonical_form=='GL':                
+            elif canonical_form=='GL':
+                Gs,SVMs=self.to_GL_rep(Gs,order='L')
                 return Gs,SVMs
             else:
                 raise ValueError('Only the standard (GL), Left- and Right-normalized canonical form are supported.')          
     
-    def normalize_MPS(self,Gs,SVMs,order):
+    def normalize_MPS(self,Gs,order):
         """
         Left or Right normalize the fMPS which is in the standard (GL) representation.
         
         * Parameters:
             * Gs: list of ndarray
                 The fMPS wants to be left- or right-normalized.  
-            * SVMs: list of ndarray
-                The fMPS wants to be left- or right-normalized.
             * order: string, {'L','R'}
                 Specified the direction of normalization.
         * Returns:
@@ -91,15 +101,13 @@ class MPS:
         N=len(Gs)
         if order=='R':
             Gs.reverse()
-            SVMs.reverse()
         elif order!='L':
             raise ValueError('The order must be either L or R.')
         for site in xrange(N-1):
             if site==0:
-                theta=np.tensordot(Gs[site],SVMs[site],axes=(1,0))
+                theta=Gs[site]
             else:
-                theta=np.tensordot(Gs[site],SVMs[site],axes=(2,0))
-                theta=np.ndarray.reshape(theta,(self.d*Gs[site].shape[0],Gs[site].shape[2]))
+                theta=np.ndarray.reshape(Gs[site],(self.d*Gs[site].shape[0],Gs[site].shape[2]))
         X,S,Y=np.linalg.svd(theta,full_matrices=False)
         if site==N-2:
             Gs[site+1]=np.tensordot(Gs[site+1],np.dot(np.diagflat(S),Y),axes=(1,1))
