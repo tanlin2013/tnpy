@@ -25,10 +25,10 @@ class MPO:
             M=np.swapaxes(M,1,3)
         return M
     
-def spin_operators(spin=2):
+def spin_operators(spin=0.5):
     Sp=np.array([[0,1],[0,0]],dtype=float)
     Sm=np.array([[0,0],[1,0]],dtype=float)
-    Sz=0.5*np.array([[1,0],[0,-1]],dtype=float)
+    Sz=spin*np.array([[1,0],[0,-1]],dtype=float)
     I2=np.identity(2,dtype=float)
     O2=np.zeros((2,2),dtype=float)
     return Sp,Sm,Sz,I2,O2
