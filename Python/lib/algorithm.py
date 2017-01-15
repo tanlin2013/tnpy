@@ -229,7 +229,7 @@ class fDMRG:
                 break
             #--------------------------------------------------------------------------------------------
         if return_stats:
-            stats=[dE,sweep,t]
+            stats=[dE,self.maxsweep,t]
             return E,stats
         else:
             return E
