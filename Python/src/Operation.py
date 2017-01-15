@@ -80,62 +80,58 @@ class MPS:
                 Gs=self.normalize_MPS(Gs,order='R')
                 return Gs
             elif canonical_form=='GL':
-                Gs,SVMs=self.to_GL_rep(Gs,order='L')
+                Gs,SVMs=self.normalize_MPS(Gs,order='GL')
                 return Gs,SVMs
             else:
                 raise ValueError('Only the standard (GL), Left- and Right-normalized canonical form are supported.')          
     
     def normalize_MPS(self,Gs,order):
         """
-        Left or Right normalize the fMPS which is in the standard (GL) representation.
+        Left or Right normalize the fMPS.
         
         * Parameters:
             * Gs: list of ndarray
                 The fMPS wants to be left- or right-normalized.  
-            * order: string, {'L','R'}
+            * order: string, {'L','R','GL'}
                 Specified the direction of normalization.
         * Returns:
             * Gs: list of ndarray
                 Left- or right-normalized MPS.
         """
-        N=len(Gs)
-        if order=='R':
-            for site in xrange(N-1,0,-1):
+        N=len(Gs) ; SVMs=[None]*(N-1)
+        for site in xrange(N-1):
+            if site==0:
+                theta=Gs[site]
+            else:
+                theta=np.ndarray.reshape(Gs[site],(self.d*Gs[site].shape[0],Gs[site].shape[2]))
+            X,S,Y=np.linalg.svd(theta,full_matrices=False)
+            SVMs[site]=np.diagflat(S/np.linalg.norm(S))
+            if site==N-2:
+                Gs[site+1]=np.tensordot(Gs[site+1],Y,axes=(1,1))
+            else:
+                Gs[site+1]=np.tensordot(Y,Gs[site+1],axes=(1,0))
+            if site==0:
+                Gs[site]=np.ndarray.reshape(X,(self.d,Gs[site].shape[1]))
+            else:
+                Gs[site]=np.ndarray.reshape(X,(Gs[site].shape[0],self.d,Gs[site].shape[2]))
+        if order=='L':
+            for site in xrange(1,N):
                 if site==N-1:
-                    theta=Gs[site]
+                    Gs[site]=np.tensordot(SVM[site-1],Gs[site],axes=(1,1))
                 else:
-                    theta=np.ndarray.reshape(Gs[site],(Gs[site].shape[0],self.d*Gs[site].shape[2]))      
-                X,S,Y=np.linalg.svd(theta,full_matrices=False)                
-                if site==1:
-                    Gs[site-1]=np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S)),axes=(1,0))
-                else:         
-                    Gs[site-1]=np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S)),axes=(2,0))
-                if site==N-1:
-                    Gs[site]=np.ndarray.reshape(Y,(self.d,Gs[site].shape[1]))
-                else:
-                    Gs[site]=np.ndarray.reshape(Y,(Gs[site].shape[0],self.d,Gs[site].shape[2]))
-        elif order=='L':            
+                    Gs[site]=np.tensordot(SVM[site-1],Gs[site],axes=(1,0))
+            return Gs
+        elif order=='R':
             for site in xrange(N-1):
                 if site==0:
-                    theta=Gs[site]
+                    Gs[site]=np.tensordot(Gs[site],SVM[site],axes=(1,0))
                 else:
-                    theta=np.ndarray.reshape(Gs[site],(self.d*Gs[site].shape[0],Gs[site].shape[2]))
-                X,S,Y=np.linalg.svd(theta,full_matrices=False)
-                if site==N-2:
-                    Gs[site+1]=np.tensordot(Gs[site+1],np.dot(np.diagflat(S),Y),axes=(1,1))
-                else:
-                    Gs[site+1]=np.tensordot(np.dot(np.diagflat(S),Y),Gs[site+1],axes=(1,0))
-                if site==0:
-                    Gs[site]=np.ndarray.reshape(X,(self.d,Gs[site].shape[1]))
-                else:
-                    Gs[site]=np.ndarray.reshape(X,(Gs[site].shape[0],self.d,Gs[site].shape[2]))
+                    Gs[site]=np.tensordot(Gs[site],SVM[site],axes=(2,0))
+            return Gs
+        elif order=='GL':
+            return Gs,SVMs
         else:
             raise ValueError('The order must be either L or R.')
-        return Gs
-    
-    def to_GL_rep(self,Gs,direction):
-        
-        return
         
 def eigensolver(H,psi):
     """
