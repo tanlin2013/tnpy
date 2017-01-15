@@ -9,7 +9,8 @@ import operators
 
 global Sp,Sm,Sz,I2,O2=operators.spin_operators()
     
-def variance():
+def variance(M,Gs,SVMs=None):
+    
     return
   
 def entanglement_entropy(S):
@@ -76,3 +77,5 @@ def Sz_site(Gs,order,staggered=False):
         Sz_site=np.tensordot(Gs[0],np.tensordot(stag**site*Sz,np.conjugate(Gs[0]),axes=(1,0)),axes=(0,0))
         state.append(np.tensordot(I,Sz_site,axes=([0,1],[0,1])).item())        
     return state      
+
+
