@@ -1,3 +1,6 @@
+"""
+This file is an example of implementing fDMRG on spin-half XXZ model.
+"""
 import numpy as np
 import sys ; sys.path.append("./src")
 import operation
@@ -12,6 +15,7 @@ if __name__=='__main__':
     d=2  # physical bond dim
     D=5  # visual bond dim of MPO   
     chi=10  # visual bond dim of MPS
+    global delta=0.5 # the anisotropic constant in the Hamiltonian of XXZ model
 
     MPS=operation.MPS(whichMPS,d,chi)
     Gs=MPS.initialize_MPS(N)
@@ -19,8 +23,8 @@ if __name__=='__main__':
     def M(site):
         MPO=operators.MPO(whichMPS,N,D)
         Sp,Sm,Sz,I2,O2=operators.spin_operators()
-
-        elem=[[I2,Sp,Sm,Sz,O2],
+        
+        elem=[[I2,-0.5*Sp,-0.5*Sm,-delta*Sz,O2],
               [O2,O2,O2,O2,Sm],
               [O2,O2,O2,O2,Sp],
               [O2,O2,O2,O2,Sz],
