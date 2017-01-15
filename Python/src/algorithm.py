@@ -185,7 +185,7 @@ class fDMRG:
             # check convergence of right-sweep   
             dE=E0-E ; E0=E
             if show_stats:
-                print "sweep %.1f," % (sweep-0.5),"E/N= %.12f," % E,"dE= %.4e," % dE                               
+                print "sweep %.1f," % (sweep-0.5),"E/N= %.12f," % E,"dE= %.4e" % dE                               
             if self.convergence(sweep-0.5,E,dE):
                 sweep=sweep-0.5
                 t=(time.clock()-t0)/(sweep*60.0)
@@ -223,7 +223,7 @@ class fDMRG:
             # check convergence of left-sweep
             dE=E0-E ; E0=E
             if show_stats:
-                print "sweep %d," % sweep,"E/N= %.12f," % E,"dE= %.4e," % dE                   
+                print "sweep %d," % sweep,"E/N= %.12f," % E,"dE= %.4e" % dE                   
             if self.convergence(sweep,E,dE):
                 t=(time.clock()-t0)/(sweep*60.0)
                 break
