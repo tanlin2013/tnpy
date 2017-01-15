@@ -51,7 +51,7 @@ class iDMRG:
             ML=self.MPO(A) ; MR=self.MPO(B)
             # optimize 2 new-added sites in the center
             H=self.effH(ML,MR)                      
-            E,theta=Operation.eigensolver(H)       
+            E,theta=operation.eigensolver(H)       
             # SVD
             theta=np.ndarray.reshape(theta,(self.chi*self.d,self.chi*self.d))
             X,S,Y=np.linalg.svd(theta,full_matrices=False)
@@ -65,7 +65,7 @@ class iDMRG:
                 self.Gs[A]=X
                 self.Gs[B]=Y
             else:
-                SVM_inv=Operation.inverse_SVM(self.SVMs[B])
+                SVM_inv=operation.inverse_SVM(self.SVMs[B])
                 self.Gs[A]=np.tensordot(SVM_inv,X,axes=(1,0))
                 self.Gs[B]=np.tensordot(Y,SVM_inv,axes=(2,0))
             # update the environment
@@ -100,13 +100,13 @@ class fDMRG:
         L=[] ; R=[]
         for site in xrange(self.N-1):
             if site==0:
-                EnvL=Operation.transfer_operator(self.MPO(site))             
+                EnvL=operation.transfer_operator(self.MPO(site))             
             else:    
                 EnvL=self.update_EnvL(EnvL,site)            
             L.append(EnvL)                       
         for site in xrange(self.N-1,0,-1):
             if site==self.N-1:
-                EnvR=Operation.transfer_operator(self.MPO(site))
+                EnvR=operation.transfer_operator(self.MPO(site))
             else:
                 EnvR=self.update_EnvR(EnvR,site)            
             R.append(EnvR)      
@@ -157,7 +157,7 @@ class fDMRG:
             for site in xrange(self.N-1):
                 # construct effH & diagonalize it; psi is an initial guess of eigenvector    
                 H,psi=self.effH(L,R,site)
-                E,theta=self.eigensolver(H,psi)
+                E,theta=operation.eigensolver(H,psi)
                 if show_stats:
                     print "site%d," % site,"E/N= %.12f" % E
                 # SVD
@@ -177,7 +177,7 @@ class fDMRG:
                     self.Gs[site+1]=np.tensordot(np.dot(S,Y),self.Gs[site+1],axes=(1,0))                           
                 if site==0:                    
                     self.Gs[site]=np.ndarray.reshape(X,(self.d,dim))
-                    EnvL=Operation.transfer_operator(self.Gs[site],self.MPO(site))
+                    EnvL=operation.transfer_operator(self.Gs[site],self.MPO(site))
                 else:
                     self.Gs[site]=np.ndarray.reshape(X,(self.Gs[site].shape[0],self.d,dim))                                       
                     EnvL=self.update_EnvL(EnvL,site)                   
@@ -195,7 +195,7 @@ class fDMRG:
             for site in xrange(self.N-1,0,-1):
                 # construct H & diagonalize it; psi is an initial guess of eigenvector                  
                 H,psi=self.effH(L,R,site)
-                E,theta=self.eigensolver(H,psi)
+                E,theta=operation.eigensolver(H,psi)
                 if show_stats:
                     print "site%d," % site,"E/N= %.12f" % E
                 # SVD
@@ -215,7 +215,7 @@ class fDMRG:
                     self.Gs[site-1]=np.tensordot(self.Gs[site-1],np.dot(X,S),axes=(2,0))
                 if site==self.N-1:                    
                     self.Gs[site]=np.ndarray.reshape(Y,(self.d,self.Gs[site].shape[1]))
-                    EnvR=Operation.transfer_operator(self.Gs[site],self.MPO(site))
+                    EnvR=operation.transfer_operator(self.Gs[site],self.MPO(site))
                 else:
                     self.Gs[site]=np.ndarray.reshape(Y,(self.Gs[site].shape[0],self.d,self.Gs[site].shape[2]))                      
                     EnvR=self.update_EnvR(envR,site)                                                
