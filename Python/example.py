@@ -1,5 +1,5 @@
 import numpy as np
-import sys ; sys.path.append("./src")
+import sys ; sys.path.append("./lib")
 import operation
 import algorithm
 import measurement
