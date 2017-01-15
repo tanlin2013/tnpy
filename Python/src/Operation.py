@@ -81,9 +81,7 @@ class MPS:
                 return Gs
             elif canonical_form=='GL':
                 Gs,SVMs=self.normalize_MPS(Gs,order='GL')
-                return Gs,SVMs
-            else:
-                raise ValueError('Only the standard (GL), Left- and Right-normalized canonical form are supported.')          
+                return Gs,SVMs          
     
     def normalize_MPS(self,Gs,order):
         """
