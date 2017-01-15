@@ -51,7 +51,8 @@ class iDMRG:
             ML=self.MPO(A) ; MR=self.MPO(B)
             # optimize 2 new-added sites in the center
             H=self.effH(ML,MR)                      
-            E,theta=operation.eigensolver(H)       
+            E,theta=operation.eigensolver(H)
+            E/=(2*self.N)
             # SVD
             theta=np.ndarray.reshape(theta,(self.chi*self.d,self.chi*self.d))
             X,S,Y=np.linalg.svd(theta,full_matrices=False)
@@ -158,6 +159,7 @@ class fDMRG:
                 # construct effH & diagonalize it; psi is an initial guess of eigenvector    
                 H,psi=self.effH(L,R,site)
                 E,theta=operation.eigensolver(H,psi)
+                E/=self.N
                 if show_stats:
                     print "site%d," % site,"E/N= %.12f" % E
                 # SVD
@@ -196,6 +198,7 @@ class fDMRG:
                 # construct H & diagonalize it; psi is an initial guess of eigenvector                  
                 H,psi=self.effH(L,R,site)
                 E,theta=operation.eigensolver(H,psi)
+                E/=self.N
                 if show_stats:
                     print "site%d," % site,"E/N= %.12f" % E
                 # SVD
