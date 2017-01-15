@@ -40,20 +40,20 @@ class MPS:
                 A list of singular value matrices. SVMs is always return for iMPS. But, for the fMPS SVMs only return when canonical_form='GL'.
         """
         
-        """ Check the input variables """
+        # Check the input variables
         if self.whichMPS=='f': 
             if not canonical_form in ['L','R','GL'] or type(N) is not int:
                 raise ValueError('canonical_form and size must be specified when whichMPS='f'.')        
         
         Gs=[] ; SVMs=[]
         if self.whichMPS=='i':
-            """ Create the iMPS """
+            # Create the iMPS
             for site in xrange(2):
                 Gs.append(np.random.rand(self.chi,self.d,self.chi))
                 SVMs.append(np.diagflat(np.random.rand(self.chi)))
             return Gs,SVMs    
         elif self.whichMPS=='f':
-            """ Create the fMPS """
+            # Create the fMPS
             N_parity=N%2
             for site in xrange(N):        
                 if N_parity==0:
@@ -72,7 +72,7 @@ class MPS:
                         Gs.append(np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**site,self.chi)))
                     elif site>N/2 and site!=N-1:
                         Gs.append(np.random.rand(min(self.d**(N-site),self.chi),self.d,min(self.d**(N-1-site),self.chi)))        
-            """ Left- or right-normalized the MPS """
+            # Canonical normalization of the MPS
             if canonical_form=='L':
                 Gs=self.normalize_MPS(Gs,order='L')
                 return Gs
@@ -85,7 +85,7 @@ class MPS:
     
     def normalize_MPS(self,Gs,order):
         """
-        Left or Right normalize the fMPS.
+        Canonical normalization of the fMPS.
         
         * Parameters:
             * Gs: list of ndarray
