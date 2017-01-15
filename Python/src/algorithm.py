@@ -87,13 +87,13 @@ class iTEBD:
     def time_evolution(self):   
         
 class fDMRG:
-    def __init__(self,MPO,Gs,N,d,chi,tolerence=1e-12,maxsweep=200):
+    def __init__(self,MPO,Gs,N,d,chi,tolerance=1e-12,maxsweep=200):
         self.MPO=MPO
         self.Gs=Gs
         self.N=N
         self.d=d
         self.chi=chi
-        self.tolerence=tolerence
+        self.tolerance=tolerance
         self.maxsweep=maxsweep
         
     def initialize_Env(self):
@@ -218,12 +218,12 @@ class fDMRG:
                     EnvR=operation.transfer_operator(self.Gs[site],self.MPO(site))
                 else:
                     self.Gs[site]=np.ndarray.reshape(Y,(self.Gs[site].shape[0],self.d,self.Gs[site].shape[2]))                      
-                    EnvR=self.update_EnvR(envR,site)                                                
+                    EnvR=self.update_EnvR(EnvR,site)                                                
                 R[self.N-1-site]=EnvR           
             # check convergence of left-sweep
             dE=E0-E ; E0=E
             if show_stats:
-                print "sweep %d," % sweep,"E/N= %.12f," % E,"dE= %.4e," % dE,"var= %.4e" % var                   
+                print "sweep %d," % sweep,"E/N= %.12f," % E,"dE= %.4e," % dE                   
             if self.convergence(sweep,E,dE):
                 t=(time.clock()-t0)/(sweep*60.0)
                 break
