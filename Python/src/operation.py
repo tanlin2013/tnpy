@@ -43,7 +43,7 @@ class MPS:
         # Check the input variables
         if self.whichMPS=='f': 
             if not canonical_form in ['L','R','GL'] or type(N) is not int:
-                raise ValueError('canonical_form and size must be specified when whichMPS='f'.')        
+                raise ValueError('canonical_form and size must be specified when whichMPS=f.')        
         
         Gs=[] ; SVMs=[]
         if self.whichMPS=='i':
@@ -115,16 +115,16 @@ class MPS:
         if order=='L':
             for site in xrange(1,N):
                 if site==N-1:
-                    Gs[site]=np.tensordot(SVM[site-1],Gs[site],axes=(1,1))
+                    Gs[site]=np.tensordot(SVMs[site-1],Gs[site],axes=(1,1))
                 else:
-                    Gs[site]=np.tensordot(SVM[site-1],Gs[site],axes=(1,0))
+                    Gs[site]=np.tensordot(SVMs[site-1],Gs[site],axes=(1,0))
             return Gs
         elif order=='R':
             for site in xrange(N-1):
                 if site==0:
-                    Gs[site]=np.tensordot(Gs[site],SVM[site],axes=(1,0))
+                    Gs[site]=np.tensordot(Gs[site],SVMs[site],axes=(1,0))
                 else:
-                    Gs[site]=np.tensordot(Gs[site],SVM[site],axes=(2,0))
+                    Gs[site]=np.tensordot(Gs[site],SVMs[site],axes=(2,0))
             return Gs
         elif order=='GL':
             return Gs,SVMs
