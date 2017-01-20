@@ -2,53 +2,40 @@
 This file contains the fundamental operations for Tensor Network algorithm.
 **************************************************************************/
 
-tuple <double,double> MPS::initialize_iMPS(){
-    vector<UniTensor> Gs;
-    vector<Matrix> SVMs;
-    vsctor<bonds> bonds;
-    
-    for (int site=0; site<2; site++){
-            Gs.push_back(UniTensor G(bonds).randomize());
-            SVMs.push_back(Matrix SVM(chi,chi).randomize());
-        }
-    return make_tuple(Gs,SVMs);
+MPS::MPS(int d, int chi){
+    this->d=d;
+    this->chi=chi;
 }
 
-double MPS::initialize_fMPS(string canonical_form=NULL, int N=NULL){
+tuple<vector<UniTensor>,vector<Matrix>> MPS::initialize_iMPS(){
     vector<UniTensor> Gs;
     vector<Matrix> SVMs;
     vector<Bond> bonds;
-    bonds.push_back(Bond bdi(BD_IN,chi));
-    bonds.push_back(Bond bdo1(BD_OUT,d));
-    bonds.push_back(Bond bdo2(BD_OUT,chi));
-    
-        for (int site=0; site<N; site++){
-            if (site==0){
-                Gs.push_back(UniTensor G().randomize());
-            }
-            else if (site==N-1){
-                Gs.push_back(UniTensor G().randomize())
-            }
-            else{
-                Gs.push_back(UniTensor G(bonds).randomize());
-            }
-            SVMs.push_back(Matrix SVM(chi,chi).randomize());
+    Bond vbdi(BD_IN,chi); Bond pbdo(BD_OUT,d); Bond vbdo(BD_OUT,chi);
+    bonds.push_back(vbdi); bonds.push_back(pbdo); bonds.push_back(vbdo);
+    for(int site=0; site<2; site++){
+        UniTensor G(bonds); G.randomize(); Gs.push_back(G);
+        Matrix SVM(chi,chi); SVM.randomize(); SVMs.push_back(SVM);
         }
-   
     return make_tuple(Gs,SVMs);
 }
 
-void normalize_fMPS(){
-
+vector<UniTensor> MPS::initialize_fMPS(const int N, const string canonical_form){
+    vector<UniTensor> Gs;
+    vector<Bond> bonds;
+    Bond pbdi(BD_IN,this->d); Bond vbdi(BD_IN,this->chi); Bond pbdo(BD_OUT,this->d); Bond vbdo(BD_OUT,this->chi);
+    for(int site=0; site<N; site++){
+        if(site==0){
+            bonds.push_back(vbdi); bonds.push_back(pbdo);
+        }
+        else if(site==N-1){
+            bonds.push_back(pbdi); bonds.push_back(vbdo);
+        }
+        else{
+            bonds.push_back(vbdi); bonds.push_back(pbdo); bonds.push_back(vbdo);
+        }
+        UniTensor G(bonds); G.randomize(); Gs.push_back(G); bonds.clear();
+    }
+    return Gs;
 }
 
-void to_GL_rep(){
-
-}
-double eigensolver(){
-
-}
-
-double Trotter_Suzuki_Decomposition(){
-
-}
