@@ -18,9 +18,9 @@ def entanglement_entropy(S):
     entropy=-np.trace(ss*scl.logm(ss))
     return entropy
 
-def Sz_site(Gs,order,staggered=False):
+def Sz_site(Gs,order,staggering=False):
     N=len(Gs) ; d=2 ; state=[]
-    if staggered:
+    if staggering:
         stag=-1
     else:
         stag=1
