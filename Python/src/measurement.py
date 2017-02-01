@@ -4,7 +4,6 @@ This file contains the physical quantities to be measured.
 
 import numpy as np
 import scipy.linalg as scl
-import operation
 import operators
 
 global Sp,Sm,Sz,I2,O2=operators.spin_operators()
