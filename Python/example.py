@@ -3,7 +3,7 @@ This file is an example of implementing fDMRG on spin-half XXZ model.
 """
 import numpy as np
 import sys ; sys.path.append("./src")
-import operation
+import tensor_network as tn
 import algorithm
 import measurement
 import operators
@@ -17,7 +17,7 @@ if __name__=='__main__':
     chi=10  # visual bond dim of MPS
     global delta=0.5 # the anisotropic constant in the Hamiltonian of XXZ model
 
-    MPS=operation.MPS(whichMPS,d,chi)
+    MPS=tn.MPS(whichMPS,d,chi)
     Gs=MPS.initialize_MPS(N)
     
     def M(site):
