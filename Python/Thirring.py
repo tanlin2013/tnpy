@@ -3,13 +3,14 @@ This file is used for the study of Thirring model.
 """
 import numpy as np
 import sys ; sys.path.append("./src")
-import operation
+import tensor_network as TN
 import algorithm
 import measurement
 import operators
 
 class Thirring:
-    def __init__(self,g,m,mu,lamda,S_target):
+    def __init__(self,N,g,m,mu,lamda,S_target):
+        self.N=N
         self.g=g
         self.m=m
         self.mu=mu
@@ -17,7 +18,7 @@ class Thirring:
         self.S_target=Starget
         
     def M(self,site):
-        MPO=operators.MPO(whichMPS,N,D)
+        MPO=operators.MPO(whichMPS='f',N=self.N,D=6)
         Sp,Sm,Sz,I2,O2=operators.spin_operators()
         
         beta=-0.5*self.J*(self.delta+eta*self.deltap)+0.5*((-1.0)**site*self.m+self.mu)-self.lamda*self.S_target
@@ -36,20 +37,17 @@ class Thirring:
 
 if __name__=='__main__':
 
-    whichMPS="f"
-    N=10  # system size
-    d=2  # physical bond dim
-    D=6  # visual bond dim of MPO   
+    N=10  # system size  
     chi=10  # visual bond dim of MPS
     g=0.5 
-    m=
-    mu=
-    lamda=
-    S_target=
+    m=0.1
+    mu=0.0
+    lamda=0.0
+    S_target=0.0
 
-    MPS=operation.MPS(whichMPS,d,chi)
+    MPS=TN.MPS(whichMPS='f',d=2,chi)
     Gs=MPS.initialize_MPS(N)
-    model=Thirring(g,m,mu,lamda,S_target)
+    model=Thirring(N,g,m,mu,lamda,S_target)
     
     simulation=algorithm.fDMRG(model.M,Gs,N,d,chi,tolerance=1e-6)
     E,stats=simulation.variational_optimize()
