@@ -3,7 +3,7 @@
 using namespace std;
 using namespace uni10;
 extern "C"{
-    void dgemv_(char* TRANS, const int* M, const int* N, double* alpha, double* A, const int* LDA, double* X, const int* INCX, double* beta, double* C, const int* INCY);
+    void dgemv_(char* TRANS, const int* M, const int* N, double* alpha, double* A, const int* LDA, double* X, const int* INCX, double* beta, double* Y, const int* INCY);
 }
 
 class linalg{
