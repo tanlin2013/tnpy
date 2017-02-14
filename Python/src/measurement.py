@@ -5,8 +5,6 @@ This file contains the physical quantities to be measured.
 import numpy as np
 import scipy.linalg as scl
 import operators
-
-global Sp,Sm,Sz,I2,O2=operators.spin_operators()
     
 def variance(M,Gs,SVMs=None):
     
@@ -18,6 +16,7 @@ def entanglement_entropy(S):
     return entropy
 
 def Sz_site(Gs,order,staggering=False):
+    Sp,Sm,Sz,I2,O2=operators.spin_operators()
     N=len(Gs) ; d=2 ; state=[]
     if staggering:
         stag=-1
