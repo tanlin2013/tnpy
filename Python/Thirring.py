@@ -16,7 +16,7 @@ class Thirring:
         self.m=m
         self.mu=mu
         self.lamda=lamda
-        self.S_target=Starget
+        self.S_target=S_target
         
     def M(self,site):
         MPO=operators.MPO(whichMPS='f',N=self.N,D=6)
@@ -47,10 +47,11 @@ if __name__=='__main__':
     lamda=0.0 # penalty strength
     S_target=0.0
 
-    MPS=TN.MPS(whichMPS='f',d=2,chi)
+    whichMPS='f' ; d=2
+    MPS=TN.MPS(whichMPS,d,chi)
     Gs=MPS.initialize_MPS(N)
     model=Thirring(N,a,g,m,mu,lamda,S_target)
     
-    simulation=algorithm.fDMRG(model.M,Gs,N,d,chi,tolerance=1e-6)
+    simulation=algorithm.fDMRG(model.M,Gs,N,d,chi,tolerance=1e-8)
     E,stats=simulation.variational_optimize()
     Gs=simulation.Gs
