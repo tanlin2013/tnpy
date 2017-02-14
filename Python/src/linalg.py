@@ -25,8 +25,6 @@ def svd(A,chi):
     return u,s,vt
 
 def Trotter_Suzuki_Decomposition(h,order):
-    """
-    """
     
     return
 
@@ -49,4 +47,4 @@ def inverse_SVM(A):
         else:
             A_inv[i]=1.0/A[i]
         A_inv=np.diagflat(A_inv) 
-return A_inv
+    return A_inv
