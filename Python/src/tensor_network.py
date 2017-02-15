@@ -118,11 +118,27 @@ class MPS:
                     Gs[site]=np.tensordot(SVMs[site-1],Gs[site],axes=(1,0))
             return Gs
         elif order=='R':
+            """
             for site in xrange(N-1):
                 if site==0:
                     Gs[site]=np.tensordot(Gs[site],SVMs[site],axes=(1,0))
                 else:
                     Gs[site]=np.tensordot(Gs[site],SVMs[site],axes=(2,0))
+            """
+            for site in range(N-1,0,-1):
+                if site==N-1:
+                    theta=Gs[site]
+                else:
+                    theta=np.ndarray.reshape(Gs[site],(Gs[site].shape[0],self.d*Gs[site].shape[2]))      
+                X,S,Y=np.linalg.svd(theta,full_matrices=False)                
+                if site==1:
+                    Gs[site-1]=np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S/np.linalg.norm(S))),axes=(1,0))
+                else:         
+                    Gs[site-1]=np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S/np.linalg.norm(S))),axes=(2,0))
+                if site==N-1:
+                    Gs[site]=np.ndarray.reshape(Y,(self.d,Gs[site].shape[1]))
+                else:
+                    Gs[site]=np.ndarray.reshape(Y,(Gs[site].shape[0],self.d,Gs[site].shape[2]))  
             return Gs
         elif order=='GL':
             return Gs,SVMs
