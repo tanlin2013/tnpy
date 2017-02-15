@@ -6,6 +6,6 @@ def save(path,state):
     
 def read(path):
     npzfile=np.load(path)
-    state=[npzfile[i] for i in npzfile]
-    state.reverse() ; npzfile.close()
+    state=[npzfile['arr_%i'%i] for i in xrange(len(npzfile.files))]
+    npzfile.close()
     return state    
