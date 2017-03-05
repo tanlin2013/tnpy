@@ -76,4 +76,6 @@ def Sz_site(Gs,order,staggering=False):
         state.append(np.tensordot(I,Sz_site,axes=([0,1],[0,1])).item())        
     return state      
 
-
+def correlation_function():
+    
+    return correlator
