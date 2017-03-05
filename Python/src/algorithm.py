@@ -23,7 +23,7 @@ class iDMRG:
         self.d=d
         self.chi=chi
     
-    def initialize_Env(self):
+    def _initialize_Env(self):
         D=self.MPO(0).shape[1]
         vL=np.zeros(D)
         vL[0]=1.0
@@ -35,7 +35,7 @@ class iDMRG:
         R=np.ndarray.reshape(R,(self.chi,D,self.chi))
         return L,R
     
-    def effH(self,ML,MR):        
+    def _effH(self,ML,MR):        
         H=np.tensordot(np.tensordot(L,ML,axes=(1,1)),np.tensordot(MR,R,axes=(3,1)),axes=(4,1))                                  
         H=np.swapaxes(H,1,4)
         H=np.swapaxes(H,3,6)
@@ -43,6 +43,9 @@ class iDMRG:
         H=np.swapaxes(H,5,6)
         H=np.ndarray.reshape(H,(self.chi**2*self.d**2,self.chi**2*self.d**2)) 
         return H
+    
+    def _effHpsi(self,ML,MR):
+        return
     
     def warm_up_optimize(self):
         L,R=self.initialize_Env()
@@ -98,23 +101,23 @@ class fDMRG:
         self.tolerance=tolerance
         self.maxsweep=maxsweep
         
-    def initialize_Env(self):
+    def _initialize_Env(self):
         L=[] ; R=[]
         for site in xrange(self.N-1):
             if site==0:
                 EnvL=tn.transfer_operator(self.Gs[site],self.MPO(site))             
             else:    
-                EnvL=self.update_EnvL(EnvL,site)            
+                EnvL=self._update_EnvL(EnvL,site)            
             L.append(EnvL)                       
         for site in xrange(self.N-1,0,-1):
             if site==self.N-1:
                 EnvR=tn.transfer_operator(self.Gs[site],self.MPO(site))
             else:
-                EnvR=self.update_EnvR(EnvR,site)            
+                EnvR=self._update_EnvR(EnvR,site)            
             R.append(EnvR)      
         return L,R
         
-    def update_EnvL(self,EnvL,site):
+    def _update_EnvL(self,EnvL,site):
         M=self.MPO(site)
         if site==self.N-1:
             EnvL=np.tensordot(np.tensordot(np.tensordot(EnvL,self.Gs[site],axes=(0,1)),M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,1],[1,0]))
@@ -122,7 +125,7 @@ class fDMRG:
             EnvL=np.tensordot(np.tensordot(np.tensordot(EnvL,self.Gs[site],axes=(0,0)),M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,2],[0,1]))
         return EnvL
 
-    def update_EnvR(self,EnvR,site):
+    def _update_EnvR(self,EnvR,site):
         M=self.MPO(site)
         if site==0: 
             EnvR=np.tensordot(np.tensordot(np.tensordot(EnvR,self.Gs[site],axes=(0,1)),M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,1],[1,0]))   
@@ -130,7 +133,7 @@ class fDMRG:
             EnvR=np.tensordot(np.tensordot(np.tensordot(EnvR,self.Gs[site],axes=(0,2)),M,axes=([0,3],[3,0])),np.conjugate(self.Gs[site]),axes=([0,3],[2,1]))
         return EnvR    
 
-    def effH(self,L,R,site):
+    def _effH(self,L,R,site):
         M=self.MPO(site)
         if site==0:
             dimH=self.d*self.Gs[site].shape[1]
@@ -149,17 +152,33 @@ class fDMRG:
         H=np.ndarray.reshape(H,(dimH,dimH))
         psi=np.ndarray.reshape(self.Gs[site],(dimH,1))
         return H,psi
+    
+    def _effHpsi(self,L,R,site):
+        M=self.MPO(site)     
+        def H_matvec(X):
+            G=np.ndarray.reshape(X,self.Gs[site].shape)
+            if site==0:
+                matvec=np.tensordot(np.tensordot(R[self.N-2-site],G,axes=(0,1)),M,axes=([2,0],[0,1]))
+                matvec=np.swapaxes(matvec,0,1)
+            elif site==self.N-1:
+                matvec=np.tensordot(np.tensordot(L[site-1],G,axes=(0,1)),M,axes=([2,0],[0,1]))
+                matvec=np.swapaxes(matvec,0,1)
+            else:
+                matvec=np.tensordot(np.tensordot(np.tensordot(L[site-1],G,axes=(0,0)),M,axes=([0,2],[1,0])),R[self.N-2-site],axes=([1,3],[0,1]))
+            matvec=np.ndarray.reshape(matvec,X.shape)
+            return matvec
+        psi=np.ndarray.reshape(self.Gs[site],(self.Gs[site].size,1))
+        return H_matvec,psi
         
     def variational_optimize(self,show_stats=True,return_stats=True):
-        L,R=self.initialize_Env()
+        L,R=self._initialize_Env()
         E0=0.0 ; t0=time.clock()
         for sweep in xrange(1,self.maxsweep):
             #--------------------------------------------------------------------------------------------
             # Right Sweep         
             for site in xrange(self.N-1):
                 # construct effH & diagonalize it; psi is an initial guess of eigenvector    
-                H,psi=self.effH(L,R,site)
-                E,theta=linalg.eigensolver(H,psi)
+                E,theta=linalg.eigshmv(*self._effHpsi(L,R,site))
                 E/=self.N
                 if show_stats:
                     print "site%d," % site,"E/N= %.12f" % E
@@ -189,7 +208,7 @@ class fDMRG:
             dE=E0-E ; E0=E
             if show_stats:
                 print "sweep %.1f," % (sweep-0.5),"E/N= %.12f," % E,"dE= %.4e" % dE                               
-            if self.convergence(sweep-0.5,E,dE):
+            if self._convergence(sweep-0.5,E,dE):
                 sweep=sweep-0.5
                 t=(time.clock()-t0)/(sweep*60.0)
                 break                       
@@ -197,8 +216,7 @@ class fDMRG:
             # Left Sweep
             for site in xrange(self.N-1,0,-1):
                 # construct H & diagonalize it; psi is an initial guess of eigenvector                  
-                H,psi=self.effH(L,R,site)
-                E,theta=linalg.eigensolver(H,psi)
+                E,theta=linalg.eigshmv(*self._effHpsi(L,R,site))
                 E/=self.N
                 if show_stats:
                     print "site%d," % site,"E/N= %.12f" % E
@@ -222,13 +240,13 @@ class fDMRG:
                     EnvR=tn.transfer_operator(self.Gs[site],self.MPO(site))
                 else:
                     self.Gs[site]=np.ndarray.reshape(Y,(self.Gs[site].shape[0],self.d,self.Gs[site].shape[2]))                      
-                    EnvR=self.update_EnvR(EnvR,site)                                                
+                    EnvR=self._update_EnvR(EnvR,site)                                                
                 R[self.N-1-site]=EnvR           
             # check convergence of left-sweep
             dE=E0-E ; E0=E
             if show_stats:
                 print "sweep %d," % sweep,"E/N= %.12f," % E,"dE= %.4e" % dE                   
-            if self.convergence(sweep,E,dE):
+            if self._convergence(sweep,E,dE):
                 t=(time.clock()-t0)/(sweep*60.0)
                 break
             #--------------------------------------------------------------------------------------------
@@ -238,7 +256,7 @@ class fDMRG:
         else:
             return E
         
-    def convergence(self,sweep,E,dE): # print warning messages and check the convergence of main routine
+    def _convergence(self,sweep,E,dE): # print warning messages and check the convergence of main routine
         warnings.simplefilter("always")        
         if dE < 0.0:
             warnings.warn("ValueWarning: Encounter negative dE=E(sweep-0.5)-E(sweep).")            
