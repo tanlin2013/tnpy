@@ -5,7 +5,7 @@ This file contains the fundamental functions for the Matrix Product State (MPS) 
 import numpy as np
 
 class MPS:   
-    def __init__(self,whichMPS,d,chi):
+    def __init__(self,whichMPS,d,chi,**N):
         """
         * Parameters:
             * whichMPS: string, {'i','f'} 
@@ -20,8 +20,9 @@ class MPS:
         self.whichMPS=whichMPS
         self.d=d
         self.chi=chi
+        self.N=N
         
-    def initialize_MPS(self,N=None,canonical_form='R'):
+    def initialize_MPS(self,canonical_form='R'):
         """
         Randomly initialize the MPS.
     
@@ -40,19 +41,19 @@ class MPS:
         
         # Check the input variables
         if self.whichMPS=='f': 
-            if not canonical_form in ['L','R','GL'] or type(N) is not int:
+            if not canonical_form in ['L','R','GL'] and :
                 raise ValueError('canonical_form and size must be specified when whichMPS=f.')        
         
-        Gs=[] ; SVMs=[]
         if self.whichMPS=='i':
             # Create the iMPS
+            Gs=[None]*2 ; SVMs=[None]*2
             for site in xrange(2):
-                Gs.append(np.random.rand(self.chi,self.d,self.chi))
-                SVMs.append(np.diagflat(np.random.rand(self.chi)))
+                Gs[site]=np.random.rand(self.chi,self.d,self.chi)
+                SVMs[site]=np.diagflat(np.random.rand(self.chi))
             return Gs,SVMs    
         elif self.whichMPS=='f':
             # Create the fMPS
-            N_parity=N%2
+            Gs=[None]*self.N ; SVMs=[None]*self.N ; N_parity=N%2
             for site in xrange(N):        
                 if N_parity==0:
                     if site==0 or site==N-1:
