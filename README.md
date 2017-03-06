@@ -8,14 +8,14 @@ This project contains several algorithms which are based on the Matrix Product S
 
 This work is still in progress...
 
-# Requirments:
+## Requirments:
   * Numpy
   * Scipy  
   * PRIMME
 
-# Installation
-  '''
+## Installation
+  ```
   python setup.py install
-  '''
+  ```
          
-# How to use it?
+## How to use it?
