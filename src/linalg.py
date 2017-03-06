@@ -127,7 +127,7 @@ def eigshmv(Afunc, v0, k=1, sigma=None, which='SA',
 
 def svd(A,chi,method='primme'):
     """
-    This function is a wrapper of PRIMME svd().
+    This function provides several ways to implement svd.
     """
     if method=='primme':
         u,s,vt=Primme.svd(A,k=chi)
@@ -141,14 +141,14 @@ def svd(A,chi,method='primme'):
         u=u[:,0:dim] ; s=s[0:dim] ; vt=vt[0:dim,:]
     elif method=='scipy_sparse':
         u,s,vt=sparse.linalg.svd(A,k=chi)
-    elif method=='scikit':
+    #elif method=='scikit':
         
     return u,s,vt
-
+"""
 def Trotter_Suzuki_Decomposition(h,order):
     
     return
-
+"""
 def inverse_SVM(A):
     """
     Compute the inverse of singular value matrix.
