@@ -3,9 +3,9 @@
 from distutils.core import setup
 
 setup(
-    name = 'tnsa',
+    name = 'TNpy',
     package_dir = {'': 'src'}
-    packages = ['tnsa', 'data_analysis'],
-    description = 'Tensor Network State Algorithms',
+    packages = ['TNpy', 'data_analysis'],
+    description = 'Tensor Network Algorithms',
     author = 'tanlin'
 )
