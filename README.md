@@ -1,4 +1,4 @@
-# Tensor-Network
+# TNpy
 This project contains several algorithms which are based on the Matrix Product State (MPS) ansatz, and is used for the studies of (1+1) dimensional physics. 
 
 * Infinite Size Density Matrix Renormalization Group (iDMRG)
@@ -8,15 +8,14 @@ This project contains several algorithms which are based on the Matrix Product S
 
 This work is still in progress...
 
-# Python version:
+# Requirments:
+  * Numpy
+  * Scipy  
+  * PRIMME
 
-  * Requirments:
-    * Numpy
-    * Scipy
-    * PRIMME
-
-# c++ version:
-
-  * Requirments:
-    * Uni10
-    * PRIMME
+# Installation
+  '''
+  python setup.py install
+  '''
+         
+# How to use it?
