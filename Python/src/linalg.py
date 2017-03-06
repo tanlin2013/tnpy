@@ -125,11 +125,24 @@ def eigshmv(Afunc, v0, k=1, sigma=None, which='SA',
     else:
         return evals, evecs
 
-def svd(A,chi):
+def svd(A,chi,method='primme'):
     """
     This function is a wrapper of PRIMME svd().
     """
-    u,s,vt=Primme.svd(A,k=chi)
+    if method=='primme':
+        u,s,vt=Primme.svd(A,k=chi)
+    elif method=='numpy':
+        u,s,vt=np.linalg.svd(A,full_matrices=False)
+        dim=min(len(s),chi)
+        u=u[:,0:dim] ; s=s[0:dim] ; vt=vt[0:dim,:]
+    elif method=='scipy':
+        u,s,vt=scipy.linalg.svd(A,full_matrices=False)
+        dim=min(len(s),chi)
+        u=u[:,0:dim] ; s=s[0:dim] ; vt=vt[0:dim,:]
+    elif method=='scipy_sparse':
+        u,s,vt=sparse.linalg.svd(A,k=chi)
+    elif method=='scikit':
+        
     return u,s,vt
 
 def Trotter_Suzuki_Decomposition(h,order):
