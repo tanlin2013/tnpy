@@ -41,7 +41,7 @@ class MPS:
         
         # Check the input variables
         if self.whichMPS=='f': 
-            if not canonical_form in ['L','R','GL'] and :
+            if not canonical_form in ['L','R','GL'] or type(self.N) is not int:
                 raise ValueError('canonical_form and size must be specified when whichMPS=f.')        
         
         if self.whichMPS=='i':
@@ -54,23 +54,23 @@ class MPS:
         elif self.whichMPS=='f':
             # Create the fMPS
             Gs=[None]*self.N ; SVMs=[None]*self.N ; N_parity=N%2
-            for site in xrange(N):        
+            for site in xrange(self.N):        
                 if N_parity==0:
-                    if site==0 or site==N-1:
-                        Gs.append(np.random.rand(self.d,min(self.d,self.chi)))
-                    elif site<=N/2-1 and site!=0:
-                        Gs.append(np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**(site+1),self.chi)))
-                    elif site>N/2-1 and site!=N-1:
-                        Gs.append(np.random.rand(min(self.d**(N-site),self.chi),self.d,min(self.d**(N-1-site),self.chi)))
+                    if site==0 or site==self.N-1:
+                        Gs[site]=np.random.rand(self.d,min(self.d,self.chi))
+                    elif site<=self.N/2-1 and site!=0:
+                        Gs[site]=np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**(site+1),self.chi))
+                    elif site>self.N/2-1 and site!=self.N-1:
+                        Gs[site]=np.random.rand(min(self.d**(self.N-site),self.chi),self.d,min(self.d**(self.N-1-site),self.chi))
                 elif N_parity==1:
-                    if site==0 or site==N-1:
-                        Gs.append(np.random.rand(self.d,min(self.d,self.chi)))
-                    elif site<N/2 and site!=0:
-                        Gs.append(np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**(site+1),self.chi)))
-                    elif site==N/2:
-                        Gs.append(np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**site,self.chi)))
-                    elif site>N/2 and site!=N-1:
-                        Gs.append(np.random.rand(min(self.d**(N-site),self.chi),self.d,min(self.d**(N-1-site),self.chi)))        
+                    if site==0 or site==self.N-1:
+                        Gs[site]=np.random.rand(self.d,min(self.d,self.chi)))
+                    elif site<self.N/2 and site!=0:
+                        Gs[site]=np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**(site+1),self.chi))
+                    elif site==self.N/2:
+                        Gs[site]=np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**site,self.chi))
+                    elif site>self.N/2 and site!=self.N-1:
+                        Gs[site]=np.random.rand(min(self.d**(self.N-site),self.chi),self.d,min(self.d**(self.N-1-site),self.chi))        
             # Canonical normalization of the MPS
             if canonical_form=='L':
                 Gs=self.normalize_MPS(Gs,order='L')
@@ -95,8 +95,8 @@ class MPS:
             * Gs: list of ndarray
                 Left- or right-normalized MPS.
         """
-        N=len(Gs) ; SVMs=[None]*(N-1)
-        for site in xrange(N-1):
+        SVMs=[None]*(self.N-1)
+        for site in xrange(self.N-1):
             if site==0:
                 theta=Gs[site]
             else:
@@ -112,7 +112,7 @@ class MPS:
             else:
                 Gs[site]=np.ndarray.reshape(X,(Gs[site].shape[0],self.d,Gs[site].shape[2]))
         if order=='L':
-            for site in xrange(1,N):
+            for site in xrange(1,self.N):
                 if site==N-1:
                     Gs[site]=np.tensordot(SVMs[site-1],Gs[site],axes=(1,1))
                 else:
@@ -126,8 +126,8 @@ class MPS:
                 else:
                     Gs[site]=np.tensordot(Gs[site],SVMs[site],axes=(2,0))
             """
-            for site in range(N-1,0,-1):
-                if site==N-1:
+            for site in range(self.N-1,0,-1):
+                if site==self.N-1:
                     theta=Gs[site]
                 else:
                     theta=np.ndarray.reshape(Gs[site],(Gs[site].shape[0],self.d*Gs[site].shape[2]))      
