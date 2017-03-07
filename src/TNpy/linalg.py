@@ -122,9 +122,9 @@ def eigshmv(Afunc, v0, k=1, sigma=None, which='SA',
             "numOuterIterations", "numRestarts", "numMatvecs",
             "numPreconds", "elapsedTime", "estimateMinEVal",
             "estimateMaxEVal", "estimateLargestSVal"])
-        return evals, evecs, stats
+        return evals[0], evecs, stats
     else:
-        return evals, evecs
+        return evals[0], evecs
 
 def svd(A,chi,method='numpy'):
     """
