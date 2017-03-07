@@ -4,7 +4,7 @@ This project contains several algorithms which are based on the Matrix Product S
 * Infinite Size Density Matrix Renormalization Group (iDMRG)
 * Infinte Time Evolution Bond Decimation (iTEBD)
 * Finite Size Density Matrix Renormalization Group (fDMRG)
-* Finte Time Evolution Bond Decimation (fTEBD)
+* Finte Time Evolution Bond Decimation (fTEBD) (developing...)
 
 This work is still in progress...
 
@@ -29,7 +29,7 @@ Regarding any installation problems with PRIMME, please refer http://www.cs.wm.e
    myMPS=TNpy.tnstate.MPS(whichMPS,d,chi,N)
    Gs=mymps.initialize()
    ```
-2. Customize your own Matrix Product Operator for the desired model.
+2. Customize your own Matrix Product Operator for the desired model. What you have to do is to write a function which only depends on `site` and retuns an array. You may use the default function `TNpy.operators.MPO.assign_to_MPO()` for this purpose.
 
    ```
    Class XXZ:
@@ -38,7 +38,7 @@ Regarding any installation problems with PRIMME, please refer http://www.cs.wm.e
            self.delta=delta
            
        def M(self,site):
-           MPO=TNpy.operators.MPO(whichMPS='f',N=self.N,D=5)
+           mympo=TNpy.operators.MPO(whichMPS='f',N=self.N,D=5)
            Sp,Sm,Sz,I2,O2=TNpy.operators.spin_operators()
            
            elem=[[I2,-0.5*Sp,-0.5*Sm,-self.delta*Sz,O2],
@@ -47,7 +47,7 @@ Regarding any installation problems with PRIMME, please refer http://www.cs.wm.e
               [O2,O2,O2,O2,Sz],
               [O2,O2,O2,O2,I2]]
            
-           M=MPO.assign_to_MPO(elem,site)
+           M=mympo.assign_to_MPO(elem,site)
            return M
    ```
 3. Call the algorithm to optimize the state. 
