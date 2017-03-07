@@ -14,7 +14,7 @@ if __name__=='__main__':
     global delta=0.5 # the anisotropic constant in the Hamiltonian of XXZ model
 
     MPS=TNpy.tnstate.MPS(whichMPS,d,chi,N)
-    Gs=MPS.initialize_MPS()
+    Gs=MPS.initialize()
     
     def M(site):
         MPO=TNpy.operators.MPO(whichMPS,N,D)
