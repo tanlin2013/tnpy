@@ -1,6 +1,6 @@
 import numpy as np
-from scipy.linalg import svd as scipy_svd
 from scipy import sparse
+from scipy.linalg import svd as scipy_svd
 import Primme
 
 def eigsh(H,psi):
@@ -75,7 +75,7 @@ def eigshmv(Afunc, v0, k=1, sigma=None, which='SA',
         pp.maxMatvecs = maxiter
 
     if OPinv is not None:
-        OPinv = aslinearoperator(OPinv)
+        OPinv = sparse.linalg.interface.aslinearoperator(OPinv)
         if OPinv.shape[0] != OPinv.shape[1] or OPinv.shape[0] != v0.shape[0]:
             raise ValueError('OPinv: expected square matrix with same shape as A (shape=%s)' % (OPinv.shape,))
         pp.correctionParams.precondition = 1
