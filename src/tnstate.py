@@ -5,7 +5,7 @@ This file contains the fundamental functions for the Matrix Product State (MPS) 
 import numpy as np
 
 class MPS:   
-    def __init__(self,whichMPS,d,chi,**N):
+    def __init__(self,whichMPS,d,chi,N=None):
         """
         * Parameters:
             * whichMPS: string, {'i','f'} 
