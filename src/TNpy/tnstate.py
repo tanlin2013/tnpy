@@ -22,7 +22,7 @@ class MPS:
         self.chi=chi
         self.N=N
         
-    def initialize_MPS(self,canonical_form='R'):
+    def initialize(self,canonical_form='R'):
         """
         Randomly initialize the MPS.
     
