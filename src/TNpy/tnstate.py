@@ -13,7 +13,9 @@ class MPS:
             * d: int
                 The physical bond dimension which is associated to the dimension of single-particle Hilbert space.
             * chi: int
-                The visual bond dimension to be keep after the Singular Value Decomposition (SVD).               
+                The visual bond dimension to be keep after the Singular Value Decomposition (SVD).
+            * N: int, optional
+                If whichMPS='f', the size of system N is needed.     
         """
         if whichMPS!='i' and whichMPS!='f':
             raise ValueError('Only iMPS and fMPS are supported.')
@@ -26,11 +28,9 @@ class MPS:
         """
         Randomly initialize the MPS.
     
-        * Parameters:
-            * N: int, optional
-                If whichMPS='f', the size of system N is needed.           
-            * canonical_form: string, {'L','R','GL'}, default='R'
-                If whichMPS='f', fMPS can be represented as left-normalized, right-normalized or the standard (Gamma-Lambda representation) MPS.            
+        * Parameters:                     
+            * canonical_form: string, {'L','R'}, default='R'
+                If whichMPS='f', fMPS can be represented as left-normalized or right-normalized MPS.            
         
         * Returns: 
             * Gs: list of ndarray
@@ -41,7 +41,7 @@ class MPS:
         
         # Check the input variables
         if self.whichMPS=='f': 
-            if not canonical_form in ['L','R','GL'] or type(self.N) is not int:
+            if not canonical_form in ['L','R'] or type(self.N) is not int:
                 raise ValueError('canonical_form and size must be specified when whichMPS=f.')        
         
         if self.whichMPS=='i':
@@ -53,7 +53,7 @@ class MPS:
             return Gs,SVMs    
         elif self.whichMPS=='f':
             # Create the fMPS
-            Gs=[None]*self.N ; SVMs=[None]*self.N ; N_parity=self.N%2
+            Gs=[None]*self.N ; N_parity=self.N%2
             for site in xrange(self.N):        
                 if N_parity==0:
                     if site==0 or site==self.N-1:
@@ -73,16 +73,12 @@ class MPS:
                         Gs[site]=np.random.rand(min(self.d**(self.N-site),self.chi),self.d,min(self.d**(self.N-1-site),self.chi))        
             # Canonical normalization of the MPS
             if canonical_form=='L':
-                Gs=self.normalize_MPS(Gs,order='L')
-                return Gs
+                Gs=self.normalize_fMPS(Gs,order='L')
             elif canonical_form=='R':
-                Gs=self.normalize_MPS(Gs,order='R')
-                return Gs
-            elif canonical_form=='GL':
-                Gs,SVMs=self.normalize_MPS(Gs,order='GL')
-                return Gs,SVMs          
+                Gs=self.normalize_fMPS(Gs,order='R')
+            return Gs       
     
-    def normalize_MPS(self,Gs,order):
+    def normalize_fMPS(self,Gs,order):
         """
         Canonical normalization of the fMPS.
         
@@ -95,37 +91,24 @@ class MPS:
             * Gs: list of ndarray
                 Left- or right-normalized MPS.
         """
-        SVMs=[None]*(self.N-1)
-        for site in xrange(self.N-1):
-            if site==0:
-                theta=Gs[site]
-            else:
-                theta=np.ndarray.reshape(Gs[site],(self.d*Gs[site].shape[0],Gs[site].shape[2]))
-            X,S,Y=np.linalg.svd(theta,full_matrices=False)
-            SVMs[site]=np.diagflat(S/np.linalg.norm(S))
-            if site==self.N-2:
-                Gs[site+1]=np.tensordot(Gs[site+1],Y,axes=(1,1))
-            else:
-                Gs[site+1]=np.tensordot(Y,Gs[site+1],axes=(1,0))
-            if site==0:
-                Gs[site]=np.ndarray.reshape(X,(self.d,Gs[site].shape[1]))
-            else:
-                Gs[site]=np.ndarray.reshape(X,(Gs[site].shape[0],self.d,Gs[site].shape[2]))
         if order=='L':
-            for site in xrange(1,self.N):
-                if site==self.N-1:
-                    Gs[site]=np.tensordot(SVMs[site-1],Gs[site],axes=(1,1))
+            for site in xrange(self.N-1):
+                if site==0:
+                    theta=Gs[site]
                 else:
-                    Gs[site]=np.tensordot(SVMs[site-1],Gs[site],axes=(1,0))
+                    theta=np.ndarray.reshape(Gs[site],(self.d*Gs[site].shape[0],Gs[site].shape[2]))
+                X,S,Y=np.linalg.svd(theta,full_matrices=False)
+                SVMs[site]=np.diagflat(S/np.linalg.norm(S))
+                if site==self.N-2:
+                    Gs[site+1]=np.tensordot(Gs[site+1],np.dot(np.diagflat(S/np.linalg.norm(S)),Y),axes=(1,1))
+                else:
+                    Gs[site+1]=np.tensordot(np.dot(np.diagflat(S/np.linalg.norm(S)),Y),Gs[site+1],axes=(1,0))
+                if site==0:
+                    Gs[site]=np.ndarray.reshape(X,(self.d,Gs[site].shape[1]))
+                else:
+                    Gs[site]=np.ndarray.reshape(X,(Gs[site].shape[0],self.d,Gs[site].shape[2]))
             return Gs
         elif order=='R':
-            """
-            for site in xrange(N-1):
-                if site==0:
-                    Gs[site]=np.tensordot(Gs[site],SVMs[site],axes=(1,0))
-                else:
-                    Gs[site]=np.tensordot(Gs[site],SVMs[site],axes=(2,0))
-            """
             for site in range(self.N-1,0,-1):
                 if site==self.N-1:
                     theta=Gs[site]
@@ -141,8 +124,8 @@ class MPS:
                 else:
                     Gs[site]=np.ndarray.reshape(Y,(Gs[site].shape[0],self.d,Gs[site].shape[2]))  
             return Gs
-        elif order=='GL':
-            return Gs,SVMs
+        #elif order=='GL':
+        #    return Gs,SVMs
         else:
             raise ValueError('The order must be either L or R.')
 
