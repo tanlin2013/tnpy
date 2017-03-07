@@ -225,7 +225,7 @@ class fDMRG:
         psi=np.ndarray.reshape(self.Gs[site],(self.Gs[site].size,1))
         return H_matvec,psi
         
-    def variational_optimize(self,show_stats=True,return_stats=True,svd_method='primme'):
+    def variational_optimize(self,show_stats=True,return_stats=True,svd_method='numpy'):
         L,R=self._initialize_Env()
         E0=0.0 ; t0=time.clock()
         for sweep in xrange(1,self.maxsweep):
@@ -250,10 +250,10 @@ class fDMRG:
                 else:
                     self.Gs[site+1]=np.tensordot(np.dot(S,Y),self.Gs[site+1],axes=(1,0))                           
                 if site==0:                    
-                    self.Gs[site]=np.ndarray.reshape(X,(self.d,dim))
+                    self.Gs[site]=np.ndarray.reshape(X,self.Gs[site].shape)
                     EnvL=tn.transfer_operator(self.Gs[site],self.MPO(site))
                 else:
-                    self.Gs[site]=np.ndarray.reshape(X,(self.Gs[site].shape[0],self.d,dim))                                       
+                    self.Gs[site]=np.ndarray.reshape(X,self.Gs[site].shape)                                       
                     EnvL=self._update_EnvL(EnvL,site)                   
                 L[site]=EnvL                                                     
             # check convergence of right-sweep   
@@ -285,10 +285,10 @@ class fDMRG:
                 else:
                     self.Gs[site-1]=np.tensordot(self.Gs[site-1],np.dot(X,S),axes=(2,0))
                 if site==self.N-1:                    
-                    self.Gs[site]=np.ndarray.reshape(Y,(self.d,self.Gs[site].shape[1]))
+                    self.Gs[site]=np.ndarray.reshape(Y,self.Gs[site].shape)
                     EnvR=tn.transfer_operator(self.Gs[site],self.MPO(site))
                 else:
-                    self.Gs[site]=np.ndarray.reshape(Y,(self.Gs[site].shape[0],self.d,self.Gs[site].shape[2]))                      
+                    self.Gs[site]=np.ndarray.reshape(Y,self.Gs[site].shape)                      
                     EnvR=self._update_EnvR(EnvR,site)                                                
                 R[self.N-1-site]=EnvR           
             # check convergence of left-sweep
