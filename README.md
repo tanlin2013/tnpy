@@ -12,10 +12,17 @@ This work is still in progress...
   * Numpy
   * Scipy  
   * PRIMME
+ Regarding any installation problems with PRIMME, please refer http://www.cs.wm.edu/~andreas/software/. 
 
 ## Installation
+  Simply run the file `setup.py` with the command:
   ```
   python setup.py install
   ```
          
 ## How to use it?
+1. Declare your Tensor Network State via:
+   ```
+   import TNpy
+   myMPS=TNpy.tnstate.MPS(whichMPS,d,chi,N)
+   ```
