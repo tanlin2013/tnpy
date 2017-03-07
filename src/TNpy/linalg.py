@@ -126,22 +126,21 @@ def eigshmv(Afunc, v0, k=1, sigma=None, which='SA',
     else:
         return evals, evecs
 
-def svd(A,chi,method='primme'):
+def svd(A,chi,method='numpy'):
     """
     This function provides several ways to implement svd.
     """
+    dim=dim=min(min(A.shape),chi)
     if method=='primme':
-        u,s,vt=Primme.svd(A,k=chi)
+        u,s,vt=Primme.svd(A,k=dim)
     elif method=='numpy':
         u,s,vt=np.linalg.svd(A,full_matrices=False)
-        dim=min(len(s),chi)
         u=u[:,0:dim] ; s=s[0:dim] ; vt=vt[0:dim,:]
     elif method=='scipy':
         u,s,vt=scipy_svd(A,full_matrices=False)
-        dim=min(len(s),chi)
         u=u[:,0:dim] ; s=s[0:dim] ; vt=vt[0:dim,:]
     elif method=='scipy_sparse':
-        u,s,vt=sparse.linalg.svd(A,k=chi)
+        u,s,vt=sparse.linalg.svd(A,k=dim)
     #elif method=='scikit':
         
     return u,s,vt
