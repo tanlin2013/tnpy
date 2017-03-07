@@ -120,7 +120,7 @@ class fDMRG:
                 EnvR=tn.transfer_operator(self.Gs[site],self.MPO(site))
             else:
                 EnvR=self._update_EnvR(EnvR,site)            
-            R[site]=EnvR      
+            R[self.N-1-site]=EnvR      
         return L,R
         
     def _update_EnvL(self,EnvL,site):
@@ -208,7 +208,7 @@ class fDMRG:
                     EnvL=tn.transfer_operator(self.Gs[site],self.MPO(site))
                 else:
                     self.Gs[site]=np.ndarray.reshape(X,(self.Gs[site].shape[0],self.d,dim))                                       
-                    EnvL=self.update_EnvL(EnvL,site)                   
+                    EnvL=self._update_EnvL(EnvL,site)                   
                 L[site]=EnvL                                                     
             # check convergence of right-sweep   
             dE=E0-E ; E0=E
