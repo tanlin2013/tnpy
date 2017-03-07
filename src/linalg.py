@@ -1,4 +1,5 @@
 import numpy as np
+from scipy.linalg import svd as scipy_svd
 from scipy import sparse
 import Primme
 
@@ -136,7 +137,7 @@ def svd(A,chi,method='primme'):
         dim=min(len(s),chi)
         u=u[:,0:dim] ; s=s[0:dim] ; vt=vt[0:dim,:]
     elif method=='scipy':
-        u,s,vt=scipy.linalg.svd(A,full_matrices=False)
+        u,s,vt=scipy_svd(A,full_matrices=False)
         dim=min(len(s),chi)
         u=u[:,0:dim] ; s=s[0:dim] ; vt=vt[0:dim,:]
     elif method=='scipy_sparse':
