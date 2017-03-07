@@ -5,11 +5,12 @@ This file contains the physical quantities to be measured.
 import numpy as np
 import scipy.linalg as scl
 import operators
-    
+
+"""
 def variance(M,Gs,SVMs=None):
     
     return
-  
+"""  
 def entanglement_entropy(S):
     ss=np.square(S)        
     entropy=-np.trace(ss*scl.logm(ss))
@@ -75,7 +76,8 @@ def Sz_site(Gs,order,staggering=False):
         Sz_site=np.tensordot(Gs[0],np.tensordot(stag**site*Sz,np.conjugate(Gs[0]),axes=(1,0)),axes=(0,0))
         state.append(np.tensordot(I,Sz_site,axes=([0,1],[0,1])).item())        
     return state      
-
+"""
 def correlation_function():
     
     return correlator
+"""
