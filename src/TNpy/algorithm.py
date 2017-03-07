@@ -36,8 +36,8 @@ class iDMRG:
         R=np.ndarray.reshape(R,(self.chi,D,self.chi))
         return L,R
     
-    def _effH(self,L,R,ML,MR):        
-        H=np.tensordot(np.tensordot(L,ML,axes=(1,1)),np.tensordot(MR,R,axes=(3,1)),axes=(4,1))                                  
+    def _effH(self,L,R,A,B):        
+        H=np.tensordot(np.tensordot(L,self.MPO(A),axes=(1,1)),np.tensordot(self.MPO(B),R,axes=(3,1)),axes=(4,1))                                  
         H=np.swapaxes(H,1,4)
         H=np.swapaxes(H,3,6)
         H=np.swapaxes(H,1,2)
@@ -45,11 +45,15 @@ class iDMRG:
         H=np.ndarray.reshape(H,(self.chi**2*self.d**2,self.chi**2*self.d**2)) 
         return H
     
-    def _effHpsi(self,L,R,ML,MR,A,B):
+    def _effHpsi(self,L,R,A,B):
         def H_matvec(X):
-            matvet=np.tensordot(L,self.Gs[])
+            matvet=np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(L,
+                                self.Gs[A],axes=(0,0)),self.MPO(A),axes=([0,2],[1,0])),
+                                self.SVMs[A],axes=(1,0)),self.Gs[B],axes=()),
+                                self.MPO(B),axes=()),R,axes=())              
+            matvec=np.swapaxes(matvec,)
             return matvet
-        psi=
+        psi=np.tensordot()
         return H_matvec,psi
     
     def warm_up_optimize(self,svd_method='primme'):
@@ -57,9 +61,8 @@ class iDMRG:
         for length in xrange(self.N/2):
             A=length%2
             B=(length+1)%2
-            ML=self.MPO(A) ; MR=self.MPO(B)
             # optimize 2 new-added sites in the center       
-            E,theta=linalg.eigensolver(*self._effHpsi(L,R,ML,MR,A,B))
+            E,theta=linalg.eigshmv(*self._effHpsi(L,R,A,B))
             E/=(2*self.N)
             # SVD and truncation
             theta=np.ndarray.reshape(theta,(self.chi*self.d,self.chi*self.d))
@@ -77,14 +80,16 @@ class iDMRG:
                 self.Gs[B]=np.tensordot(Y,SVM_inv,axes=(2,0))
             # update the environment
             if length==1:
-                EnvL=np.tensordot(np.tensordot(self.Gs[A],ML,axes=(1,0)),np.conjugate(self.Gs[A]),axes=(3,1))
+                EnvL=np.tensordot(np.tensordot(self.Gs[A],self.MPO(A),axes=(1,0)),np.conjugate(self.Gs[A]),axes=(3,1))
                 L=np.tensordot(L,EnvL,axes=([0,1,2],[0,2,4]))
-                EnvR=np.tensordot(np.tensordot(self.Gs[B],MR,axes=(1,0)),np.conjugate(self.Gs[B]),axes=(3,1))
+                EnvR=np.tensordot(np.tensordot(self.Gs[B],self.MPO(B),axes=(1,0)),np.conjugate(self.Gs[B]),axes=(3,1))
                 R=np.tensordot(EnvR,R,axes=([1,3,5],[0,1,2]))
             else:    
-                EnvL=np.tensordot(np.tensordot(np.tensordot(self.SVMs[B],self.Gs[A],axes=(1,0)),ML,axes=(1,0)),np.tensordot(self.SVMs[B],np.conjugate(self.Gs[A]),axes=(1,0)),axes=(3,1))                        
+                EnvL=np.tensordot(np.tensordot(np.tensordot(self.SVMs[B],self.Gs[A],axes=(1,0)),self.MPO(A),axes=(1,0)),
+                                  np.tensordot(self.SVMs[B],np.conjugate(self.Gs[A]),axes=(1,0)),axes=(3,1))                        
                 L=np.tensordot(L,EnvL,axes=([0,1,2],[0,2,4]))
-                EnvR=np.tensordot(np.tensordot(np.tensordot(self.Gs[B],self.SVMs[B],axes=(2,0)),ML,axes=(1,0)),np.tensordot(np.conjugate(self.Gs[B]),self.SVMs[B],axes=(2,0)),axes=(3,1))
+                EnvR=np.tensordot(np.tensordot(np.tensordot(self.Gs[B],self.SVMs[B],axes=(2,0)),self.MPO(B),axes=(1,0)),
+                                  np.tensordot(np.conjugate(self.Gs[B]),self.SVMs[B],axes=(2,0)),axes=(3,1))
                 R=np.tensordot(EnvR,R,axes=([1,3,5],[0,1,2]))
         return E
 
@@ -161,17 +166,21 @@ class fDMRG:
     def _update_EnvL(self,EnvL,site):
         M=self.MPO(site)
         if site==self.N-1:
-            EnvL=np.tensordot(np.tensordot(np.tensordot(EnvL,self.Gs[site],axes=(0,1)),M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,1],[1,0]))
+            EnvL=np.tensordot(np.tensordot(np.tensordot(EnvL,self.Gs[site],axes=(0,1)),
+                              M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,1],[1,0]))
         else:
-            EnvL=np.tensordot(np.tensordot(np.tensordot(EnvL,self.Gs[site],axes=(0,0)),M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,2],[0,1]))
+            EnvL=np.tensordot(np.tensordot(np.tensordot(EnvL,self.Gs[site],axes=(0,0)),
+                              M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,2],[0,1]))
         return EnvL
 
     def _update_EnvR(self,EnvR,site):
         M=self.MPO(site)
         if site==0: 
-            EnvR=np.tensordot(np.tensordot(np.tensordot(EnvR,self.Gs[site],axes=(0,1)),M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,1],[1,0]))   
+            EnvR=np.tensordot(np.tensordot(np.tensordot(EnvR,self.Gs[site],axes=(0,1)),
+                              M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,1],[1,0]))   
         else:
-            EnvR=np.tensordot(np.tensordot(np.tensordot(EnvR,self.Gs[site],axes=(0,2)),M,axes=([0,3],[3,0])),np.conjugate(self.Gs[site]),axes=([0,3],[2,1]))
+            EnvR=np.tensordot(np.tensordot(np.tensordot(EnvR,self.Gs[site],axes=(0,2)),
+                              M,axes=([0,3],[3,0])),np.conjugate(self.Gs[site]),axes=([0,3],[2,1]))
         return EnvR    
 
     def _effH(self,L,R,site):
@@ -205,7 +214,8 @@ class fDMRG:
                 matvec=np.tensordot(np.tensordot(L[site-1],G,axes=(0,1)),M,axes=([2,0],[0,1]))
                 matvec=np.swapaxes(matvec,0,1)
             else:
-                matvec=np.tensordot(np.tensordot(np.tensordot(L[site-1],G,axes=(0,0)),M,axes=([0,2],[1,0])),R[self.N-2-site],axes=([1,3],[0,1]))
+                matvec=np.tensordot(np.tensordot(np.tensordot(L[site-1],G,axes=(0,0)),
+                                    M,axes=([0,2],[1,0])),R[self.N-2-site],axes=([1,3],[0,1]))
             matvec=np.ndarray.reshape(matvec,X.shape)
             return matvec
         psi=np.ndarray.reshape(self.Gs[site],(self.Gs[site].size,1))
@@ -305,8 +315,23 @@ class fDMRG:
             return False
 """
 class fTEBD:
-    def __init__(self):
+    def __init__(self,ham,Gs,d,chi,dt,maxstep):
+        self.ham=ham
+        self.Gs=Gs
+        self.d=d
+        self.chi=chi
+        self.dt=dt
+        self.maxstep=maxstep
+    
+    def _gate(self,parity):
+        U=expm(-self.ham(parity)*self.dt)
+        U=np.ndarray.reshape(U,(self.d,self.d,self.d,self.d))
+        return U
         
     def time_evolution(self):
+        for step in xrange(self.maxstep):
+        
+        return
+
 """        
         
