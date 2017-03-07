@@ -44,23 +44,22 @@ class iDMRG:
         H=np.swapaxes(H,5,6)
         H=np.ndarray.reshape(H,(self.chi**2*self.d**2,self.chi**2*self.d**2)) 
         return H
-    """
-    def _effHpsi(self,ML,MR):
+    
+    def _effHpsi(self,L,R,ML,MR,A,B):
         def H_matvec(X):
-            
+            matvet=np.tensordot(L,self.Gs[])
             return matvet
         psi=
         return H_matvec,psi
-    """
+    
     def warm_up_optimize(self,svd_method='primme'):
-        L,R=self.initialize_Env()
+        L,R=self._initialize_Env()
         for length in xrange(self.N/2):
             A=length%2
             B=(length+1)%2
             ML=self.MPO(A) ; MR=self.MPO(B)
-            # optimize 2 new-added sites in the center
-            H=self.effH(L,R,ML,MR)                      
-            E,theta=linalg.eigensolver(H)
+            # optimize 2 new-added sites in the center       
+            E,theta=linalg.eigensolver(*self._effHpsi(L,R,ML,MR,A,B))
             E/=(2*self.N)
             # SVD and truncation
             theta=np.ndarray.reshape(theta,(self.chi*self.d,self.chi*self.d))
