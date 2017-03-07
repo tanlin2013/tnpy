@@ -49,15 +49,15 @@ class iDMRG:
     def _effHpsi(self,L,R,A,B):
         def H_matvec(X):
             matvet=np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(L,
-                                self.SVMs[B],axes=()),self.Gs[A],axes=()),
-                                self.MPO(A),axes=([],[])),self.SVMs[A],axes=()),
-                                self.Gs[B],axes=()),self.MPO(B),axes=([],[])),
-                                self.SVMs[B],axes=()),R,axes=([],[]))              
+                                self.SVMs[B],axes=(0,0)),self.Gs[A],axes=(2,0)),
+                                self.MPO(A),axes=([0,2],[1,0])),self.SVMs[A],axes=(1,0)),
+                                self.Gs[B],axes=(3,0)),self.MPO(B),axes=([2,3],[1,0])),
+                                self.SVMs[B],axes=(2,0)),R,axes=([3,4],[1,0]))              
             matvec=np.ndarray.reshape(matvec,X.shape)
             return matvet
         psi=np.tensordot(np.tensordot(np.tensordot(np.tensordot(self.SVMs[B],
-                         self.Gs[A],axes=()),self.SVMs[A],axes=()),
-                         self.Gs[B],axes=()),self.SVMs[B],axes=())                     
+                         self.Gs[A],axes=(1,0)),self.SVMs[A],axes=(2,0)),
+                         self.Gs[B],axes=(2,0)),self.SVMs[B],axes=(3,0))                     
         return H_matvec,psi
     
     def warm_up_optimize(self,svd_method='primme'):
