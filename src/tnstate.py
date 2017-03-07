@@ -53,7 +53,7 @@ class MPS:
             return Gs,SVMs    
         elif self.whichMPS=='f':
             # Create the fMPS
-            Gs=[None]*self.N ; SVMs=[None]*self.N ; N_parity=N%2
+            Gs=[None]*self.N ; SVMs=[None]*self.N ; N_parity=self.N%2
             for site in xrange(self.N):        
                 if N_parity==0:
                     if site==0 or site==self.N-1:
@@ -64,7 +64,7 @@ class MPS:
                         Gs[site]=np.random.rand(min(self.d**(self.N-site),self.chi),self.d,min(self.d**(self.N-1-site),self.chi))
                 elif N_parity==1:
                     if site==0 or site==self.N-1:
-                        Gs[site]=np.random.rand(self.d,min(self.d,self.chi)))
+                        Gs[site]=np.random.rand(self.d,min(self.d,self.chi))
                     elif site<self.N/2 and site!=0:
                         Gs[site]=np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**(site+1),self.chi))
                     elif site==self.N/2:
@@ -103,7 +103,7 @@ class MPS:
                 theta=np.ndarray.reshape(Gs[site],(self.d*Gs[site].shape[0],Gs[site].shape[2]))
             X,S,Y=np.linalg.svd(theta,full_matrices=False)
             SVMs[site]=np.diagflat(S/np.linalg.norm(S))
-            if site==N-2:
+            if site==self.N-2:
                 Gs[site+1]=np.tensordot(Gs[site+1],Y,axes=(1,1))
             else:
                 Gs[site+1]=np.tensordot(Y,Gs[site+1],axes=(1,0))
@@ -113,7 +113,7 @@ class MPS:
                 Gs[site]=np.ndarray.reshape(X,(Gs[site].shape[0],self.d,Gs[site].shape[2]))
         if order=='L':
             for site in xrange(1,self.N):
-                if site==N-1:
+                if site==self.N-1:
                     Gs[site]=np.tensordot(SVMs[site-1],Gs[site],axes=(1,1))
                 else:
                     Gs[site]=np.tensordot(SVMs[site-1],Gs[site],axes=(1,0))
@@ -136,7 +136,7 @@ class MPS:
                     Gs[site-1]=np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S/np.linalg.norm(S))),axes=(1,0))
                 else:         
                     Gs[site-1]=np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S/np.linalg.norm(S))),axes=(2,0))
-                if site==N-1:
+                if site==self.N-1:
                     Gs[site]=np.ndarray.reshape(Y,(self.d,Gs[site].shape[1]))
                 else:
                     Gs[site]=np.ndarray.reshape(Y,(Gs[site].shape[0],self.d,Gs[site].shape[2]))  
