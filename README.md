@@ -22,7 +22,7 @@ Regarding any installation problems with PRIMME, please refer http://www.cs.wm.e
   ```
          
 ## How to use it?
-1. Declare your Tensor Network State and initialize it if you want
+1. Declare your Tensor Network State and initialize it.
    
    ```
    import TNpy
