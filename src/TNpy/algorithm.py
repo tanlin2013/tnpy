@@ -11,6 +11,7 @@ This file contains several algorithms which are based on the Matrix Product Stat
 import time
 import warnings
 import numpy as np
+from scipy.linalg import expm
 import linalg
 import tnstate as tn
 
@@ -35,7 +36,7 @@ class iDMRG:
         R=np.ndarray.reshape(R,(self.chi,D,self.chi))
         return L,R
     
-    def _effH(self,ML,MR):        
+    def _effH(self,L,R,ML,MR):        
         H=np.tensordot(np.tensordot(L,ML,axes=(1,1)),np.tensordot(MR,R,axes=(3,1)),axes=(4,1))                                  
         H=np.swapaxes(H,1,4)
         H=np.swapaxes(H,3,6)
@@ -58,7 +59,7 @@ class iDMRG:
             B=(length+1)%2
             ML=self.MPO(A) ; MR=self.MPO(B)
             # optimize 2 new-added sites in the center
-            H=self.effH(ML,MR)                      
+            H=self.effH(L,R,ML,MR)                      
             E,theta=linalg.eigensolver(H)
             E/=(2*self.N)
             # SVD
@@ -89,14 +90,56 @@ class iDMRG:
                 EnvR=np.tensordot(np.tensordot(np.tensordot(self.Gs[B],self.SVMs[B],axes=(2,0)),ML,axes=(1,0)),np.tensordot(np.conjugate(self.Gs[B]),self.SVMs[B],axes=(2,0)),axes=(3,1))
                 R=np.tensordot(EnvR,R,axes=([1,3,5],[0,1,2]))
         return E
-
-""" 
+"""
 class iTEBD:
-    def __init__(self):
+    def __init__(self,ham,Gs,SVMs,N,d,chi,dt):
+        self.ham=ham
+        self.Gs=Gs
+        self.SVMs=SVMs
+        self.N=N
+        self.d=d
+        self.chi=chi
+        self.dt=dt
+        
+    def _gate(self,site):
+        U=expm(-self.ham(site)*self.dt)
+        U=np.ndarray.reshape(U,(self.d,self.d,self.d,self.d))
+        return U
     
-    def time_evolution(self):  
-"""        
-
+    def time_evolution(self):
+        for step in xrange(self.N):
+            A=step%2
+            B=(step+1)%2
+            #contract to theta
+            thetaL=np.tensordot(np.tensordot(Ls[B],Gs[A],axes=(1,0)),Ls[A],axes=(2,0))
+            thetaR=np.tensordot(Gs[B],Ls[B],axes=(2,0))
+            theta=np.tensordot(thetaL,thetaR,axes=(2,0))
+            #contract theta with U + SVD
+            theta_t=np.tensordot(theta,U,axes=([1,2],[0,1]))
+            theta_t=np.swapaxes(theta_t,1,2)
+            theta_t=np.swapaxes(theta_t,2,3)
+            theta_t2=np.ndarray.reshape(theta_t,(self.d*self.chi,self.d*self.chi))                      
+            X,S,Y=np.linalg.svd(theta_t2,full_matrices=False)                    
+            #truncation           
+            X=X[:,0:self.chi]
+            Y=Y[0:self.chi,:]
+            S=S[0:self.chi]
+            S_norm=np.linalg.norm(S)                 
+            Ls[A]=np.diagflat(S/S_norm)
+            #form the new configuration
+            X=np.ndarray.reshape(X,(self.chi,self.d,self.chi))
+            Y=np.ndarray.reshape(Y,(self.chi,self.d,self.chi))
+            LB_inv=self.invL(Ls[B])
+            Gs[A]=np.tensordot(LB_inv,X,axes=(1,0))
+            Gs[B]=np.tensordot(Y,LB_inv,axes=(2,0))
+            #expectation values
+            H=self.Hamiltonian()
+            H=np.ndarray.reshape(H,(self.d,self.d,self.d,self.d))
+            E_mean=np.tensordot(np.tensordot(theta,H,axes=([1,2],[0,1])),theta,axes=([0,2,3,1],[0,1,2,3]))                   
+            norm=np.tensordot(theta,theta,axes=([0,1,2,3],[0,1,2,3]))       
+            E=E_mean/norm
+        return E
+"""
 class fDMRG:
     def __init__(self,MPO,Gs,N,d,chi,tolerance=1e-12,maxsweep=200):
         self.MPO=MPO
@@ -176,7 +219,7 @@ class fDMRG:
         psi=np.ndarray.reshape(self.Gs[site],(self.Gs[site].size,1))
         return H_matvec,psi
         
-    def variational_optimize(self,show_stats=True,return_stats=True):
+    def variational_optimize(self,show_stats=True,return_stats=True,svd_method='primme'):
         L,R=self._initialize_Env()
         E0=0.0 ; t0=time.clock()
         for sweep in xrange(1,self.maxsweep):
@@ -188,15 +231,12 @@ class fDMRG:
                 E/=self.N
                 if show_stats:
                     print "site%d," % site,"E/N= %.12f" % E
-                # SVD
+                # SVD and truncation
                 if site==0:
                     theta=np.ndarray.reshape(theta,(self.d,self.Gs[site].shape[1])) 
                 else:    
                     theta=np.ndarray.reshape(theta,(self.d*self.Gs[site].shape[0],self.Gs[site].shape[2]))                       
-                X,S,Y=np.linalg.svd(theta,full_matrices=False)
-                # truncation
-                dim=min(len(S),self.chi)
-                X=X[:,0:dim] ; S=S[0:dim] ; Y=Y[0:dim,:]
+                X,S,Y=linalg.svd(theta,self.chi,method=svd_method)
                 S=np.diagflat(S/np.linalg.norm(S))
                 # form the new configuration               
                 if site==self.N-2:
@@ -226,15 +266,12 @@ class fDMRG:
                 E/=self.N
                 if show_stats:
                     print "site%d," % site,"E/N= %.12f" % E
-                # SVD
+                # SVD and truncation
                 if site==self.N-1:
                     theta=np.ndarray.reshape(theta,(self.Gs[site].shape[1],self.d))    
                 else:    
                     theta=np.ndarray.reshape(theta,(self.Gs[site].shape[0],self.d*self.Gs[site].shape[2]))            
-                X,S,Y=np.linalg.svd(theta,full_matrices=False)
-                # truncation
-                dim=min(len(S),self.chi)
-                X=X[:,0:dim] ; S=S[0:dim] ; Y=Y[0:dim,:]
+                X,S,Y=linalg.svd(theta,self.chi,method=svd_method)
                 S=np.diagflat(S/np.linalg.norm(S))
                 # form the new configuration              
                 if site==1:
