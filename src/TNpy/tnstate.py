@@ -98,7 +98,6 @@ class MPS:
                 else:
                     theta=np.ndarray.reshape(Gs[site],(self.d*Gs[site].shape[0],Gs[site].shape[2]))
                 X,S,Y=np.linalg.svd(theta,full_matrices=False)
-                SVMs[site]=np.diagflat(S/np.linalg.norm(S))
                 if site==self.N-2:
                     Gs[site+1]=np.tensordot(Gs[site+1],np.dot(np.diagflat(S/np.linalg.norm(S)),Y),axes=(1,1))
                 else:
