@@ -29,7 +29,7 @@ Regarding any installation problems with PRIMME, please refer http://www.cs.wm.e
    myMPS=TNpy.tnstate.MPS(whichMPS,d,chi,N)
    Gs=mymps.initialize()
    ```
-2. Customize your own Matrix Product Operator for the desired model. What you have to do is to write a function which only depends on `site` and retuns an array. You may use the default function `TNpy.operators.MPO.assign_to_MPO()` for this purpose.
+2. Customize your own Matrix Product Operator for the desired model. What you have to do is to write a function which only depends on `site` and retuns an ndarray that represents your MPO. You may use the default function `TNpy.operators.MPO.assign_to_MPO()` for this purpose.
 
    ```
    Class XXZ:
