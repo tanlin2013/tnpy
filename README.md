@@ -22,9 +22,14 @@ Regarding any installation problems with PRIMME, please refer http://www.cs.wm.e
   ```
          
 ## How to use it?
-1. Declare your Tensor Network State via:
+1. Declare your Tensor Network State via
    
    ```
    import TNpy
    myMPS=TNpy.tnstate.MPS(whichMPS,d,chi,N)
    ```
+2. Customize your own Matrix Product Operator for the desired model.
+
+
+3. Call the algorithm to optimize the state. 
+
