@@ -49,10 +49,10 @@ class iDMRG:
     def _effHpsi(self,L,R,A,B):
         def H_matvec(X):
             matvet=np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(L,
-                                self.SVMs[B],axes=()),self.Gs[A],axes=(0,0)),
-                                self.MPO(A),axes=([0,2],[1,0])),self.SVMs[A],axes=(1,0)),
-                                self.Gs[B],axes=(3,0)),self.MPO(B),axes=([2,3],[1,0])),
-                                self.SVMs[B],axes=()),R,axes=([2,4],[0,1]))              
+                                self.SVMs[B],axes=()),self.Gs[A],axes=()),
+                                self.MPO(A),axes=([],[])),self.SVMs[A],axes=()),
+                                self.Gs[B],axes=()),self.MPO(B),axes=([],[])),
+                                self.SVMs[B],axes=()),R,axes=([],[]))              
             matvec=np.ndarray.reshape(matvec,X.shape)
             return matvet
         psi=np.tensordot(np.tensordot(np.tensordot(np.tensordot(self.SVMs[B],
