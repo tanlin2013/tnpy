@@ -42,8 +42,9 @@ if __name__=='__main__':
     mu=0.0 # chemical potential
     lamda=0.0 # penalty strength
     S_target=0.0
-
-    MPS=TNpy.tnstate.MPS(whichMPS='f',d=2,**chi,**N)
+    
+    whichMPS='f ; d=2
+    MPS=TNpy.tnstate.MPS(whichMPS,d,chi,N)
     Gs=MPS.initialize()
     model=Thirring(N,a,g,m,mu,lamda,S_target)
     
