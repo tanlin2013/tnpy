@@ -108,19 +108,19 @@ class fDMRG:
         self.maxsweep=maxsweep
         
     def _initialize_Env(self):
-        L=[] ; R=[]
+        L=[None]*(self.N-1) ; R=[None]*(self.N-1)
         for site in xrange(self.N-1):
             if site==0:
                 EnvL=tn.transfer_operator(self.Gs[site],self.MPO(site))             
             else:    
                 EnvL=self._update_EnvL(EnvL,site)            
-            L.append(EnvL)                       
+            L[site]=EnvL                       
         for site in xrange(self.N-1,0,-1):
             if site==self.N-1:
                 EnvR=tn.transfer_operator(self.Gs[site],self.MPO(site))
             else:
                 EnvR=self._update_EnvR(EnvR,site)            
-            R.append(EnvR)      
+            R[site]=EnvR      
         return L,R
         
     def _update_EnvL(self,EnvL,site):
