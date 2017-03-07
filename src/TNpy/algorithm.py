@@ -48,13 +48,13 @@ class iDMRG:
     
     def _effHpsi(self,L,R,A,B):
         def H_matvec(X):
-            matvet=np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(L,
+            matvec=np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(L,
                                 self.SVMs[B],axes=(0,0)),self.Gs[A],axes=(2,0)),
                                 self.MPO(A),axes=([0,2],[1,0])),self.SVMs[A],axes=(1,0)),
                                 self.Gs[B],axes=(3,0)),self.MPO(B),axes=([2,3],[1,0])),
                                 self.SVMs[B],axes=(2,0)),R,axes=([3,4],[1,0]))              
             matvec=np.ndarray.reshape(matvec,X.shape)
-            return matvet
+            return matvec
         psi=np.tensordot(np.tensordot(np.tensordot(np.tensordot(self.SVMs[B],
                          self.Gs[A],axes=(1,0)),self.SVMs[A],axes=(2,0)),
                          self.Gs[B],axes=(2,0)),self.SVMs[B],axes=(3,0))                     
@@ -131,7 +131,7 @@ class iTEBD:
             #form the new configuration
             X=np.ndarray.reshape(X,(self.chi,self.d,self.chi))
             Y=np.ndarray.reshape(Y,(self.chi,self.d,self.chi))
-            SVMB_inv=linalg.inverse_SVM(Ls[B])
+            SVMB_inv=linalg.inverse_SVM(self.SVMs[B])
             self.Gs[A]=np.tensordot(SVMB_inv,X,axes=(1,0))
             self.Gs[B]=np.tensordot(Y,SVMB_inv,axes=(2,0))
             #expectation values
