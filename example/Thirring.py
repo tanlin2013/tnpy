@@ -44,7 +44,7 @@ if __name__=='__main__':
     S_target=0.0
 
     MPS=TNpy.tnstate.MPS(whichMPS='f',d=2,**chi,**N)
-    Gs=MPS.initialize_MPS()
+    Gs=MPS.initialize()
     model=Thirring(N,a,g,m,mu,lamda,S_target)
     
     simulation=TNpy.algorithm.fDMRG(model.M,Gs,N,d,chi,tolerance=1e-8)
