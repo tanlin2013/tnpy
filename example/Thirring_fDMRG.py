@@ -43,7 +43,7 @@ if __name__=='__main__':
     lamda=0.0 # penalty strength
     S_target=0.0
     
-    whichMPS='f ; d=2
+    whichMPS='f' ; d=2
     MPS=TNpy.tnstate.MPS(whichMPS,d,chi,N)
     Gs=MPS.initialize()
     model=Thirring(N,a,g,m,mu,lamda,S_target)
