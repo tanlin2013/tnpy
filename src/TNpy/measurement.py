@@ -89,8 +89,9 @@ def variance(MPO,Gs):
             else:
                 EnvR=h._update_EnvR(EnvR,site)
                 EnvR2=h._update_EnvR2(EnvR2,site)
-        var=EnvR2.item()-EnvR.item()**2   
+        var=EnvR2.item()-EnvR.item()**2       
     if var < 0.0:
+        warnings.simplefilter("always")
         warnings.warn("PrecisionError: encounter negative variance after the subtraction.")
     return var
 
