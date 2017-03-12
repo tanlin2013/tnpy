@@ -90,8 +90,6 @@ def variance(MPO,Gs):
                 EnvR=h._update_EnvR(EnvR,site)
                 EnvR2=h._update_EnvR2(EnvR2,site)
         var=EnvR2.item()-EnvR.item()**2   
-    else:
-        raise ValueError('The order must be either L or R.')
     if var < 0.0:
         warnings.warn("PrecisionError: encounter negative variance after the subtraction.")
     return var
