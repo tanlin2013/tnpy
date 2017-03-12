@@ -128,11 +128,11 @@ class MPS:
         else:
             raise ValueError('The order must be either L or R.')
 
-def transfer_operator(Gs,A):
-    if Gs.ndim==2:
-        trans=np.tensordot(Gs,np.tensordot(A,np.conjugate(Gs),axes=(2,0)),axes=(0,0))
+def transfer_operator(G,M):
+    if G.ndim==2:
+        trans=np.tensordot(G,np.tensordot(M,np.conjugate(G),axes=(2,0)),axes=(0,0))
     else:                        
-        trans=np.tensordot(Gs,np.tensordot(A,np.conjugate(Gs),axes=(2,1)),axes=(1,0))
+        trans=np.tensordot(G,np.tensordot(M,np.conjugate(G),axes=(2,1)),axes=(1,0))
         trans=np.swapaxes(trans,1,2)
         trans=np.swapaxes(trans,3,4)
         trans=np.swapaxes(trans,2,3)
