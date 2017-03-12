@@ -136,7 +136,7 @@ def Sz_site(Gs,spin=0.5,staggering=False):
                     Gs[site]=np.ndarray.reshape(X,(d,Gs[site].shape[1]))
                 else:
                     Gs[site]=np.ndarray.reshape(X,(Gs[site].shape[0],d,Gs[site].shape[2]))
-    else: # state is left-normalized
+    elif order=='L': # state is left-normalized
         for site in xrange(N-1,-1,-1):
             state[site]=update_Sz(site)
             if site > 0:
@@ -156,7 +156,9 @@ def Sz_site(Gs,spin=0.5,staggering=False):
     return state 
 
 """
-def correlation_function():
+def correlation_function(Gs,m,n):
+    Sp,Sm,Sz,I2,O2=operators.spin_operators()
+    order=_mps_order(Gs)
     
     return correlator
 """
