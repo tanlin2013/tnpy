@@ -53,6 +53,7 @@ Regarding any installation problems with PRIMME, please refer http://www.cs.wm.e
 3. Call the algorithm to optimize the state. 
    
    ```
+   model=XXZ(N,delta)
    simulation=TNpy.algorithm.fDMRG(model.M,Gs,N,d,chi)
    E,stats=simulation.variational_optimize()
    Gs=simulation.Gs
