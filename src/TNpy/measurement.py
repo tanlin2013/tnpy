@@ -93,7 +93,7 @@ def entanglement_entropy(S):
 
 def Sz_site(Gs,spin=0.5,staggering=False):
     Sp,Sm,Sz,I2,O2=operators.spin_operators(spin)
-    N=len(Gs); order=tnstate.get_mps_order(Gs); d=1./spin; state=[None]*N
+    N=len(Gs); order=tnstate.get_mps_order(Gs); d=int(1./spin); state=[None]*N
     if staggering: stag=-1
     else: stag=1
     
