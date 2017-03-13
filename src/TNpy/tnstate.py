@@ -73,60 +73,61 @@ class MPS:
                         Gs[site]=np.random.rand(min(self.d**(self.N-site),self.chi),self.d,min(self.d**(self.N-1-site),self.chi))        
             # Canonical normalization of the MPS
             if canonical_form=='L':
-                Gs=self.normalize_fMPS(Gs,order='L')
+                Gs=normalize_fMPS(Gs,order='L')
             elif canonical_form=='R':
-                Gs=self.normalize_fMPS(Gs,order='R')
+                Gs=normalize_fMPS(Gs,order='R')
             return Gs       
     
-    def normalize_fMPS(self,Gs,order):
-        """
-        Canonical normalization of the fMPS.
+def normalize_fMPS(Gs,order):
+    """
+    Canonical normalization of the fMPS.
         
-        * Parameters:
-            * Gs: list of ndarray
-                The fMPS wants to be left- or right-normalized.  
-            * order: string, {'L','R','GL'}
-                Specified the direction of normalization.
-        * Returns:
-            * Gs: list of ndarray
-                Left- or right-normalized MPS.
-        """
-        if order=='L':
-            for site in xrange(self.N-1):
-                if site==0:
-                    theta=Gs[site]
-                else:
-                    theta=np.ndarray.reshape(Gs[site],(self.d*Gs[site].shape[0],Gs[site].shape[2]))
-                X,S,Y=np.linalg.svd(theta,full_matrices=False)
-                if site==self.N-2:
-                    Gs[site+1]=np.tensordot(Gs[site+1],np.dot(np.diagflat(S/np.linalg.norm(S)),Y),axes=(1,1))
-                else:
-                    Gs[site+1]=np.tensordot(np.dot(np.diagflat(S/np.linalg.norm(S)),Y),Gs[site+1],axes=(1,0))
-                if site==0:
-                    Gs[site]=np.ndarray.reshape(X,(self.d,Gs[site].shape[1]))
-                else:
-                    Gs[site]=np.ndarray.reshape(X,(Gs[site].shape[0],self.d,Gs[site].shape[2]))
-            return Gs
-        elif order=='R':
-            for site in range(self.N-1,0,-1):
-                if site==self.N-1:
-                    theta=Gs[site]
-                else:
-                    theta=np.ndarray.reshape(Gs[site],(Gs[site].shape[0],self.d*Gs[site].shape[2]))      
-                X,S,Y=np.linalg.svd(theta,full_matrices=False)                
-                if site==1:
-                    Gs[site-1]=np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S/np.linalg.norm(S))),axes=(1,0))
-                else:         
-                    Gs[site-1]=np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S/np.linalg.norm(S))),axes=(2,0))
-                if site==self.N-1:
-                    Gs[site]=np.ndarray.reshape(Y,(self.d,Gs[site].shape[1]))
-                else:
-                    Gs[site]=np.ndarray.reshape(Y,(Gs[site].shape[0],self.d,Gs[site].shape[2]))  
-            return Gs
-        #elif order=='GL':
-        #    return Gs,SVMs
-        else:
-            raise ValueError('The order must be either L or R.')
+    * Parameters:
+        * Gs: list of ndarray
+            The fMPS wants to be left- or right-normalized.  
+        * order: string, {'L','R','GL'}
+            Specified the direction of normalization.
+    * Returns:
+        * Gs: list of ndarray
+            Left- or right-normalized MPS.
+    """
+    N=len(Gs); d=Gs[0].shape[0]
+    if order=='L':
+        for site in xrange(N-1):
+            if site==0:
+                theta=Gs[site]
+            else:
+                theta=np.ndarray.reshape(Gs[site],(d*Gs[site].shape[0],Gs[site].shape[2]))
+            X,S,Y=np.linalg.svd(theta,full_matrices=False)
+            if site==N-2:
+                Gs[site+1]=np.tensordot(Gs[site+1],np.dot(np.diagflat(S/np.linalg.norm(S)),Y),axes=(1,1))
+            else:
+                Gs[site+1]=np.tensordot(np.dot(np.diagflat(S/np.linalg.norm(S)),Y),Gs[site+1],axes=(1,0))
+            if site==0:
+                Gs[site]=np.ndarray.reshape(X,(d,Gs[site].shape[1]))
+            else:
+                Gs[site]=np.ndarray.reshape(X,(Gs[site].shape[0],d,Gs[site].shape[2]))
+        return Gs
+    elif order=='R':
+        for site in range(N-1,0,-1):
+            if site==N-1:
+                theta=Gs[site]
+            else:
+                theta=np.ndarray.reshape(Gs[site],(Gs[site].shape[0],d*Gs[site].shape[2]))      
+            X,S,Y=np.linalg.svd(theta,full_matrices=False)                
+            if site==1:
+                Gs[site-1]=np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S/np.linalg.norm(S))),axes=(1,0))
+            else:         
+                Gs[site-1]=np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S/np.linalg.norm(S))),axes=(2,0))
+            if site==N-1:
+                Gs[site]=np.ndarray.reshape(Y,(d,Gs[site].shape[1]))
+            else:
+                Gs[site]=np.ndarray.reshape(Y,(Gs[site].shape[0],d,Gs[site].shape[2]))  
+        return Gs
+    #elif order=='GL':
+    #    return Gs,SVMs
+    else:
+        raise ValueError('The order must be either L or R.')
 
 def transfer_operator(G,M):
     if G.ndim==2:
