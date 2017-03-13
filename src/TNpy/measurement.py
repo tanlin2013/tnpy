@@ -7,15 +7,6 @@ import numpy as np
 from scipy.linalg import logm
 import operators,tnstate 
 
-def _mps_order(Gs):
-    N=len(Gs) ; chi=Gs[0].shape[1]
-    def G2(site):
-        G2=np.tensordot(Gs[site],np.conjugate(Gs[site]),axes=(0,0))
-        return G2
-    if np.allclose(G2(0),np.identity(chi),atol=1e-12): order='L'
-    elif np.allclose(G2(N-1),np.identity(chi),atol=1e-12): order='R'    
-    return order
-
 class _update_Env:
     def __init__(self,MPO,Gs,N):
         self.MPO=MPO 
@@ -67,7 +58,7 @@ class _update_Env:
         return EnvR2
 
 def variance(MPO,Gs):
-    N=len(Gs); h=_update_Env(MPO,Gs,N); order=_mps_order(Gs)
+    N=len(Gs); h=_update_Env(MPO,Gs,N); order=tnstate.get_mps_order(Gs)
     if order=='L':
         for site in xrange(N):
             if site==0:
@@ -102,7 +93,7 @@ def entanglement_entropy(S):
 
 def Sz_site(Gs,spin=0.5,staggering=False):
     Sp,Sm,Sz,I2,O2=operators.spin_operators(spin)
-    N=len(Gs); order=_mps_order(Gs); d=1./spin; state=[None]*N
+    N=len(Gs); order=tnstate.get_mps_order(Gs); d=1./spin; state=[None]*N
     if staggering: stag=-1
     else: stag=1
     
@@ -158,7 +149,7 @@ def Sz_site(Gs,spin=0.5,staggering=False):
 """
 def correlation_function(Gs,m,n):
     Sp,Sm,Sz,I2,O2=operators.spin_operators()
-    order=_mps_order(Gs)
+    order=tnstate.get_mps_order(Gs)
     
     return correlator
 """
