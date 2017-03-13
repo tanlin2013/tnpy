@@ -129,6 +129,15 @@ def normalize_fMPS(Gs,order):
     else:
         raise ValueError('The order must be either L or R.')
 
+def get_mps_order(Gs):
+    N=len(Gs) ; chi=Gs[0].shape[1]
+    def G2(site):
+        G2=np.tensordot(Gs[site],np.conjugate(Gs[site]),axes=(0,0))
+        return G2
+    if np.allclose(G2(0),np.identity(chi),atol=1e-12): order='L'
+    elif np.allclose(G2(N-1),np.identity(chi),atol=1e-12): order='R'    
+    return order        
+        
 def transfer_operator(G,M):
     if G.ndim==2:
         trans=np.tensordot(G,np.tensordot(M,np.conjugate(G),axes=(2,0)),axes=(0,0))
