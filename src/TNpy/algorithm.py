@@ -300,7 +300,7 @@ class fDMRG:
                 break
             #--------------------------------------------------------------------------------------------
         if return_stats:
-            stats=dict(dE=dE,sweep=self.maxsweep,t=t)
+            stats=dict(dE=dE,sweep=self.maxsweep,AvgProcT=t)
             return E,stats
         else:
             return E
