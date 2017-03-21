@@ -91,9 +91,62 @@ def entanglement_entropy(S):
     entropy=-np.trace(ss*logm(ss))
     return entropy
 
-def Sz_site(Gs,spin=0.5,staggering=False):
-    Sp,Sm,Sz,I2,O2=operators.spin_operators(spin)
-    N=len(Gs); order=tnstate.get_mps_order(Gs); d=int(1./spin); state=[None]*N
+def _normalize_fmps(Gs,order,site):
+    N=len(Gs); d=Gs[0].shape[0]
+    if order=='R':
+        if site==0:    
+            theta=Gs[site]
+        else:
+            theta=np.ndarray.reshape(Gs[site],(d*Gs[site].shape[0],Gs[site].shape[2]))     
+        X,S,Y=np.linalg.svd(theta,full_matrices=False)                
+        if site==N-2:
+            Gs[site+1]=np.tensordot(Gs[site+1],np.dot(np.diagflat(S),Y),axes=(1,1))
+        else:
+            Gs[site+1]=np.tensordot(np.dot(np.diagflat(S),Y),Gs[site+1],axes=(1,0))
+        if site==0:
+            Gs[site]=np.ndarray.reshape(X,(d,Gs[site].shape[1]))
+        else:
+            Gs[site]=np.ndarray.reshape(X,(Gs[site].shape[0],d,Gs[site].shape[2]))
+    elif order=='L':
+        if site==N-1:      
+            theta=Gs[site]
+        else:    
+            theta=np.ndarray.reshape(Gs[site],(Gs[site].shape[0],d*Gs[site].shape[2]))     
+        X,S,Y=np.linalg.svd(theta,full_matrices=False)                
+        if site==1:
+            Gs[site-1]=np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S)),axes=(1,0))
+        else:         
+            Gs[site-1]=np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S)),axes=(2,0))
+        if site==N-1:
+            Gs[site]=np.ndarray.reshape(Y,(d,Gs[site].shape[1]))
+        else:
+            Gs[site]=np.ndarray.reshape(Y,(Gs[site].shape[0],d,Gs[site].shape[2]))
+    return Gs
+
+def _norm_fmps(Gs):
+    N=len(Gs); order=tnstate.get_mps_order(Gs)
+    
+    if order=='R':
+        for site in xrange(N):
+            if site==0:
+                norm=np.tensordot(Gs[site],np.conjugate(Gs[site]),axes=(0,0))
+            elif site==N-1:
+                norm=np.tensordot(np.tensordot(norm,Gs[site],axes=(0,1)),np.conjugate(Gs[site]),axes=([0,1],[1,0]))
+            else:
+                norm=np.tensordot(np.tensordot(norm,Gs[site],axes=(0,0)),np.conjugate(Gs[site]),axes=([0,1],[0,1]))
+    elif order=='L':
+        for site in xrange(N-1,-1,-1):
+            if site==0:
+                norm=np.tensordot(np.tensordot(norm,Gs[site],axes=(0,1)),np.conjugate(Gs[site]),axes=([0,1],[1,0]))
+            elif site==N-1:
+                norm=np.tensordot(Gs[site],np.conjugate(Gs[site]),axes=(0,0))
+            else:
+                norm=np.tensordot(np.tensordot(norm,Gs[site],axes=(0,2)),np.conjugate(Gs[site]),axes=([0,2],[2,1]))
+    return norm
+
+def Sz_site(Gs,staggering=False):
+    Sp,Sm,Sz,I2,O2=operators.spin_operators()
+    N=len(Gs); order=tnstate.get_mps_order(Gs); state=[None]*N
     if staggering: stag=-1
     else: stag=1
     
@@ -114,42 +167,142 @@ def Sz_site(Gs,spin=0.5,staggering=False):
         for site in xrange(N):
             state[site]=update_Sz(site)
             if site < N-1:
-                if site==0:    
-                    theta=Gs[site]
-                else:
-                    theta=np.ndarray.reshape(Gs[site],(d*Gs[site].shape[0],Gs[site].shape[2]))     
-                X,S,Y=np.linalg.svd(theta,full_matrices=False)                
-                if site==N-2:
-                    Gs[site+1]=np.tensordot(Gs[site+1],np.dot(np.diagflat(S),Y),axes=(1,1))
-                else:
-                    Gs[site+1]=np.tensordot(np.dot(np.diagflat(S),Y),Gs[site+1],axes=(1,0))
-                if site==0:
-                    Gs[site]=np.ndarray.reshape(X,(d,Gs[site].shape[1]))
-                else:
-                    Gs[site]=np.ndarray.reshape(X,(Gs[site].shape[0],d,Gs[site].shape[2]))
+                Gs=_normalize_fmps(Gs,order,site)
     elif order=='L': # state is left-normalized
         for site in xrange(N-1,-1,-1):
             state[site]=update_Sz(site)
             if site > 0:
-                if site==N-1:      
-                    theta=Gs[site]
-                else:    
-                    theta=np.ndarray.reshape(Gs[site],(Gs[site].shape[0],d*Gs[site].shape[2]))     
-                X,S,Y=np.linalg.svd(theta,full_matrices=False)                
-                if site==1:
-                    Gs[site-1]=np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S)),axes=(1,0))
-                else:         
-                    Gs[site-1]=np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S)),axes=(2,0))
-                if site==N-1:
-                    Gs[site]=np.ndarray.reshape(Y,(d,Gs[site].shape[1]))
-                else:
-                    Gs[site]=np.ndarray.reshape(Y,(Gs[site].shape[0],d,Gs[site].shape[2]))
+                Gs=_normalize_fmps(Gs,order,site)
     return state 
 
-"""
-def correlation_function(Gs,m,n):
+def correlation_function(Gs,m,n,staggering=False): 
+    """
+    0 < m < n < N-1
+    """
     Sp,Sm,Sz,I2,O2=operators.spin_operators()
-    order=tnstate.get_mps_order(Gs)
+    N=len(Gs); order=tnstate.get_mps_order(Gs)
+    if staggering: stag=-1
+    else: stag=1
     
-    return correlator
+    if m >= n:
+        raise ValueError('m must be smaller than n.')
+    if m not in xrange(1,N-1) and n-m not in xrange(N-2):
+        raise ValueError('|m-n| cannot exceed the system size.')
+    
+    if order=='R':
+        for site in xrange(m):
+            Gs=_normalize_fmps(Gs,order,site)
+    elif order=='L':
+        for site in xrange(N-1,n,-1):
+            Gs=_normalize_fmps(Gs,order,site)       
+
+    IL=np.identity(Gs[m].shape[0],dtype=float)
+    IR=np.identity(Gs[n].shape[2],dtype=float)
+
+    for site in xrange(m,n+1):
+        if site==m:
+            corr=np.tensordot(np.tensordot(np.tensordot(IL,
+                 Gs[site],axes=(0,0)),stag**site*Sz,axes=(1,0)),
+                 np.conjugate(Gs[site]),axes=([0,2],[0,1]))
+        elif site==n:
+            corr=np.tensordot(np.tensordot(np.tensordot(np.tensordot(corr,
+                 Gs[site],axes=(0,0)),stag**site*Sz,axes=(1,0)),
+                 np.conjugate(Gs[site]),axes=([0,2],[0,1])),IR,axes=([0,1],[0,1]))
+        else:
+            corr=np.tensordot(np.tensordot(corr,
+                 Gs[site],axes=(0,0)),np.conjugate(Gs[site]),axes=([0,1],[0,1]))                  
+    return corr.item()
+
 """
+def bipartite_spin_fluctuations():
+    return
+"""    
+
+def string_order_paras(Gs,m,n,sign=1):
+    """
+    0 < m < n < N-1
+    """
+    Sp,Sm,Sz,I2,O2=operators.spin_operators()
+    N=len(Gs); order=tnstate.get_mps_order(Gs)
+ 
+    if m >= n:
+        raise ValueError('m must be smaller than n.')
+    if m not in xrange(1,N-1) and n-m not in xrange(N-2):
+        raise ValueError('|m-n| cannot exceed the system size.')
+        
+    def string_operator():
+        U=expm(sign*1j*np.pi*Sz)
+        return U
+        
+    if order=='R':
+        for site in xrange(m):
+            Gs=_normalize_fmps(Gs,order,site)
+    elif order=='L':
+        for site in xrange(N-1,n,-1):
+            Gs=_normalize_fmps(Gs,order,site)       
+
+    IL=np.identity(Gs[m].shape[0],dtype=float)
+    IR=np.identity(Gs[n].shape[2],dtype=float)
+        
+    for site in xrange(m,n+1):
+        if site==m:
+            SO=np.tensordot(np.tensordot(np.tensordot(IL,
+               Gs[site],axes=(0,0)),Sp,axes=(1,0)),
+               np.conjugate(Gs[site]),axes=([0,2],[0,1]))
+        elif site==n:
+            SO=np.tensordot(np.tensordot(np.tensordot(np.tensordot(SO,
+               Gs[site],axes=(0,0)),Sm,axes=(1,0)),
+               np.conjugate(Gs[site]),axes=([0,2],[0,1])),IR,axes=([0,1],[0,1]))
+        else:
+            SO=np.tensordot(np.tensordot(np.tensordot(SO,
+               Gs[site],axes=(0,0)),string_operator(),axes=(1,0)),
+               np.conjugate(Gs[site]),axes=([0,2],[0,1]))
+    SO=np.real_if_close(SO).item()
+    return SO
+
+def BKT_Corr(Gs,m,n,hopping=True):
+    """
+    1 < m < n < N-2
+    """
+    Sp,Sm,Sz,I2,O2=operators.spin_operators()
+    N=len(Gs); order=tnstate.get_mps_order(Gs)
+    m=m/2*2; n=n/2*2
+    
+    if m >= n:
+        raise ValueError('m must be smaller than n.')
+    if m not in xrange(2,N-2) and n-m not in xrange(N-4):
+        raise ValueError('|m-n| cannot exceed the system size.')
+    
+    def composite_fermion_operator(sign):
+        if hopping:
+            cfo=(np.kron(Sz,I2)-np.kron(I2,Sz)-
+                sign*1j*(np.kron(Sp,Sm)+np.kron(Sm,Sp)))
+        else:
+            cfo=np.kron(Sz,I2)-np.kron(I2,Sz)
+        cfo=np.ndarray.reshape(cfo,(2,2,2,2))    
+        return cfo
+    
+    if order=='R':
+        for site in xrange(m):
+            Gs=_normalize_fmps(Gs,order,site)
+    elif order=='L':
+        for site in xrange(N-2,n+1,-1):
+            Gs=_normalize_fmps(Gs,order,site)       
+
+    IL=np.identity(Gs[m].shape[0],dtype=float)
+    IR=np.identity(Gs[n+1].shape[2],dtype=float)
+    
+    for site in xrange(m,n+1,2):
+        if site==m:
+            corr=np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(IL,
+                 Gs[site],axes=(0,0)),composite_fermion_operator(1.0),axes=(1,0)),np.conjugate(Gs[site]),axes=([0,2],[0,1])),
+                 Gs[site+1],axes=([0,1],[0,1])),np.conjugate(Gs[site+1]),axes=([0,1],[1,0]))                                       
+        elif site==n:
+            corr=np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(corr,
+                 Gs[site],axes=(0,0)),composite_fermion_operator(-1.0),axes=(1,0)),np.conjugate(Gs[site]),axes=([0,2],[0,1])),
+                 Gs[site+1],axes=([0,1],[0,1])),np.conjugate(Gs[site+1]),axes=([0,1],[1,0])),IR,axes=([0,1],[0,1]))
+        else:
+            corr=np.tensordot(np.tensordot(corr,Gs[site],axes=(0,0)),np.conjugate(Gs[site]),axes=([0,1],[0,1]))
+            corr=np.tensordot(np.tensordot(corr,Gs[site+1],axes=(0,0)),np.conjugate(Gs[site+1]),axes=([0,1],[0,1]))
+    corr=np.real_if_close(corr).item()
+    return corr
