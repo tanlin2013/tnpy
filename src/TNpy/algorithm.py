@@ -261,8 +261,6 @@ class fDMRG:
             if show_stats:
                 print "sweep %.1f," % (sweep-0.5),"E/N= %.12f," % E,"dE= %.4e" % dE                               
             if self._convergence(sweep-0.5,E,dE):
-                sweep=sweep-0.5
-                t=(time.clock()-t0)/(sweep*60.0)
                 break                       
             #--------------------------------------------------------------------------------------------               
             # Left Sweep
@@ -296,10 +294,10 @@ class fDMRG:
             if show_stats:
                 print "sweep %d," % sweep,"E/N= %.12f," % E,"dE= %.4e" % dE                   
             if self._convergence(sweep,E,dE):
-                t=(time.clock()-t0)/(sweep*60.0)
                 break
             #--------------------------------------------------------------------------------------------
         if return_stats:
+            t=(time.clock()-t0)/(self.maxsweep*60.0)
             stats=dict(dE=dE,sweep=self.maxsweep,AvgProcT=t)
             return E,stats
         else:
@@ -312,7 +310,7 @@ class fDMRG:
         if sweep==self.maxsweep-1 and dE > self.tolerance: 
             warnings.warn("ConvergenceWarning: Convergence is not yet achieved before the maxsweep has reached.")
             return True       
-        if 0.0 < dE < self.tolerance:
+        if 0.0 <= dE < self.tolerance:
             self.maxsweep=sweep
             return True
         else:
