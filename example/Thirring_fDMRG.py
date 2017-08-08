@@ -4,6 +4,7 @@ This file is used for the study of Thirring model.
 #import os,argparse
 import numpy as np
 import TNpy
+import matplotlib.pyplot as plt
 
 class Thirring:
     def __init__(self,N,g,ma,mu,lamda,S_target):
@@ -55,4 +56,22 @@ if __name__=='__main__':
     Sz_i=TNpy.measurement.Sz_site(Gs)
     stag_Sz_i=TNpy.measurement.Sz_site(Gs,staggering=True)
     var=TNpy.measurement.variance(model.M,Gs)
-
+    sector=sum(Sz_i); ccs=abs(sum(stag_Sz_i))/N
+    
+    BKT_corr=TNpy.measurement.BKT_corr(Gs[:],discard_site=2)
+    dist,corr=BKT_corr.avg_corr()
+    
+    plt.figure(figsize=(8,6))
+    plt.plot(dist,corr/abs(corr[0]),marker='o',linestyle='-')
+    #plt.title('BKT correlator')
+    plt.xlabel('r')
+    plt.ylabel('G(r)/|G(0)|')
+    plt.grid()
+    #plt.xlim(-1,dist[-1]+1)
+    #plt.ylim(-0.1,1.1)
+    #plt.annotate('G(0) = {}'.format(corr[0]), xy=(0.15,0.85), xycoords='axes fraction')
+    #plt.figtext(0.085,0.05,'')
+    #plt.legend(('discard 1','discard 2','discard 3','discard 4',),loc=1,numpoints=1) 
+    #plt.savefig('/home/davidtan/Desktop/penalty_0/BKT_corr-N_{}-g_{}-ma_{}-lambda_{}-Starget_{}-chi_{}.eps'.format(N,g,ma,lamda,S_target,chi))
+    #plt.close()    
+    plt.show()
