@@ -36,19 +36,20 @@ class Thirring:
 if __name__=='__main__':
 
     N=40  # system size  
-    chi=20  # visual bond dim of MPS
-    g=0.5 # coupling constant
+    g=-0.5 # coupling constant
     ma=0.1 # bare mass times the lattice spacing
     mu=0.0 # chemical potential
-    lamda=0.0 # penalty strength
+    lamda=2000.0 # penalty strength
     S_target=0.0 # targeting state
+    chi=100  # visual bond dim of MPS
+    tolerance=1e-12
     
     whichMPS='f' ; d=2
     MPS=TNpy.tnstate.MPS(whichMPS,d,chi,N)
     Gs=MPS.initialize()
     model=Thirring(N,g,ma,mu,lamda,S_target)
     
-    simulation=TNpy.algorithm.fDMRG(model.M,Gs,N,d,chi,tolerance=1e-8)
+    simulation=TNpy.algorithm.fDMRG(model.M,Gs,N,d,chi,tolerance)
     E,stats=simulation.variational_optimize()
     Gs=simulation.Gs
     
