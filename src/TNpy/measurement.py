@@ -260,49 +260,88 @@ def string_order_paras(Gs,m,n,sign=1):
     SO=np.real_if_close(SO).item()
     return SO
 
-def BKT_Corr(Gs,m,n,hopping=True):
-    """
-    1 < m < n < N-2
-    """
-    Sp,Sm,Sz,I2,O2=operators.spin_operators()
-    N=len(Gs); order=tnstate.get_mps_order(Gs)
-    m=m/2*2; n=n/2*2
+class BKT_corr:
+    def __init__(self,Gs,discard_site):
+        self.Gs=Gs
+        self.N=len(Gs)
+        self.order=tnstate.get_mps_order(self.Gs)
+        self.discard_site=discard_site
+        if self.discard_site < 1: raise ValueError('Must discard at least one site at each boundary.')
     
-    if m >= n:
-        raise ValueError('m must be smaller than n.')
-    if m not in xrange(2,N-2) and n-m not in xrange(N-4):
-        raise ValueError('|m-n| cannot exceed the system size.')
+    def _vortex_operator(self,sign):
+        Sp,Sm,Sz,I2,O2=operators.spin_operators()
+        if sign=='p': s=1.0 
+        elif sign=='m': s=-1.0 
+        vo=0.5*(np.kron(Sz,I2)-np.kron(I2,Sz) - s*1j*(np.kron(Sp,Sm)+np.kron(Sm,Sp)))
+        vo=np.ndarray.reshape(vo,(2,2,2,2)) 
+        return vo
     
-    def composite_fermion_operator(sign):
-        if hopping:
-            cfo=(np.kron(Sz,I2)-np.kron(I2,Sz)-
-                sign*1j*(np.kron(Sp,Sm)+np.kron(Sm,Sp)))
+    def _connected_part(self,m,n):
+        gs=np.copy(self.Gs)
+        if self.order=='R':
+            for site in xrange(m):
+                gs=_normalize_fmps(gs,self.order,site)
+        elif self.order=='L':
+            for site in xrange(self.N-1,n+1,-1):
+                gs=_normalize_fmps(gs,self.order,site)
+                
+        IL=np.identity(gs[m].shape[0],dtype=float)
+        IR=np.identity(gs[n+1].shape[2],dtype=float)
+        
+        if m==n:
+            voT=np.tensordot(self._vortex_operator('p'),self._vortex_operator('m'),axes=([1,3],[0,2]))
+            corr=np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(
+                    IL,gs[n],axes=(0,0)),np.conjugate(gs[n]),axes=(0,0)),
+                    voT,axes=([0,2],[0,2])),
+                    gs[n+1],axes=([0,2],[0,1])),np.conjugate(gs[n+1]),axes=([0,1],[0,1])),
+                    IR,axes=([0,1],[0,1]))
         else:
-            cfo=np.kron(Sz,I2)-np.kron(I2,Sz)
-        cfo=np.ndarray.reshape(cfo,(2,2,2,2))    
-        return cfo
-    
-    if order=='R':
-        for site in xrange(m):
-            Gs=_normalize_fmps(Gs,order,site)
-    elif order=='L':
-        for site in xrange(N-2,n+1,-1):
-            Gs=_normalize_fmps(Gs,order,site)       
-
-    IL=np.identity(Gs[m].shape[0],dtype=float)
-    IR=np.identity(Gs[n+1].shape[2],dtype=float)
-    
-    for site in xrange(m,n+1,2):
-        if site==m:
-            corr=np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(IL,
-                 Gs[site],axes=(0,0)),composite_fermion_operator(1.0),axes=(1,0)),np.conjugate(Gs[site]),axes=([0,2],[0,1])),
-                 Gs[site+1],axes=([0,1],[0,1])),np.conjugate(Gs[site+1]),axes=([0,1],[1,0]))                                       
-        elif site==n:
-            corr=np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(corr,
-                 Gs[site],axes=(0,0)),composite_fermion_operator(-1.0),axes=(1,0)),np.conjugate(Gs[site]),axes=([0,2],[0,1])),
-                 Gs[site+1],axes=([0,1],[0,1])),np.conjugate(Gs[site+1]),axes=([0,1],[1,0])),IR,axes=([0,1],[0,1]))
-        else:
-            corr=np.tensordot(np.tensordot(corr,Gs[site],axes=(0,0)),np.conjugate(Gs[site]),axes=([0,1],[0,1]))
-            corr=np.tensordot(np.tensordot(corr,Gs[site+1],axes=(0,0)),np.conjugate(Gs[site+1]),axes=([0,1],[0,1]))
-    corr=np.real_if_close(corr).item()
-    return corr
+            for site in xrange(m,n+1,2):
+                if site==m:
+                    corr=np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(
+                            IL,gs[m],axes=(0,0)),np.conjugate(gs[m]),axes=(0,0)),
+                            self._vortex_operator('p'),axes=([0,2],[0,1])),
+                            gs[m+1],axes=([0,2],[0,1])),np.conjugate(gs[m+1]),axes=([0,1],[0,1]))
+                elif site==n:
+                    corr=np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(
+                            corr,gs[n],axes=(0,0)),np.conjugate(gs[n]),axes=(0,0)),
+                            self._vortex_operator('m'),axes=([0,2],[0,1])),
+                            gs[n+1],axes=([0,2],[0,1])),np.conjugate(gs[n+1]),axes=([0,1],[0,1])),
+                            IR,axes=([0,1],[0,1]))
+                else:
+                    corr=np.tensordot(np.tensordot(np.tensordot(np.tensordot(
+                            corr,gs[site],axes=(0,0)),np.conjugate(gs[site]),axes=([0,1],[0,1])),
+                            gs[site+1],axes=(0,0)),np.conjugate(gs[site+1]),axes=([0,1],[0,1]))
+        corr=np.real_if_close(corr).item(); del gs
+        return corr
+        
+    def _disconnected_part(self,m,sign):
+        gs=np.copy(self.Gs)
+        if self.order=='R':
+            for site in xrange(m):
+                gs=_normalize_fmps(gs,self.order,site)
+        elif self.order=='L':
+            for site in xrange(self.N-1,m+1,-1):
+                gs=_normalize_fmps(gs,self.order,site)
+        
+        IL=np.identity(gs[m].shape[0],dtype=float)
+        IR=np.identity(gs[m+1].shape[2],dtype=float)
+        
+        corr=np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(
+                            IL,gs[m],axes=(0,0)),np.conjugate(gs[m]),axes=(0,0)),
+                            self._vortex_operator(sign),axes=([0,2],[0,1])),
+                            gs[m+1],axes=([0,2],[0,1])),np.conjugate(gs[m+1]),axes=([0,1],[0,1])),
+                            IR,axes=([0,1],[0,1]))
+        corr=np.real_if_close(corr).item(); del gs
+        return corr
+        
+    def avg_corr(self):
+        ls=np.arange(0,self.N-2*self.discard_site,2); corrs=[]
+        for l in ls:
+            corr=0.0
+            for m in xrange(self.discard_site,self.N-2-l,2):
+                print "For length {}, passing site {}".format(l,m)
+                corr+=self._connected_part(m,m+l) - self._disconnected_part(m,'p')*self._disconnected_part(m+l,'m')
+            corr*=2./(self.N-2*self.discard_site-l)
+            corrs.append(np.real_if_close(corr))
+        return ls,np.array(corrs)
