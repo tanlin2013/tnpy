@@ -86,11 +86,6 @@ def variance(MPO,Gs):
         warnings.warn("PrecisionError: encounter negative variance after the subtraction.")
     return var
 
-def entanglement_entropy(S):
-    ss=np.square(S)        
-    entropy=-np.trace(ss*logm(ss))
-    return entropy
-
 def _normalize_fmps(Gs,order,site):
     N=len(Gs); d=Gs[0].shape[0]
     if order=='R':
@@ -143,6 +138,29 @@ def _norm_fmps(Gs):
             else:
                 norm=np.tensordot(np.tensordot(norm,Gs[site],axes=(0,2)),np.conjugate(Gs[site]),axes=([0,2],[2,1]))
     return norm
+
+def entanglement_entropy(S):
+    ss=np.square(S)        
+    entropy=-np.trace(ss*logm(ss))
+    return entropy
+
+def bipartite_entanglement_entropy(Gs):
+    N=len(Gs); d=Gs[0].shape[0]; order=tnstate.get_mps_order(Gs)
+    
+    gs=np.copy(Gs)
+    if order=='R':
+        for site in xrange(N/2-1):
+            gs=_normalize_fmps(gs,order,site)
+        theta=np.ndarray.reshape(gs[N/2-1],(d*gs[N/2-1].shape[0],gs[N/2-1].shape[2]))     
+        X,S,Y=np.linalg.svd(theta,full_matrices=False)
+    elif order=='L':
+        for site in xrange(N-1,N/2,-1):
+            gs=_normalize_fmps(gs,order,site)
+        theta=np.ndarray.reshape(gs[N/2],(gs[N/2].shape[0],d*gs[N/2].shape[2]))     
+        X,S,Y=np.linalg.svd(theta,full_matrices=False)
+    
+    entropy=entanglement_entropy(S)
+    return entropy
 
 def Sz_site(Gs,staggering=False):
     Sp,Sm,Sz,I2,O2=operators.spin_operators()
