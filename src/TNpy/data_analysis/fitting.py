@@ -11,6 +11,7 @@ def BKT_corr_fitting(x,y,form):
         coeff=np.polyfit(np.log(x),np.log(y),1) 
     elif form=='exp':
         coeff=np.polyfit(x,np.log(y),1)
+        coeff[0]=1./coeff[0]
     else:
         raise ValueError("Only exp-law and power-law are supported.")
     return -coeff[0],coeff[1]   
