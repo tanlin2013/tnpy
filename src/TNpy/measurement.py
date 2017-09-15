@@ -4,7 +4,7 @@ This file contains the physical quantities to be measured.
 
 import warnings
 import numpy as np
-from scipy.linalg import logm
+from scipy.linalg import logm,expm
 import operators,tnstate 
 
 class _update_Env:
