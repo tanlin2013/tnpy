@@ -279,20 +279,19 @@ def string_order_paras(Gs,m,n,sign=1):
     return SO
 
 class BKT_corr:
-    def __init__(self,Gs,discard_site):
+    def __init__(self,Gs,g,discard_site):
         self.Gs=Gs
+        self.g=g
         self.N=len(Gs)
         self.order=tnstate.get_mps_order(self.Gs)
         self.discard_site=discard_site
-        if self.discard_site < 1: raise ValueError('Must discard at least one site at each boundary.')
+        if self.discard_site < 1: raise ValueError('Must discard at least one site at each boundary.')    
     
-    def _vortex_operator(self,sign):
+    def _bkt_operator(self):
         Sp,Sm,Sz,I2,O2=operators.spin_operators()
-        if sign=='p': s=1.0 
-        elif sign=='m': s=-1.0 
-        vo=0.5*(np.kron(Sz,I2)-np.kron(I2,Sz) - s*1j*(np.kron(Sp,Sm)+np.kron(Sm,Sp)))
-        vo=np.ndarray.reshape(vo,(2,2,2,2)) 
-        return vo
+        op=expm((self.g+np.pi)*(np.kron(Sp,Sm)-np.kron(Sm,Sp)))
+        op=np.ndarray.reshape(op,(2,2,2,2)) 
+        return op
     
     def _connected_part(self,m,n):
         gs=np.copy(self.Gs)
@@ -307,33 +306,35 @@ class BKT_corr:
         IR=np.identity(gs[n+1].shape[2],dtype=float)
         
         if m==n:
-            voT=np.tensordot(self._vortex_operator('p'),self._vortex_operator('m'),axes=([1,3],[0,2]))
-            corr=np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(
-                    IL,gs[n],axes=(0,0)),np.conjugate(gs[n]),axes=(0,0)),
-                    voT,axes=([0,2],[0,2])),
-                    gs[n+1],axes=([0,2],[0,1])),np.conjugate(gs[n+1]),axes=([0,1],[0,1])),
-                    IR,axes=([0,1],[0,1]))
+            #opT=np.tensordot(self._bkt_operator(),self._bkt_operator(),axes=([1,3],[0,2]))
+            #corr=np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(
+             #       IL,gs[n],axes=(0,0)),np.conjugate(gs[n]),axes=(0,0)),
+             #       opT,axes=([0,2],[0,2])),
+             #       gs[n+1],axes=([0,2],[0,1])),np.conjugate(gs[n+1]),axes=([0,1],[0,1])),
+             #       IR,axes=([0,1],[0,1]))
+            corr=1.0
         else:
             for site in xrange(m,n+1,2):
                 if site==m:
                     corr=np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(
                             IL,gs[m],axes=(0,0)),np.conjugate(gs[m]),axes=(0,0)),
-                            self._vortex_operator('p'),axes=([0,2],[0,1])),
+                            self._bkt_operator(),axes=([0,2],[0,1])),
                             gs[m+1],axes=([0,2],[0,1])),np.conjugate(gs[m+1]),axes=([0,1],[0,1]))
                 elif site==n:
                     corr=np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(
                             corr,gs[n],axes=(0,0)),np.conjugate(gs[n]),axes=(0,0)),
-                            self._vortex_operator('m'),axes=([0,2],[0,1])),
+                            self._bkt_operator(),axes=([0,2],[0,1])),
                             gs[n+1],axes=([0,2],[0,1])),np.conjugate(gs[n+1]),axes=([0,1],[0,1])),
                             IR,axes=([0,1],[0,1]))
                 else:
-                    corr=np.tensordot(np.tensordot(np.tensordot(np.tensordot(
-                            corr,gs[site],axes=(0,0)),np.conjugate(gs[site]),axes=([0,1],[0,1])),
-                            gs[site+1],axes=(0,0)),np.conjugate(gs[site+1]),axes=([0,1],[0,1]))
+                    corr=np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(
+                            corr,gs[site],axes=(0,0)),np.conjugate(gs[site]),axes=(0,0)),
+                            self._bkt_operator(),axes=([0,2],[0,1])),
+                            gs[site+1],axes=([0,2],[0,1])),np.conjugate(gs[site+1]),axes=([0,1],[0,1]))
         corr=np.real_if_close(corr).item(); del gs
         return corr
         
-    def _disconnected_part(self,m,sign):
+    def _disconnected_part(self,m):
         gs=np.copy(self.Gs)
         if self.order=='R':
             for site in xrange(m):
@@ -347,7 +348,7 @@ class BKT_corr:
         
         corr=np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(
                             IL,gs[m],axes=(0,0)),np.conjugate(gs[m]),axes=(0,0)),
-                            self._vortex_operator(sign),axes=([0,2],[0,1])),
+                            self._bkt_operator(),axes=([0,2],[0,1])),
                             gs[m+1],axes=([0,2],[0,1])),np.conjugate(gs[m+1]),axes=([0,1],[0,1])),
                             IR,axes=([0,1],[0,1]))
         corr=np.real_if_close(corr).item(); del gs
@@ -356,10 +357,11 @@ class BKT_corr:
     def avg_corr(self):
         ls=np.arange(0,self.N-2*self.discard_site,2); corrs=[]
         for l in ls:
-            corr=0.0
+            corr=0.0; Nconf=0.0
             for m in xrange(self.discard_site,self.N-2-l,2):
-                print "For length {}, passing site {}".format(l,m)
-                corr+=self._connected_part(m,m+l) - self._disconnected_part(m,'p')*self._disconnected_part(m+l,'m')
-            corr*=2./(self.N-2*self.discard_site-l)
+                print "For length {}, passing site {}".format(l,m)        
+                corr+=self._connected_part(m,m+l)
+                Nconf+=1
+            corr*=1./Nconf
             corrs.append(np.real_if_close(corr))
         return ls,np.array(corrs)
