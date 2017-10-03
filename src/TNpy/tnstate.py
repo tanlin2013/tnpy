@@ -147,3 +147,20 @@ def transfer_operator(G,M):
         trans=np.swapaxes(trans,3,4)
         trans=np.swapaxes(trans,2,3)
     return trans    
+
+def increase_mps_dim(Gs,old_chi,new_chi):
+    N=len(Gs); d=Gs[0].shape[0]
+    new_Gs=[None]*N
+    for site in xrange(N):
+        if site==0 or site==N-1:
+            I=np.eye(min(d,old_chi),min(d,new_chi))
+            new_Gs[site]=np.tensordot(Gs[site],I,axes=(1,0))
+        elif site<=N/2-1 and site!=0:
+            IL=np.eye(min(d**site,old_chi),min(d**site,new_chi))
+            IR=np.eye(min(d**(site+1),old_chi),min(d**(site+1),new_chi))
+            new_Gs[site]=np.tensordot(np.tensordot(IL,Gs[site],axes=(0,0)),IR,axes=(2,0))
+        elif site>N/2-1 and site!=N-1:
+            IL=np.eye(min(d**(N-site),old_chi),min(d**(N-site),new_chi))
+            IR=np.eye(min(d**(N-1-site),old_chi),min(d**(N-1-site),new_chi))
+            new_Gs[site]=np.tensordot(np.tensordot(IL,Gs[site],axes=(0,0)),IR,axes=(2,0))
+    return new_Gs
