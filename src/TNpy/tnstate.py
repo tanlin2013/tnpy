@@ -167,16 +167,21 @@ def increase_mps_dim(Gs,old_chi,new_chi):
 
 def imps_to_fmps(Gs,SVMs,N):
     # return right-normalized fmps
-    N=len(Gs); d=Gs[0].shape[1]
-    theta=np.tensordot()
-    X,S,Y=np.linalg.svd(theta,full_matrices=False)
-    
+    d=Gs[0].shape[1]; chi=Gs[0].shape[0]    
     new_Gs=[None]*N
     for site in xrange(N):
+        G=np.tensordot(Gs[site%2],SVMs[site%2],axes=(2,0))
         if site==0 or site==N-1:
-            
+            IL=np.eye(chi,1)
+            IR=np.eye(chi,min(d,chi))
+            new_Gs[site]=np.tensordot(np.tensordot(IL,G,axes=(0,0)),IR,axes=(2,0))
+            new_Gs[site]=np.reshape(new_Gs[site],(d,min(d,chi)))
         elif site<=N/2-1 and site!=0:
-            
+            IL=np.eye(chi,min(d**site,chi))
+            IR=np.eye(chi,min(d**(site+1),chi))
+            new_Gs[site]=np.tensordot(np.tensordot(IL,G,axes=(0,0)),IR,axes=(2,0))
         elif site>N/2-1 and site!=N-1:
-            
+            IL=np.eye(chi,min(d**(N-site),chi))
+            IR=np.eye(chi,min(d**(N-1-site),chi))
+            new_Gs[site]=np.tensordot(np.tensordot(IL,G,axes=(0,0)),IR,axes=(2,0))
     return new_Gs
