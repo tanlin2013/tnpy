@@ -167,5 +167,5 @@ def inverse_SVM(A):
             A_inv[i]=0.0
         else:
             A_inv[i]=1.0/A[i]
-        A_inv=np.diagflat(A_inv) 
+    A_inv=np.diagflat(A_inv) 
     return A_inv
