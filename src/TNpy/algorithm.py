@@ -48,16 +48,19 @@ class iDMRG:
     
     def _effHpsi(self,L,R,A,B):
         def H_matvec(X):
-            matvec=np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(L,
-                                self.SVMs[B],axes=(0,0)),self.Gs[A],axes=(2,0)),
-                                self.MPO(A),axes=([0,2],[1,0])),self.SVMs[A],axes=(1,0)),
-                                self.Gs[B],axes=(3,0)),self.MPO(B),axes=([2,3],[1,0])),
-                                self.SVMs[B],axes=(2,0)),R,axes=([3,4],[1,0]))              
+            G=np.ndarray.reshape(X,(self.chi,self.d,self.d,self.chi))
+            matvec=np.tensordot(np.tensordot(np.tensordot(np.tensordot(L,
+                                G,axes=(0,0)),
+                                self.MPO(A),axes=([0,2],[1,0])),
+                                self.MPO(B),axes=([1,4],[0,1])),
+                                R,axes=([1,4],[0,1]))
+           
             matvec=np.ndarray.reshape(matvec,X.shape)
             return matvec
         psi=np.tensordot(np.tensordot(np.tensordot(np.tensordot(self.SVMs[B],
                          self.Gs[A],axes=(1,0)),self.SVMs[A],axes=(2,0)),
-                         self.Gs[B],axes=(2,0)),self.SVMs[B],axes=(3,0))                     
+                         self.Gs[B],axes=(2,0)),self.SVMs[B],axes=(3,0))
+        psi=np.ndarray.reshape(psi,(self.d**2*self.chi**2,1))                   
         return H_matvec,psi
     
     def warm_up_optimize(self,svd_method='primme'):
@@ -68,6 +71,7 @@ class iDMRG:
             # optimize 2 new-added sites in the center       
             E,theta=linalg.eigshmv(*self._effHpsi(L,R,A,B))
             E/=(2*self.N)
+            print "length%d," % length,"E/N= %.12f" % E
             # SVD and truncation
             theta=np.ndarray.reshape(theta,(self.chi*self.d,self.chi*self.d))
             X,S,Y=linalg.svd(theta,self.chi,svd_method)                 
