@@ -68,9 +68,12 @@ class iDMRG:
         for length in xrange(self.N/2):
             A=length%2
             B=(length+1)%2
-            # optimize 2 new-added sites in the center       
-            E,theta=linalg.eigshmv(*self._effHpsi(L,R,A,B))
-            E/=(2*self.N)
+            # optimize 2 new-added sites in the center
+            H=self._effH(L,R,A,B)    
+            evals,evec=np.linalg.eigh(H)
+            E=evals[0]; theta=evec[:,0]
+            #E,theta=linalg.eigshmv(*self._effHpsi(L,R,A,B))
+            E/=2*(length+1)
             print "length%d," % length,"E/N= %.12f" % E
             # SVD and truncation
             theta=np.ndarray.reshape(theta,(self.chi*self.d,self.chi*self.d))
