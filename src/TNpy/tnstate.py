@@ -148,7 +148,7 @@ def transfer_operator(G,M):
         trans=np.swapaxes(trans,2,3)
     return trans    
 
-def increase_mps_dim(Gs,old_chi,new_chi):
+def increase_mps_bond_dim(Gs,old_chi,new_chi):
     N=len(Gs); d=Gs[0].shape[0]
     new_Gs=[None]*N
     for site in xrange(N):
@@ -184,4 +184,11 @@ def imps_to_fmps(Gs,SVMs,N):
             IL=np.eye(chi,min(d**(N-site),chi))
             IR=np.eye(chi,min(d**(N-1-site),chi))
             new_Gs[site]=np.tensordot(np.tensordot(IL,G,axes=(0,0)),IR,axes=(2,0))
+    return new_Gs
+
+def lengthen_fmps(Gs,new_N):
+    old_N=len(Gs); new_Gs=np.copy(Gs)
+    G=Gs[old_N/2]
+    for half_length in xrange(old_N/2,new_N-old_N/2):
+        new_Gs.insert(half_length,G)
     return new_Gs
