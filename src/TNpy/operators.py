@@ -1,10 +1,10 @@
 import numpy as np
 
 class MPO:
-    def __init__(self,whichMPS,N,D):
+    def __init__(self,whichMPS,D,N=None):
         self.whichMPS=whichMPS
-        self.N=N
         self.D=D
+        self.N=N
         
     def assign_to_MPO(self,elem,site):
         M=np.array(elem)
