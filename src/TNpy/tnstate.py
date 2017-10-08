@@ -187,7 +187,7 @@ def imps_to_fmps(Gs,SVMs,N):
     return new_Gs
 
 def lengthen_fmps(Gs,new_N):
-    old_N=len(Gs); new_Gs=np.copy(Gs)
+    old_N=len(Gs); new_Gs=np.copy(Gs).tolist()
     G=Gs[old_N/2]
     for half_length in xrange(old_N/2,new_N-old_N/2):
         new_Gs.insert(half_length,G)
