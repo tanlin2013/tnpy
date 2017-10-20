@@ -1,5 +1,5 @@
 # TNpy
-This project contains several algorithms which are based on the Matrix Product State (MPS) ansatz, and is used for the studies of (1+1) dimensional physics. 
+This project contains several algorithms which are based on the Matrix Product State (MPS) ansatz, and is used for the studies of (1+1)-dimensional physics. 
 
 * Infinite Size Density Matrix Renormalization Group (iDMRG)
 * Infinte Time Evolution Bond Decimation (iTEBD)
@@ -29,7 +29,7 @@ Regarding any installation problems with PRIMME, please refer http://www.cs.wm.e
    myMPS=TNpy.tnstate.MPS(whichMPS,d,chi,N)
    Gs=mymps.initialize()
    ```
-2. Customize your own Matrix Product Operator for the desired model. What you have to do is to write a function which only depends on `site` and retuns a ndarray that represents your MPO. You may use the default function `TNpy.operators.MPO.assign_to_MPO()` for this purpose.
+2. Customize your own Matrix Product Operator for the desired model. What you have to do is to write a function which only depends on `site` and retuns a ndarray that represents your MPO. You may use the default function `TNpy.operators.MPO.assign()` for this purpose.
 
    ```
    Class XXZ:
@@ -39,7 +39,7 @@ Regarding any installation problems with PRIMME, please refer http://www.cs.wm.e
            
        def M(self,site):
            mympo=TNpy.operators.MPO(whichMPS='f',N=self.N,D=5)
-           Sp,Sm,Sz,I2,O2=TNpy.operators.spin_operators()
+           Sp,Sm,Sz,I2,O2=TNpy.operators.spin()
            
            elem=[[I2,-0.5*Sp,-0.5*Sm,-self.delta*Sz,O2],
               [O2,O2,O2,O2,Sm],
@@ -47,7 +47,7 @@ Regarding any installation problems with PRIMME, please refer http://www.cs.wm.e
               [O2,O2,O2,O2,Sz],
               [O2,O2,O2,O2,I2]]
            
-           M=mympo.assign_to_MPO(elem,site)
+           M=mympo.assign(elem,site)
            return M
    ```
 3. Call the algorithm to optimize the state. 
