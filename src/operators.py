@@ -6,7 +6,7 @@ class MPO:
         self.D=D
         self.N=N
         
-    def assign_to_MPO(self,elem,site):
+    def assign(self,elem,site):
         M=np.array(elem)
         if self.whichMPS=='f':
             if site==0:
@@ -25,7 +25,7 @@ class MPO:
             M=np.swapaxes(M,1,3)
         return M
     
-def spin_operators(spin=0.5):
+def spin(spin=0.5):
     Sp=np.array([[0,1],[0,0]],dtype=float)
     Sm=np.array([[0,0],[1,0]],dtype=float)
     Sz=spin*np.array([[1,0],[0,-1]],dtype=float)
