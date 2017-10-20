@@ -17,7 +17,7 @@ class Thirring:
         
     def M(self,site):
         MPO=TNpy.operators.MPO(whichMPS='f',D=6,N=self.N)
-        Sp,Sm,Sz,I2,O2=TNpy.operators.spin_operators()
+        Sp,Sm,Sz,I2,O2=TNpy.operators.spin()
         
         beta=self.g+((-1.0)**site*self.ma+self.mu)-2.0*self.lamda*self.S_target
         gamma=self.lamda*(0.25+self.S_target**2/self.N)+0.25*self.g+0.5*self.mu
@@ -30,7 +30,7 @@ class Thirring:
                     [O2,O2,O2,O2,O2,Sz],
                     [O2,O2,O2,O2,O2,I2]]
                     
-        M=MPO.assign_to_MPO(elem,site)    
+        M=MPO.assign(elem,site)    
         return M    
 
 if __name__=='__main__':
