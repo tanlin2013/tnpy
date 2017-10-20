@@ -163,7 +163,7 @@ def bipartite_entanglement_entropy(Gs):
     return entropy
 
 def Sz_site(Gs,staggering=False):
-    Sp,Sm,Sz,I2,O2=operators.spin_operators()
+    Sp,Sm,Sz,I2,O2=operators.spin()
     N=len(Gs); order=tnstate.get_mps_order(Gs); state=[None]*N
     if staggering: stag=-1
     else: stag=1
@@ -197,7 +197,7 @@ def correlation_function(Gs,m,n,staggering=False):
     """
     0 < m < n < N-1
     """
-    Sp,Sm,Sz,I2,O2=operators.spin_operators()
+    Sp,Sm,Sz,I2,O2=operators.spin()
     N=len(Gs); order=tnstate.get_mps_order(Gs)
     if staggering: stag=-1
     else: stag=1
@@ -240,7 +240,7 @@ def string_order_paras(Gs,m,n,sign=1):
     """
     0 < m < n < N-1
     """
-    Sp,Sm,Sz,I2,O2=operators.spin_operators()
+    Sp,Sm,Sz,I2,O2=operators.spin()
     N=len(Gs); order=tnstate.get_mps_order(Gs)
  
     if m >= n:
@@ -288,7 +288,7 @@ class BKT_corr:
         if self.discard_site < 1: raise ValueError('Must discard at least one site at each boundary.')    
     
     def _bkt_operator(self):
-        Sp,Sm,Sz,I2,O2=operators.spin_operators()
+        Sp,Sm,Sz,I2,O2=operators.spin()
         op=expm((self.g+np.pi)*(np.kron(Sp,Sm)-np.kron(Sm,Sp)))
         op=np.ndarray.reshape(op,(2,2,2,2)) 
         return op
