@@ -148,7 +148,7 @@ def transfer_operator(G,M):
         trans=np.swapaxes(trans,2,3)
     return trans    
 
-def increase_mps_bond_dim(Gs,old_chi,new_chi):
+def increase_bond_dim(Gs,old_chi,new_chi):
     N=len(Gs); d=Gs[0].shape[0]
     new_Gs=[None]*N
     for site in xrange(N):
