@@ -139,27 +139,26 @@ def _norm_fmps(Gs):
                 norm=np.tensordot(np.tensordot(norm,Gs[site],axes=(0,2)),np.conjugate(Gs[site]),axes=([0,2],[2,1]))
     return norm
 
-def entanglement_entropy(S):
+def von_Neumann_entropy(S):
     ss=np.square(S)        
-    entropy=-np.trace(ss*logm(ss))
+    entropy=-np.sum(ss*np.log(ss))
     return entropy
 
-def bipartite_entanglement_entropy(Gs):
+def bipartite_entanglement_entropy(Gs,bond):
     N=len(Gs); d=Gs[0].shape[0]; order=tnstate.get_mps_order(Gs)
     
     gs=np.copy(Gs)
     if order=='R':
-        for site in xrange(N/2-1):
+        for site in xrange(bond):
             gs=_normalize_fmps(gs,order,site)
-        theta=np.ndarray.reshape(gs[N/2-1],(d*gs[N/2-1].shape[0],gs[N/2-1].shape[2]))     
-        X,S,Y=np.linalg.svd(theta,full_matrices=False)
     elif order=='L':
-        for site in xrange(N-1,N/2,-1):
+        for site in xrange(N-1,bond-1,-1):
             gs=_normalize_fmps(gs,order,site)
-        theta=np.ndarray.reshape(gs[N/2],(gs[N/2].shape[0],d*gs[N/2].shape[2]))     
-        X,S,Y=np.linalg.svd(theta,full_matrices=False)
+    theta=np.tensordot(gs[bond-1],gs[bond],axes=(2,0))
+    theta=np.ndarray.reshape(theta,(d*gs[bond-1].shape[0],d*gs[bond].shape[2]))     
+    X,S,Y=np.linalg.svd(theta,full_matrices=False)
     
-    entropy=entanglement_entropy(np.diagflat(S))
+    entropy=von_Neumann_entropy(S)
     return entropy
 
 def Sz_site(Gs,staggering=False):
