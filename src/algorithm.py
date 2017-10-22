@@ -322,23 +322,58 @@ class fDMRG:
             return True
         else:
             return False
+        
 """
 class fTEBD:
     def __init__(self,ham,Gs,d,chi,dt,maxstep):
         self.ham=ham
         self.Gs=Gs
+        self.N=len(Gs)
         self.d=d
         self.chi=chi
         self.dt=dt
         self.maxstep=maxstep
     
-    def _gate(self,parity):
-        U=expm(-self.ham(parity)*self.dt)
+    def _gate(self,site):
+        U=expm(-self.ham(site)*self.dt)
         U=np.ndarray.reshape(U,(self.d,self.d,self.d,self.d))
         return U
         
     def time_evolution(self):
         for step in xrange(self.maxstep):
+            for site in xrange(N/2+1):
+                # contract theta and U
+                if site==0:
+                    theta=np.tensordot(np.tensordot())
+                    theta=np.ndarray.reshape()
+                elif site==self.N-2:
+                    theta=np.tensordot(np.tensordot())
+                    theta=np.ndarray.reshape()
+                else:
+                    theta=np.tensordot(np.tensordot())
+                    theta=np.ndarray.reshape()
+                # SVD and truncation
+                X,S,Y=linalg.svd(theta,self.chi)
+                # form the new configuration
+                S=np.square(S)
+                S=np.diagflat(S/np.linalg.norm(S))
+                X=np.dot(X,S); Y=np.dot(S,Y)
+                if site==0:
+                
+                elif site==self.N-2:
+                
+                else:
+                
+            for site in xrange(1,N/2+2):
+                # contract theta and U
+                
+            
+            if self._convergence():
+                break
+                
+        return
+
+    def _convergence(self):
         
         return
 
