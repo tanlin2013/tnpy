@@ -15,7 +15,7 @@ def grep(filename,pattern):
     found=False
     for line_idx,line in enumerate(open(filename)):
         if pattern in line:   
-            found=True ; break
+            found=True; break
     if not found:
         print "pattern '{}' does not be found in file {}".format(pattern,filename)
     
