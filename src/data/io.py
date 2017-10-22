@@ -12,12 +12,15 @@ def read(path):
     return state    
 
 def grep(filename,pattern):
-    found=False ; line_idx=[]
-    for idx,line in enumerate(open(filename)):
+    found=False
+    for line_idx,line in enumerate(open(filename)):
         if pattern in line:   
-            found=True ; line_idx.append(idx)
+            found=True ; break
     if not found:
         print "pattern '{}' does not be found in file {}".format(pattern,filename)
-        return None
-    else:            
-        return line_idx
+    
+    f=open(filename)
+    titles=re.split('\s+',f.readlines()[line_idx])[1:-2]
+    f=open(filename)
+    datas=map(float,re.split('\s+',f.readlines()[line_idx+1])[1:-2])
+    return titles,datas
