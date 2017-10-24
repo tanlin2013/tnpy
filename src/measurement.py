@@ -57,6 +57,26 @@ class _update_Env:
                   M,axes=([0,4],[3,2])),np.conjugate(self.Gs[site]),axes=([0,3],[2,1]))
         return EnvR2
 
+def expectation_value(MPO,Gs):
+    N=len(Gs); h=_update_Env(MPO,Gs,N); order=tnstate.get_mps_order(Gs)
+    if order=='L':
+        for site in xrange(N):
+            if site==0:
+                M=MPO(site)
+                EnvL=tnstate.transfer_operator(Gs[site],M)
+            else:
+                EnvL=h._update_EnvL(EnvL,site)
+        exp=EnvL.item()
+    elif order=='R':
+        for site in xrange(N-1,-1,-1):
+            if site==N-1:
+                M=MPO(site)
+                EnvR=tnstate.transfer_operator(Gs[site],M)
+            else:
+                EnvR=h._update_EnvR(EnvR,site)
+        exp=EnvR.item()
+    return exp
+    
 def variance(MPO,Gs):
     N=len(Gs); h=_update_Env(MPO,Gs,N); order=tnstate.get_mps_order(Gs)
     if order=='L':
