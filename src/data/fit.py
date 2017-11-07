@@ -1,12 +1,6 @@
 import numpy as np
 
-def infinite_bond_dim_extrapolation():
-    return
-
-def finite_size_scaling():
-    return
-
-def BKT_corr_fitting(x,y,form):  
+def BKT_corr(x,y,form):  
     if form=='power':
         coeff=np.polyfit(np.log(x),np.log(y),1) 
     elif form=='exp':
@@ -15,3 +9,8 @@ def BKT_corr_fitting(x,y,form):
     else:
         raise ValueError("Only exp-law and power-law are supported.")
     return -coeff[0],coeff[1]   
+
+def central_charge(N,bonds,entros):
+    log_bonds=np.log(N/np.pi*np.sin(np.pi/N*bonds))
+    coeff=np.polyfit(log_bonds,entros,1)
+    return 6.*coeff[0],coeff[1]
