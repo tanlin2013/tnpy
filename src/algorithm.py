@@ -267,8 +267,8 @@ class fDMRG:
             dE=E0-E ; E0=E
             if show_stats:
                 print "sweep %.1f," % (sweep-0.5),"E/N= %.12f," % E,"dE= %.4e" % dE                               
-            if self._convergence(sweep-0.5,E,dE):
-                break                       
+            #if self._convergence(sweep-0.5,E,dE):
+                #break                       
             #--------------------------------------------------------------------------------------------               
             # Left Sweep
             for site in xrange(self.N-1,0,-1):
