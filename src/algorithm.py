@@ -257,7 +257,7 @@ class fDMRG:
                 else:
                     self.Gs[site+1]=np.tensordot(np.dot(S,Y),self.Gs[site+1],axes=(1,0))                           
                 if site==0:                    
-                    self.Gs[site]=np.ndarray.reshape(X,self.Gs[site].shape)
+                    self.Gs[site]=X
                     EnvL=tn.transfer_operator(self.Gs[site],self.MPO(site))
                 else:
                     self.Gs[site]=np.ndarray.reshape(X,self.Gs[site].shape)                                       
@@ -267,8 +267,8 @@ class fDMRG:
             dE=E0-E ; E0=E
             if show_stats:
                 print "sweep %.1f," % (sweep-0.5),"E/N= %.12f," % E,"dE= %.4e" % dE                               
-            #if self._convergence(sweep-0.5,E,dE):
-                #break                       
+            if self._convergence(sweep-0.5,E,dE):
+                break                       
             #--------------------------------------------------------------------------------------------               
             # Left Sweep
             for site in xrange(self.N-1,0,-1):
@@ -290,7 +290,7 @@ class fDMRG:
                 else:
                     self.Gs[site-1]=np.tensordot(self.Gs[site-1],np.dot(X,S),axes=(2,0))
                 if site==self.N-1:                    
-                    self.Gs[site]=np.ndarray.reshape(Y,self.Gs[site].shape)
+                    self.Gs[site]=np.transpose(Y)
                     EnvR=tn.transfer_operator(self.Gs[site],self.MPO(site))
                 else:
                     self.Gs[site]=np.ndarray.reshape(Y,self.Gs[site].shape)                      
