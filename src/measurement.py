@@ -377,7 +377,7 @@ class BKT_corr:
         ls=np.arange(0,self.N-2*self.discard_site,2); corrs=[]
         for l in ls:
             corr=0.0; Nconf=0.0
-            for m in xrange(self.discard_site,self.N-2-l,2):
+            for m in xrange(self.discard_site,self.N-l-self.discard_site,2):
                 print "For length {}, passing site {}".format(l,m)        
                 corr+=self._connected_part(m,m+l)
                 Nconf+=1
