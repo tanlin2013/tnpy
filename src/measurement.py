@@ -212,7 +212,7 @@ def Sz_site(Gs,staggering=False):
                 Gs=_normalize_fmps(Gs,order,site)
     return state 
 
-def correlation_function(Gs,m,n,staggering=False): 
+def Sz_corr(Gs,m,n,staggering=False): 
     """
     0 < m < n < N-1
     """
