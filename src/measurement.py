@@ -178,7 +178,7 @@ def bipartite_entanglement_entropy(Gs,bond):
     theta=np.ndarray.reshape(theta,(d*gs[bond-1].shape[0],d*gs[bond].shape[2]))     
     X,S,Y=np.linalg.svd(theta,full_matrices=False)
     
-    entropy=von_Neumann_entropy(S)
+    entropy=von_Neumann_entropy(S); del gs
     return entropy
 
 def Sz_site(Gs,staggering=False):
