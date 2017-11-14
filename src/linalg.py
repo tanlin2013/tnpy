@@ -4,7 +4,7 @@ from scipy.linalg import svd as scipy_svd
 from sklearn.utils.extmath import randomized_svd
 import Primme
 
-def eigsh(H,psi):
+def eigsh(H, psi):
     """
     This function is a warpper of PRIMME function eigsh().
     
@@ -15,8 +15,8 @@ def eigsh(H,psi):
         * evals:
         * evecs:
     """
-    A=sparse.csr_matrix(H)
-    evals,evecs=Primme.eigsh(A,k=1,which='SA',v0=psi,
+    A = sparse.csr_matrix(H)
+    evals, evecs = Primme.eigsh(A,k=1,which='SA',v0=psi,
                              ncv=None, maxiter=None, tol=0, return_eigenvectors=True,
                              Minv=None, OPinv=None, mode='normal', lock=None,
                              return_stats=False, maxBlockSize=0, minRestartSize=0,
@@ -127,27 +127,27 @@ def eigshmv(Afunc, v0, k=1, sigma=None, which='SA',
     else:
         return evals[0], evecs
 
-def svd(A,chi,method='numpy'):
+def svd(A, chi, method='numpy'):
     """
     This function provides several ways to implement svd.
     """
-    dim=min(min(A.shape),chi)
-    if method=='primme':
-        u,s,vt=Primme.svd(A,k=dim)
-    elif method=='numpy':
-        u,s,vt=np.linalg.svd(A,full_matrices=False)
-        u=u[:,0:dim] ; s=s[0:dim] ; vt=vt[0:dim,:]
-    elif method=='scipy':
-        u,s,vt=scipy_svd(A,full_matrices=False)
-        u=u[:,0:dim] ; s=s[0:dim] ; vt=vt[0:dim,:]
-    elif method=='scipy_sparse':
-        u,s,vt=sparse.linalg.svd(A,k=dim)
-    elif method=='scikit':
-        u,s,vt=randomized_svd(A,chi)
-    return u,s,vt
+    dim = min(min(A.shape),chi)
+    if method == 'primme':
+        u, s, vt = Primme.svd(A,k=dim)
+    elif method == 'numpy':
+        u, s, vt = np.linalg.svd(A,full_matrices=False)
+        u = u[:,0:dim]; s = s[0:dim]; vt = vt[0:dim,:]
+    elif method == 'scipy':
+        u, s, vt = scipy_svd(A,full_matrices=False)
+        u = u[:,0:dim]; s = s[0:dim]; vt = vt[0:dim,:]
+    elif method == 'scipy_sparse':
+        u, s, vt = sparse.linalg.svd(A,k=dim)
+    elif method == 'scikit':
+        u, s, vt = randomized_svd(A,chi)
+    return u, s, vt
 
 """
-def Trotter_Suzuki_Decomposition(h,order):
+def Trotter_Suzuki_Decomposition(h, order):
     
     return
 """
@@ -163,12 +163,12 @@ def inverse_SVM(A):
         A_inv: ndarray
             The inverse of singular value matrix.
     """
-    A=np.diag(A)
-    A_inv=np.zeros(len(A))
+    A = np.diag(A)
+    A_inv = np.zeros(len(A))
     for i in xrange(len(A)):        
-        if A[i]==0:
-            A_inv[i]=0.0
+        if A[i] == 0:
+            A_inv[i] = 0.0
         else:
-            A_inv[i]=1.0/A[i]
-    A_inv=np.diagflat(A_inv) 
+            A_inv[i] = 1.0/A[i]
+    A_inv = np.diagflat(A_inv) 
     return A_inv
