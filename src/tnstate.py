@@ -5,7 +5,7 @@ This file contains the fundamental functions for the Matrix Product State (MPS) 
 import numpy as np
 
 class MPS:   
-    def __init__(self,whichMPS,d,chi,N=None):
+    def __init__(self, whichMPS, d, chi, N=None):
         """
         * Parameters:
             * whichMPS: string, {'i','f'} 
@@ -17,14 +17,14 @@ class MPS:
             * N: int, optional
                 If whichMPS='f', the size of system N is needed.     
         """
-        if whichMPS!='i' and whichMPS!='f':
+        if whichMPS != 'i' and whichMPS != 'f':
             raise ValueError('Only iMPS and fMPS are supported.')
-        self.whichMPS=whichMPS
-        self.d=d
-        self.chi=chi
-        self.N=N
+        self.whichMPS = whichMPS
+        self.d = d
+        self.chi = chi
+        self.N = N
         
-    def initialize(self,canonical_form='R'):
+    def initialize(self, canonical_form='R'):
         """
         Randomly initialize the MPS.
     
@@ -40,45 +40,45 @@ class MPS:
         """
         
         # Check the input variables
-        if self.whichMPS=='f': 
+        if self.whichMPS == 'f': 
             if not canonical_form in ['L','R'] or type(self.N) is not int:
                 raise ValueError('canonical_form and size must be specified when whichMPS=f.')        
         
-        if self.whichMPS=='i':
+        if self.whichMPS == 'i':
             # Create the iMPS
-            Gs=[None]*2 ; SVMs=[None]*2
+            Gs = [None]*2; SVMs = [None]*2
             for site in xrange(2):
-                Gs[site]=np.random.rand(self.chi,self.d,self.chi)
-                SVMs[site]=np.diagflat(np.random.rand(self.chi))
-            return Gs,SVMs    
-        elif self.whichMPS=='f':
+                Gs[site] = np.random.rand(self.chi,self.d,self.chi)
+                SVMs[site] = np.diagflat(np.random.rand(self.chi))
+            return Gs, SVMs    
+        elif self.whichMPS == 'f':
             # Create the fMPS
-            Gs=[None]*self.N ; N_parity=self.N%2
+            Gs = [None]*self.N; N_parity = self.N%2
             for site in xrange(self.N):        
-                if N_parity==0:
-                    if site==0 or site==self.N-1:
-                        Gs[site]=np.random.rand(self.d,min(self.d,self.chi))
-                    elif site<=self.N/2-1 and site!=0:
-                        Gs[site]=np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**(site+1),self.chi))
-                    elif site>self.N/2-1 and site!=self.N-1:
-                        Gs[site]=np.random.rand(min(self.d**(self.N-site),self.chi),self.d,min(self.d**(self.N-1-site),self.chi))
-                elif N_parity==1:
-                    if site==0 or site==self.N-1:
-                        Gs[site]=np.random.rand(self.d,min(self.d,self.chi))
-                    elif site<self.N/2 and site!=0:
-                        Gs[site]=np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**(site+1),self.chi))
-                    elif site==self.N/2:
-                        Gs[site]=np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**site,self.chi))
-                    elif site>self.N/2 and site!=self.N-1:
-                        Gs[site]=np.random.rand(min(self.d**(self.N-site),self.chi),self.d,min(self.d**(self.N-1-site),self.chi))        
+                if N_parity == 0:
+                    if site == 0 or site == self.N-1:
+                        Gs[site] = np.random.rand(self.d,min(self.d,self.chi))
+                    elif site <= self.N/2-1 and site != 0:
+                        Gs[site] = np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**(site+1),self.chi))
+                    elif site > self.N/2-1 and site != self.N-1:
+                        Gs[site] = np.random.rand(min(self.d**(self.N-site),self.chi),self.d,min(self.d**(self.N-1-site),self.chi))
+                elif N_parity == 1:
+                    if site == 0 or site == self.N-1:
+                        Gs[site] = np.random.rand(self.d,min(self.d,self.chi))
+                    elif site < self.N/2 and site != 0:
+                        Gs[site] = np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**(site+1),self.chi))
+                    elif site == self.N/2:
+                        Gs[site] = np.random.rand(min(self.d**site,self.chi),self.d,min(self.d**site,self.chi))
+                    elif site > self.N/2 and site != self.N-1:
+                        Gs[site] = np.random.rand(min(self.d**(self.N-site),self.chi),self.d,min(self.d**(self.N-1-site),self.chi))        
             # Canonical normalization of the MPS
-            if canonical_form=='L':
-                Gs=normalize_fMPS(Gs,order='L')
-            elif canonical_form=='R':
-                Gs=normalize_fMPS(Gs,order='R')
+            if canonical_form == 'L':
+                Gs = normalize_fMPS(Gs,order='L')
+            elif canonical_form == 'R':
+                Gs = normalize_fMPS(Gs,order='R')
             return Gs       
     
-def normalize_fMPS(Gs,order):
+def normalize_fMPS(Gs, order):
     """
     Canonical normalization of the fMPS.
         
@@ -91,24 +91,24 @@ def normalize_fMPS(Gs,order):
         * Gs: list of ndarray
             Left- or right-normalized MPS.
     """
-    N=len(Gs); d=Gs[0].shape[0]
-    if order=='L':
+    N = len(Gs); d = Gs[0].shape[0]
+    if order == 'L':
         for site in xrange(N-1):
-            if site==0:
-                theta=Gs[site]
+            if site == 0:
+                theta = Gs[site]
             else:
-                theta=np.ndarray.reshape(Gs[site],(d*Gs[site].shape[0],Gs[site].shape[2]))
-            X,S,Y=np.linalg.svd(theta,full_matrices=False)
-            if site==N-2:
-                Gs[site+1]=np.tensordot(Gs[site+1],np.dot(np.diagflat(S/np.linalg.norm(S)),Y),axes=(1,1))
+                theta = np.ndarray.reshape(Gs[site],(d*Gs[site].shape[0],Gs[site].shape[2]))
+            X, S, Y = np.linalg.svd(theta, full_matrices=False)
+            if site == N-2:
+                Gs[site+1] = np.tensordot(Gs[site+1],np.dot(np.diagflat(S/np.linalg.norm(S)),Y),axes=(1,1))
             else:
-                Gs[site+1]=np.tensordot(np.dot(np.diagflat(S/np.linalg.norm(S)),Y),Gs[site+1],axes=(1,0))
-            if site==0:
-                Gs[site]=X
+                Gs[site+1] = np.tensordot(np.dot(np.diagflat(S/np.linalg.norm(S)),Y),Gs[site+1],axes=(1,0))
+            if site == 0:
+                Gs[site] = X
             else:
-                Gs[site]=np.ndarray.reshape(X,(Gs[site].shape[0],d,Gs[site].shape[2]))
+                Gs[site] = np.ndarray.reshape(X,(Gs[site].shape[0],d,Gs[site].shape[2]))
         return Gs
-    elif order=='R':
+    elif order == 'R':
         for site in range(N-1,0,-1):
             if site==N-1:
                 theta=np.transpose(Gs[site])
