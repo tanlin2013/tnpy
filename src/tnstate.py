@@ -110,88 +110,88 @@ def normalize_fMPS(Gs, order):
         return Gs
     elif order == 'R':
         for site in range(N-1,0,-1):
-            if site==N-1:
-                theta=np.transpose(Gs[site])
+            if site == N-1:
+                theta = np.transpose(Gs[site])
             else:
-                theta=np.ndarray.reshape(Gs[site],(Gs[site].shape[0],d*Gs[site].shape[2]))      
-            X,S,Y=np.linalg.svd(theta,full_matrices=False)                
-            if site==1:
-                Gs[site-1]=np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S/np.linalg.norm(S))),axes=(1,0))
+                theta = np.ndarray.reshape(Gs[site],(Gs[site].shape[0],d*Gs[site].shape[2]))      
+            X, S, Y = np.linalg.svd(theta,full_matrices=False)                
+            if site == 1:
+                Gs[site-1] = np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S/np.linalg.norm(S))),axes=(1,0))
             else:         
-                Gs[site-1]=np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S/np.linalg.norm(S))),axes=(2,0))
-            if site==N-1:
-                Gs[site]=np.transpose(Y)
+                Gs[site-1] = np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S/np.linalg.norm(S))),axes=(2,0))
+            if site == N-1:
+                Gs[site] = np.transpose(Y)
             else:
-                Gs[site]=np.ndarray.reshape(Y,(Gs[site].shape[0],d,Gs[site].shape[2]))  
+                Gs[site] = np.ndarray.reshape(Y,(Gs[site].shape[0],d,Gs[site].shape[2]))  
         return Gs
-    #elif order=='GL':
-    #    return Gs,SVMs
+    #elif order == 'GL':
+    #    return Gs, SVMs
     else:
         raise ValueError('The order must be either L or R.')
 
 def get_mps_order(Gs):
-    N=len(Gs) ; chi=Gs[0].shape[1]
+    N=len(Gs); chi=Gs[0].shape[1]
     def G2(site):
-        G2=np.tensordot(Gs[site],np.conjugate(Gs[site]),axes=(0,0))
+        G2 = np.tensordot(Gs[site],np.conjugate(Gs[site]),axes=(0,0))
         return G2
-    if np.allclose(G2(0),np.identity(chi),atol=1e-12): order='L'
-    elif np.allclose(G2(N-1),np.identity(chi),atol=1e-12): order='R'    
+    if np.allclose(G2(0),np.identity(chi),atol=1e-12): order = 'L'
+    elif np.allclose(G2(N-1),np.identity(chi),atol=1e-12): order = 'R'    
     return order        
         
-def transfer_operator(G,M):
-    if G.ndim==2:
-        trans=np.tensordot(G,np.tensordot(M,np.conjugate(G),axes=(2,0)),axes=(0,0))
+def transfer_operator(G, M):
+    if G.ndim == 2:
+        trans = np.tensordot(G,np.tensordot(M,np.conjugate(G),axes=(2,0)),axes=(0,0))
     else:                        
-        trans=np.tensordot(G,np.tensordot(M,np.conjugate(G),axes=(2,1)),axes=(1,0))
-        trans=np.swapaxes(trans,1,2)
-        trans=np.swapaxes(trans,3,4)
-        trans=np.swapaxes(trans,2,3)
+        trans = np.tensordot(G,np.tensordot(M,np.conjugate(G),axes=(2,1)),axes=(1,0))
+        trans = np.swapaxes(trans,1,2)
+        trans = np.swapaxes(trans,3,4)
+        trans = np.swapaxes(trans,2,3)
     return trans    
 
-def increase_bond_dim(Gs,old_chi,new_chi):
-    N=len(Gs); d=Gs[0].shape[0]
-    new_Gs=[None]*N
+def increase_bond_dim(Gs, old_chi, new_chi):
+    N = len(Gs); d=Gs[0].shape[0]
+    new_Gs = [None]*N
     for site in xrange(N):
-        if site==0 or site==N-1:
-            I=np.eye(min(d,old_chi),min(d,new_chi))
-            new_Gs[site]=np.tensordot(Gs[site],I,axes=(1,0))
-        elif site<=N/2-1 and site!=0:
-            IL=np.eye(min(d**site,old_chi),min(d**site,new_chi))
-            IR=np.eye(min(d**(site+1),old_chi),min(d**(site+1),new_chi))
-            new_Gs[site]=np.tensordot(np.tensordot(IL,Gs[site],axes=(0,0)),IR,axes=(2,0))
-        elif site>N/2-1 and site!=N-1:
-            IL=np.eye(min(d**(N-site),old_chi),min(d**(N-site),new_chi))
-            IR=np.eye(min(d**(N-1-site),old_chi),min(d**(N-1-site),new_chi))
-            new_Gs[site]=np.tensordot(np.tensordot(IL,Gs[site],axes=(0,0)),IR,axes=(2,0))
+        if site == 0 or site == N-1:
+            I = np.eye(min(d,old_chi),min(d,new_chi))
+            new_Gs[site] = np.tensordot(Gs[site],I,axes=(1,0))
+        elif site <= N/2-1 and site != 0:
+            IL = np.eye(min(d**site,old_chi),min(d**site,new_chi))
+            IR = np.eye(min(d**(site+1),old_chi),min(d**(site+1),new_chi))
+            new_Gs[site] = np.tensordot(np.tensordot(IL,Gs[site],axes=(0,0)),IR,axes=(2,0))
+        elif site > N/2-1 and site != N-1:
+            IL = np.eye(min(d**(N-site),old_chi),min(d**(N-site),new_chi))
+            IR = np.eye(min(d**(N-1-site),old_chi),min(d**(N-1-site),new_chi))
+            new_Gs[site] = np.tensordot(np.tensordot(IL,Gs[site],axes=(0,0)),IR,axes=(2,0))
     return new_Gs
 
-def imps_to_fmps(Gs,SVMs,N):
+def imps_to_fmps(Gs, SVMs, N):
     # return right-normalized fmps
-    d=Gs[0].shape[1]; chi=Gs[0].shape[0]    
-    new_Gs=[None]*N
+    d = Gs[0].shape[1]; chi = Gs[0].shape[0]    
+    new_Gs = [None]*N
     for site in xrange(N):
-        G=np.tensordot(Gs[site%2],SVMs[site%2],axes=(2,0))
-        if site==0 or site==N-1:
-            IL=np.eye(chi,1)
-            IR=np.eye(chi,min(d,chi))
-            new_Gs[site]=np.tensordot(np.tensordot(IL,G,axes=(0,0)),IR,axes=(2,0))
-            new_Gs[site]=np.reshape(new_Gs[site],(d,min(d,chi)))
-        elif site<=N/2-1 and site!=0:
-            IL=np.eye(chi,min(d**site,chi))
-            IR=np.eye(chi,min(d**(site+1),chi))
-            new_Gs[site]=np.tensordot(np.tensordot(IL,G,axes=(0,0)),IR,axes=(2,0))
-        elif site>N/2-1 and site!=N-1:
-            IL=np.eye(chi,min(d**(N-site),chi))
-            IR=np.eye(chi,min(d**(N-1-site),chi))
-            new_Gs[site]=np.tensordot(np.tensordot(IL,G,axes=(0,0)),IR,axes=(2,0))
+        G = np.tensordot(Gs[site%2],SVMs[site%2],axes=(2,0))
+        if site == 0 or site == N-1:
+            IL = np.eye(chi,1)
+            IR = np.eye(chi,min(d,chi))
+            new_Gs[site] = np.tensordot(np.tensordot(IL,G,axes=(0,0)),IR,axes=(2,0))
+            new_Gs[site] = np.reshape(new_Gs[site],(d,min(d,chi)))
+        elif site <= N/2-1 and site != 0:
+            IL = np.eye(chi,min(d**site,chi))
+            IR = np.eye(chi,min(d**(site+1),chi))
+            new_Gs[site] = np.tensordot(np.tensordot(IL,G,axes=(0,0)),IR,axes=(2,0))
+        elif site > N/2-1 and site != N-1:
+            IL = np.eye(chi,min(d**(N-site),chi))
+            IR = np.eye(chi,min(d**(N-1-site),chi))
+            new_Gs[site] = np.tensordot(np.tensordot(IL,G,axes=(0,0)),IR,axes=(2,0))
     return new_Gs
 
-def lengthen_fmps(Gs,new_N):
-    old_N=len(Gs); new_Gs=np.copy(Gs).tolist()
-    G=[Gs[old_N/2-1],Gs[old_N/2]]
-    k=0
+def lengthen_fmps(Gs, new_N):
+    old_N = len(Gs); new_Gs = np.copy(Gs).tolist()
+    G = [Gs[old_N/2-1], Gs[old_N/2]]
+    k = 0
     for half_length in xrange(old_N/2,new_N-old_N/2):
-        parity=(k+1)%2
-        new_Gs.insert(half_length,G[parity])
-        k+=1
+        parity = (k+1)%2
+        new_Gs.insert(half_length, G[parity])
+        k += 1
     return new_Gs
