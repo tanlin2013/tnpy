@@ -325,12 +325,6 @@ class BKT_corr:
         IR=np.identity(gs[n+1].shape[2],dtype=float)
         
         if m==n:
-            #opT=np.tensordot(self._bkt_operator(),self._bkt_operator(),axes=([1,3],[0,2]))
-            #corr=np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(
-             #       IL,gs[n],axes=(0,0)),np.conjugate(gs[n]),axes=(0,0)),
-             #       opT,axes=([0,2],[0,2])),
-             #       gs[n+1],axes=([0,2],[0,1])),np.conjugate(gs[n+1]),axes=([0,1],[0,1])),
-             #       IR,axes=([0,1],[0,1]))
             corr=1.0
         else:
             for site in xrange(m,n+1,2):
@@ -374,13 +368,14 @@ class BKT_corr:
         return corr
         
     def avg_corr(self):
-        ls=np.arange(0,self.N-2*self.discard_site+2,2); corrs=[]
+        ls=np.arange(2,self.N-2*self.discard_site+2,2); corrs=[]
         for l in ls:
             corr=0.0; Nconf=0.0
             for m in xrange(self.discard_site,self.N-self.discard_site-l+2,2):
-                print "For length {}, passing site {}".format(l,m)        
+                t0=time.clock()
                 corr+=self._connected_part(m,m+l)
                 Nconf+=1
+                print "For length {}, passing site {}, t = {} s".format(l,m,time.clock()-t0)
             corr*=1./Nconf
             corrs.append(np.real_if_close(corr))
         return ls,np.array(corrs)
