@@ -2,7 +2,7 @@
 This file contains the physical quantities to be measured.
 """
 
-import warnings
+import warnings,time
 import numpy as np
 from scipy.linalg import logm,expm
 import operators,tnstate 
