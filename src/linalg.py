@@ -1,6 +1,7 @@
 import numpy as np
 from scipy import sparse
 from scipy.linalg import svd as scipy_svd
+from sklearn.utils.extmath import randomized_svd
 import Primme
 
 def eigsh(H,psi):
@@ -141,14 +142,16 @@ def svd(A,chi,method='numpy'):
         u=u[:,0:dim] ; s=s[0:dim] ; vt=vt[0:dim,:]
     elif method=='scipy_sparse':
         u,s,vt=sparse.linalg.svd(A,k=dim)
-    #elif method=='scikit':
-        
+    elif method=='scikit':
+        u,s,vt=randomized_svd(A,chi)
     return u,s,vt
+
 """
 def Trotter_Suzuki_Decomposition(h,order):
     
     return
 """
+
 def inverse_SVM(A):
     """
     Compute the inverse of singular value matrix.
