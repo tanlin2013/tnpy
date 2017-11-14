@@ -131,7 +131,7 @@ def svd(A,chi,method='numpy'):
     """
     This function provides several ways to implement svd.
     """
-    dim=dim=min(min(A.shape),chi)
+    dim=min(min(A.shape),chi)
     if method=='primme':
         u,s,vt=Primme.svd(A,k=dim)
     elif method=='numpy':
