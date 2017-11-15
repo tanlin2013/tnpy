@@ -4,7 +4,7 @@ This file contains the physical quantities to be measured.
 
 import warnings,time
 import numpy as np
-from scipy.linalg import logm,expm
+from scipy.linalg import expm,qr,rq
 import operators,tnstate 
 
 class _update_Env:
@@ -113,29 +113,39 @@ def _normalize_fmps(Gs, order, site):
             theta = Gs[site]
         else:
             theta = np.ndarray.reshape(Gs[site],(d*Gs[site].shape[0],Gs[site].shape[2]))     
-        X, S, Y = np.linalg.svd(theta,full_matrices=False)                
+        #X, S, Y = np.linalg.svd(theta,full_matrices=False)
+        q, r = qr(theta,mode='economic')                
         if site == N-2:
-            Gs[site+1] = np.tensordot(Gs[site+1],np.dot(np.diagflat(S),Y),axes=(1,1))
+            #Gs[site+1] = np.tensordot(Gs[site+1],np.dot(np.diagflat(S),Y),axes=(1,1))
+            Gs[site+1] = np.tensordot(Gs[site+1],r,axes=(1,1))
         else:
-            Gs[site+1] = np.tensordot(np.dot(np.diagflat(S),Y),Gs[site+1],axes=(1,0))
+            #Gs[site+1] = np.tensordot(np.dot(np.diagflat(S),Y),Gs[site+1],axes=(1,0))
+            Gs[site+1] = np.tensordot(r,Gs[site+1],axes=(1,0))
         if site == 0:
-            Gs[site] = X
+            #Gs[site] = X
+            Gs[site] = q
         else:
-            Gs[site] = np.ndarray.reshape(X,(Gs[site].shape[0],d,Gs[site].shape[2]))
+            #Gs[site] = np.ndarray.reshape(X,(Gs[site].shape[0],d,Gs[site].shape[2]))
+            Gs[site] = np.ndarray.reshape(q,(Gs[site].shape[0],d,Gs[site].shape[2]))
     elif order == 'L':
         if site == N-1:      
             theta = np.transpose(Gs[site])
         else:    
             theta = np.ndarray.reshape(Gs[site],(Gs[site].shape[0],d*Gs[site].shape[2]))     
-        X, S, Y = np.linalg.svd(theta,full_matrices=False)                
+        #X, S, Y = np.linalg.svd(theta,full_matrices=False)                
+        q ,r = rq(theta,mode='economic')
         if site == 1:
-            Gs[site-1] = np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S)),axes=(1,0))
+            #Gs[site-1] = np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S)),axes=(1,0))
+            Gs[site-1] = np.tensordot(Gs[site-1],r,axes=(1,0))
         else:         
-            Gs[site-1] = np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S)),axes=(2,0))
+            #Gs[site-1] = np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S)),axes=(2,0))
+            Gs[site-1] = np.tensordot(Gs[site-1],r,axes=(2,0))
         if site == N-1:
-            Gs[site] = np.transpose(Y)
+            #Gs[site] = np.transpose(Y)
+            Gs[site] = np.transpose(q)
         else:
-            Gs[site] = np.ndarray.reshape(Y,(Gs[site].shape[0],d,Gs[site].shape[2]))
+            #Gs[site] = np.ndarray.reshape(Y,(Gs[site].shape[0],d,Gs[site].shape[2]))
+            Gs[site] = np.ndarray.reshape(q,(Gs[site].shape[0],d,Gs[site].shape[2]))
     return Gs
 
 def _norm_fmps(Gs):
