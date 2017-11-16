@@ -5,7 +5,8 @@ This file contains the physical quantities to be measured.
 import warnings,time
 import numpy as np
 from scipy.linalg import expm
-import operators,tnstate 
+import operators
+import tnstate as tn 
 
 class _update_Env:
     def __init__(self, MPO, Gs, N):
@@ -58,7 +59,7 @@ class _update_Env:
         return EnvR2
 
 def expectation_value(MPO, Gs):
-    N = len(Gs); h = _update_Env(MPO,Gs,N); order = tnstate.get_mps_order(Gs)
+    N = len(Gs); h = _update_Env(MPO,Gs,N); order = tn.get_fmps_order(Gs)
     if order == 'L':
         for site in xrange(N):
             if site == 0:
@@ -78,7 +79,7 @@ def expectation_value(MPO, Gs):
     return expval
     
 def variance(MPO, Gs):
-    N = len(Gs); h = _update_Env(MPO,Gs,N); order = tnstate.get_mps_order(Gs)
+    N = len(Gs); h = _update_Env(MPO,Gs,N); order = tn.get_fmps_order(Gs)
     if order == 'L':
         for site in xrange(N):
             if site == 0:
@@ -138,34 +139,13 @@ def _normalize_fmps(Gs, order, site):
             Gs[site] = np.ndarray.reshape(Y,(Gs[site].shape[0],d,Gs[site].shape[2]))
     return Gs
 
-def _norm_fmps(Gs):
-    N = len(Gs); order = tnstate.get_mps_order(Gs)
-    
-    if order == 'R':
-        for site in xrange(N):
-            if site == 0:
-                norm = np.tensordot(Gs[site],np.conjugate(Gs[site]),axes=(0,0))
-            elif site == N-1:
-                norm = np.tensordot(np.tensordot(norm,Gs[site],axes=(0,1)),np.conjugate(Gs[site]),axes=([0,1],[1,0]))
-            else:
-                norm = np.tensordot(np.tensordot(norm,Gs[site],axes=(0,0)),np.conjugate(Gs[site]),axes=([0,1],[0,1]))
-    elif order == 'L':
-        for site in xrange(N-1,-1,-1):
-            if site == 0:
-                norm = np.tensordot(np.tensordot(norm,Gs[site],axes=(0,1)),np.conjugate(Gs[site]),axes=([0,1],[1,0]))
-            elif site == N-1:
-                norm = np.tensordot(Gs[site],np.conjugate(Gs[site]),axes=(0,0))
-            else:
-                norm = np.tensordot(np.tensordot(norm,Gs[site],axes=(0,2)),np.conjugate(Gs[site]),axes=([0,2],[2,1]))
-    return norm
-
 def von_Neumann_entropy(S):
     ss = np.square(S)        
     entropy = -np.sum(ss*np.log(ss))
     return entropy
 
 def bipartite_entanglement_entropy(Gs, bond):
-    N = len(Gs); d = Gs[0].shape[0]; order = tnstate.get_mps_order(Gs)
+    N = len(Gs); d = Gs[0].shape[0]; order = tn.get_fmps_order(Gs)
     
     gs = np.copy(Gs)
     if order == 'R':
@@ -183,7 +163,7 @@ def bipartite_entanglement_entropy(Gs, bond):
 
 def Sz_site(Gs, staggering=False):
     Sp, Sm, Sz, I2, O2 = operators.spin()
-    N = len(Gs); order = tnstate.get_mps_order(Gs); state=[None]*N
+    N = len(Gs); order = tn.get_fmps_order(Gs); state=[None]*N
     if staggering: stag = -1
     else: stag = 1
     
@@ -217,7 +197,7 @@ def Sz_corr(Gs, m, n, staggering=False):
     0 < m < n < N-1
     """
     Sp, Sm, Sz, I2, O2 = operators.spin()
-    N = len(Gs); order = tnstate.get_mps_order(Gs)
+    N = len(Gs); order = tn.get_fmps_order(Gs)
     if staggering: stag = -1
     else: stag = 1
     
@@ -260,7 +240,7 @@ def string_order_paras(Gs, m, n, sign=1):
     0 < m < n < N-1
     """
     Sp, Sm, Sz, I2, O2 = operators.spin()
-    N = len(Gs); order = tnstate.get_mps_order(Gs)
+    N = len(Gs); order = tn.get_fmps_order(Gs)
  
     if m >= n:
         raise ValueError('m must be smaller than n.')
@@ -302,7 +282,7 @@ class BKT_corr:
         self.Gs = Gs
         self.g = g
         self.N = len(Gs)
-        self.order = tnstate.get_mps_order(self.Gs)
+        self.order = tn.get_fmps_order(self.Gs)
         self.discard_site = discard_site
         if self.discard_site < 1: raise ValueError('Must discard at least one site at each boundary.')    
     
