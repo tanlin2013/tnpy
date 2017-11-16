@@ -100,9 +100,9 @@ def normalize_fMPS(Gs, order):
                 theta = np.ndarray.reshape(Gs[site],(d*Gs[site].shape[0],Gs[site].shape[2]))
             X, S, Y = np.linalg.svd(theta, full_matrices=False)
             if site == N-2:
-                Gs[site+1] = np.tensordot(Gs[site+1],np.dot(np.diagflat(S/np.linalg.norm(S)),Y),axes=(1,1))
+                Gs[site+1] = np.tensordot(Gs[site+1],np.dot(np.diagflat(S),Y),axes=(1,1))
             else:
-                Gs[site+1] = np.tensordot(np.dot(np.diagflat(S/np.linalg.norm(S)),Y),Gs[site+1],axes=(1,0))
+                Gs[site+1] = np.tensordot(np.dot(np.diagflat(S),Y),Gs[site+1],axes=(1,0))
             if site == 0:
                 Gs[site] = X
             else:
@@ -116,9 +116,9 @@ def normalize_fMPS(Gs, order):
                 theta = np.ndarray.reshape(Gs[site],(Gs[site].shape[0],d*Gs[site].shape[2]))      
             X, S, Y = np.linalg.svd(theta,full_matrices=False)                
             if site == 1:
-                Gs[site-1] = np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S/np.linalg.norm(S))),axes=(1,0))
+                Gs[site-1] = np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S)),axes=(1,0))
             else:         
-                Gs[site-1] = np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S/np.linalg.norm(S))),axes=(2,0))
+                Gs[site-1] = np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S)),axes=(2,0))
             if site == N-1:
                 Gs[site] = np.transpose(Y)
             else:
