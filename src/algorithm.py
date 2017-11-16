@@ -252,12 +252,11 @@ class fDMRG:
                 else:    
                     theta = np.ndarray.reshape(theta,(self.d*self.Gs[site].shape[0],self.Gs[site].shape[2]))                       
                 X, S, Y = linalg.svd(theta, self.chi, method=svd_method)
-                S = np.diagflat(S/np.linalg.norm(S))
                 # form the new configuration               
                 if site == self.N-2:
-                    self.Gs[site+1] = np.tensordot(self.Gs[site+1],np.dot(S,Y),axes=(1,1))
+                    self.Gs[site+1] = np.tensordot(self.Gs[site+1],np.dot(np.diagflat(S),Y),axes=(1,1))
                 else:
-                    self.Gs[site+1] = np.tensordot(np.dot(S,Y),self.Gs[site+1],axes=(1,0))                           
+                    self.Gs[site+1] = np.tensordot(np.dot(np.diagflat(S),Y),self.Gs[site+1],axes=(1,0))                           
                 if site==0:                    
                     self.Gs[site] = X
                     EnvL = tn.transfer_operator(self.Gs[site],self.MPO(site))
@@ -285,12 +284,11 @@ class fDMRG:
                 else:    
                     theta = np.ndarray.reshape(theta,(self.Gs[site].shape[0],self.d*self.Gs[site].shape[2]))            
                 X, S, Y = linalg.svd(theta, self.chi, method=svd_method)
-                S = np.diagflat(S/np.linalg.norm(S))
                 # form the new configuration              
                 if site == 1:
-                    self.Gs[site-1] = np.tensordot(self.Gs[site-1],np.dot(X,S),axes=(1,0))
+                    self.Gs[site-1] = np.tensordot(self.Gs[site-1],np.dot(X,np.diagflat(S)),axes=(1,0))
                 else:
-                    self.Gs[site-1] = np.tensordot(self.Gs[site-1],np.dot(X,S),axes=(2,0))
+                    self.Gs[site-1] = np.tensordot(self.Gs[site-1],np.dot(X,np.diagflat(S)),axes=(2,0))
                 if site == self.N-1:                    
                     self.Gs[site] = np.transpose(Y)
                     EnvR = tn.transfer_operator(self.Gs[site],self.MPO(site))
