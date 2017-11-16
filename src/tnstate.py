@@ -129,7 +129,28 @@ def normalize_fMPS(Gs, order):
     else:
         raise ValueError('The order must be either L or R.')
 
-def get_mps_order(Gs):
+def fmps_norm(Gs):
+    N = len(Gs); order = get_fmps_order(Gs)
+    
+    if order == 'R':
+        for site in xrange(N):
+            if site == 0:
+                norm = np.tensordot(Gs[site],np.conjugate(Gs[site]),axes=(0,0))
+            elif site == N-1:
+                norm = np.tensordot(np.tensordot(norm,Gs[site],axes=(0,1)),np.conjugate(Gs[site]),axes=([0,1],[1,0]))
+            else:
+                norm = np.tensordot(np.tensordot(norm,Gs[site],axes=(0,0)),np.conjugate(Gs[site]),axes=([0,1],[0,1]))
+    elif order == 'L':
+        for site in xrange(N-1,-1,-1):
+            if site == 0:
+                norm = np.tensordot(np.tensordot(norm,Gs[site],axes=(0,1)),np.conjugate(Gs[site]),axes=([0,1],[1,0]))
+            elif site == N-1:
+                norm = np.tensordot(Gs[site],np.conjugate(Gs[site]),axes=(0,0))
+            else:
+                norm = np.tensordot(np.tensordot(norm,Gs[site],axes=(0,2)),np.conjugate(Gs[site]),axes=([0,2],[2,1]))
+    return norm        
+        
+def get_fmps_order(Gs):
     N=len(Gs); chi=Gs[0].shape[1]
     def G2(site):
         G2 = np.tensordot(Gs[site],np.conjugate(Gs[site]),axes=(0,0))
