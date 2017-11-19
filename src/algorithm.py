@@ -158,7 +158,7 @@ class fDMRG:
         self.tolerance = tolerance
         self.maxsweep = maxsweep
         order = tn.get_mps_order(self.Gs)
-        if order == 'L': self.Gs = tn.normalize_fMPS(self.Gs, 'R')
+        if order == 'L': self.Gs = tn.normalize_fmps(self.Gs, 'R')
         
     def _initialize_Env(self):
         L=[None]*(self.N-1); R=[None]*(self.N-1)
