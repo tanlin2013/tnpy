@@ -120,10 +120,10 @@ def bipartite_entanglement_entropy(Gs, bond):
         for site in xrange(bond):
             gs = _normalize_fmps(gs,order,site)
     elif order == 'L':
-        for site in xrange(N-1,bond-1,-1):
+        for site in xrange(N-1,bond+1,-1):
             gs = _normalize_fmps(gs,order,site)
-    theta = np.tensordot(gs[bond-1],gs[bond],axes=(2,0))
-    theta = np.ndarray.reshape(theta,(d*gs[bond-1].shape[0],d*gs[bond].shape[2]))     
+    theta = np.tensordot(gs[bond],gs[bond+1],axes=(2,0))
+    theta = np.ndarray.reshape(theta,(d*gs[bond].shape[0],d*gs[bond+1].shape[2]))     
     X, S, Y = np.linalg.svd(theta,full_matrices=False)
     
     entropy = von_Neumann_entropy(S); del gs
