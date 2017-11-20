@@ -64,7 +64,7 @@ def expectation_value(MPO, Gs):
         for site in xrange(N):
             if site == 0:
                 M = MPO(site)
-                EnvL = tnstate.transfer_operator(Gs[site],M)
+                EnvL = tn.transfer_operator(Gs[site],M)
             else:
                 EnvL = h._update_EnvL(EnvL,site)
         expval = EnvL.item()
@@ -72,7 +72,7 @@ def expectation_value(MPO, Gs):
         for site in xrange(N-1,-1,-1):
             if site == N-1:
                 M = MPO(site)
-                EnvR = tnstate.transfer_operator(Gs[site],M)
+                EnvR = tn.transfer_operator(Gs[site],M)
             else:
                 EnvR = h._update_EnvR(EnvR,site)
         expval = EnvR.item()
@@ -84,7 +84,7 @@ def variance(MPO, Gs):
         for site in xrange(N):
             if site == 0:
                 M = MPO(site)
-                EnvL = tnstate.transfer_operator(Gs[site],M)
+                EnvL = tn.transfer_operator(Gs[site],M)
                 EnvL2 = np.tensordot(np.tensordot(np.tensordot(Gs[site],
                       M,axes=(0,0)),M,axes=(2,2)),np.conjugate(Gs[site]),axes=(2,0))
             else:
@@ -95,7 +95,7 @@ def variance(MPO, Gs):
         for site in xrange(N-1,-1,-1):
             if site == N-1:
                 M = MPO(site)
-                EnvR = tnstate.transfer_operator(Gs[site],M)
+                EnvR = tn.transfer_operator(Gs[site],M)
                 EnvR2 = np.tensordot(np.tensordot(np.tensordot(Gs[site],
                       M,axes=(0,0)),M,axes=(2,2)),np.conjugate(Gs[site]),axes=(2,0))
             else:
@@ -118,10 +118,10 @@ def bipartite_entanglement_entropy(Gs, bond):
     gs = np.copy(Gs)
     if order == 'R':
         for site in xrange(bond):
-            gs = _normalize_fmps(gs,order,site)
+            gs = tn._normalize_fmps(gs,'L',site)
     elif order == 'L':
         for site in xrange(N-1,bond+1,-1):
-            gs = _normalize_fmps(gs,order,site)
+            gs = tn._normalize_fmps(gs,'R',site)
     theta = np.tensordot(gs[bond],gs[bond+1],axes=(2,0))
     theta = np.ndarray.reshape(theta,(d*gs[bond].shape[0],d*gs[bond+1].shape[2]))     
     X, S, Y = np.linalg.svd(theta,full_matrices=False)
@@ -152,12 +152,12 @@ def Sz_site(Gs, staggering=False):
         for site in xrange(N):
             state[site] = update_Sz(site)
             if site < N-1:
-                Gs = _normalize_fmps(Gs,order,site)
+                Gs = tn._normalize_fmps(Gs,'L',site)
     elif order == 'L': # state is left-normalized
         for site in xrange(N-1,-1,-1):
             state[site] = update_Sz(site)
             if site > 0:
-                Gs = _normalize_fmps(Gs,order,site)
+                Gs = tn._normalize_fmps(Gs,'R',site)
     return state 
 
 def Sz_corr(Gs, m, n, staggering=False): 
@@ -176,10 +176,10 @@ def Sz_corr(Gs, m, n, staggering=False):
     
     if order == 'R':
         for site in xrange(m):
-            Gs = _normalize_fmps(Gs,order,site)
+            Gs = tn._normalize_fmps(Gs,'L',site)
     elif order == 'L':
         for site in xrange(N-1,n,-1):
-            Gs = _normalize_fmps(Gs,order,site)       
+            Gs = tn._normalize_fmps(Gs,'R',site)       
 
     IL = np.identity(Gs[m].shape[0],dtype=float)
     IR = np.identity(Gs[n].shape[2],dtype=float)
@@ -221,10 +221,10 @@ def string_order_paras(Gs, m, n, sign=1):
         
     if order == 'R':
         for site in xrange(m):
-            Gs = _normalize_fmps(Gs,order,site)
+            Gs = tn._normalize_fmps(Gs,'L',site)
     elif order == 'L':
         for site in xrange(N-1,n,-1):
-            Gs = _normalize_fmps(Gs,order,site)       
+            Gs = tn._normalize_fmps(Gs,'R',site)       
 
     IL = np.identity(Gs[m].shape[0],dtype=float)
     IR = np.identity(Gs[n].shape[2],dtype=float)
@@ -247,21 +247,27 @@ def string_order_paras(Gs, m, n, sign=1):
 
 class BKT_corr:
     def __init__(self, Gs, g, discard_site):
-        self.Gs = Gs
+        self.Gs = tn.normalize_fmps(Gs,'mix')
         self.g = g
         self.N = len(Gs)
-        self.order = tn.get_fmps_order(self.Gs)
         self.discard_site = discard_site
         if self.discard_site < 1: raise ValueError('Must discard at least one site at each boundary.')    
     
     def _bkt_operator(self):
-        Sp, Sm, Sz, I2, O2=  operators.spin()
+        Sp, Sm, Sz, I2, O2= operators.spin()
         op = expm((self.g+np.pi)*(np.kron(Sp,Sm)-np.kron(Sm,Sp)))
         op = np.ndarray.reshape(op,(2,2,2,2)) 
         return op
     
     def _connected_part(self, m, n):
         gs = np.copy(self.Gs)
+        
+        if m < N/2-1 and n < N/2-1:
+            
+        elif m < N/2-1 and n > N/2-1:
+            
+        elif m > N/2-1 and n > N/2-1:
+            
         if self.order == 'R':
             for site in xrange(m):
                 gs = _normalize_fmps(gs,self.order,site)
