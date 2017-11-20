@@ -73,9 +73,9 @@ class MPS:
                         Gs[site] = np.random.rand(min(self.d**(self.N-site),self.chi),self.d,min(self.d**(self.N-1-site),self.chi))        
             # Canonical normalization of the MPS
             if canonical_form == 'L':
-                Gs = normalize_fMPS(Gs,order='L')
+                Gs = normalize_fmps(Gs,order='L')
             elif canonical_form == 'R':
-                Gs = normalize_fMPS(Gs,order='R')
+                Gs = normalize_fmps(Gs,order='R')
             return Gs       
 
 def _normalize_fmps(Gs, order, site):
@@ -137,8 +137,8 @@ def normalize_fmps(Gs, order):
             Gs = _normalize_fmps(Gs, 'L', site)
         for site in xrange(N-1,N/2,-1):
             Gs = _normalize_fmps(Gs, 'R', site)
-        theta = np.tensordot(gs[N/2-1],gs[N/2],axes=(2,0))
-        theta = np.ndarray.reshape(theta,(d*gs[N/2-1].shape[0],d*gs[N/2].shape[2]))     
+        theta = np.tensordot(Gs[N/2-1],Gss[N/2],axes=(2,0))
+        theta = np.ndarray.reshape(theta,(d*Gs[N/2-1].shape[0],d*Gs[N/2].shape[2]))     
         X, S, Y = np.linalg.svd(theta,full_matrices=False)
         Gs[site-1] = np.ndarray.reshape(X,(Gs[site-1].shape[0],d,Gs[site-1].shape[2]))
         Gs[site] = np.ndarray.reshape(Y,(Gs[site].shape[0],d,Gs[site].shape[2]))
