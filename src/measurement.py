@@ -260,40 +260,40 @@ class BKT_corr:
         return op
     
     def _update_IL(self, IL, site):
-        if site == :
-            IL = np.tensordot(np.tensordot(IL,self.Gs[site],axes=()),np.conjugate(self.Gs[site]),axes=())
+        if site == self.N/2-2:
+            IL = np.tensordot(np.tensordot(IL,self.SVM,axes=(0,0)),np.conjugate(self.SVM),axes=(0,0))
         else:
             IL = np.tensordot(np.tensordot(np.tensordot(np.tensordot(
-                IL,self.Gs[site],axes=()),
-                np.conjugate(self.Gs[site]),axes=()),
-                self,Gs[site+1],axes=()),
-                np.conjugate(self.Gs[site+1]),axes=())
+                IL,self.Gs[site],axes=(0,0)),
+                np.conjugate(self.Gs[site]),axes=([0,1],[0,1])),
+                self,Gs[site+1],axes=(0,0)),
+                np.conjugate(self.Gs[site+1]),axes=([0,1],[0,1]))
         return IL
     
     def _update_IR(self, IR, site):
-        if site == :
-            IR = np.tensordot()
+        if site == self.N/2:
+            IR = np.tensordot(np.tensordot(IR,self.SVM,axes=(0,1)),np.conjugate(self.SVM),axes=(0,1))
         else:
             IR = np.tensordot(np.tensordot(np.tensordot(np.tensordot(
-                IR,self.Gs[site],axes=()),
-                np.conjugate(self.Gs[site]),axes=()),
-                self,Gs[site-1],axes=()),
-                np.conjugate(self.Gs[site-1]),axes=())
+                IR,self.Gs[site],axes=(0,2)),
+                np.conjugate(self.Gs[site]),axes=([0,2],[2,1])),
+                self,Gs[site-1],axes=(0,2)),
+                np.conjugate(self.Gs[site-1]),axes=([0,2],[2,1]))
         return IR
     
     def _connected_part(self, m, n):        
-        if m < N/2-2 and n <= N/2-2:
+        if m < self.N/2-2 and n <= self.N/2-2:
             IL = np.identity(gs[m].shape[0],dtype=float)
-            IR = np.identity(gs[N/2].shape[0],dtype=float)
-            for site in xrange(N/2-1,n+1,-2):
+            IR = np.identity(gs[self.N/2].shape[0],dtype=float)
+            for site in xrange(self.N/2,n+1,-2):
                 IR = self._update_IR(IR, site)
-        elif m <= N/2-2 and n >= N/2:
+        elif m <= self.N/2-2 and n >= self.N/2:
             IL = np.identity(gs[m].shape[0],dtype=float)
             IR = np.identity(gs[n+1].shape[2],dtype=float)
-        elif m >= N/2 and n > N/2:
-            IL = np.identity(gs[N/2].shape[0],dtype=float)
+        elif m >= self.N/2 and n > self.N/2:
+            IL = np.identity(gs[self.N/2-1].shape[2],dtype=float)
             IR = np.identity(gs[n+1].shape[2],dtype=float)
-            for site in xrange(N/2,m,2):
+            for site in xrange(self.N/2-2,m,2):
                 IL = self._update_IL(IL, site)
         
         for site in xrange(m,n+1,2):
