@@ -139,7 +139,7 @@ def normalize_fmps(Gs, order):
             Gs = _normalize_fmps(Gs, 'R', site)
         theta = np.ndarray.reshape(Gs[site],Gs[site].shape) 
         X, S, Y = np.linalg.svd(theta,full_matrices=False)
-        Gs[site-1] = np.tensordot(Gs[site-1],X,axes=(1,0))
+        Gs[site-1] = np.tensordot(Gs[site-1],X,axes=(2,0))
         Gs[site] = np.ndarray.reshape(Y,Gs[site].shape)
         SVM = np.diagflat(S)
         return Gs, SVM
