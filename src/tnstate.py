@@ -93,7 +93,7 @@ def _normalize_fmps(Gs, order, site):
         if site == 0:
             Gs[site] = X
         else:
-            Gs[site] = np.ndarray.reshape(X,(Gs[site].shape[0],d,Gs[site].shape[2]))
+            Gs[site] = np.ndarray.reshape(X,Gs[site].shape)
     elif order == 'R':
         if site == N-1:      
             theta = np.transpose(Gs[site])
@@ -107,7 +107,7 @@ def _normalize_fmps(Gs, order, site):
         if site == N-1:
             Gs[site] = np.transpose(Y)
         else:
-            Gs[site] = np.ndarray.reshape(Y,(Gs[site].shape[0],d,Gs[site].shape[2]))
+            Gs[site] = np.ndarray.reshape(Y,Gs[site].shape)
     return Gs        
         
 def normalize_fmps(Gs, order):
@@ -123,7 +123,7 @@ def normalize_fmps(Gs, order):
         * Gs: list of ndarray
             Left- or right-normalized MPS.
     """
-    N = len(Gs); d = Gs[0].shape[0]
+    N = len(Gs)
     if order == 'L':
         for site in xrange(N-1):
             Gs = _normalize_fmps(Gs, order, site)
@@ -137,11 +137,10 @@ def normalize_fmps(Gs, order):
             Gs = _normalize_fmps(Gs, 'L', site)
         for site in xrange(N-1,N/2,-1):
             Gs = _normalize_fmps(Gs, 'R', site)
-        theta = np.tensordot(Gs[N/2-1],Gss[N/2],axes=(2,0))
-        theta = np.ndarray.reshape(theta,(d*Gs[N/2-1].shape[0],d*Gs[N/2].shape[2]))     
+        theta = np.ndarray.reshape(Gs[site],Gs[site].shape) 
         X, S, Y = np.linalg.svd(theta,full_matrices=False)
-        Gs[site-1] = np.ndarray.reshape(X,(Gs[site-1].shape[0],d,Gs[site-1].shape[2]))
-        Gs[site] = np.ndarray.reshape(Y,(Gs[site].shape[0],d,Gs[site].shape[2]))
+        Gs[site-1] = np.tensordot(Gs[site-1],X,axes=(1,0))
+        Gs[site] = np.ndarray.reshape(Y,Gs[site].shape)
         SVM = np.diagflat(S)
         return Gs, SVM
     #elif order == 'GL':
