@@ -266,7 +266,7 @@ class BKT_corr:
             IL = np.tensordot(np.tensordot(np.tensordot(np.tensordot(
                 IL,self.Gs[site],axes=(0,0)),
                 np.conjugate(self.Gs[site]),axes=([0,1],[0,1])),
-                self,Gs[site+1],axes=(0,0)),
+                self.Gs[site+1],axes=(0,0)),
                 np.conjugate(self.Gs[site+1]),axes=([0,1],[0,1]))
         return IL
     
@@ -277,43 +277,43 @@ class BKT_corr:
             IR = np.tensordot(np.tensordot(np.tensordot(np.tensordot(
                 IR,self.Gs[site],axes=(0,2)),
                 np.conjugate(self.Gs[site]),axes=([0,2],[2,1])),
-                self,Gs[site-1],axes=(0,2)),
+                self.Gs[site-1],axes=(0,2)),
                 np.conjugate(self.Gs[site-1]),axes=([0,2],[2,1]))
         return IR
     
     def _connected_part(self, m, n):        
         if m < self.N/2-2 and n <= self.N/2-2:
-            IL = np.identity(gs[m].shape[0],dtype=float)
-            IR = np.identity(gs[self.N/2].shape[0],dtype=float)
+            IL = np.identity(self.Gs[m].shape[0],dtype=float)
+            IR = np.identity(self.Gs[self.N/2].shape[0],dtype=float)
             for site in xrange(self.N/2,n+1,-2):
                 IR = self._update_IR(IR, site)
         elif m <= self.N/2-2 and n >= self.N/2:
-            IL = np.identity(gs[m].shape[0],dtype=float)
-            IR = np.identity(gs[n+1].shape[2],dtype=float)
+            IL = np.identity(self.Gs[m].shape[0],dtype=float)
+            IR = np.identity(self.Gs[n+1].shape[2],dtype=float)
         elif m >= self.N/2 and n > self.N/2:
-            IL = np.identity(gs[self.N/2-1].shape[2],dtype=float)
-            IR = np.identity(gs[n+1].shape[2],dtype=float)
+            IL = np.identity(self.Gs[self.N/2-1].shape[2],dtype=float)
+            IR = np.identity(self.Gs[n+1].shape[2],dtype=float)
             for site in xrange(self.N/2-2,m,2):
                 IL = self._update_IL(IL, site)
         
         for site in xrange(m,n+1,2):
             if site == m:
                 corr = np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(
-                        IL,gs[m],axes=(0,0)),np.conjugate(gs[m]),axes=(0,0)),
+                        IL,self.Gs[m],axes=(0,0)),np.conjugate(self.Gs[m]),axes=(0,0)),
                         self._bkt_operator(),axes=([0,2],[0,1])),
-                        gs[m+1],axes=([0,2],[0,1])),np.conjugate(gs[m+1]),axes=([0,1],[0,1]))
+                        self.Gs[m+1],axes=([0,2],[0,1])),np.conjugate(self.Gs[m+1]),axes=([0,1],[0,1]))
             elif site == n:
                 corr = np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(
-                        corr,gs[n],axes=(0,0)),np.conjugate(gs[n]),axes=(0,0)),
+                        corr,self.Gs[n],axes=(0,0)),np.conjugate(self.Gs[n]),axes=(0,0)),
                         self._bkt_operator(),axes=([0,2],[0,1])),
-                        gs[n+1],axes=([0,2],[0,1])),np.conjugate(gs[n+1]),axes=([0,1],[0,1])),
+                        self.Gs[n+1],axes=([0,2],[0,1])),np.conjugate(self.Gs[n+1]),axes=([0,1],[0,1])),
                         IR,axes=([0,1],[0,1]))
             else:
                 corr = np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(
-                        corr,gs[site],axes=(0,0)),np.conjugate(gs[site]),axes=(0,0)),
+                        corr,self.Gs[site],axes=(0,0)),np.conjugate(self.Gs[site]),axes=(0,0)),
                         self._bkt_operator(),axes=([0,2],[0,1])),
-                        gs[site+1],axes=([0,2],[0,1])),np.conjugate(gs[site+1]),axes=([0,1],[0,1]))
-        corr = np.real_if_close(corr).item(); del gs
+                        self.Gs[site+1],axes=([0,2],[0,1])),np.conjugate(self.Gs[site+1]),axes=([0,1],[0,1]))
+        corr = np.real_if_close(corr).item()
         return corr
         
     def avg_corr(self):
