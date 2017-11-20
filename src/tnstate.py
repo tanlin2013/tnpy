@@ -123,7 +123,7 @@ def normalize_fmps(Gs, order):
         * Gs: list of ndarray
             Left- or right-normalized MPS.
     """
-    N = len(Gs)
+    N = len(Gs); d = Gs[0].shape[0]
     if order == 'L':
         for site in xrange(N-1):
             Gs = _normalize_fmps(Gs, order, site)
@@ -137,10 +137,10 @@ def normalize_fmps(Gs, order):
             Gs = _normalize_fmps(Gs, 'L', site)
         for site in xrange(N-1,N/2,-1):
             Gs = _normalize_fmps(Gs, 'R', site)
-        theta = np.ndarray.reshape(Gs[site],Gs[site].shape) 
+        theta = np.ndarray.reshape(Gs[N/2],(Gs[N/2].shape[0],d*Gs[N/2].shape[2]))
         X, S, Y = np.linalg.svd(theta,full_matrices=False)
-        Gs[site-1] = np.tensordot(Gs[site-1],X,axes=(2,0))
-        Gs[site] = np.ndarray.reshape(Y,Gs[site].shape)
+        Gs[N/2-1] = np.tensordot(Gs[N/2-1],X,axes=(2,0))
+        Gs[N/2] = np.ndarray.reshape(Y,Gs[N/2].shape)
         SVM = np.diagflat(S)
         return Gs, SVM
     #elif order == 'GL':
