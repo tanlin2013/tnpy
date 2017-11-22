@@ -112,21 +112,27 @@ def von_Neumann_entropy(S):
     entropy = -np.sum(ss*np.log(ss))
     return entropy
 
-def bipartite_entanglement_entropy(Gs, bond):
+def bipartite_entanglement_entropy(Gs):
     N = len(Gs); d = Gs[0].shape[0]; order = tn.get_fmps_order(Gs)
     
-    gs = np.copy(Gs)
-    if order == 'R':
-        for site in xrange(bond+1):
-            gs = tn._normalize_fmps(gs,'L',site)
-    elif order == 'L':
-        for site in xrange(N-1,bond+1,-1):
-            gs = tn._normalize_fmps(gs,'R',site)
-    theta = np.ndarray.reshape(gs[bond+1],(gs[bond+1].shape[0],d*gs[bond+1].shape[2]))
-    X, S, Y = np.linalg.svd(theta,full_matrices=False)
-    
-    entropy = von_Neumann_entropy(S); del gs
-    return entropy
+    gs = np.copy(Gs); entrolist=[None]*(N-1)
+    for site in xrange(N-1):
+        if site == 0:    
+            theta = Gs[site]
+        else:
+            theta = np.ndarray.reshape(Gs[site],(d*Gs[site].shape[0],Gs[site].shape[2]))     
+        X, S, Y = np.linalg.svd(theta,full_matrices=False)                
+        if site == N-2:
+            Gs[site+1] = np.tensordot(Gs[site+1],np.dot(np.diagflat(S),Y),axes=(1,1))
+        else:
+            Gs[site+1] = np.tensordot(np.dot(np.diagflat(S),Y),Gs[site+1],axes=(1,0))
+        if site == 0:
+            Gs[site] = X
+        else:
+            Gs[site] = np.ndarray.reshape(X,Gs[site].shape)
+        entrolist[site] = von_Neumann_entropy(S)
+    del gs
+    return np.array(entrolist)
 
 def Sz_site(Gs, staggering=False):
     Sp, Sm, Sz, I2, O2 = operators.spin()
