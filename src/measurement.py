@@ -113,7 +113,7 @@ def von_Neumann_entropy(S):
     return entropy
 
 def bipartite_entanglement_entropy(Gs):
-    N = len(Gs); d = Gs[0].shape[0]; order = tn.get_fmps_order(Gs)
+    N = len(Gs); d = Gs[0].shape[0]
     
     gs = np.copy(Gs); entrolist=[None]*(N-1)
     for site in xrange(N-1):
