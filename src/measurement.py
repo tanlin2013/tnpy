@@ -250,7 +250,8 @@ class BKT_corr:
         self.g = g
         self.N = len(Gs)
         self.discard_site = discard_site
-        if self.discard_site < 1: raise ValueError('Must discard at least one site at each boundary.')    
+        if self.discard_site < 2: raise ValueError('Must discard at least two site at each boundary.')    
+        if self.discard_site%2 != 0: raise ValueError('Must discard even number of sites')
     
     def _bkt_operator(self):
         Sp, Sm, Sz, I2, O2= operators.spin()
@@ -259,42 +260,42 @@ class BKT_corr:
         return op
     
     def _update_IL(self, IL, site):
+        IL = np.tensordot(np.tensordot(np.tensordot(np.tensordot(
+            IL,self.Gs[site],axes=(0,0)),
+            np.conjugate(self.Gs[site]),axes=([0,1],[0,1])),
+            self.Gs[site+1],axes=(0,0)),
+            np.conjugate(self.Gs[site+1]),axes=([0,1],[0,1]))
         if site == self.N/2-2:
             IL = np.tensordot(np.tensordot(IL,self.SVM,axes=(0,0)),np.conjugate(self.SVM),axes=(0,0))
-        else:
-            IL = np.tensordot(np.tensordot(np.tensordot(np.tensordot(
-                IL,self.Gs[site],axes=(0,0)),
-                np.conjugate(self.Gs[site]),axes=([0,1],[0,1])),
-                self.Gs[site+1],axes=(0,0)),
-                np.conjugate(self.Gs[site+1]),axes=([0,1],[0,1]))
         return IL
     
     def _update_IR(self, IR, site):
-        if site == self.N/2:
+        IR = np.tensordot(np.tensordot(np.tensordot(np.tensordot(
+            IR,self.Gs[site],axes=(0,2)),
+            np.conjugate(self.Gs[site]),axes=([0,2],[2,1])),
+            self.Gs[site-1],axes=(0,2)),
+            np.conjugate(self.Gs[site-1]),axes=([0,2],[2,1]))
+        if site == self.N/2+1:
             IR = np.tensordot(np.tensordot(IR,self.SVM,axes=(0,1)),np.conjugate(self.SVM),axes=(0,1))
-        else:
-            IR = np.tensordot(np.tensordot(np.tensordot(np.tensordot(
-                IR,self.Gs[site],axes=(0,2)),
-                np.conjugate(self.Gs[site]),axes=([0,2],[2,1])),
-                self.Gs[site-1],axes=(0,2)),
-                np.conjugate(self.Gs[site-1]),axes=([0,2],[2,1]))
         return IR
     
     def _connected_part(self, m, n):        
-        if m < self.N/2-2 and n <= self.N/2-2:
+        if m < self.N/2-2 and n < self.N/2+2:
             IL = np.identity(self.Gs[m].shape[0],dtype=float)
-            IR = np.identity(self.Gs[self.N/2].shape[0],dtype=float)
-            for site in xrange(self.N/2,n+1,-2):
-                IR = self._update_IR(IR, site)
+            IR = np.identity(self.Gs[self.N/2+1].shape[2],dtype=float)
+            for site in xrange(self.N/2+1,n+1,-2):
+                IR = self._update_IR(IR, site)      
         elif m <= self.N/2-2 and n >= self.N/2:
             IL = np.identity(self.Gs[m].shape[0],dtype=float)
             IR = np.identity(self.Gs[n+1].shape[2],dtype=float)
-        elif m >= self.N/2 and n > self.N/2:
+        elif m >= self.N/2-2 and n >= self.N/2+2:
             IL = np.identity(self.Gs[self.N/2-1].shape[2],dtype=float)
             IR = np.identity(self.Gs[n+1].shape[2],dtype=float)
             for site in xrange(self.N/2-2,m,2):
                 IL = self._update_IL(IL, site)
-        
+        else:
+            raise ValueError('Indices m and n out of range.')
+
         for site in xrange(m,n+1,2):
             if site == m:
                 corr = np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(
@@ -306,24 +307,25 @@ class BKT_corr:
                         corr,self.Gs[n],axes=(0,0)),np.conjugate(self.Gs[n]),axes=(0,0)),
                         self._bkt_operator(),axes=([0,2],[0,1])),
                         self.Gs[n+1],axes=([0,2],[0,1])),np.conjugate(self.Gs[n+1]),axes=([0,1],[0,1])),
-                        IR,axes=([0,1],[0,1]))
+                        IR,axes=([0,1],[0,1]))   
             else:
                 corr = np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(
                         corr,self.Gs[site],axes=(0,0)),np.conjugate(self.Gs[site]),axes=(0,0)),
                         self._bkt_operator(),axes=([0,2],[0,1])),
                         self.Gs[site+1],axes=([0,2],[0,1])),np.conjugate(self.Gs[site+1]),axes=([0,1],[0,1]))
+            if m <= self.N/2-2 and n >= self.N/2 and site == self.N/2-2:
+                corr = np.tensordot(np.tensordot(corr,self.SVM,axes=(0,0)),np.conjugate(self.SVM),axes=(0,0))
         corr = np.real_if_close(corr).item()
         return corr
         
     def avg_corr(self):
-        ls = np.arange(2,self.N-2*self.discard_site+2,2); corrs = []
+        ls = np.arange(2,self.N-2*self.discard_site,2); corrs = []
         for l in ls:
             corr = 0.0; Nconf = 0.0
-            for m in xrange(self.discard_site,self.N-self.discard_site-l+2,2):
-                t0 = time.clock()
+            for m in xrange(self.discard_site,self.N-self.discard_site-l,2):
                 corr += self._connected_part(m,m+l)
                 Nconf += 1
-                print "For length {}, passing site {}, t = {} s".format(l,m,time.clock()-t0)
+                print "For length {}, passing site {}".format(l,m)
             corr *= 1./Nconf
             corrs.append(np.real_if_close(corr))
         return ls, np.array(corrs)
