@@ -129,7 +129,7 @@ def normalize_fmps(Gs, order):
             Gs = _normalize_fmps(Gs, order, site)
         return Gs
     elif order == 'R':
-        for site in range(N-1,0,-1):
+        for site in xrange(N-1,0,-1):
             Gs = _normalize_fmps(Gs, order, site)
         return Gs
     elif order == 'mix':
