@@ -73,19 +73,20 @@ class MPS:
                         Gs[site] = np.random.rand(min(self.d**(self.N-site),self.chi),self.d,min(self.d**(self.N-1-site),self.chi))        
             # Canonical normalization of the MPS
             if canonical_form == 'L':
-                Gs = normalize_fmps(Gs,order='L')
+                Gs = normalize_fmps(Gs, order='L', init = True)
             elif canonical_form == 'R':
-                Gs = normalize_fmps(Gs,order='R')
+                Gs = normalize_fmps(Gs, order='R', init = True)
             return Gs       
 
-def _normalize_fmps(Gs, order, site):
+def _normalize_fmps(Gs, order, site, init = False):
     N = len(Gs); d = Gs[0].shape[0]
     if order == 'L':
         if site == 0:    
             theta = Gs[site]
         else:
             theta = np.ndarray.reshape(Gs[site],(d*Gs[site].shape[0],Gs[site].shape[2]))     
-        X, S, Y = np.linalg.svd(theta,full_matrices=False)                
+        X, S, Y = np.linalg.svd(theta,full_matrices=False)
+        if init: S /= np.linalg.norm(S)
         if site == N-2:
             Gs[site+1] = np.tensordot(Gs[site+1],np.dot(np.diagflat(S),Y),axes=(1,1))
         else:
@@ -99,7 +100,8 @@ def _normalize_fmps(Gs, order, site):
             theta = np.transpose(Gs[site])
         else:    
             theta = np.ndarray.reshape(Gs[site],(Gs[site].shape[0],d*Gs[site].shape[2]))     
-        X, S, Y = np.linalg.svd(theta,full_matrices=False)                
+        X, S, Y = np.linalg.svd(theta,full_matrices=False)
+        if init: S /= np.linalg.norm(S)
         if site == 1:
             Gs[site-1] = np.tensordot(Gs[site-1],np.dot(X,np.diagflat(S)),axes=(1,0))
         else:         
@@ -110,7 +112,7 @@ def _normalize_fmps(Gs, order, site):
             Gs[site] = np.ndarray.reshape(Y,Gs[site].shape)
     return Gs        
         
-def normalize_fmps(Gs, order):
+def normalize_fmps(Gs, order, init = False):
     """
     Canonical normalization of the fMPS.
         
@@ -126,11 +128,11 @@ def normalize_fmps(Gs, order):
     N = len(Gs); d = Gs[0].shape[0]
     if order == 'L':
         for site in xrange(N-1):
-            Gs = _normalize_fmps(Gs, order, site)
+            Gs = _normalize_fmps(Gs, order, site, init)
         return Gs
     elif order == 'R':
         for site in xrange(N-1,0,-1):
-            Gs = _normalize_fmps(Gs, order, site)
+            Gs = _normalize_fmps(Gs, order, site, init)
         return Gs
     elif order == 'mix':
         Gs_order = get_fmps_order(Gs)
