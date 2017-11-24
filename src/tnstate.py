@@ -78,7 +78,7 @@ class MPS:
                 Gs = normalize_fmps(Gs, order='R', init = True)
             return Gs       
 
-def _normalize_fmps(Gs, order, site, init = False):
+def _normalize_fmps(Gs, order, site, init = False, return_S = False):
     N = len(Gs); d = Gs[0].shape[0]
     if order == 'L':
         if site == 0:    
@@ -110,7 +110,10 @@ def _normalize_fmps(Gs, order, site, init = False):
             Gs[site] = np.transpose(Y)
         else:
             Gs[site] = np.ndarray.reshape(Y,Gs[site].shape)
-    return Gs        
+    if return_S:
+        return Gs, S
+    else:        
+        return Gs       
         
 def normalize_fmps(Gs, order, init = False):
     """
