@@ -113,24 +113,17 @@ def von_Neumann_entropy(S):
     return entropy
 
 def bipartite_entanglement_entropy(Gs):
-    N = len(Gs); d = Gs[0].shape[0]
+    N = len(Gs); order = tn.get_fmps_order(Gs)
     
     gs = np.copy(Gs); entrolist=[None]*(N-1)
-    for site in xrange(N-1):
-        if site == 0:    
-            theta = Gs[site]
-        else:
-            theta = np.ndarray.reshape(Gs[site],(d*Gs[site].shape[0],Gs[site].shape[2]))     
-        X, S, Y = np.linalg.svd(theta,full_matrices=False)                
-        if site == N-2:
-            Gs[site+1] = np.tensordot(Gs[site+1],np.dot(np.diagflat(S),Y),axes=(1,1))
-        else:
-            Gs[site+1] = np.tensordot(np.dot(np.diagflat(S),Y),Gs[site+1],axes=(1,0))
-        if site == 0:
-            Gs[site] = X
-        else:
-            Gs[site] = np.ndarray.reshape(X,Gs[site].shape)
-        entrolist[site] = von_Neumann_entropy(S)
+    if order == 'R':
+        for site in xrange(N-1):
+            gs, S = tn._normalize_fmps(gs,'L',site,return_S=True)
+            entrolist[site] = von_Neumann_entropy(S)
+    elif order == 'L':
+        for site in xrange(N-1,0,-1):
+            gs, S = tn._normalize_fmps(gs,'R',site,return_S=True)
+            entrolist[N-1-site] = von_Neumann_entropy(S)
     del gs
     return np.array(entrolist)
 
