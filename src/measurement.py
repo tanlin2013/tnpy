@@ -328,3 +328,52 @@ class BKT_corr:
             corr *= 1./Nconf
             corrs.append(np.real_if_close(corr))
         return ls, np.array(corrs)
+
+def fermion_momentum(Gs):
+    Sp, Sm, Sz, I2, O2 = operators.spin()
+    N = len(Gs); order = tn.get_fmps_order(Gs)
+    
+    op = -1j*(np.kron(np.kron(Sm,Sz),Sp)-np.kron(np.kron(Sp,Sz),Sm))
+    op = np.ndarray.reshape(op,(2,2,2,2,2,2))
+    op2 = np.tensordot(op,op,axes=([1,3,5],[0,2,4]))
+    op2 = np.swapaxes(op2,1,3)
+    op2 = np.swapaxes(op2,2,4)
+    op2 = np.swapaxes(op2,2,3)
+    
+    def update_p(site):      
+        if site == 0:
+            IR = np.identity(Gs[site+2].shape[2],dtype=float)
+            update_p = np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(
+                    Gs[site],op2,axes=(0,0)),np.conjugate(Gs[site]),axes=(1,0)),
+                    Gs[site+1],axes=([0,1],[0,1])),np.conjugate(Gs[site+1]),axes=([0,1],[1,0])),
+                    Gs[site+2],axes=([0,2],[1,0])),np.conjugate(Gs[site+2]),axes=([0,1],[1,0])),
+                    IR,axes=([0,1],[0,1]))
+        elif site == N-3:
+            IL = np.identity(Gs[site].shape[0],dtype=float)
+            update_p = np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(
+                    IL,Gs[site],axes=(0,0)),
+                    op2,axes=(1,0)),np.conjugate(Gs[site]),axes=([0,2],[0,1])),
+                    Gs[site+1],axes=([0,1],[0,1])),np.conjugate(Gs[site+1]),axes=([0,3],[1,0])),
+                    Gs[site+2],axes=([0,2],[0,1])),np.conjugate(Gs[site+2]),axes=([0,1],[0,1]))
+        else:
+            IL = np.identity(Gs[site].shape[0],dtype=float)
+            IR = np.identity(Gs[site+2].shape[2],dtype=float)
+            update_p = np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(
+                    IL,Gs[site],axes=(0,0)),
+                    op2,axes=(1,0)),np.conjugate(Gs[site]),axes=([0,2],[0,1])),
+                    Gs[site+1],axes=([0,1],[0,1])),np.conjugate(Gs[site+1]),axes=([0,3],[1,0])),
+                    Gs[site+2],axes=([0,2],[1,0])),np.conjugate(Gs[site+2]),axes=([0,1],[1,0])),
+                    IR,axes=([0,1],[0,1]))
+        return np.real_if_close(update_p).item()
+    
+    p = 0.0
+    if order == 'R':
+        for site in xrange(N-2):
+            p += update_p(site)
+            Gs = tn._normalize_fmps(Gs,'L',site)          
+    elif order == 'L':
+        for site in xrange(N-1,1,-1):
+            p += update_p(site-2)
+            Gs = tn._normalize_fmps(Gs,'R',site)
+    return p
+      
