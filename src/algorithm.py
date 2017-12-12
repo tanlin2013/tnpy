@@ -179,11 +179,11 @@ class fDMRG:
             R[self.N-1-site] = EnvR      
         return L,R
         
-    def _update_EnvL(self, EnvL, site, projM=None):
-        if projM is None:
-            M = self.MPO(site)
-        else:
+    def _update_EnvL(self, EnvL, site, projM=False):
+        if projM:
             M = self.projMPO[site]
+        else:
+            M = self.MPO(site)
         if site == self.N-1:
             EnvL = np.tensordot(np.tensordot(np.tensordot(EnvL,self.Gs[site],axes=(0,1)),
                               M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,1],[1,0]))
@@ -192,11 +192,11 @@ class fDMRG:
                               M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,2],[0,1]))
         return EnvL
 
-    def _update_EnvR(self, EnvR, site, projM=None):
-        if projM is None:
-            M = self.MPO(site)
-        else:
+    def _update_EnvR(self, EnvR, site, projM=False):
+        if projM:
             M = self.projMPO[site]
+        else:
+            M = self.MPO(site)
         if site == 0: 
             EnvR = np.tensordot(np.tensordot(np.tensordot(EnvR,self.Gs[site],axes=(0,1)),
                               M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,1],[1,0]))   
@@ -223,13 +223,13 @@ class fDMRG:
             if site == 0:               
                 projEnvL = tn.transfer_operator(self.Gs[site], self.projMPO[site])          
             else:
-                projEnvL = self._update_EnvL(projEnvL, site, self.projMPO[site])            
+                projEnvL = self._update_EnvL(projEnvL, site, projM=True)            
             projL[site] = projEnvL                       
         for site in xrange(self.N-1,0,-1):
             if site == self.N-1:
                 projEnvR = tn.transfer_operator(self.Gs[site], self.projMPO[site])   
             else:
-                projEnvR = self._update_EnvR(projEnvR, site, self.projMPO[site])            
+                projEnvR = self._update_EnvR(projEnvR, site, projM=True)            
             projR[self.N-1-site] = projEnvR    
         return projL, projR
     
@@ -326,7 +326,7 @@ class fDMRG:
                     self.Gs[site] = np.ndarray.reshape(X,self.Gs[site].shape)                                       
                     EnvL = self._update_EnvL(EnvL,site)
                     if self.projE is not None:
-                        projEnvL = self._update_EnvL(projEnvL, site, self.projMPO[site]) 
+                        projEnvL = self._update_EnvL(projEnvL, site, projM=True) 
                 L[site] = EnvL
                 if self.projE is not None: 
                     projL[site] = projEnvL
@@ -367,7 +367,7 @@ class fDMRG:
                     self.Gs[site] = np.ndarray.reshape(Y,self.Gs[site].shape)                      
                     EnvR = self._update_EnvR(EnvR,site)
                     if self.projE is not None:
-                        projEnvR = self._update_EnvR(projEnvR, site, self.projMPO[site])
+                        projEnvR = self._update_EnvR(projEnvR, site, projM=True)
                 R[self.N-1-site] = EnvR
                 if self.projE is not None:
                     projR[self.N-1-site] = projEnvR 
