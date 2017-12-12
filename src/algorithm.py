@@ -161,7 +161,6 @@ class fDMRG:
         if order == 'L': self.Gs = tn.normalize_fmps(self.Gs, 'R')
         self.projE = projE
         self.projGs = projGs
-        self.projMPO = [None]*self.N
         
     def _initialize_Env(self):
         L=[None]*(self.N-1); R=[None]*(self.N-1)
@@ -179,11 +178,8 @@ class fDMRG:
             R[self.N-1-site] = EnvR      
         return L,R
         
-    def _update_EnvL(self, EnvL, site, projM=False):
-        if projM:
-            M = self.projMPO[site]
-        else:
-            M = self.MPO(site)
+    def _update_EnvL(self, EnvL, site):
+        M = self.MPO(site)
         if site == self.N-1:
             EnvL = np.tensordot(np.tensordot(np.tensordot(EnvL,self.Gs[site],axes=(0,1)),
                               M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,1],[1,0]))
@@ -192,11 +188,8 @@ class fDMRG:
                               M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,2],[0,1]))
         return EnvL
 
-    def _update_EnvR(self, EnvR, site, projM=False):
-        if projM:
-            M = self.projMPO[site]
-        else:
-            M = self.MPO(site)
+    def _update_EnvR(self, EnvR, site):
+        M = self.MPO(site)
         if site == 0: 
             EnvR = np.tensordot(np.tensordot(np.tensordot(EnvR,self.Gs[site],axes=(0,1)),
                               M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,1],[1,0]))   
@@ -207,29 +200,17 @@ class fDMRG:
 
     def _initialize_projEnv(self):
         projL=[None]*(self.N-1); projR=[None]*(self.N-1)
-        for site in xrange(self.N):
-            self.projGs[site] = np.ndarray.reshape(self.projGs[site], (self.projGs[site].shape+(1,)))
-            if site == 0 or site == self.N-1:
-                self.projMPO[site] = np.tensordot(self.projGs[site],self.projGs[site],axes=(2,2))
-                self.projMPO[site] = np.swapaxes(self.projMPO[site],2,3)
-                self.projMPO[site] = np.ndarray.reshape(self.projMPO[site], (self.d,self.projGs[site].shape[1]**2,self.d))
-            else:
-                self.projMPO[site] = np.tensordot(self.projGs[site],self.projGs[site],axes=(3,3))
-                self.projMPO[site] = np.swapaxes(self.projMPO[site],0,1)
-                self.projMPO[site] = np.swapaxes(self.projMPO[site],2,3)
-                self.projMPO[site] = np.swapaxes(self.projMPO[site],3,4)
-                self.projMPO[site] = np.ndarray.reshape(self.projMPO[site], (self.d,self.projGs[site].shape[0]**2,self.d,self.projGs[site].shape[2]**2))
         for site in xrange(self.N-1):           
             if site == 0:               
-                projEnvL = tn.transfer_operator(self.Gs[site], self.projMPO[site])          
+                projEnvL = np.tensordot(self.Gs[site],self.projGs[site],axes=(0,0))          
             else:
-                projEnvL = self._update_EnvL(projEnvL, site, projM=True)            
+                projEnvL = np.tensordot(np.tensordot(projEnvL,self.Gs[site],axes=(0,0)),self.projGs[site],axes=([0,1],[0,1]))            
             projL[site] = projEnvL                       
         for site in xrange(self.N-1,0,-1):
             if site == self.N-1:
-                projEnvR = tn.transfer_operator(self.Gs[site], self.projMPO[site])   
+                projEnvR = np.tensordot(self.Gs[site],self.projGs[site],axes=(0,0))   
             else:
-                projEnvR = self._update_EnvR(projEnvR, site, projM=True)            
+                projEnvR = np.tensordot(np.tensordot(projEnvR,self.Gs[site],axes=(0,2)),self.projGs[site],axes=([0,2],[2,1]))           
             projR[self.N-1-site] = projEnvR    
         return projL, projR
     
@@ -272,22 +253,26 @@ class fDMRG:
         return H_matvec, psi
 
     def _effprojHpsi(self, L, R, projL, projR, site):
-        projM = self.projMPO[site]
         H_matvec, psi = self._effHpsi(L,R,site)
         def projH_matvec(X):
             G = np.ndarray.reshape(X,self.Gs[site].shape)
             if site == 0:
-                proj_matvec = np.tensordot(np.tensordot(projR[self.N-2-site],G,axes=(0,1)),projM,axes=([2,0],[0,1]))
+                proj_matvec = np.tensordot(projR[self.N-2-site],self.projGs[site],axes=(1,1))
                 proj_matvec = np.swapaxes(proj_matvec,0,1)
+                proj_matvec = proj_matvec * np.tensordot(np.tensordot(
+                        projR[self.N-2-site],G,axes=(0,1)),self.projGs[site],axes=([0,1],[1,0]))
             elif site == self.N-1:
-                proj_matvec = np.tensordot(np.tensordot(projL[site-1],G,axes=(0,1)),projM,axes=([2,0],[0,1]))
+                proj_matvec = np.tensordot(projL[site-1],self.projGs[site],axes=(1,1))
                 proj_matvec = np.swapaxes(proj_matvec,0,1)
+                proj_matvec = proj_matvec * np.tensordot(np.tensordot(
+                        projL[site-1],G,axes=(0,1)),self.projGs[site],axes=([0,1],[1,0]))
             else:
-                proj_matvec = np.tensordot(np.tensordot(np.tensordot(projL[site-1],G,axes=(0,0)),
-                                    projM,axes=([0,2],[1,0])),projR[self.N-2-site],axes=([1,3],[0,1]))
+                proj_matvec = np.tensordot(np.tensordot(projL[site-1],self.projGs[site],axes=(1,0)),projR[self.N-2-site],axes=(2,1))
+                proj_matvec = proj_matvec * np.tensordot(np.tensordot(np.tensordot(
+                        projL[site-1],G,axes=(0,0)),self.projGs[site],axes=([0,1],[0,1])),projR[self.N-2-site],axes=([0,1],[0,1]))
             proj_matvec = np.ndarray.reshape(proj_matvec, X.shape)
             return H_matvec(X) - self.projE * proj_matvec
-        return projH_matvec, psi    
+        return projH_matvec, psi
     
     def variational_optimize(self, show_stats=True, return_stats=True, svd_method='numpy'):
         L, R = self._initialize_Env()
@@ -321,12 +306,12 @@ class fDMRG:
                     self.Gs[site] = X
                     EnvL = tn.transfer_operator(self.Gs[site],self.MPO(site))
                     if self.projE is not None:
-                        projEnvL = tn.transfer_operator(self.Gs[site], self.projMPO[site])
+                        projEnvL = np.tensordot(self.Gs[site],self.projGs[site],axes=(0,0))
                 else:
                     self.Gs[site] = np.ndarray.reshape(X,self.Gs[site].shape)                                       
                     EnvL = self._update_EnvL(EnvL,site)
                     if self.projE is not None:
-                        projEnvL = self._update_EnvL(projEnvL, site, projM=True) 
+                        projEnvL = np.tensordot(np.tensordot(projEnvL,self.Gs[site],axes=(0,0)),self.projGs[site],axes=([0,1],[0,1]))
                 L[site] = EnvL
                 if self.projE is not None: 
                     projL[site] = projEnvL
@@ -362,12 +347,12 @@ class fDMRG:
                     self.Gs[site] = np.transpose(Y)
                     EnvR = tn.transfer_operator(self.Gs[site],self.MPO(site))
                     if self.projE is not None:
-                        projEnvR = tn.transfer_operator(self.Gs[site], self.projMPO[site])
+                        projEnvR = np.tensordot(self.Gs[site],self.projGs[site],axes=(0,0))
                 else:
                     self.Gs[site] = np.ndarray.reshape(Y,self.Gs[site].shape)                      
                     EnvR = self._update_EnvR(EnvR,site)
                     if self.projE is not None:
-                        projEnvR = self._update_EnvR(projEnvR, site, projM=True)
+                        projEnvR = np.tensordot(np.tensordot(projEnvR,self.Gs[site],axes=(0,2)),self.projGs[site],axes=([0,2],[2,1]))
                 R[self.N-1-site] = EnvR
                 if self.projE is not None:
                     projR[self.N-1-site] = projEnvR 
