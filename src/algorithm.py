@@ -149,7 +149,7 @@ class iTEBD:
         return E
 
 class fDMRG:
-    def __init__(self, MPO, Gs, N, d, chi, tolerance=1e-12, maxsweep=200):
+    def __init__(self, MPO, Gs, N, d, chi, tolerance=1e-12, maxsweep=200, projE=None, projGs=None):
         self.MPO = MPO
         self.Gs = Gs
         self.N = N
@@ -159,6 +159,9 @@ class fDMRG:
         self.maxsweep = maxsweep
         order = tn.get_fmps_order(self.Gs)
         if order == 'L': self.Gs = tn.normalize_fmps(self.Gs, 'R')
+        self.projE = projE
+        self.projGs = projGs
+        self.projMPO = [None]*self.N
         
     def _initialize_Env(self):
         L=[None]*(self.N-1); R=[None]*(self.N-1)
@@ -176,8 +179,11 @@ class fDMRG:
             R[self.N-1-site] = EnvR      
         return L,R
         
-    def _update_EnvL(self, EnvL, site):
-        M = self.MPO(site)
+    def _update_EnvL(self, EnvL, site, projM=None):
+        if projM is None:
+            M = self.MPO(site)
+        else:
+            M = self.projMPO[site]
         if site == self.N-1:
             EnvL = np.tensordot(np.tensordot(np.tensordot(EnvL,self.Gs[site],axes=(0,1)),
                               M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,1],[1,0]))
@@ -186,8 +192,11 @@ class fDMRG:
                               M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,2],[0,1]))
         return EnvL
 
-    def _update_EnvR(self, EnvR, site):
-        M = self.MPO(site)
+    def _update_EnvR(self, EnvR, site, projM=None):
+        if projM is None:
+            M = self.MPO(site)
+        else:
+            M = self.projMPO[site]
         if site == 0: 
             EnvR = np.tensordot(np.tensordot(np.tensordot(EnvR,self.Gs[site],axes=(0,1)),
                               M,axes=([0,2],[1,0])),np.conjugate(self.Gs[site]),axes=([0,1],[1,0]))   
@@ -196,6 +205,34 @@ class fDMRG:
                               M,axes=([0,3],[3,0])),np.conjugate(self.Gs[site]),axes=([0,3],[2,1]))
         return EnvR    
 
+    def _initialize_projEnv(self):
+        projL=[None]*(self.N-1); projR=[None]*(self.N-1)
+        for site in xrange(self.N):
+            self.projGs[site] = np.ndarray.reshape(self.projGs[site], (self.projGs[site].shape+(1,)))
+            if site == 0 or site == self.N-1:
+                self.projMPO[site] = np.tensordot(self.projGs[site],self.projGs[site],axes=(2,2))
+                self.projMPO[site] = np.swapaxes(self.projMPO[site],2,3)
+                self.projMPO[site] = np.ndarray.reshape(self.projMPO[site], (self.d,self.projGs[site].shape[1]**2,self.d))
+            else:
+                self.projMPO[site] = np.tensordot(self.projGs[site],self.projGs[site],axes=(3,3))
+                self.projMPO[site] = np.swapaxes(self.projMPO[site],0,1)
+                self.projMPO[site] = np.swapaxes(self.projMPO[site],2,3)
+                self.projMPO[site] = np.swapaxes(self.projMPO[site],3,4)
+                self.projMPO[site] = np.ndarray.reshape(self.projMPO[site], (self.d,self.projGs[site].shape[0]**2,self.d,self.projGs[site].shape[2]**2))
+        for site in xrange(self.N-1):           
+            if site == 0:               
+                projEnvL = tn.transfer_operator(self.Gs[site], self.projMPO[site])          
+            else:
+                projEnvL = self._update_EnvL(projEnvL, site, self.projMPO[site])            
+            projL[site] = projEnvL                       
+        for site in xrange(self.N-1,0,-1):
+            if site == self.N-1:
+                projEnvR = tn.transfer_operator(self.Gs[site], self.projMPO[site])   
+            else:
+                projEnvR = self._update_EnvR(projEnvR, site, self.projMPO[site])            
+            projR[self.N-1-site] = projEnvR    
+        return projL, projR
+    
     def _effH(self, L, R, site):
         M = self.MPO(site)
         if site == 0:
@@ -233,16 +270,39 @@ class fDMRG:
             return matvec
         psi = np.ndarray.reshape(self.Gs[site], (self.Gs[site].size,1))
         return H_matvec, psi
-        
+
+    def _effprojHpsi(self, L, R, projL, projR, site):
+        projM = self.projMPO[site]
+        H_matvec, psi = self._effHpsi(L,R,site)
+        def projH_matvec(X):
+            G = np.ndarray.reshape(X,self.Gs[site].shape)
+            if site == 0:
+                proj_matvec = np.tensordot(np.tensordot(projR[self.N-2-site],G,axes=(0,1)),projM,axes=([2,0],[0,1]))
+                proj_matvec = np.swapaxes(proj_matvec,0,1)
+            elif site == self.N-1:
+                proj_matvec = np.tensordot(np.tensordot(projL[site-1],G,axes=(0,1)),projM,axes=([2,0],[0,1]))
+                proj_matvec = np.swapaxes(proj_matvec,0,1)
+            else:
+                proj_matvec = np.tensordot(np.tensordot(np.tensordot(projL[site-1],G,axes=(0,0)),
+                                    projM,axes=([0,2],[1,0])),projR[self.N-2-site],axes=([1,3],[0,1]))
+            proj_matvec = np.ndarray.reshape(proj_matvec, X.shape)
+            return H_matvec(X) - self.projE * proj_matvec
+        return projH_matvec, psi    
+    
     def variational_optimize(self, show_stats=True, return_stats=True, svd_method='numpy'):
         L, R = self._initialize_Env()
+        if self.projE is not None:
+            projL, projR = self._initialize_projEnv()
         E0 = 0.0; t0 = time.clock()
         for sweep in xrange(1,self.maxsweep):
             #--------------------------------------------------------------------------------------------
             # Right Sweep         
             for site in xrange(self.N-1):
                 # construct effH & diagonalize it; psi is an initial guess of eigenvector    
-                E, theta = linalg.eigshmv(*self._effHpsi(L,R,site))
+                if self.projE is not None:
+                    E, theta = linalg.eigshmv(*self._effprojHpsi(L,R,projL,projR,site))
+                else:
+                    E, theta = linalg.eigshmv(*self._effHpsi(L,R,site)) 
                 E /= self.N
                 if show_stats:
                     print "site%d," % site,"E/N= %.12f" % E
@@ -260,10 +320,16 @@ class fDMRG:
                 if site==0:                    
                     self.Gs[site] = X
                     EnvL = tn.transfer_operator(self.Gs[site],self.MPO(site))
+                    if self.projE is not None:
+                        projEnvL = tn.transfer_operator(self.Gs[site], self.projMPO[site])
                 else:
                     self.Gs[site] = np.ndarray.reshape(X,self.Gs[site].shape)                                       
-                    EnvL = self._update_EnvL(EnvL,site)                   
-                L[site] = EnvL                                                     
+                    EnvL = self._update_EnvL(EnvL,site)
+                    if self.projE is not None:
+                        projEnvL = self._update_EnvL(projEnvL, site, self.projMPO[site]) 
+                L[site] = EnvL
+                if self.projE is not None: 
+                    projL[site] = projEnvL
             # check convergence of right-sweep   
             dE = E0-E; E0 = E
             if show_stats:
@@ -274,7 +340,10 @@ class fDMRG:
             # Left Sweep
             for site in xrange(self.N-1,0,-1):
                 # construct H & diagonalize it; psi is an initial guess of eigenvector                  
-                E,theta = linalg.eigshmv(*self._effHpsi(L,R,site))
+                if self.projE is not None:
+                    E, theta = linalg.eigshmv(*self._effprojHpsi(L,R,projL,projR,site))
+                else:
+                    E, theta = linalg.eigshmv(*self._effHpsi(L,R,site)) 
                 E /= self.N
                 if show_stats:
                     print "site%d," % site,"E/N= %.12f" % E
@@ -292,10 +361,16 @@ class fDMRG:
                 if site == self.N-1:                    
                     self.Gs[site] = np.transpose(Y)
                     EnvR = tn.transfer_operator(self.Gs[site],self.MPO(site))
+                    if self.projE is not None:
+                        projEnvR = tn.transfer_operator(self.Gs[site], self.projMPO[site])
                 else:
                     self.Gs[site] = np.ndarray.reshape(Y,self.Gs[site].shape)                      
-                    EnvR = self._update_EnvR(EnvR,site)                                                
-                R[self.N-1-site] = EnvR           
+                    EnvR = self._update_EnvR(EnvR,site)
+                    if self.projE is not None:
+                        projEnvR = self._update_EnvR(projEnvR, site, self.projMPO[site])
+                R[self.N-1-site] = EnvR
+                if self.projE is not None:
+                    projR[self.N-1-site] = projEnvR 
             # check convergence of left-sweep
             dE = E0-E; E0 = E
             if show_stats:
