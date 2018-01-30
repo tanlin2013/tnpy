@@ -158,90 +158,187 @@ def Sz_site(Gs, staggering=False):
                 Gs = tn._normalize_fmps(Gs,'R',site)
     return state 
 
-def Sz_corr(Gs, m, n, staggering=False): 
-    """
-    0 < m < n < N-1
-    """
-    Sp, Sm, Sz, I2, O2 = operators.spin()
-    N = len(Gs); order = tn.get_fmps_order(Gs)
-    if staggering: stag = -1
-    else: stag = 1
+class Sz_corr:
+    def __init__(self, Gs, discard_site=1, staggering=False): 
+        self.Gs = Gs
+        self.N = len(Gs)
+        self.order = tn.get_fmps_order(Gs)
+        self.discard_site = discard_site
+        if self.discard_site < 1: raise ValueError('Must discard at least one site at each boundary.')
+        if staggering: self.stag = -1
+        else: self.stag = 1
     
-    if m >= n:
-        raise ValueError('m must be smaller than n.')
-    if m not in xrange(1,N-1) and n-m not in xrange(N-2):
-        raise ValueError('|m-n| cannot exceed the system size.')
+    def _update_IL(self, IL, site):
+        IL = np.tensordot(np.tensordot(IL,self.Gs[site],axes=(0,0)),
+                          np.conjugate(self.Gs[site]),axes=([0,1],[0,1]))
+        return IL
+        
+    def _update_IR(self, IR, site):
+        IR = np.tensordot(np.tensordot(IR,self.Gs[site],axes=(0,2)),
+                          np.conjugate(self.Gs[site]),axes=([0,2],[2,1]))
+        return IR
     
-    if order == 'R':
-        for site in xrange(m):
-            Gs = tn._normalize_fmps(Gs,'L',site)
-    elif order == 'L':
-        for site in xrange(N-1,n,-1):
-            Gs = tn._normalize_fmps(Gs,'R',site)       
-
-    IL = np.identity(Gs[m].shape[0],dtype=float)
-    IR = np.identity(Gs[n].shape[2],dtype=float)
-
-    for site in xrange(m,n+1):
-        if site == m:
-            corr = np.tensordot(np.tensordot(np.tensordot(IL,
-                 Gs[site],axes=(0,0)),stag**site*Sz,axes=(1,0)),
-                 np.conjugate(Gs[site]),axes=([0,2],[0,1]))
-        elif site == n:
-            corr = np.tensordot(np.tensordot(np.tensordot(np.tensordot(corr,
-                 Gs[site],axes=(0,0)),stag**site*Sz,axes=(1,0)),
-                 np.conjugate(Gs[site]),axes=([0,2],[0,1])),IR,axes=([0,1],[0,1]))
-        else:
-            corr = np.tensordot(np.tensordot(corr,
-                 Gs[site],axes=(0,0)),np.conjugate(Gs[site]),axes=([0,1],[0,1]))                  
-    return corr.item()
+    def _connected_part(self, m, n):
+        Sp, Sm, Sz, I2, O2 = operators.spin()       
+        if self.order == 'R':
+            IL = np.identity(self.Gs[self.discard_site].shape[0],dtype=float)
+            IR = np.identity(self.Gs[n].shape[2],dtype=float)
+            for site in xrange(self.discard_site,m):
+                IL = self._update_IL(IL,site)
+        elif self.order == 'L':
+            IL = np.identity(self.Gs[m].shape[0],dtype=float)
+            IR = np.identity(self.Gs[self.N-1-self.discard_site].shape[2],dtype=float)
+            for site in xrange(self.N-1-self.discard_site,n,-1):
+                IR = self._update_IR(IR,site)
+                
+        for site in xrange(m,n+1):
+            if site == m:
+                corr = np.tensordot(np.tensordot(np.tensordot(IL,
+                       self.Gs[site],axes=(0,0)),self.stag**site*Sz,axes=(1,0)),
+                       np.conjugate(self.Gs[site]),axes=([0,2],[0,1]))
+            elif site == n:
+                corr = np.tensordot(np.tensordot(np.tensordot(np.tensordot(corr,
+                       self.Gs[site],axes=(0,0)),self.stag**site*Sz,axes=(1,0)),
+                       np.conjugate(self.Gs[site]),axes=([0,2],[0,1])),IR,axes=([0,1],[0,1]))
+            else:
+                corr = np.tensordot(np.tensordot(corr,
+                       self.Gs[site],axes=(0,0)),np.conjugate(self.Gs[site]),axes=([0,1],[0,1]))                  
+        return corr.item()
+    
+    def avg_corr(self):
+        ls = np.arange(1,self.N-2*self.discard_site); corrs = []
+        for l in ls:
+            corr = 0.0; Nconf = 0.0
+            for m in xrange(self.discard_site,self.N-self.discard_site-l):
+                tmp = self._connected_part(m,m+l)
+                corr += tmp
+                Nconf += 1
+                print "For length {}, passing site {}, corr = {}".format(l,m,tmp)
+            corr *= 1./Nconf
+            corrs.append(np.real_if_close(corr))
+        return ls, np.array(corrs)
+    
+class Spm_corr:
+    def __init__(self, Gs, discard_site=1): 
+        self.Gs = Gs
+        self.N = len(Gs)
+        self.order = tn.get_fmps_order(Gs)
+        self.discard_site = discard_site
+        if self.discard_site < 1: raise ValueError('Must discard at least one site at each boundary.')
+    
+    def _update_IL(self, IL, site):
+        IL = np.tensordot(np.tensordot(IL,self.Gs[site],axes=(0,0)),
+                          np.conjugate(self.Gs[site]),axes=([0,1],[0,1]))
+        return IL
+        
+    def _update_IR(self, IR, site):
+        IR = np.tensordot(np.tensordot(IR,self.Gs[site],axes=(0,2)),
+                          np.conjugate(self.Gs[site]),axes=([0,2],[2,1]))
+        return IR
+    
+    def _connected_part(self, m, n):
+        Sp, Sm, Sz, I2, O2 = operators.spin()       
+        if self.order == 'R':
+            IL = np.identity(self.Gs[self.discard_site].shape[0],dtype=float)
+            IR = np.identity(self.Gs[n].shape[2],dtype=float)
+            for site in xrange(self.discard_site,m):
+                IL = self._update_IL(IL,site)
+        elif self.order == 'L':
+            IL = np.identity(self.Gs[m].shape[0],dtype=float)
+            IR = np.identity(self.Gs[self.N-1-self.discard_site].shape[2],dtype=float)
+            for site in xrange(self.N-1-self.discard_site,n,-1):
+                IR = self._update_IR(IR,site)
+                
+        for site in xrange(m,n+1):
+            if site == m:
+                corr = np.tensordot(np.tensordot(np.tensordot(IL,
+                       self.Gs[site],axes=(0,0)),Sp,axes=(1,0)),
+                       np.conjugate(self.Gs[site]),axes=([0,2],[0,1]))
+            elif site == n:
+                corr = np.tensordot(np.tensordot(np.tensordot(np.tensordot(corr,
+                       self.Gs[site],axes=(0,0)),Sm,axes=(1,0)),
+                       np.conjugate(self.Gs[site]),axes=([0,2],[0,1])),IR,axes=([0,1],[0,1]))
+            else:
+                corr = np.tensordot(np.tensordot(corr,
+                       self.Gs[site],axes=(0,0)),np.conjugate(self.Gs[site]),axes=([0,1],[0,1]))                  
+        return corr.item()
+    
+    def avg_corr(self):
+        ls = np.arange(1,self.N-2*self.discard_site); corrs = []
+        for l in ls:
+            corr = 0.0; Nconf = 0.0
+            for m in xrange(self.discard_site,self.N-self.discard_site-l):
+                tmp = self._connected_part(m,m+l)
+                corr += tmp
+                Nconf += 1
+                print "For length {}, passing site {}, corr = {}".format(l,m,tmp)
+            corr *= 1./Nconf
+            corrs.append(np.real_if_close(corr))
+        return ls, np.array(corrs)
 
 """
 def bipartite_spin_fluctuations():
     return
 """    
 
-def string_order_paras(Gs, m, n, sign=1):
-    """
-    0 < m < n < N-1
-    """
-    Sp, Sm, Sz, I2, O2 = operators.spin()
-    N = len(Gs); order = tn.get_fmps_order(Gs)
- 
-    if m >= n:
-        raise ValueError('m must be smaller than n.')
-    if m not in xrange(1,N-1) and n-m not in xrange(N-2):
-        raise ValueError('|m-n| cannot exceed the system size.')
+class string_corr:
+    def __init__(self, Gs, discard_site=1): 
+        self.Gs = Gs
+        self.N = len(Gs)
+        self.order = tn.get_fmps_order(Gs)
+        self.discard_site = discard_site
+        if self.discard_site < 1: raise ValueError('Must discard at least one site at each boundary.')
+    
+    def _update_IL(self, IL, site):
+        IL = np.tensordot(np.tensordot(IL,self.Gs[site],axes=(0,0)),
+                          np.conjugate(self.Gs[site]),axes=([0,1],[0,1]))
+        return IL
         
-    def string_operator():
-        U = expm(sign*1j*np.pi*Sz)
-        return U
-        
-    if order == 'R':
-        for site in xrange(m):
-            Gs = tn._normalize_fmps(Gs,'L',site)
-    elif order == 'L':
-        for site in xrange(N-1,n,-1):
-            Gs = tn._normalize_fmps(Gs,'R',site)       
-
-    IL = np.identity(Gs[m].shape[0],dtype=float)
-    IR = np.identity(Gs[n].shape[2],dtype=float)
-        
-    for site in xrange(m,n+1):
-        if site == m:
-            SO = np.tensordot(np.tensordot(np.tensordot(IL,
-               Gs[site],axes=(0,0)),Sp,axes=(1,0)),
-               np.conjugate(Gs[site]),axes=([0,2],[0,1]))
-        elif site == n:
-            SO = np.tensordot(np.tensordot(np.tensordot(np.tensordot(SO,
-               Gs[site],axes=(0,0)),Sm,axes=(1,0)),
-               np.conjugate(Gs[site]),axes=([0,2],[0,1])),IR,axes=([0,1],[0,1]))
-        else:
-            SO = np.tensordot(np.tensordot(np.tensordot(SO,
-               Gs[site],axes=(0,0)),string_operator(),axes=(1,0)),
-               np.conjugate(Gs[site]),axes=([0,2],[0,1]))
-    SO = np.real_if_close(SO).item()
-    return SO
+    def _update_IR(self, IR, site):
+        IR = np.tensordot(np.tensordot(IR,self.Gs[site],axes=(0,2)),
+                          np.conjugate(self.Gs[site]),axes=([0,2],[2,1]))
+        return IR
+    
+    def _connected_part(self, m, n):
+        Sp, Sm, Sz, I2, O2 = operators.spin()
+        U = expm(1j*np.pi*Sz)
+        if self.order == 'R':
+            IL = np.identity(self.Gs[self.discard_site].shape[0],dtype=float)
+            IR = np.identity(self.Gs[n].shape[2],dtype=float)
+            for site in xrange(self.discard_site,m):
+                IL = self._update_IL(IL,site)
+        elif self.order == 'L':
+            IL = np.identity(self.Gs[m].shape[0],dtype=float)
+            IR = np.identity(self.Gs[self.N-1-self.discard_site].shape[2],dtype=float)
+            for site in xrange(self.N-1-self.discard_site,n,-1):
+                IR = self._update_IR(IR,site)
+                
+        for site in xrange(m,n+1):
+            if site == m:
+                corr = np.tensordot(np.tensordot(np.tensordot(IL,
+                       self.Gs[site],axes=(0,0)),Sz,axes=(1,0)),
+                       np.conjugate(self.Gs[site]),axes=([0,2],[0,1]))
+            elif site == n:
+                corr = np.tensordot(np.tensordot(np.tensordot(np.tensordot(corr,
+                       self.Gs[site],axes=(0,0)),Sz,axes=(1,0)),
+                       np.conjugate(self.Gs[site]),axes=([0,2],[0,1])),IR,axes=([0,1],[0,1]))
+            else:
+                corr = np.tensordot(np.tensordot(np.tensordot(corr,
+                       self.Gs[site],axes=(0,0)),U,axes=(1,0)),np.conjugate(self.Gs[site]),axes=([0,2],[0,1]))                  
+        return corr.item()
+    
+    def avg_corr(self):
+        ls = np.arange(1,self.N-2*self.discard_site); corrs = []
+        for l in ls:
+            corr = 0.0; Nconf = 0.0
+            for m in xrange(self.discard_site,self.N-self.discard_site-l):
+                tmp = self._connected_part(m,m+l)
+                corr += tmp
+                Nconf += 1
+                print "For length {}, passing site {}, corr = {}".format(l,m,tmp)
+            corr *= 1./Nconf
+            corrs.append(np.real_if_close(corr))
+        return ls, np.array(corrs)
 
 class BKT_corr:
     def __init__(self, Gs, g, discard_site): 
