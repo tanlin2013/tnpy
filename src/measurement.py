@@ -474,3 +474,114 @@ def fermion_momentum(Gs):
             Gs = tn._normalize_fmps(Gs,'R',site)
     return p
       
+class TEBD_corr:
+    def __init__(self, Gs, d, chi, dt, maxstep, discard_site):
+        self.Gs = Gs
+        self.Gs0 = np.copy(Gs).tolist()
+        self.N = len(Gs)
+        self.d = d
+        self.chi = chi
+        self.dt = dt
+        self.maxstep = maxstep
+        order = tn.get_fmps_order(self.Gs)
+        if order == 'L': self.Gs = tn.normalize_fmps(self.Gs, 'R')
+        self.discard_site = discard_site
+        if self.discard_site < 2: raise ValueError('Must discard at least two site at each boundary.')    
+        if self.discard_site%2 != 0: raise ValueError('Must discard even number of sites')
+        
+    def _gate(self, site):
+        Sp, Sm, Sz, I2, O2 = operators.spin()
+        Op = np.kron(Sp,Sm)+np.kron(Sm,Sp)
+        U = expm(Op*self.dt)
+        U = np.ndarray.reshape(U, (self.d, self.d, self.d, self.d))
+        return U
+    
+    def time_evolution(self, m, n, svd_method='numpy'):
+        for step in xrange(self.maxstep):
+            for site in xrange(m,n+1,2):
+                # contract theta and U
+                if site == 0:
+                    theta = np.tensordot(np.tensordot(self._gate(site),self.Gs[site],axes=(0,0)),self.Gs[site+1],axes=([1,3],[1,0]))
+                elif site == self.N-2:
+                    theta = np.tensordot(np.tensordot(self.Gs[site],self._gate(site),axes=(1,0)),self.Gs[site+1],axes=([1,3],[1,0]))
+                else:
+                    theta = np.tensordot(np.tensordot(self.Gs[site],self._gate(site),axes=(1,0)),self.Gs[site+1],axes=([1,3],[0,1]))
+                # form the new config of 2-site block     
+                for i in xrange(2):
+                    if site+i == 0:
+                        theta = np.ndarray.reshape(theta,(self.d,theta.size/self.d))
+                    else:
+                        theta = np.ndarray.reshape(theta,(self.d*self.Gs[site+i].shape[0],theta.size/(self.d*self.Gs[site+i].shape[0])))
+                    X, S, Y = linalg.svd(theta, self.chi, method=svd_method)               
+                    if site == self.N-2 and i == 0:
+                        self.Gs[site+i+1] = np.transpose(np.dot(np.diagflat(S),Y))
+                    elif site+i == self.N-2:
+                        self.Gs[site+i+1] = np.tensordot(self.Gs[site+i+1],np.dot(np.diagflat(S),Y),axes=(1,1))
+                    elif i == 1:
+                        self.Gs[site+i+1] = np.tensordot(np.dot(np.diagflat(S),Y),self.Gs[site+i+1],axes=(1,0))
+                    else:
+                        theta = np.dot(np.diagflat(S),Y)
+                    if site+i == 0:                    
+                        self.Gs[site] = X                       
+                    else:
+                        self.Gs[site+i] = np.ndarray.reshape(X,self.Gs[site+i].shape)                       
+                    if site == self.N-2 and i == 0: break 
+                
+            for site in xrange(m+1,n,2):
+                # contract theta and U     
+                if site == 0:
+                    theta = np.tensordot(np.tensordot(self._gate(site),self.Gs[site],axes=(0,0)),self.Gs[site+1],axes=([1,3],[1,0]))
+                elif site == self.N-2:
+                    theta = np.tensordot(np.tensordot(self.Gs[site],self._gate(site),axes=(1,0)),self.Gs[site+1],axes=([1,3],[1,0]))
+                else:
+                    theta = np.tensordot(np.tensordot(self.Gs[site],self._gate(site),axes=(1,0)),self.Gs[site+1],axes=([1,3],[0,1]))
+                # form the new config of 2-site block     
+                for i in xrange(2):
+                    if site+i == 0:
+                        theta = np.ndarray.reshape(theta,(self.d,theta.size/self.d))
+                    else:
+                        theta = np.ndarray.reshape(theta,(self.d*self.Gs[site+i].shape[0],theta.size/(self.d*self.Gs[site+i].shape[0])))
+                    X, S, Y = linalg.svd(theta, self.chi, method=svd_method)               
+                    if site == self.N-2 and i == 0:
+                        self.Gs[site+i+1] = np.transpose(np.dot(np.diagflat(S),Y))
+                    elif site+i == self.N-2:
+                        self.Gs[site+i+1] = np.tensordot(self.Gs[site+i+1],np.dot(np.diagflat(S),Y),axes=(1,1))
+                    elif i == 1:
+                        self.Gs[site+i+1] = np.tensordot(np.dot(np.diagflat(S),Y),self.Gs[site+i+1],axes=(1,0))
+                    else:
+                        theta = np.dot(np.diagflat(S),Y)
+                    if site+i == 0:                    
+                        self.Gs[site] = X                       
+                    else:
+                        self.Gs[site+i] = np.ndarray.reshape(X,self.Gs[site+i].shape)                       
+                    if site == self.N-2 and i == 0: break   
+        return
+    
+    def exp_value(self):
+        for site in xrange(self.N):
+            if site == 0:
+                corr = np.tensordot(self.Gs0[site],self.Gs[site],axes=(0,0))
+                norm = np.tensordot(self.Gs0[site],self.Gs0[site],axes=(0,0))
+            elif site == self.N-1:
+                corr = np.tensordot(np.tensordot(corr,self.Gs0[site],axes=(0,1)),self.Gs[site],axes=([0,1],[1,0]))
+                norm = np.tensordot(np.tensordot(norm,self.Gs0[site],axes=(0,1)),self.Gs0[site],axes=([0,1],[1,0]))
+            else:
+                corr = np.tensordot(np.tensordot(corr,self.Gs0[site],axes=(0,0)),self.Gs[site],axes=([0,1],[0,1]))
+                norm = np.tensordot(np.tensordot(norm,self.Gs0[site],axes=(0,0)),self.Gs0[site],axes=([0,1],[0,1]))
+        corr = np.real_if_close(corr/norm).item()
+        return corr
+    
+    def avg_corr(self):
+        ls = np.arange(2,self.N-2*self.discard_site,2); corrs = []
+        for l in ls:
+            corr = 0.0; Nconf = 0.0
+            for m in xrange(self.discard_site,self.N-self.discard_site-l,2):
+                self.time_evolution(m,m+l)
+                tmp = self.exp_value()
+                corr += tmp
+                Nconf += 1
+                print "For length {}, passing site {}, corr = {}".format(l,m,tmp)
+            corr *= 1./Nconf
+            corrs.append(np.real_if_close(corr))
+        return ls, np.array(corrs)
+    
