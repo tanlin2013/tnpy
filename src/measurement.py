@@ -316,11 +316,11 @@ class string_corr:
         for site in xrange(m,n+1):
             if site == m:
                 corr = np.tensordot(np.tensordot(np.tensordot(IL,
-                       self.Gs[site],axes=(0,0)),Sz,axes=(1,0)),
+                       self.Gs[site],axes=(0,0)),Sp,axes=(1,0)),
                        np.conjugate(self.Gs[site]),axes=([0,2],[0,1]))
             elif site == n:
                 corr = np.tensordot(np.tensordot(np.tensordot(np.tensordot(corr,
-                       self.Gs[site],axes=(0,0)),Sz,axes=(1,0)),
+                       self.Gs[site],axes=(0,0)),Sm,axes=(1,0)),
                        np.conjugate(self.Gs[site]),axes=([0,2],[0,1])),IR,axes=([0,1],[0,1]))
             else:
                 corr = np.tensordot(np.tensordot(np.tensordot(corr,
