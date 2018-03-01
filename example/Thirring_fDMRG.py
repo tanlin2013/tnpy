@@ -20,9 +20,8 @@ class Thirring:
         
         beta = self.g + ((-1.0)**site*self.ma+self.mu) - 2.0*self.lamda*self.S_target
         gamma = self.lamda*(0.25 + self.S_target**2/self.N) + 0.25*self.g + 0.5*self.mu
-        parity = (site+1)%2
 
-        elem = [[I2, -0.5*Sp, -0.5*Sm, 2.0*np.sqrt(self.lamda)*Sz, 2.0*self.g*parity*Sz, gamma*I2+beta*Sz],
+        elem = [[I2, -0.5*Sp, -0.5*Sm, 2.0*np.sqrt(self.lamda)*Sz, self.g*parity*Sz, gamma*I2+beta*Sz],
                     [O2, O2, O2, O2, O2, Sm],
                     [O2, O2, O2, O2, O2, Sp],
                     [O2, O2, O2, I2, O2, np.sqrt(self.lamda)*Sz],
