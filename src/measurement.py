@@ -2,10 +2,10 @@
 This file contains the physical quantities to be measured.
 """
 
-import warnings
+import copy,warnings
 import numpy as np
 from scipy.linalg import expm
-import operators
+import operators,linalg
 import tnstate as tn 
 
 class _update_Env:
