@@ -537,9 +537,9 @@ class TEBD_corr:
                     else:
                         self.Gs[site+i] = np.ndarray.reshape(X,self.Gs[site+i].shape)
                     if site == self.N-2 and i == 0: break
-                if use_config:
+                if use_config and n < self.N-2-self.discard_site:
                     self.SY_config_dict['point_{}_{}-layer_{}-site_{}'.format(m,n,2*step+1,site)] = copy.copy(np.dot(np.diagflat(S),Y))
-            if use_config:
+            if use_config and n < self.N-2-self.discard_site:
                 self.Gs_config_dict['point_{}_{}-layer_{}'.format(m,n,2*step+1)] = copy.copy(self.Gs)
                 
             k = n-2*step-1
@@ -578,10 +578,11 @@ class TEBD_corr:
                     else:
                         self.Gs[site+i] = np.ndarray.reshape(X,self.Gs[site+i].shape)                       
                     if site == self.N-2 and i == 0: break
-                if use_config:
+                if use_config and n < self.N-2-self.discard_site:
                     self.SY_config_dict['point_{}_{}-layer_{}-site_{}'.format(m,n,2*step+2,site)] = copy.copy(np.dot(np.diagflat(S),Y))
+            if use_config and n < self.N-2-self.discard_site:
+                self.Gs_config_dict['point_{}_{}-layer_{}'.format(m,n,2*step+2)] = copy.copy(self.Gs)
             if use_config:
-                self.Gs_config_dict['point_{}_{}-layer_{}'.format(m,n,2*step+2)] = copy.copy(self.Gs)           
                 self._dict_cleaner(m,n,2*step+2)
         return
     
