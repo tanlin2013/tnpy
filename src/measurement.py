@@ -476,8 +476,7 @@ def fermion_momentum(Gs):
       
 class TEBD_corr:
     def __init__(self, Gs, d, chi, dt, maxstep, discard_site=2):
-        self.Gs = Gs
-        self.Gs0 = copy.copy(Gs)
+        self.Gs = Gs        
         self.N = len(Gs)
         self.d = d
         self.chi = chi
@@ -485,9 +484,9 @@ class TEBD_corr:
         self.maxstep = maxstep
         order = tn.get_fmps_order(self.Gs)
         if order == 'R': self.Gs = tn.normalize_fmps(self.Gs, 'L')
+        self.Gs0 = copy.copy(Gs)
         self.discard_site = discard_site
-        if self.discard_site < 2: raise ValueError('Must discard at least two site at each boundary.')    
-        if self.discard_site%2 != 0: raise ValueError('Must discard even number of sites')
+        if self.discard_site < 1: raise ValueError('Must discard at least one site at each boundary.') 
         self.Gs_config_dict = {}
         self.SY_config_dict = {}
         
@@ -526,8 +525,6 @@ class TEBD_corr:
                     X, S, Y = linalg.svd(theta, self.chi, method=svd_method)
                     if site == self.N-2 and i == 0:
                         self.Gs[site+i+1] = np.transpose(np.dot(np.diagflat(S),Y))
-                    #elif site+i == self.N-2:
-                    #    self.Gs[site+i+1] = np.tensordot(self.Gs[site+i+1],np.dot(np.diagflat(S),Y),axes=(1,1))
                     elif i == 1:
                         self.Gs[site+i+1] = np.tensordot(np.dot(np.diagflat(S),Y),self.Gs[site+i+1],axes=(1,0))
                     else:
@@ -565,8 +562,6 @@ class TEBD_corr:
                     else:
                         theta = np.ndarray.reshape(theta,(self.d*self.Gs[site+i].shape[0],theta.size/(self.d*self.Gs[site+i].shape[0])))
                     X, S, Y = linalg.svd(theta, self.chi, method=svd_method)
-                    #if site == self.N-2 and i == 0:
-                    #    self.Gs[site+i+1] = np.transpose(np.dot(np.diagflat(S),Y))
                     if site+i == self.N-2:
                         self.Gs[site+i+1] = np.tensordot(self.Gs[site+i+1],np.dot(np.diagflat(S),Y),axes=(1,1))
                     elif i == 1:
