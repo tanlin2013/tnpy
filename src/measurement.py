@@ -582,21 +582,20 @@ class TEBD_corr:
                     self.SY_config_dict['point_{}_{}-layer_{}-site_{}'.format(m,n,2*step+2,site)] = copy.copy(np.dot(np.diagflat(S),Y))
             if use_config and n < self.N-2-self.discard_site:
                 self.Gs_config_dict['point_{}_{}-layer_{}'.format(m,n,2*step+2)] = copy.copy(self.Gs)
-            if use_config:
+            if use_config and n-m > 2:
                 self._dict_cleaner(m,n,2*step+2)
         return
     
     def _dict_cleaner(self, m, n, layer):
-        if n-m > 2:
-            if n-1-layer-m > 2: k = n-1-layer
-            else: k = m
-            for site in xrange(k,n-1):
-                if site%2 == 0:
-                    del self.SY_config_dict['point_{}_{}-layer_{}-site_{}'.format(m,n-2,layer-1,site)]
-                else:
-                    del self.SY_config_dict['point_{}_{}-layer_{}-site_{}'.format(m,n-2,layer,site)]
-            del self.Gs_config_dict['point_{}_{}-layer_{}'.format(m,n-2,layer-1)]
-            del self.Gs_config_dict['point_{}_{}-layer_{}'.format(m,n-2,layer)]
+        if n-1-layer-m > 2: k = n-1-layer
+        else: k = m
+        for site in xrange(k,n-1):
+            if (site-self.discard_site)%2 == 0:
+                del self.SY_config_dict['point_{}_{}-layer_{}-site_{}'.format(m,n-2,layer-1,site)]
+            else:
+                del self.SY_config_dict['point_{}_{}-layer_{}-site_{}'.format(m,n-2,layer,site)]
+        del self.Gs_config_dict['point_{}_{}-layer_{}'.format(m,n-2,layer-1)]
+        del self.Gs_config_dict['point_{}_{}-layer_{}'.format(m,n-2,layer)]
         return
         
     def exp_value(self):
