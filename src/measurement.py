@@ -476,7 +476,7 @@ def fermion_momentum(Gs):
       
 class TEBD_corr:
     def __init__(self, Gs, d, chi, dt, maxstep, discard_site=2):
-        self.Gs = Gs        
+        self.Gs = Gs
         self.N = len(Gs)
         self.d = d
         self.chi = chi
@@ -484,11 +484,15 @@ class TEBD_corr:
         self.maxstep = maxstep
         order = tn.get_fmps_order(self.Gs)
         if order == 'R': self.Gs = tn.normalize_fmps(self.Gs, 'L')
+        self.SVMs = [None]*(self.N-1)
+        for site in xrange(self.N-1,0,-1):
+            self.Gs, S = tn._normalize_fmps(self.Gs,'R',site,return_S=True)
+            self.SVMs[site-1] = S
         self.Gs0 = copy.copy(Gs)
         self.discard_site = discard_site
-        if self.discard_site < 1: raise ValueError('Must discard at least one site at each boundary.') 
+        if self.discard_site < 1: raise ValueError('Must discard at least one site at each boundary.')    
         self.Gs_config_dict = {}
-        self.SY_config_dict = {}
+        self.SVMs_config_dict = {}
         
     def _gate(self, site):
         Sp, Sm, Sz, I2, O2 = operators.spin()
@@ -497,98 +501,61 @@ class TEBD_corr:
         U = np.ndarray.reshape(U, (self.d, self.d, self.d, self.d))
         return U
     
-    def time_evolution(self, m, n, svd_method='numpy', use_config=True):
+    def time_evolution(self, m, n, renorm=True, use_config=True, svd_method='numpy'):
         self.Gs = copy.copy(self.Gs0)
         for step in xrange(self.maxstep):
             k = n-2*step
             if use_config and n-m > 2 and k-m > 2:
                 Gs_config = self.Gs_config_dict['point_{}_{}-layer_{}'.format(m,n-2,2*step+1)]            
                 self.Gs = Gs_config[:k]+self.Gs[k:]
-                SY = self.SY_config_dict['point_{}_{}-layer_{}-site_{}'.format(m,n-2,2*step+1,k-2)]
-                self.Gs[k] = np.tensordot(SY,self.Gs[k],axes=(1,0))
+                SVMs_config = self.SVMs_config_dict['point_{}_{}-layer_{}'.format(m,n-2,2*step+1)]
+                self.SVMs = SVMs_config[:k]+self.SVMs[k:]
             else:
                 k = m
             for site in xrange(k,n+1,2):
-                # contract theta and U
-                if site == 0:
-                    theta = np.tensordot(np.tensordot(self._gate(site),self.Gs[site],axes=(0,0)),self.Gs[site+1],axes=([1,3],[1,0]))
-                elif site == self.N-2:
-                    theta = np.tensordot(np.tensordot(self.Gs[site],self._gate(site),axes=(1,0)),self.Gs[site+1],axes=([1,3],[1,0]))
-                else:
-                    theta = np.tensordot(np.tensordot(self.Gs[site],self._gate(site),axes=(1,0)),self.Gs[site+1],axes=([1,3],[0,1]))
-                # form the new config of 2-site block     
-                for i in xrange(2):
-                    if site+i == 0:
-                        theta = np.ndarray.reshape(theta,(self.d,theta.size/self.d))
-                    else:
-                        theta = np.ndarray.reshape(theta,(self.d*self.Gs[site+i].shape[0],theta.size/(self.d*self.Gs[site+i].shape[0])))
-                    X, S, Y = linalg.svd(theta, self.chi, method=svd_method)
-                    if site == self.N-2 and i == 0:
-                        self.Gs[site+i+1] = np.transpose(np.dot(np.diagflat(S),Y))
-                    elif i == 1:
-                        self.Gs[site+i+1] = np.tensordot(np.dot(np.diagflat(S),Y),self.Gs[site+i+1],axes=(1,0))
-                    else:
-                        theta = np.dot(np.diagflat(S),Y)
-                    if site+i == 0:                    
-                        self.Gs[site] = X                       
-                    else:
-                        self.Gs[site+i] = np.ndarray.reshape(X,self.Gs[site+i].shape)
-                    if site == self.N-2 and i == 0: break
-                if use_config and n < self.N-2-self.discard_site:
-                    self.SY_config_dict['point_{}_{}-layer_{}-site_{}'.format(m,n,2*step+1,site)] = copy.copy(np.dot(np.diagflat(S),Y))
+                # contract MPS and U into theta
+                theta_p = np.tensordot(np.tensordot(self.Gs[site],self._gate(site),axes=(1,0)),self.Gs[site+1],axes=([1,3],[0,1]))
+                theta = np.tensordot(np.diagflat(self.SVMs[site-1]),theta_p,axes=(1,0))
+                theta = np.ndarray.reshape(theta,(self.d*self.Gs[site].shape[0],self.d*self.Gs[site+1].shape[2]))
+                X, S, Y = linalg.svd(theta, self.chi, method=svd_method)
+                if renorm: S /= np.linalg.norm(S)
+                # form the new configurations
+                self.SVMs[site] = S
+                self.Gs[site+1] = np.ndarray.reshape(Y,self.Gs[site+1].shape)                  
+                self.Gs[site] = np.tensordot(theta_p,self.Gs[site+1],axes=([2,3],[1,2]))                                   
             if use_config and n < self.N-2-self.discard_site:
-                self.Gs_config_dict['point_{}_{}-layer_{}'.format(m,n,2*step+1)] = copy.copy(self.Gs)
-                
+                self.SVMs_config_dict['point_{}_{}-layer_{}'.format(m,n,2*step+1)] = copy.copy(self.SVMs)
+                self.Gs_config_dict['point_{}_{}-layer_{}'.format(m,n,2*step+1)] = copy.copy(self.Gs)           
+            
             k = n-2*step-1
             if use_config and n-m > 2 and k-m+1 > 2:  
                 Gs_config = self.Gs_config_dict['point_{}_{}-layer_{}'.format(m,n-2,2*step+2)]          
                 self.Gs = Gs_config[:k]+self.Gs[k:]
-                SY = self.SY_config_dict['point_{}_{}-layer_{}-site_{}'.format(m,n-2,2*step+2,k-2)]
-                self.Gs[k] = np.tensordot(SY,self.Gs[k],axes=(1,0))
+                SVMs_config = self.SVMs_config_dict['point_{}_{}-layer_{}'.format(m,n-2,2*step+2)]
+                self.SVMs = SVMs_config[:k]+self.SVMs[k:]
             else:
                 k = m+1
             for site in xrange(k,n,2):
-                # contract theta and U 
-                if site == 0:
-                    theta = np.tensordot(np.tensordot(self._gate(site),self.Gs[site],axes=(0,0)),self.Gs[site+1],axes=([1,3],[1,0]))
-                elif site == self.N-2:
-                    theta = np.tensordot(np.tensordot(self.Gs[site],self._gate(site),axes=(1,0)),self.Gs[site+1],axes=([1,3],[1,0]))
-                else:
-                    theta = np.tensordot(np.tensordot(self.Gs[site],self._gate(site),axes=(1,0)),self.Gs[site+1],axes=([1,3],[0,1]))
-                # form the new config of 2-site block     
-                for i in xrange(2):
-                    if site+i == 0:
-                        theta = np.ndarray.reshape(theta,(self.d,theta.size/self.d))
-                    else:
-                        theta = np.ndarray.reshape(theta,(self.d*self.Gs[site+i].shape[0],theta.size/(self.d*self.Gs[site+i].shape[0])))
-                    X, S, Y = linalg.svd(theta, self.chi, method=svd_method)
-                    if site+i == self.N-2:
-                        self.Gs[site+i+1] = np.tensordot(self.Gs[site+i+1],np.dot(np.diagflat(S),Y),axes=(1,1))
-                    elif i == 1:
-                        self.Gs[site+i+1] = np.tensordot(np.dot(np.diagflat(S),Y),self.Gs[site+i+1],axes=(1,0))
-                    else:
-                        theta = np.dot(np.diagflat(S),Y)
-                    if site+i == 0:                    
-                        self.Gs[site] = X                       
-                    else:
-                        self.Gs[site+i] = np.ndarray.reshape(X,self.Gs[site+i].shape)                       
-                    if site == self.N-2 and i == 0: break
-                if use_config and n < self.N-2-self.discard_site:
-                    self.SY_config_dict['point_{}_{}-layer_{}-site_{}'.format(m,n,2*step+2,site)] = copy.copy(np.dot(np.diagflat(S),Y))
+                # contract MPS and U into theta
+                theta_p = np.tensordot(np.tensordot(self.Gs[site],self._gate(site),axes=(1,0)),self.Gs[site+1],axes=([1,3],[0,1]))
+                theta = np.tensordot(np.diagflat(self.SVMs[site-1]),theta_p,axes=(1,0))
+                theta = np.ndarray.reshape(theta,(self.d*self.Gs[site].shape[0],self.d*self.Gs[site+1].shape[2]))
+                X, S, Y = linalg.svd(theta, self.chi, method=svd_method)
+                if renorm: S /= np.linalg.norm(S)
+                # form the new configurations
+                self.SVMs[site] = S
+                self.Gs[site+1] = np.ndarray.reshape(Y,self.Gs[site+1].shape)                  
+                self.Gs[site] = np.tensordot(theta_p,self.Gs[site+1],axes=([2,3],[1,2]))                  
             if use_config and n < self.N-2-self.discard_site:
-                self.Gs_config_dict['point_{}_{}-layer_{}'.format(m,n,2*step+2)] = copy.copy(self.Gs)
+                self.SVMs_config_dict['point_{}_{}-layer_{}'.format(m,n,2*step+2)] = copy.copy(self.SVMs)
+                self.Gs_config_dict['point_{}_{}-layer_{}'.format(m,n,2*step+2)] = copy.copy(self.Gs)           
             if use_config and n-m > 2:
-                self._dict_cleaner(m,n,2*step+2)
+                self._dict_cleaner(m,n,2*step+2)     
         return
     
     def _dict_cleaner(self, m, n, layer):
-        if n-1-layer-m > 2: k = n-1-layer
-        else: k = m
-        for site in xrange(k,n-1):
-            if (site-self.discard_site)%2 == 0:
-                del self.SY_config_dict['point_{}_{}-layer_{}-site_{}'.format(m,n-2,layer-1,site)]
-            else:
-                del self.SY_config_dict['point_{}_{}-layer_{}-site_{}'.format(m,n-2,layer,site)]
+        del self.SVMs_config_dict['point_{}_{}-layer_{}'.format(m,n-2,layer-1)]
+        del self.SVMs_config_dict['point_{}_{}-layer_{}'.format(m,n-2,layer)]
         del self.Gs_config_dict['point_{}_{}-layer_{}'.format(m,n-2,layer-1)]
         del self.Gs_config_dict['point_{}_{}-layer_{}'.format(m,n-2,layer)]
         return
@@ -604,12 +571,12 @@ class TEBD_corr:
         corr = np.real_if_close(corr).item()
         return corr
     
-    def avg_corr(self):
+    def avg_corr(self, renorm=True, use_config=True):
         ls = np.arange(2,self.N-2*self.discard_site,2); corrs = []
         for l in ls:
             corr = 0.0; Nconf = 0.0
             for m in xrange(self.discard_site,self.N-self.discard_site-l,2):
-                self.time_evolution(m,m+l)
+                self.time_evolution(m,m+l,renorm,use_config)
                 tmp = self.exp_value()
                 corr += tmp
                 Nconf += 1
