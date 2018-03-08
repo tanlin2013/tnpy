@@ -505,7 +505,7 @@ class TEBD_corr:
         U = np.swapaxes(U,1,2)
         return U
     
-    def time_evolution(self, m, n, renorm=True, use_config=True, svd_method='numpy'):
+    def time_evolution(self, m, n, use_config=True, svd_method='numpy'):
         self.Gs = copy.copy(self.Gs0)
         for step in xrange(self.maxstep):
             k = n-2*step
@@ -522,7 +522,6 @@ class TEBD_corr:
                 theta = np.tensordot(np.diagflat(self.SVMs[site-1]),theta_p,axes=(1,0))
                 theta = np.ndarray.reshape(theta,(self.d*self.Gs[site].shape[0],self.d*self.Gs[site+1].shape[2]))
                 X, S, Y = linalg.svd(theta, self.chi, method=svd_method)
-                if renorm: S /= np.linalg.norm(S)
                 # form the new configurations
                 self.SVMs[site] = S
                 self.Gs[site+1] = np.ndarray.reshape(Y,self.Gs[site+1].shape)                  
@@ -545,7 +544,6 @@ class TEBD_corr:
                 theta = np.tensordot(np.diagflat(self.SVMs[site-1]),theta_p,axes=(1,0))
                 theta = np.ndarray.reshape(theta,(self.d*self.Gs[site].shape[0],self.d*self.Gs[site+1].shape[2]))
                 X, S, Y = linalg.svd(theta, self.chi, method=svd_method)
-                if renorm: S /= np.linalg.norm(S)
                 # form the new configurations
                 self.SVMs[site] = S
                 self.Gs[site+1] = np.ndarray.reshape(Y,self.Gs[site+1].shape)                  
@@ -575,12 +573,12 @@ class TEBD_corr:
         corr = np.real_if_close(corr).item()
         return corr
     
-    def avg_corr(self, renorm=True, use_config=True):
+    def avg_corr(self, use_config=True):
         ls = np.arange(2,self.N-2*self.discard_site,2); corrs = []
         for l in ls:
             corr = 0.0; Nconf = 0.0
             for m in xrange(self.discard_site,self.N-self.discard_site-l,2):
-                self.time_evolution(m,m+l,renorm,use_config)
+                self.time_evolution(m,m+l,use_config)
                 tmp = self.exp_value()
                 corr += tmp
                 Nconf += 1
