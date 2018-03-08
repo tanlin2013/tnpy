@@ -340,6 +340,7 @@ class string_corr:
             corrs.append(np.real_if_close(corr))
         return ls, np.array(corrs)
 
+"""
 class BKT_corr:
     def __init__(self, Gs, g, discard_site): 
         self.Gs, self.SVM = tn.normalize_fmps(Gs,'mix')
@@ -425,6 +426,7 @@ class BKT_corr:
             corr *= 1./Nconf
             corrs.append(np.real_if_close(corr))
         return ls, np.array(corrs)
+"""
 
 def fermion_momentum(Gs):
     Sp, Sm, Sz, I2, O2 = operators.spin()
