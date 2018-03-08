@@ -497,8 +497,12 @@ class TEBD_corr:
     def _gate(self, site):
         Sp, Sm, Sz, I2, O2 = operators.spin()
         Op = np.kron(Sp,Sm)-np.kron(Sm,Sp)
+        Op = np.ndarray.reshape(Op, (self.d, self.d, self.d, self.d))
+        Op = np.swapaxes(Op,1,2)
+        Op = np.ndarray.reshape(Op, (self.d**2, self.d**2))
         U = expm(Op*self.dt)
         U = np.ndarray.reshape(U, (self.d, self.d, self.d, self.d))
+        U = np.swapaxes(U,1,2)
         return U
     
     def time_evolution(self, m, n, renorm=True, use_config=True, svd_method='numpy'):
