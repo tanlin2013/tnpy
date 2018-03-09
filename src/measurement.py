@@ -580,10 +580,15 @@ class TEBD_corr:
         for l in ls:
             corr = 0.0; Nconf = 0.0
             for m in xrange(self.discard_site,self.N-self.discard_site-l,2):
-                self.time_evolution(m,m+l,use_config)
-                tmp = self.exp_value()
+                try:    
+                    self.time_evolution(m,m+l,use_config)
+                    tmp = self.exp_value()
+                    Nconf += 1
+                except:
+                    tmp = 0.0
+                    warnings.simplefilter("always")        
+                    warnings.warn("ValueWarning: Encounter NaN in SVD, skip.")
                 corr += tmp
-                Nconf += 1
                 print "For length {}, passing site {}, corr = {}".format(l,m,tmp)
             corr *= 1./Nconf
             corrs.append(np.real_if_close(corr))
