@@ -580,12 +580,12 @@ class TEBD_corr:
         corr = np.real_if_close(corr).item()
         return corr
     
-    def no_avg_corr(self):
+    def no_avg_corr(self, svd_method='numpy'):
         ls = np.arange(2,self.N-2*self.discard_site,2); corrs = []
         for l in ls:
             m = (self.N-l-1)/2
             try:
-                self.time_evolution(m,m+l,use_config=False)
+                self.time_evolution(m,m+l,svd_method,use_config=False)
                 corr = self.exp_value()
             except:
                 corr = np.nan
@@ -595,13 +595,13 @@ class TEBD_corr:
             corrs.append(np.real_if_close(corr))
         return ls, np.array(corrs)
     
-    def avg_corr(self, use_config=True):
+    def avg_corr(self, use_config=True, svd_method='numpy'):
         ls = np.arange(2,self.N-2*self.discard_site,2); corrs = []
         for l in ls:
             corr = 0.0; Nconf = 0.0
             for m in xrange(self.discard_site,self.N-self.discard_site-l,2):
                 try:    
-                    self.time_evolution(m,m+l,use_config)
+                    self.time_evolution(m,m+l,use_config,svd_method)
                     tmp = self.exp_value()
                     Nconf += 1
                 except:
