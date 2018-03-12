@@ -580,6 +580,21 @@ class TEBD_corr:
         corr = np.real_if_close(corr).item()
         return corr
     
+    def no_avg_corr(self):
+        ls = np.arange(2,self.N-2*self.discard_site,2); corrs = []
+        for l in ls:
+            m = (self.N-l-1)/2
+            try:
+                self.time_evolution(m,m+l,use_config=False)
+                corr = self.exp_value()
+            except:
+                corr = np.nan
+                warnings.simplefilter("always")        
+                warnings.warn("ValueWarning: Encounter NaN in SVD, skip.")
+            print "For length {}, passing site {}, corr = {}".format(l,m,corr)
+            corrs.append(np.real_if_close(corr))
+        return ls, np.array(corrs)
+    
     def avg_corr(self, use_config=True):
         ls = np.arange(2,self.N-2*self.discard_site,2); corrs = []
         for l in ls:
