@@ -585,7 +585,7 @@ class TEBD_corr:
         for l in ls:
             m = (self.N-l-1)/2
             try:
-                self.time_evolution(m,m+l,svd_method,use_config=False)
+                self.time_evolution(m,m+l,use_config=False,svd_method=svd_method)
                 corr = self.exp_value()
             except:
                 corr = np.nan
