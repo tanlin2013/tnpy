@@ -328,7 +328,7 @@ class string_corr:
         return corr.item()
     
     def avg_corr(self):
-        ls = np.arange(1,self.N-2*self.discard_site); corrs = []
+        ls = np.arange(1,self.N-2*self.discard_site,2); corrs = []
         for l in ls:
             corr = 0.0; Nconf = 0.0
             for m in xrange(self.discard_site,self.N-self.discard_site-l):
@@ -493,8 +493,9 @@ class TEBD_corr:
         self.Gs0 = copy.copy(Gs)
         self.discard_site = discard_site
         if self.discard_site < 1: raise ValueError('Must discard at least one site at each boundary.')    
-        self.Gs_config_dict = {}
-        self.SVMs_config_dict = {}
+        self.config_ID = []
+        self.Gs_config_dict = []
+        self.SVMs_config_dict = []
         
     def _gate(self, site):
         Sp, Sm, Sz, I2, O2 = operators.spin()
@@ -512,10 +513,9 @@ class TEBD_corr:
         for step in xrange(self.maxstep):
             k = n-2*step
             if use_config and n-m > 2 and k-m > 2:
-                Gs_config = self.Gs_config_dict['point_{}_{}-layer_{}'.format(m,n-2,2*step+1)]            
-                self.Gs = Gs_config[:k]+self.Gs[k:]
-                SVMs_config = self.SVMs_config_dict['point_{}_{}-layer_{}'.format(m,n-2,2*step+1)]
-                self.SVMs = SVMs_config[:k]+self.SVMs[k:]
+                key = self.config_ID.index('point_{}_{}-layer_{}'.format(m,n-2,2*step+1))       
+                self.Gs = self.Gs[:m] + self.Gs_config_dict[key] + self.Gs[k:]
+                self.SVMs[k] = self.SVMs_config_dict[key]
             else:
                 k = m
             for site in xrange(k,n+1,2):
@@ -529,15 +529,15 @@ class TEBD_corr:
                 self.Gs[site+1] = np.ndarray.reshape(Y,self.Gs[site+1].shape)                  
                 self.Gs[site] = np.tensordot(theta_p,self.Gs[site+1],axes=([2,3],[1,2]))                                   
             if use_config and n < self.N-2-self.discard_site:
-                self.SVMs_config_dict['point_{}_{}-layer_{}'.format(m,n,2*step+1)] = copy.copy(self.SVMs)
-                self.Gs_config_dict['point_{}_{}-layer_{}'.format(m,n,2*step+1)] = copy.copy(self.Gs)           
+                self.config_ID.append('point_{}_{}-layer_{}'.format(m,n,2*step+1))
+                self.SVMs_config_dict.append(copy.copy(self.SVMs[n+1-2*step]))
+                self.Gs_config_dict.append(copy.copy(self.Gs[m:n+2-2*step]))           
             
             k = n-2*step-1
             if use_config and n-m > 2 and k-m+1 > 2:  
-                Gs_config = self.Gs_config_dict['point_{}_{}-layer_{}'.format(m,n-2,2*step+2)]          
-                self.Gs = Gs_config[:k]+self.Gs[k:]
-                SVMs_config = self.SVMs_config_dict['point_{}_{}-layer_{}'.format(m,n-2,2*step+2)]
-                self.SVMs = SVMs_config[:k]+self.SVMs[k:]
+                key = self.config_ID.index('point_{}_{}-layer_{}'.format(m,n-2,2*step+2))         
+                self.Gs = self.Gs[:m] + self.Gs_config_dict[key] + self.Gs[k:]
+                self.SVMs[k] = self.SVMs_config_dict[key]
             else:
                 k = m+1
             for site in xrange(k,n,2):
@@ -551,17 +551,22 @@ class TEBD_corr:
                 self.Gs[site+1] = np.ndarray.reshape(Y,self.Gs[site+1].shape)                  
                 self.Gs[site] = np.tensordot(theta_p,self.Gs[site+1],axes=([2,3],[1,2]))                  
             if use_config and n < self.N-2-self.discard_site:
-                self.SVMs_config_dict['point_{}_{}-layer_{}'.format(m,n,2*step+2)] = copy.copy(self.SVMs)
-                self.Gs_config_dict['point_{}_{}-layer_{}'.format(m,n,2*step+2)] = copy.copy(self.Gs)           
+                self.config_ID.append('point_{}_{}-layer_{}'.format(m,n,2*step+2))
+                self.SVMs_config_dict.append(copy.copy(self.SVMs[n-2*step]))
+                self.Gs_config_dict.append(copy.copy(self.Gs[m:n+1-2*step]))          
             if use_config and n-m > 2:
                 self._dict_cleaner(m,n,2*step+2)     
         return
     
     def _dict_cleaner(self, m, n, layer):
-        del self.SVMs_config_dict['point_{}_{}-layer_{}'.format(m,n-2,layer-1)]
-        del self.SVMs_config_dict['point_{}_{}-layer_{}'.format(m,n-2,layer)]
-        del self.Gs_config_dict['point_{}_{}-layer_{}'.format(m,n-2,layer-1)]
-        del self.Gs_config_dict['point_{}_{}-layer_{}'.format(m,n-2,layer)]
+        key = self.config_ID.index('point_{}_{}-layer_{}'.format(m,n-2,layer-1))
+        del self.SVMs_config_dict[key]
+        del self.Gs_config_dict[key]
+        del self.config_ID[key]
+        key = self.config_ID.index('point_{}_{}-layer_{}'.format(m,n-2,layer))
+        del self.SVMs_config_dict[key]       
+        del self.Gs_config_dict[key]
+        del self.config_ID[key]
         return
         
     def exp_value(self):
