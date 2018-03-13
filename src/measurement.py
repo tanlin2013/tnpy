@@ -595,11 +595,11 @@ class TEBD_corr:
             corrs.append(np.real_if_close(corr))
         return ls, np.array(corrs)
     
-    def avg_corr(self, use_config=True, svd_method='numpy'):
+    def avg_corr(self, N_conf=None, use_config=True, svd_method='numpy'):
         ls = np.arange(2,self.N-2*self.discard_site,2); corrs = []
         for l in ls:
             corr = 0.0; Nconf = 0.0
-            for m in xrange(self.discard_site,self.N-self.discard_site-l,2):
+            for m in range(self.discard_site,self.N-self.discard_site-l,2)[:N_conf]:
                 try:    
                     self.time_evolution(m,m+l,use_config,svd_method)
                     tmp = self.exp_value()
