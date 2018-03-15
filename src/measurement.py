@@ -610,6 +610,9 @@ class TEBD_corr:
                     warnings.warn("ValueWarning: Encounter NaN in SVD, skip.")
                 corr += tmp
                 print "For length {}, passing site {}, corr = {}".format(l,m,tmp)
-            corr *= 1./Nconf
-            corrs.append(np.real_if_close(corr))
+            if Nconf == 0:
+                corrs.append(np.nan)
+            else:
+                corr *= 1./Nconf
+                corrs.append(np.real_if_close(corr))
         return ls, np.array(corrs)
