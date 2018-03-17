@@ -340,6 +340,70 @@ class string_corr:
             corrs.append(np.real_if_close(corr))
         return ls, np.array(corrs)
 
+class vertex_corr:
+    def __init__(self, Gs, discard_site):
+        self.Gs = Gs
+        self.N = len(Gs)
+        self.order = tn.get_fmps_order(Gs)
+        self.discard_site = discard_site
+    
+    def _update_IL(self, IL, site):
+        IL = np.tensordot(np.tensordot(IL,self.Gs[site],axes=(0,0)),
+                          np.conjugate(self.Gs[site]),axes=([0,1],[0,1]))
+        return IL
+        
+    def _update_IR(self, IR, site):
+        IR = np.tensordot(np.tensordot(IR,self.Gs[site],axes=(0,2)),
+                          np.conjugate(self.Gs[site]),axes=([0,2],[2,1]))
+        return IR
+    
+    def _vertex_op(self, sign):
+        Sp, Sm, Sz, I2, O2 = operators.spin()
+        Op = np.kron(Sz,I2)-np.kron(I2,Sz)-1j*sign*(np.kron(Sp,Sm)+np.kron(Sm,Sp))
+        return Op
+    
+    def _connected_part(self, m, n):
+        if self.order == 'R':
+            IL = np.identity(self.Gs[self.discard_site].shape[0],dtype=float)
+            IR = np.identity(self.Gs[n].shape[2],dtype=float)
+            for site in xrange(self.discard_site,m):
+                IL = self._update_IL(IL,site)
+        elif self.order == 'L':
+            IL = np.identity(self.Gs[m].shape[0],dtype=float)
+            IR = np.identity(self.Gs[self.N-1-self.discard_site].shape[2],dtype=float)
+            for site in xrange(self.N-1-self.discard_site,n+1,-1):
+                IR = self._update_IR(IR,site)
+        
+        for site in xrange(m,n+1,2):
+            if site == m:
+                corr = np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(
+                        IL,self.Gs[m],axes=(0,0)),np.conjugate(self.Gs[m]),axes=(0,0)),
+                        self._vertex_op(1.0),axes=([0,2],[0,1])),
+                        self.Gs[m+1],axes=([0,2],[0,1])),np.conjugate(self.Gs[m+1]),axes=([0,1],[0,1]))
+            elif site == n:
+                corr = np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(np.tensordot(
+                        corr,self.Gs[n],axes=(0,0)),np.conjugate(self.Gs[n]),axes=(0,0)),
+                        self._vertex_op(-1.0),axes=([0,2],[0,1])),
+                        self.Gs[n+1],axes=([0,2],[0,1])),np.conjugate(self.Gs[n+1]),axes=([0,1],[0,1])),
+                        IR,axes=([0,1],[0,1])) 
+            else:
+                corr = np.tensordot(np.tensordot(corr,
+                       self.Gs[site],axes=(0,0)),np.conjugate(self.Gs[site]),axes=([0,1],[0,1]))      
+        return np.real_if_close(corr).item()
+    
+    def avg_corr(self):
+        ls = np.arange(2,self.N-2*self.discard_site,2); corrs = []
+        for l in ls:
+            corr = 0.0; Nconf = 0.0
+            for m in xrange(self.discard_site,self.N-self.discard_site-l):
+                tmp = self._connected_part(m,m+l)
+                corr += tmp
+                Nconf += 1
+                print "For length {}, passing site {}, corr = {}".format(l,m,tmp)
+            corr *= 1./Nconf
+            corrs.append(np.real_if_close(corr))
+        return ls, np.array(corrs)        
+    
 """
 class BKT_corr:
     def __init__(self, Gs, g, discard_site): 
