@@ -341,11 +341,12 @@ class string_corr:
         return ls, np.array(corrs)
 
 class vertex_corr:
-    def __init__(self, Gs, discard_site):
+    def __init__(self, Gs, discard_site=2):
         self.Gs = Gs
         self.N = len(Gs)
         self.order = tn.get_fmps_order(Gs)
         self.discard_site = discard_site
+        if self.discard_site < 2: raise ValueError('Must discard at least two site at each boundary.')
     
     def _update_IL(self, IL, site):
         IL = np.tensordot(np.tensordot(IL,self.Gs[site],axes=(0,0)),
