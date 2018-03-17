@@ -276,11 +276,6 @@ class Spm_corr:
             corrs.append(np.real_if_close(corr))
         return ls, np.array(corrs)
 
-"""
-def bipartite_spin_fluctuations():
-    return
-"""    
-
 class string_corr:
     def __init__(self, Gs, discard_site=1): 
         self.Gs = Gs
@@ -396,7 +391,7 @@ class vertex_corr:
         ls = np.arange(2,self.N-2*self.discard_site,2); corrs = []
         for l in ls:
             corr = 0.0; Nconf = 0.0
-            for m in xrange(self.discard_site,self.N-self.discard_site-l):
+            for m in xrange(self.discard_site,self.N-self.discard_site-l,2):
                 tmp = self._connected_part(m,m+l)
                 corr += tmp
                 Nconf += 1
@@ -406,6 +401,7 @@ class vertex_corr:
         return ls, np.array(corrs)        
     
 """
+# This class is for the old-type Hamiltonian.
 class BKT_corr:
     def __init__(self, Gs, g, discard_site): 
         self.Gs, self.SVM = tn.normalize_fmps(Gs,'mix')
