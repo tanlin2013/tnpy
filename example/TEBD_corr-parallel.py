@@ -1,11 +1,3 @@
-#!/usr/bin/env python2
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Mar 18 22:05:59 2018
-
-@author: davidtan
-"""
-
 import TNpy
 import warnings,time
 import numpy as np
