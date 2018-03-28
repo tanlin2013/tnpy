@@ -248,3 +248,12 @@ def lengthen_fmps(Gs, new_N):
         new_Gs.insert(half_length, G[parity])
         k += 1
     return new_Gs
+
+def shorten_fmps(Gs, new_N):
+    old_N = len(Gs)  
+    k = new_N/2
+    if Gs[old_N/2-1].shape[2] != Gs[k-1].shape[2]:
+        raise ValueError("Discard too many sites!")
+    Gs = Gs[:k]+Gs[-k:]
+    return Gs
+
