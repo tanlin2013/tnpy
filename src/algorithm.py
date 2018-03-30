@@ -274,7 +274,7 @@ class fDMRG:
             return H_matvec(X) - self.projE * proj_matvec
         return projH_matvec, psi
     
-    def variational_optimize(self, show_stats=True, return_stats=True, svd_method='numpy'):
+    def variational_optimize(self, show_stats=True, return_stats=True, primme_method=2, svd_method='numpy'):
         L, R = self._initialize_Env()
         if self.projE is not None:
             projL, projR = self._initialize_projEnv()
@@ -285,9 +285,9 @@ class fDMRG:
             for site in xrange(self.N-1):
                 # construct effH & diagonalize it; psi is an initial guess of eigenvector    
                 if self.projE is not None:
-                    E, theta = linalg.eigshmv(*self._effprojHpsi(L,R,projL,projR,site))
+                    E, theta = linalg.eigshmv(*self._effprojHpsi(L,R,projL,projR,site),method=primme_method)
                 else:
-                    E, theta = linalg.eigshmv(*self._effHpsi(L,R,site)) 
+                    E, theta = linalg.eigshmv(*self._effHpsi(L,R,site),method=primme_method) 
                 E /= self.N
                 if show_stats:
                     print "site%d," % site,"E/N= %.12f" % E
@@ -326,9 +326,9 @@ class fDMRG:
             for site in xrange(self.N-1,0,-1):
                 # construct H & diagonalize it; psi is an initial guess of eigenvector                  
                 if self.projE is not None:
-                    E, theta = linalg.eigshmv(*self._effprojHpsi(L,R,projL,projR,site))
+                    E, theta = linalg.eigshmv(*self._effprojHpsi(L,R,projL,projR,site),method=primme_method)
                 else:
-                    E, theta = linalg.eigshmv(*self._effHpsi(L,R,site)) 
+                    E, theta = linalg.eigshmv(*self._effHpsi(L,R,site),method=primme_method) 
                 E /= self.N
                 if show_stats:
                     print "site%d," % site,"E/N= %.12f" % E
