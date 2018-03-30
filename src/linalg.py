@@ -27,7 +27,7 @@ def eigshmv(Afunc, v0, k=1, sigma=None, which='SA',
           ncv=None, maxiter=None, tol=0, return_eigenvectors=True,
           Minv=None, OPinv=None, mode='normal', lock=None,
           return_stats=False, maxBlockSize=0, minRestartSize=0,
-          maxPrevRetain=0, method=None):
+          maxPrevRetain=0, method=2):
 
     class PP(Primme.PrimmeParams):
         def __init__(self):
