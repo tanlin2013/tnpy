@@ -285,9 +285,9 @@ class fDMRG:
             for site in xrange(self.N-1):
                 # construct effH & diagonalize it; psi is an initial guess of eigenvector    
                 if self.projE is not None:
-                    E, theta = linalg.eigshmv(*self._effprojHpsi(L,R,projL,projR,site),method=primme_method)
+                    E, theta = linalg.eigshmv(*self._effprojHpsi(L,R,projL,projR,site),tol=0.1*self.tolerance,method=primme_method)
                 else:
-                    E, theta = linalg.eigshmv(*self._effHpsi(L,R,site),method=primme_method) 
+                    E, theta = linalg.eigshmv(*self._effHpsi(L,R,site),tol=0.1*self.tolerance,method=primme_method) 
                 E /= self.N
                 if show_stats:
                     print "site%d," % site,"E/N= %.12f" % E
@@ -326,9 +326,9 @@ class fDMRG:
             for site in xrange(self.N-1,0,-1):
                 # construct H & diagonalize it; psi is an initial guess of eigenvector                  
                 if self.projE is not None:
-                    E, theta = linalg.eigshmv(*self._effprojHpsi(L,R,projL,projR,site),method=primme_method)
+                    E, theta = linalg.eigshmv(*self._effprojHpsi(L,R,projL,projR,site),tol=0.1*self.tolerance,method=primme_method)
                 else:
-                    E, theta = linalg.eigshmv(*self._effHpsi(L,R,site),method=primme_method) 
+                    E, theta = linalg.eigshmv(*self._effHpsi(L,R,site),tol=0.1*self.tolerance,method=primme_method) 
                 E /= self.N
                 if show_stats:
                     print "site%d," % site,"E/N= %.12f" % E
