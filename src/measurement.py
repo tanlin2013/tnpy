@@ -320,7 +320,7 @@ class string_corr:
             else:
                 corr = np.tensordot(np.tensordot(np.tensordot(corr,
                        self.Gs[site],axes=(0,0)),U,axes=(1,0)),np.conjugate(self.Gs[site]),axes=([0,2],[0,1]))                  
-        return corr.item()
+        return np.real_if_close(corr).item()
     
     def avg_corr(self):
         ls = np.arange(1,self.N-2*self.discard_site,2); corrs = []
