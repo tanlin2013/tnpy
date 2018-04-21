@@ -277,13 +277,28 @@ class Spm_corr:
         return ls, np.array(corrs)
 
 class string_corr:
-    def __init__(self, Gs, discard_site=1): 
+    def __init__(self, Gs, discard_site=2): 
         self.Gs = Gs
         self.N = len(Gs)
         self.order = tn.get_fmps_order(Gs)
         self.discard_site = discard_site
-        if self.discard_site < 1: raise ValueError('Must discard at least one site at each boundary.')
-    
+        if self.discard_site < 2: raise ValueError('Must discard at least two sites at each boundary.')
+        self.Ilist = []
+        if self.order == 'R':
+            for site in xrange(self.N-1-self.discard_site):
+                if site == 0:
+                    I = np.tensordot(self.Gs[site],np.conjugate(self.Gs[site]),axes=(0,0))
+                else:
+                    I = self._update_IL(I,site)
+                self.Ilist.append(I)
+        elif self.order == 'L':
+            for site in xrange(self.N-1,self.discard_site,-1):
+                if site == self.N-1:
+                    I = np.tensordot(self.Gs[site],np.conjugate(self.Gs[site]),axes=(0,0))
+                else:
+                    I = self._update_IR(I,site)
+                self.Ilist.append(I)
+        
     def _update_IL(self, IL, site):
         IL = np.tensordot(np.tensordot(IL,self.Gs[site],axes=(0,0)),
                           np.conjugate(self.Gs[site]),axes=([0,1],[0,1]))
@@ -298,16 +313,12 @@ class string_corr:
         Sp, Sm, Sz, I2, O2 = operators.spin()
         U = expm(1j*np.pi*Sz)
         if self.order == 'R':
-            IL = np.identity(self.Gs[self.discard_site].shape[0],dtype=float)
+            IL = self.Ilist[m]
             IR = np.identity(self.Gs[n].shape[2],dtype=float)
-            for site in xrange(self.discard_site,m):
-                IL = self._update_IL(IL,site)
         elif self.order == 'L':
             IL = np.identity(self.Gs[m].shape[0],dtype=float)
-            IR = np.identity(self.Gs[self.N-1-self.discard_site].shape[2],dtype=float)
-            for site in xrange(self.N-1-self.discard_site,n,-1):
-                IR = self._update_IR(IR,site)
-                
+            IR = self.Ilist[self.N-2-n]
+            
         for site in xrange(m,n+1):
             if site == m:
                 corr = np.tensordot(np.tensordot(np.tensordot(IL,
@@ -322,11 +333,11 @@ class string_corr:
                        self.Gs[site],axes=(0,0)),U,axes=(1,0)),np.conjugate(self.Gs[site]),axes=([0,2],[0,1]))                  
         return np.real_if_close(corr).item()
     
-    def avg_corr(self):
+    def avg_corr(self, N_conf=None):
         ls = np.arange(1,self.N-2*self.discard_site,2); corrs = []
         for l in ls:
             corr = 0.0; Nconf = 0.0
-            for m in xrange(self.discard_site,self.N-self.discard_site-l):
+            for m in range(self.discard_site,self.N-self.discard_site-l)[:N_conf]:
                 tmp = self._connected_part(m,m+l)
                 corr += tmp
                 Nconf += 1
@@ -341,8 +352,23 @@ class vertex_corr:
         self.N = len(Gs)
         self.order = tn.get_fmps_order(Gs)
         self.discard_site = discard_site
-        if self.discard_site < 2: raise ValueError('Must discard at least two site at each boundary.')
-    
+        if self.discard_site < 2: raise ValueError('Must discard at least two sites at each boundary.')
+        self.Ilist = []
+        if self.order == 'R':
+            for site in xrange(self.N-1-self.discard_site):
+                if site == 0:
+                    I = np.tensordot(self.Gs[site],np.conjugate(self.Gs[site]),axes=(0,0))
+                else:
+                    I = self._update_IL(I,site)
+                self.Ilist.append(I)
+        elif self.order == 'L':
+            for site in xrange(self.N-1,self.discard_site,-1):
+                if site == self.N-1:
+                    I = np.tensordot(self.Gs[site],np.conjugate(self.Gs[site]),axes=(0,0))
+                else:
+                    I = self._update_IR(I,site)
+                self.Ilist.append(I)
+                
     def _update_IL(self, IL, site):
         IL = np.tensordot(np.tensordot(IL,self.Gs[site],axes=(0,0)),
                           np.conjugate(self.Gs[site]),axes=([0,1],[0,1]))
@@ -360,15 +386,11 @@ class vertex_corr:
     
     def _connected_part(self, m, n):
         if self.order == 'R':
-            IL = np.identity(self.Gs[self.discard_site].shape[0],dtype=float)
+            IL = self.Ilist[m]
             IR = np.identity(self.Gs[n].shape[2],dtype=float)
-            for site in xrange(self.discard_site,m):
-                IL = self._update_IL(IL,site)
         elif self.order == 'L':
             IL = np.identity(self.Gs[m].shape[0],dtype=float)
-            IR = np.identity(self.Gs[self.N-1-self.discard_site].shape[2],dtype=float)
-            for site in xrange(self.N-1-self.discard_site,n+1,-1):
-                IR = self._update_IR(IR,site)
+            IR = self.Ilist[self.N-2-n]
         
         for site in xrange(m,n+1,2):
             if site == m:
@@ -387,11 +409,11 @@ class vertex_corr:
                        self.Gs[site],axes=(0,0)),np.conjugate(self.Gs[site]),axes=([0,1],[0,1]))      
         return np.real_if_close(corr).item()
     
-    def avg_corr(self):
+    def avg_corr(self, N_conf=None):
         ls = np.arange(2,self.N-2*self.discard_site,2); corrs = []
         for l in ls:
             corr = 0.0; Nconf = 0.0
-            for m in xrange(self.discard_site,self.N-self.discard_site-l,2):
+            for m in range(self.discard_site,self.N-self.discard_site-l,2)[:N_conf]:
                 tmp = self._connected_part(m,m+l)
                 corr += tmp
                 Nconf += 1
