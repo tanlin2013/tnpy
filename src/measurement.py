@@ -283,21 +283,21 @@ class string_corr:
         self.order = tn.get_fmps_order(Gs)
         self.discard_site = discard_site
         if self.discard_site < 2: raise ValueError('Must discard at least two sites at each boundary.')
-        self.Ilist = []
+        self.Ilist = {}
         if self.order == 'R':
-            for site in xrange(self.N-1-self.discard_site):
-                if site == 0:
-                    I = np.tensordot(self.Gs[site],np.conjugate(self.Gs[site]),axes=(0,0))
+            for site in xrange(self.discard_site,self.N-self.discard_site):
+                if site == self.discard_site:
+                    I = np.identity(self.Gs[self.discard_site].shape[0],dtype=float)
                 else:
                     I = self._update_IL(I,site)
-                self.Ilist.append(I)
+                self.Ilist["{}".format(site)] = np.copy(I)
         elif self.order == 'L':
-            for site in xrange(self.N-1,self.discard_site,-1):
-                if site == self.N-1:
-                    I = np.tensordot(self.Gs[site],np.conjugate(self.Gs[site]),axes=(0,0))
+            for site in xrange(self.N-1-self.discard_site,self.discard_site,-1):
+                if site == self.N-1-self.discard_site:
+                    I = np.identity(self.Gs[self.N-1-self.discard_site].shape[2],dtype=float)
                 else:
                     I = self._update_IR(I,site)
-                self.Ilist.append(I)
+                self.Ilist["{}".format(site)] = np.copy(I)
         
     def _update_IL(self, IL, site):
         IL = np.tensordot(np.tensordot(IL,self.Gs[site],axes=(0,0)),
@@ -313,11 +313,11 @@ class string_corr:
         Sp, Sm, Sz, I2, O2 = operators.spin()
         U = expm(1j*np.pi*Sz)
         if self.order == 'R':
-            IL = self.Ilist[m]
+            IL = self.Ilist["{}".format(m)]
             IR = np.identity(self.Gs[n].shape[2],dtype=float)
         elif self.order == 'L':
             IL = np.identity(self.Gs[m].shape[0],dtype=float)
-            IR = self.Ilist[self.N-2-n]
+            IR = self.Ilist["{}".format(n)]
             
         for site in xrange(m,n+1):
             if site == m:
