@@ -277,27 +277,28 @@ class Spm_corr:
         return ls, np.array(corrs)
 
 class string_corr:
-    def __init__(self, Gs, discard_site=2): 
+    def __init__(self, Gs, discard_site=2, N_conf=100): 
         self.Gs = Gs
         self.N = len(Gs)
         self.order = tn.get_fmps_order(Gs)
         self.discard_site = discard_site
+        self.N_conf = N_conf
         if self.discard_site < 2: raise ValueError('Must discard at least two sites at each boundary.')
         self.Ilist = {}
         if self.order == 'R':
-            for site in xrange(self.discard_site,self.N-self.discard_site):
-                if site == self.discard_site:
-                    I = np.identity(self.Gs[self.discard_site].shape[0],dtype=float)
+            for site in xrange(self.discard_site-self.N_conf/2,self.N-self.discard_site+self.N_conf/2):
+                if site == self.discard_site-self.N_conf/2:
+                    I = np.identity(self.Gs[site].shape[0],dtype=float)
                 else:
                     I = self._update_IL(I,site)
                 self.Ilist["{}".format(site)] = np.copy(I)
         elif self.order == 'L':
-            for site in xrange(self.N-1-self.discard_site,self.discard_site,-1):
-                if site == self.N-1-self.discard_site:
-                    I = np.identity(self.Gs[self.N-1-self.discard_site].shape[2],dtype=float)
+            for site in xrange(self.N-1-self.discard_site+self.N_conf/2,self.discard_site-self.N_conf/2,-1):
+                if site == self.N-1-self.discard_site+self.N_conf/2:
+                    I = np.identity(self.Gs[site].shape[2],dtype=float)
                 else:
                     I = self._update_IR(I,site)
-                self.Ilist["{}".format(site)] = np.copy(I)
+                self.Ilist["{}".format(site)] = np.copy(I)  
         
     def _update_IL(self, IL, site):
         IL = np.tensordot(np.tensordot(IL,self.Gs[site],axes=(0,0)),
@@ -313,11 +314,11 @@ class string_corr:
         Sp, Sm, Sz, I2, O2 = operators.spin()
         U = expm(1j*np.pi*Sz)
         if self.order == 'R':
-            IL = np.copy(self.Ilist["{}".format(m)])
+            IL = self.Ilist["{}".format(m)]
             IR = np.identity(self.Gs[n].shape[2],dtype=float)
         elif self.order == 'L':
             IL = np.identity(self.Gs[m].shape[0],dtype=float)
-            IR = np.copy(self.Ilist["{}".format(n)])
+            IR = self.Ilist["{}".format(n)]
             
         for site in xrange(m,n+1):
             if site == m:
@@ -333,11 +334,11 @@ class string_corr:
                        self.Gs[site],axes=(0,0)),U,axes=(1,0)),np.conjugate(self.Gs[site]),axes=([0,2],[0,1]))                  
         return np.real_if_close(corr).item()
     
-    def avg_corr(self, N_conf=None):
+    def avg_corr(self):
         ls = np.arange(1,self.N-2*self.discard_site,2); corrs = []
         for l in ls:
             corr = 0.0; Nconf = 0.0
-            for m in range(self.discard_site,self.N-self.discard_site-l)[:N_conf]:
+            for m in range(self.discard_site-self.N_conf/2,self.N-self.discard_site+self.N_conf/2-l)[:self.N_conf]:
                 tmp = self._connected_part(m,m+l)
                 corr += tmp
                 Nconf += 1
