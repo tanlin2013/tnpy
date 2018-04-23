@@ -313,11 +313,11 @@ class string_corr:
         Sp, Sm, Sz, I2, O2 = operators.spin()
         U = expm(1j*np.pi*Sz)
         if self.order == 'R':
-            IL = self.Ilist["{}".format(m)]
+            IL = np.copy(self.Ilist["{}".format(m)])
             IR = np.identity(self.Gs[n].shape[2],dtype=float)
         elif self.order == 'L':
             IL = np.identity(self.Gs[m].shape[0],dtype=float)
-            IR = self.Ilist["{}".format(n)]
+            IR = np.copy(self.Ilist["{}".format(n)])
             
         for site in xrange(m,n+1):
             if site == m:
