@@ -338,7 +338,7 @@ class string_corr:
         ls = np.arange(1,self.N-2*self.discard_site,2); corrs = []
         for l in ls:
             corr = 0.0; Nconf = 0.0
-            for m in range(self.discard_site-self.N_conf/2,self.N-self.discard_site+self.N_conf/2-l)[:self.N_conf]:
+            for m in range(self.discard_site-self.N_conf/2,self.N-self.discard_site+self.N_conf/2-l,2)[:self.N_conf]:
                 tmp = self._connected_part(m,m+l)
                 corr += tmp
                 Nconf += 1
