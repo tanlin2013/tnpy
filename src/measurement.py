@@ -284,21 +284,6 @@ class string_corr:
         self.discard_site = discard_site
         self.N_conf = N_conf
         if self.discard_site < 2: raise ValueError('Must discard at least two sites at each boundary.')
-        self.Ilist = {}
-        if self.order == 'R':
-            for site in xrange(0,self.N-self.discard_site+self.N_conf/2):
-                if site == 0:
-                    I = np.tensordot(self.Gs[site],np.conjugate(self.Gs[site]),axes=(0,0))
-                else:
-                    I = self._update_IL(I,site)
-                self.Ilist["{}".format(site)] = np.copy(I)
-        elif self.order == 'L':
-            for site in xrange(self.N-1,self.discard_site-self.N_conf/2,-1):
-                if site == self.N-1:
-                    I = np.tensordot(self.Gs[site],np.conjugate(self.Gs[site]),axes=(0,0))
-                else:
-                    I = self._update_IR(I,site)
-                self.Ilist["{}".format(site)] = np.copy(I)  
         
     def _update_IL(self, IL, site):
         IL = np.tensordot(np.tensordot(IL,self.Gs[site],axes=(0,0)),
@@ -314,11 +299,15 @@ class string_corr:
         Sp, Sm, Sz, I2, O2 = operators.spin()
         U = expm(1j*np.pi*Sz)
         if self.order == 'R':
-            IL = self.Ilist["{}".format(m)]
+            IL = np.identity(self.Gs[self.discard_site/2].shape[0],dtype=float)
             IR = np.identity(self.Gs[n].shape[2],dtype=float)
+            for site in xrange(self.discard_site/2,m):
+                IL = self._update_IL(IL,site)
         elif self.order == 'L':
             IL = np.identity(self.Gs[m].shape[0],dtype=float)
-            IR = self.Ilist["{}".format(n)]
+            IR = np.identity(self.Gs[self.N-1-self.discard_site/2].shape[2],dtype=float)
+            for site in xrange(self.N-1-self.discard_site/2,n,-1):
+                IR = self._update_IR(IR,site)
             
         for site in xrange(m,n+1):
             if site == m:
