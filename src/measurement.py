@@ -286,16 +286,16 @@ class string_corr:
         if self.discard_site < 2: raise ValueError('Must discard at least two sites at each boundary.')
         self.Ilist = {}
         if self.order == 'R':
-            for site in xrange(self.discard_site/2,self.N-self.discard_site+self.N_conf/2):
-                if site == self.discard_site/2:
-                    I = np.identity(self.Gs[site].shape[0],dtype=float)
+            for site in xrange(0,self.N-self.discard_site+self.N_conf/2):
+                if site == 0:
+                    I = np.tensordot(self.Gs[site],np.conjugate(self.Gs[site]),axes=(0,0))
                 else:
                     I = self._update_IL(I,site)
                 self.Ilist["{}".format(site)] = np.copy(I)
         elif self.order == 'L':
-            for site in xrange(self.N-1-self.discard_site/2,self.discard_site-self.N_conf/2,-1):
-                if site == self.N-1-self.discard_site/2:
-                    I = np.identity(self.Gs[site].shape[2],dtype=float)
+            for site in xrange(self.N-1,self.discard_site-self.N_conf/2,-1):
+                if site == self.N-1:
+                    I = np.tensordot(self.Gs[site],np.conjugate(self.Gs[site]),axes=(0,0))
                 else:
                     I = self._update_IR(I,site)
                 self.Ilist["{}".format(site)] = np.copy(I)  
