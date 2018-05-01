@@ -291,7 +291,7 @@ class fDMRG:
         L, R = self._initialize_Env()
         if self.projE is not None:
             projL, projR = self._initialize_projEnv()
-        E0 = 0.0; t0 = time.clock(); alpha = 10.*self.tolerance
+        E0 = 0.0; t0 = time.clock(); alpha = self.tolerance
         for sweep in xrange(1,self.maxsweep):
             #--------------------------------------------------------------------------------------------
             # Right Sweep         
