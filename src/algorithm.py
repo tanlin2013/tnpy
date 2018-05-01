@@ -251,7 +251,7 @@ class fDMRG:
             return matvec
         psi = np.ndarray.reshape(self.Gs[site], (self.Gs[site].size,1))
         return H_matvec, psi
-
+    
     def _effprojHpsi(self, L, R, projL, projR, site):
         H_matvec, psi = self._effHpsi(L,R,site)
         def projH_matvec(X):
@@ -274,11 +274,24 @@ class fDMRG:
             return H_matvec(X) - self.projE * proj_matvec
         return projH_matvec, psi
     
-    def variational_optimize(self, show_stats=True, return_stats=True, primme_method=2, svd_method='numpy'):
+    def _modified_density_matrix(self, alpha, L, R, site):
+        if site == 0:
+            rho = np.tensordot(np.tensordot(R[self.N-2-site],self.Gs[site],axes=(0,1)),self.MPO(site),axes=([2,0],[0,1]))
+            rho = np.swapaxes(rho,0,1)
+        elif site == self.N-1:
+            rho = np.tensordot(np.tensordot(L[site-1],self.Gs[site],axes=(0,1)),self.MPO(site),axes=([2,0],[0,1]))
+            rho = np.swapaxes(rho,0,1)
+        else:
+            rho = np.tensordot(np.tensordot(np.tensordot(L[site-1],self.Gs[site],axes=(0,0)),
+                  self.MPO(site),axes=([0,2],[1,0])),R[self.N-2-site],axes=([1,3],[0,1]))
+        rho = np.ndarray.reshape(rho, (rho.size,1))
+        return alpha * rho
+    
+    def variational_optimize(self, show_stats=True, return_stats=True, modified_DM=False, primme_method=2, svd_method='numpy'):
         L, R = self._initialize_Env()
         if self.projE is not None:
             projL, projR = self._initialize_projEnv()
-        E0 = 0.0; t0 = time.clock()
+        E0 = 0.0; t0 = time.clock(); alpha = 1e-4
         for sweep in xrange(1,self.maxsweep):
             #--------------------------------------------------------------------------------------------
             # Right Sweep         
@@ -291,6 +304,8 @@ class fDMRG:
                 E /= self.N
                 if show_stats:
                     print "site%d," % site,"E/N= %.12f" % E
+                if modified_DM:
+                    theta += self._modified_density_matrix(alpha, L, R ,site)
                 # SVD and truncation
                 if site == 0:
                     theta = np.ndarray.reshape(theta,(self.d,self.Gs[site].shape[1])) 
@@ -332,6 +347,8 @@ class fDMRG:
                 E /= self.N
                 if show_stats:
                     print "site%d," % site,"E/N= %.12f" % E
+                if modified_DM:
+                    theta += self._modified_density_matrix(alpha, L, R ,site)
                 # SVD and truncation
                 if site == self.N-1:
                     theta = np.ndarray.reshape(theta,(self.Gs[site].shape[1],self.d))    
@@ -358,6 +375,7 @@ class fDMRG:
                     projR[self.N-1-site] = projEnvR 
             # check convergence of left-sweep
             dE = E0-E; E0 = E
+            if modified_DM and sweep > 1: alpha = 1e-8
             if show_stats:
                 print "sweep %d," % sweep,"E/N= %.12f," % E,"dE= %.4e" % dE                   
             if self._convergence(sweep,E,dE):
