@@ -376,6 +376,7 @@ class fDMRG:
             # check convergence of left-sweep
             dE = E0-E; E0 = E
             if modified_DM and sweep > 1: alpha = 1e-8
+            elif modified_DM and sweep > 2: modified_DM = False
             if show_stats:
                 print "sweep %d," % sweep,"E/N= %.12f," % E,"dE= %.4e" % dE                   
             if self._convergence(sweep,E,dE):
