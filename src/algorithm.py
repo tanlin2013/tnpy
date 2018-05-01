@@ -291,7 +291,7 @@ class fDMRG:
         L, R = self._initialize_Env()
         if self.projE is not None:
             projL, projR = self._initialize_projEnv()
-        E0 = 0.0; t0 = time.clock(); alpha = 1e-4
+        E0 = 0.0; t0 = time.clock(); alpha = 10.*self.tolerance
         for sweep in xrange(1,self.maxsweep):
             #--------------------------------------------------------------------------------------------
             # Right Sweep         
@@ -332,6 +332,7 @@ class fDMRG:
                     projL[site] = projEnvL
             # check convergence of right-sweep   
             dE = E0-E; E0 = E
+            if modified_DM and sweep == 1: alpha = 0.1*self.tolerance
             if show_stats:
                 print "sweep %.1f," % (sweep-0.5),"E/N= %.12f," % E,"dE= %.4e" % dE                               
             if self._convergence(sweep-0.5,E,dE):
@@ -375,8 +376,7 @@ class fDMRG:
                     projR[self.N-1-site] = projEnvR 
             # check convergence of left-sweep
             dE = E0-E; E0 = E
-            if modified_DM and sweep > 1: alpha = 1e-8
-            elif modified_DM and sweep > 2: modified_DM = False
+            if modified_DM and sweep == 1: modified_DM = False
             if show_stats:
                 print "sweep %d," % sweep,"E/N= %.12f," % E,"dE= %.4e" % dE                   
             if self._convergence(sweep,E,dE):
