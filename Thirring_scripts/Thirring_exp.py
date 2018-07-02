@@ -50,7 +50,7 @@ if __name__=='__main__':
     for g in gs:
         try:
             path='/data01/mesonqcd/kcichy/thirring/scripts/MPS-N_{}-g_{}-ma_{}-lambda_{}-Starget_{}-chi_{}-tol_{}.npz'.format(N,g,ma,lamda,S_target,chi,tolerance)
-    Gs=TNpy.data.io.read(path)
+            Gs=TNpy.data.io.read(path)
         except IOError:
             path='/data01/mesonqcd/kcichy/thirring/scripts/MPS-N_{}-g_{}-ma_{}-lambda_{}-Starget_{}-chi_{}-tol_{}.npz'.format(N,g,ma,lamda,S_target,chi,5e-08)
             Gs=TNpy.data.io.read(path)
