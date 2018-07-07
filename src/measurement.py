@@ -350,6 +350,22 @@ class string_corr:
             corrs.append(np.real_if_close(corr))
         return ls, np.array(corrs)
 
+    def avg_fermion_corr(self, ls):
+        corrs = []
+        for l in ls:
+            corr = 0.0; Nconf = 0.0
+            ms = np.arange((self.N-l-self.N_conf)/2,(self.N+l+self.N_conf)/2)
+            k = (len(ms)-self.N_conf)/2
+            if k > 0: ms = ms[k:-k]
+            for m in ms:
+                tmp = self._connected_part(m,m+l)
+                corr += tmp
+                Nconf += 1
+                print "For length {}, passing site {}, corr = {}".format(l,m,tmp)
+            corr *= 1./Nconf
+            corrs.append(np.real_if_close(corr))
+        return ls, np.array(corrs)
+    
 class vertex_corr:
     def __init__(self, Gs, discard_site=2):
         self.Gs = Gs
