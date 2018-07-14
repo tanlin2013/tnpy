@@ -1,11 +1,3 @@
-#!/usr/bin/env python2
-# -*- coding: utf-8 -*-
-"""
-Created on Fri May 18 21:35:46 2018
-
-@author: davidtan
-"""
-
 import numpy as np
 import itertools
 import pandas as pd
@@ -106,14 +98,14 @@ if __name__=='__main__':
     chis = [300,400,500]
     chi = 500
 
-    """
+    # begin of generating ma-extrap tables
     for g_idx in xrange(len(gs)):
         mas = [0.1,0.2,0.3,0.4]
         path = '/home/davidtan/Desktop/MPS_config/XXZ/ccs_ma_extrap'
         df = write_ma_extrap_table(mas, g_idx)
         df.to_csv(path+'/ma_extrap-g_{}.csv'.format(gs[g_idx]))
         print gs[g_idx],'\n',df
-    """
+    # end of generating ma-extrap tables
     
     fontsize = 28; labelsize = 22
     plt.rc('text', usetex=True)
@@ -262,7 +254,7 @@ if __name__=='__main__':
             plt.close()
             #plt.show()
     """
-    
+    """
     quantity = "ccs"
     meanlist = []; stdlist = []
     for g_idx in xrange(len(gs)):
@@ -299,7 +291,7 @@ if __name__=='__main__':
         meanlist.append(mean_value)
         std_value = np.sqrt(std1**2 + abs(p_final[0]-p_final2[0])**2)
         stdlist.append(std_value)
-        """
+        
         plt.errorbar(mas[1:],mean[:4],yerr=std[:4],fmt=marker.next(),elinewidth=2,capsize=8,capthick=2,markersize=10)  
         plt.errorbar(mas[0],p_final[0],yerr=std1,fmt=marker.next(),elinewidth=2,capsize=8,capthick=2,markersize=10,color='g')
         plt.errorbar(mas[0],p_final2[0],yerr=std2,fmt=marker.next(),elinewidth=2,capsize=8,capthick=2,markersize=10,color='r')
@@ -320,7 +312,7 @@ if __name__=='__main__':
         plt.close()
         #plt.show()
         """
-    
+    """
     marker = itertools.cycle(('^', 'D', 'o', 's', 'v')) 
     quantity = "ccs"
     fig = plt.figure(figsize=(12,9))
@@ -350,4 +342,4 @@ if __name__=='__main__':
     plt.legend((r"$\tilde{{m}}_{0} a \to 0.0$",r"$\tilde{{m}}_{0} a = 0.1$",r"$\tilde{{m}}_{0} a = 0.2$",r"$\tilde{{m}}_{0} a = 0.3$",r"$\tilde{{m}}_{0} a = 0.4$"),loc=0,ncol=1,numpoints=1,fontsize=fontsize)
     plt.grid()
     plt.show()
-    
+    """
