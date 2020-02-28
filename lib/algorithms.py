@@ -1,10 +1,10 @@
 import os
 import logging
-import tqdm
 import numpy as np
 import tensornetwork as tn
 from tensornetwork.network_operations import conj
 from tensornetwork.matrixproductstates.finite_mps import FiniteMPS
+from tqdm import tqdm
 from itertools import count
 from linalg import eigshmv
 from operators import MPO, SpinOperators
@@ -20,11 +20,11 @@ class FiniteDMRG:
         self.mpo = mpo
         self.d = mpo.physical_dimensions
         self.D = D
+        self.left_envs = {}
+        self.right_envs = {}
         self._mps = None
         self.mps = init_method
         assert(len(D) == self.N-1)
-        self.left_envs = []
-        self.right_envs = []
 
     def __del__(self):
         pass
@@ -55,15 +55,47 @@ class FiniteDMRG:
 
     def _init_envs(self):
         logging.info("Initializing left environments")
-        self.left_envs
+        for site in tqdm(range(1, self.N)):
+            self._update_left_env(site)
         logging.info("Initializing right environments")
-        self.right_envs
+        for site in tqdm(range(self.N-2, -1, -1)):
+            self._update_right_env(site)
 
     def _update_left_env(self, site):
-        pass
+        M = self.mpo.nodes[site-1]
+        G = self._mps.nodes[site-1]
+        G_conj = conj(self._mps.nodes[site-1])
+        if site == 1:
+            G[0] ^ G_conj[0]
+            G[1] ^ M[1]
+            M[2] ^ G_conj[1]
+            self.left_envs[site] = G @ M @ G_conj
+        else:
+            L = self.left_envs[site-1]
+            L[0] ^ G[0]
+            L[1] ^ M[0]
+            L[2] ^ G_conj[0]
+            G[1] ^ M[2]
+            G_conj[1] ^ M[3]
+            self.left_envs[site] = L @ G @ M @ G_conj
 
     def _update_right_env(self, site):
-        pass
+        M = self.mpo.nodes[site+1]
+        G = self._mps.nodes[site+1]
+        G_conj = conj(self._mps.nodes[site+1])
+        if site == self.N-2:
+            G[2] ^ G_conj[2]
+            G[1] ^ M[1]
+            M[2] ^ G_conj[1]
+            self.right_envs[site] = G @ M @ G_conj
+        else:
+            R = self.right_envs[site+1]
+            R[0] ^ G[2]
+            R[1] ^ M[1]
+            R[2] ^ G_conj[2]
+            G[1] ^ M[2]
+            G_conj[1] ^ M[3]
+            self.right_envs[site] = R @ G @ M @ G_conj
 
     def _unit_solver(self, site):
         M = self.mpo.nodes[site]
@@ -73,7 +105,7 @@ class FiniteDMRG:
         def matvec(x):
             if site == 0:
                 pass
-            elif site == self.N - 1:
+            elif site == self.N-1:
                 pass
             else:
                 pass
