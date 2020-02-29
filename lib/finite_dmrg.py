@@ -1,4 +1,5 @@
 import os
+import time
 import logging
 import numpy as np
 import tensornetwork as tn
@@ -7,8 +8,8 @@ from tensornetwork.network_operations import conj
 from tensornetwork.matrixproductstates.finite_mps import FiniteMPS
 from tqdm import tqdm
 from itertools import count
-from linalg import svd, eigshmv
-from operators import MPO, SpinOperators
+from lib.linalg import svd, eigshmv
+from lib.operators import MPO, SpinOperators
 
 
 class FiniteDMRG:
@@ -24,7 +25,7 @@ class FiniteDMRG:
         self.left_envs = {}
         self.right_envs = {}
         self._mps = None
-        self.mps = init_method
+        self.reset_mps = init_method
         assert(len(D) == self.N-1)
 
     def __del__(self):
@@ -43,12 +44,14 @@ class FiniteDMRG:
         return self._mps
 
     @mps.setter
-    def mps(self, init_method='random'):
+    def reset_mps(self, init_method='random'):
         if init_method == "random":
             logging.info("Initializing finite MPS randomly")
             self._mps = self.mps_cls.random([self.d]*self.N, self.D, self.dtype)
+            # self.normalize_mps(direction=1, normalize_sv=True)
         elif os.path.isfile(init_method):
             logging.info("Initializing finite MPS from file: {}".format(init_method))
+            # @TODO: Not Implemented
             pass
         else:
             raise KeyError("Invalid init method")
@@ -56,6 +59,36 @@ class FiniteDMRG:
 
     def mps_shape(self, site):
         return self._mps.nodes[site].tensor.shape
+
+    # def normalize_mps(self, direction, normalize_sv=False):
+    #     if direction == 1:
+    #         iterator = range(self.N-1)
+    #     elif direction == -1:
+    #         iterator = range(self.N-1, 0, -1)
+    #
+    #     for site in iterator:
+    #         theta = self._mps.nodes[site].tensor
+    #         if direction == 1:
+    #             theta = theta.reshape(self.d * self.mps_shape(site)[0], -1)
+    #         elif direction == -1:
+    #             theta = theta.reshape(-1, self.d * self.mps_shape(site)[2])
+    #         u, s, vt = np.linalg.svd(theta, full_matrices=False)
+    #         if normalize_sv:
+    #             s /= np.linalg.norm(s)
+    #         if direction == 1:
+    #             self._mps.nodes[site] = Node(u.reshape(self.mps_shape(site)))
+    #             residual = Node(np.dot(np.diagflat(s), vt))
+    #             G = self._mps.nodes[site+1]
+    #             residual[1] ^ G[0]
+    #             self._mps.nodes[site+1] = residual @ G
+    #             self._update_left_env(site+1)
+    #         elif direction == -1:
+    #             self._mps.nodes[site] = Node(vt.reshape(self.mps_shape(site)))
+    #             residual = Node(np.dot(u, np.diagflat(s)))
+    #             G = self._mps.nodes[site-1]
+    #             G[2] ^ residual[0]
+    #             self._mps.nodes[site-1] = G @ residual
+    #             self._update_right_env(site-1)
 
     def _init_envs(self):
         logging.info("Initializing left environments")
@@ -111,7 +144,7 @@ class FiniteDMRG:
                 R[0] ^ G[2]
                 R[1] ^ M[0]
                 G[1] ^ M[1]
-                result = R @ G @ M
+                result = G @ M @ R
             elif site == self.N-1:
                 L = self.left_envs[site]
                 L[0] ^ G[0]
@@ -130,6 +163,10 @@ class FiniteDMRG:
             return result.tensor.reshape(x.shape)
         v0 = self._mps.nodes[site].tensor.reshape(-1, 1)
         return eigshmv(matvec, v0, tol=0.1*tol)
+
+    def _modified_density_matrix(self, site, alpha=0):
+        # return dm
+        pass
 
     def sweep(self, iterator, tol=1e-7):
         direction = 1 if iterator[0] < iterator[-1] else -1
@@ -155,28 +192,27 @@ class FiniteDMRG:
                 G[2] ^ residual[0]
                 self._mps.nodes[site-1] = G @ residual
                 self._update_right_env(site-1)
+        return E
 
     def update(self, tol=1e-7, max_sweep=100):
         logging.info("Set up tol = {}, up to maximally {} sweeps".format(tol, max_sweep))
-        for n_sweep in tqdm(count(start=1)):
-            logging.info("Sweep epoch [{}/{}]".format(n_sweep, max_sweep))
-            self.sweep(range(self.N-1, 0, -1))
-            self.sweep(range(self.N-1))
+        clock = [time.process_time()]
+        for n_sweep in count(start=1):
+            logging.info("In sweep epoch [{}/{}]".format(n_sweep, max_sweep))
+            El = self.sweep(range(self.N-1))
+            Er = self.sweep(range(self.N-1, 0, -1))
+            clock.append(time.process_time()-clock[-1])
+            dE = (El - Er)/self.N
+            if abs(dE) < tol:
+                break
+            elif n_sweep == max_sweep:
+                logging.warning("Maximum number of sweeps {} reached, "
+                                "yet dE/N = {} > tol = {}".format(max_sweep, dE, tol))
+                break
+            elif abs(dE) > tol and dE < 0:
+                raise ValueError("Fail on lowering energy, got dE/N = {}".format(dE))
+        logging.info("{} loops, best of 3: {} sec per loop"
+                     "".format(n_sweep, np.mean(np.sort(clock)[:3])))
 
-
-if __name__ == "__main__":
-
-    Sp, Sm, Sz, I2, O2 = SpinOperators()
-
-    def th_mpo(site):
-        return np.array([[I2, -0.5*Sp, -0.5*Sm, 20*Sz, -1*Sz, 24.75*I2-1*Sz],
-                        [O2, O2, O2, O2, O2, Sm],
-                        [O2, O2, O2, O2, O2, Sp],
-                        [O2, O2, O2, I2, O2, 10*Sz],
-                        [O2, O2, O2, O2, O2, Sz],
-                        [O2, O2, O2, O2, O2, I2]])
-
-    D = [2, 2, 2, 2]
-    fdmrg = FiniteDMRG(D, mpo=MPO(5, th_mpo))
-
-    fdmrg.update()
+    def save_mps(self):
+        pass
