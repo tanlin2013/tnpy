@@ -5,11 +5,13 @@
 
 Welcome to TNpy's documentation!
 ================================
+.. mdinclude:: ../../README.md
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 5
    :caption: Contents:
 
+   lib.rst
 
 
 Indices and tables

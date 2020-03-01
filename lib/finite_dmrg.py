@@ -91,6 +91,7 @@ class FiniteDMRG:
     #             self._update_right_env(site-1)
 
     def _init_envs(self):
+        # @TODO: only need to do for one direction
         logging.info("Initializing left environments")
         for site in tqdm(range(1, self.N)):
             self._update_left_env(site)
@@ -99,72 +100,73 @@ class FiniteDMRG:
             self._update_right_env(site)
 
     def _update_left_env(self, site):
-        M = self.mpo.nodes[site-1]
-        G = self._mps.nodes[site-1]
-        G_conj = conj(self._mps.nodes[site-1])
+        W = self.mpo.nodes[site-1]
+        M = self._mps.nodes[site-1]
+        M_conj = conj(self._mps.nodes[site-1])
         if site == 1:
-            G[0] ^ G_conj[0]
-            G[1] ^ M[1]
-            M[2] ^ G_conj[1]
-            self.left_envs[site] = G @ M @ G_conj
+            M[0] ^ M_conj[0]
+            M[1] ^ W[1]
+            W[2] ^ M_conj[1]
+            self.left_envs[site] = M @ W @ M_conj
         else:
             L = self.left_envs[site-1]
-            L[0] ^ G[0]
-            L[1] ^ M[0]
-            L[2] ^ G_conj[0]
-            G[1] ^ M[2]
-            G_conj[1] ^ M[3]
-            self.left_envs[site] = L @ G @ M @ G_conj
+            L[0] ^ M[0]
+            L[1] ^ W[0]
+            L[2] ^ M_conj[0]
+            M[1] ^ W[2]
+            M_conj[1] ^ W[3]
+            self.left_envs[site] = L @ M @ W @ M_conj
 
     def _update_right_env(self, site):
-        M = self.mpo.nodes[site+1]
-        G = self._mps.nodes[site+1]
-        G_conj = conj(self._mps.nodes[site+1])
+        W = self.mpo.nodes[site+1]
+        M = self._mps.nodes[site+1]
+        M_conj = conj(self._mps.nodes[site+1])
         if site == self.N-2:
-            G[2] ^ G_conj[2]
-            G[1] ^ M[1]
-            M[2] ^ G_conj[1]
-            self.right_envs[site] = G @ M @ G_conj
+            M[2] ^ M_conj[2]
+            M[1] ^ W[1]
+            W[2] ^ M_conj[1]
+            self.right_envs[site] = M @ W @ M_conj
         else:
             R = self.right_envs[site+1]
-            R[0] ^ G[2]
-            R[1] ^ M[1]
-            R[2] ^ G_conj[2]
-            G[1] ^ M[2]
-            G_conj[1] ^ M[3]
-            self.right_envs[site] = R @ G @ M @ G_conj
+            R[0] ^ M[2]
+            R[1] ^ W[1]
+            R[2] ^ M_conj[2]
+            M[1] ^ W[2]
+            M_conj[1] ^ W[3]
+            self.right_envs[site] = R @ M @ W @ M_conj
 
     def _unit_solver(self, site, tol=1e-7):
-        M = self.mpo.nodes[site]
+        W = self.mpo.nodes[site]
 
         def matvec(x):
-            G = Node(x.reshape(self.mps_shape(site)))
+            M = Node(x.reshape(self.mps_shape(site)))
             if site == 0:
                 R = self.right_envs[site]
-                R[0] ^ G[2]
-                R[1] ^ M[0]
-                G[1] ^ M[1]
-                result = G @ M @ R
+                R[0] ^ M[2]
+                R[1] ^ W[0]
+                M[1] ^ W[1]
+                result = M @ W @ R
             elif site == self.N-1:
                 L = self.left_envs[site]
-                L[0] ^ G[0]
-                L[1] ^ M[0]
-                G[1] ^ M[1]
-                result = L @ G @ M
+                L[0] ^ M[0]
+                L[1] ^ W[0]
+                M[1] ^ W[1]
+                result = L @ M @ W
             else:
                 L = self.left_envs[site]
                 R = self.right_envs[site]
-                L[0] ^ G[0]
-                L[1] ^ M[0]
-                R[0] ^ G[2]
-                R[1] ^ M[1]
-                G[1] ^ M[2]
-                result = L @ G @ M @ R
+                L[0] ^ M[0]
+                L[1] ^ W[0]
+                R[0] ^ M[2]
+                R[1] ^ W[1]
+                M[1] ^ W[2]
+                result = L @ M @ W @ R
             return result.tensor.reshape(x.shape)
         v0 = self._mps.nodes[site].tensor.reshape(-1, 1)
         return eigshmv(matvec, v0, tol=0.1*tol)
 
     def _modified_density_matrix(self, site, alpha=0):
+        # @TODO: Not Implemented
         # return dm
         pass
 
@@ -181,16 +183,16 @@ class FiniteDMRG:
             if direction == 1:
                 self._mps.nodes[site] = Node(u.reshape(self.mps_shape(site)))
                 residual = Node(np.dot(np.diagflat(s), vt))
-                G = self._mps.nodes[site+1]
-                residual[1] ^ G[0]
-                self._mps.nodes[site+1] = residual @ G
+                M = self._mps.nodes[site+1]
+                residual[1] ^ M[0]
+                self._mps.nodes[site+1] = residual @ M
                 self._update_left_env(site+1)
             elif direction == -1:
                 self._mps.nodes[site] = Node(vt.reshape(self.mps_shape(site)))
                 residual = Node(np.dot(u, np.diagflat(s)))
-                G = self._mps.nodes[site-1]
-                G[2] ^ residual[0]
-                self._mps.nodes[site-1] = G @ residual
+                M = self._mps.nodes[site-1]
+                M[2] ^ residual[0]
+                self._mps.nodes[site-1] = M @ residual
                 self._update_right_env(site-1)
         return E
 
@@ -215,4 +217,5 @@ class FiniteDMRG:
                      "".format(n_sweep, np.mean(np.sort(clock)[:3])))
 
     def save_mps(self):
+        # @TODO: Not Implemented
         pass

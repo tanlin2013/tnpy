@@ -1,11 +1,12 @@
 import numpy as np
 from collections import namedtuple
 from tensornetwork import Node
+from typing import Callable
 
 
 class SpinOperators:
 
-    def __init__(self, spin):
+    def __init__(self, spin: float):
         self.spin = spin
 
     def __new__(cls, spin: float = 0.5):
@@ -20,7 +21,7 @@ class SpinOperators:
 
 class MPO:
 
-    def __init__(self, N: int, func):
+    def __init__(self, N: int, func: Callable):
         self.N = N
         self._nodes = []
         self.nodes = func
@@ -30,7 +31,7 @@ class MPO:
         return self._nodes
 
     @nodes.setter
-    def nodes(self, func):
+    def nodes(self, func: Callable):
         for site in range(self.N):
             if site == 0:
                 self._nodes.append(Node(func(site)[0, :, :, :]))
