@@ -1,6 +1,9 @@
+import os
+import sys
+sys.path.insert(0, os.path.abspath('..'))
 import numpy as np
-from TNpy.operators import SpinOperators, MPO
-from TNpy.finite_dmrg import FiniteDMRG
+from lib.operators import SpinOperators, MPO
+from lib.finite_dmrg import FiniteDMRG
 
 
 class Thirring:

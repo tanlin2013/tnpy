@@ -10,13 +10,14 @@ from tqdm import tqdm
 from itertools import count
 from lib.linalg import svd, eigshmv
 from lib.operators import MPO, SpinOperators
+from typing import List, Iterable
 
 
 class FiniteDMRG:
 
     mps_cls = FiniteMPS
 
-    def __init__(self, D, mpo, init_method='random'):
+    def __init__(self, D: List[int], mpo: MPO, init_method='random'):
         logging.basicConfig(format='%(asctime)s [%(filename)s] %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
         logging.root.setLevel(level=logging.INFO)
         self.mpo = mpo
@@ -32,7 +33,7 @@ class FiniteDMRG:
         pass
 
     @property
-    def N(self):
+    def N(self) -> int:
         return len(self.mpo.nodes)
 
     @property
@@ -40,7 +41,7 @@ class FiniteDMRG:
         return self.mpo.nodes[0].tensor.dtype
 
     @property
-    def mps(self):
+    def mps(self) -> FiniteMPS:
         return self._mps
 
     @mps.setter
@@ -170,7 +171,7 @@ class FiniteDMRG:
         # return dm
         pass
 
-    def sweep(self, iterator, tol=1e-7):
+    def sweep(self, iterator: Iterable, tol: float = 1e-7) -> float:
         direction = 1 if iterator[0] < iterator[-1] else -1
         for site in iterator:
             E, theta = self._unit_solver(site, tol)
@@ -196,7 +197,7 @@ class FiniteDMRG:
                 self._update_right_env(site-1)
         return E
 
-    def update(self, tol=1e-7, max_sweep=100):
+    def update(self, tol: float = 1e-7, max_sweep: int = 100):
         logging.info("Set up tol = {}, up to maximally {} sweeps".format(tol, max_sweep))
         clock = [time.process_time()]
         for n_sweep in count(start=1):

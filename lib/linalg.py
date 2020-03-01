@@ -1,8 +1,9 @@
 import numpy as np
 import Primme
+from typing import Callable
 
 
-def svd(A, chi):
+def svd(A: np.ndarray, chi: int):
     u, s, vt = np.linalg.svd(A, full_matrices=False)
     u = u[:, 0:chi]
     s = s[0:chi]
@@ -10,11 +11,25 @@ def svd(A, chi):
     return u, s, vt
 
 
-def eigshmv(Afunc, v0, k=1, sigma=None, which='SA',
-            ncv=None, maxiter=None, tol=0, return_eigenvectors=True,
-            Minv=None, OPinv=None, mode='normal', lock=None,
-            return_stats=False, maxBlockSize=0, minRestartSize=0,
-            maxPrevRetain=0, method=2):
+def eigshmv(Afunc: Callable,
+            v0: np.ndarray,
+            k=1,
+            sigma=None,
+            which='SA',
+            ncv=None,
+            maxiter=None,
+            tol=0,
+            return_eigenvectors=True,
+            Minv=None,
+            OPinv=None,
+            mode='normal',
+            lock=None,
+            return_stats=False,
+            maxBlockSize=0,
+            minRestartSize=0,
+            maxPrevRetain=0,
+            method=2):
+
     class PP(Primme.PrimmeParams):
         def __init__(self):
             Primme.PrimmeParams.__init__(self)

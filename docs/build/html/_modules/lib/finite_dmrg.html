@@ -1,0 +1,411 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>lib.finite_dmrg &mdash; TNpy 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TNpy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../lib.html">lib package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TNpy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>lib.finite_dmrg</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for lib.finite_dmrg</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">tensornetwork</span> <span class="k">as</span> <span class="nn">tn</span>
+<span class="kn">from</span> <span class="nn">tensornetwork</span> <span class="k">import</span> <span class="n">Node</span>
+<span class="kn">from</span> <span class="nn">tensornetwork.network_operations</span> <span class="k">import</span> <span class="n">conj</span>
+<span class="kn">from</span> <span class="nn">tensornetwork.matrixproductstates.finite_mps</span> <span class="k">import</span> <span class="n">FiniteMPS</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="k">import</span> <span class="n">tqdm</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">count</span>
+<span class="kn">from</span> <span class="nn">lib.linalg</span> <span class="k">import</span> <span class="n">svd</span><span class="p">,</span> <span class="n">eigshmv</span>
+<span class="kn">from</span> <span class="nn">lib.operators</span> <span class="k">import</span> <span class="n">MPO</span><span class="p">,</span> <span class="n">SpinOperators</span>
+
+
+<div class="viewcode-block" id="FiniteDMRG"><a class="viewcode-back" href="../../lib.html#lib.finite_dmrg.FiniteDMRG">[docs]</a><span class="k">class</span> <span class="nc">FiniteDMRG</span><span class="p">:</span>
+
+    <span class="n">mps_cls</span> <span class="o">=</span> <span class="n">FiniteMPS</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">mpo</span><span class="p">,</span> <span class="n">init_method</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> [</span><span class="si">%(filename)s</span><span class="s1">] </span><span class="si">%(levelname)s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">datefmt</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span> <span class="o">=</span> <span class="n">mpo</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">mpo</span><span class="o">.</span><span class="n">physical_dimensions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">D</span> <span class="o">=</span> <span class="n">D</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left_envs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">right_envs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset_mps</span> <span class="o">=</span> <span class="n">init_method</span>
+        <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">D</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">N</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">dtype</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span>
+
+    <span class="nd">@mps</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">reset_mps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_method</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">init_method</span> <span class="o">==</span> <span class="s2">&quot;random&quot;</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Initializing finite MPS randomly&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mps_cls</span><span class="o">.</span><span class="n">random</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+            <span class="c1"># self.normalize_mps(direction=1, normalize_sv=True)</span>
+        <span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">init_method</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Initializing finite MPS from file: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">init_method</span><span class="p">))</span>
+            <span class="c1"># @TODO: Not Implemented</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;Invalid init method&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_envs</span><span class="p">()</span>
+
+<div class="viewcode-block" id="FiniteDMRG.mps_shape"><a class="viewcode-back" href="../../lib.html#lib.finite_dmrg.FiniteDMRG.mps_shape">[docs]</a>    <span class="k">def</span> <span class="nf">mps_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span></div>
+
+    <span class="c1"># def normalize_mps(self, direction, normalize_sv=False):</span>
+    <span class="c1">#     if direction == 1:</span>
+    <span class="c1">#         iterator = range(self.N-1)</span>
+    <span class="c1">#     elif direction == -1:</span>
+    <span class="c1">#         iterator = range(self.N-1, 0, -1)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     for site in iterator:</span>
+    <span class="c1">#         theta = self._mps.nodes[site].tensor</span>
+    <span class="c1">#         if direction == 1:</span>
+    <span class="c1">#             theta = theta.reshape(self.d * self.mps_shape(site)[0], -1)</span>
+    <span class="c1">#         elif direction == -1:</span>
+    <span class="c1">#             theta = theta.reshape(-1, self.d * self.mps_shape(site)[2])</span>
+    <span class="c1">#         u, s, vt = np.linalg.svd(theta, full_matrices=False)</span>
+    <span class="c1">#         if normalize_sv:</span>
+    <span class="c1">#             s /= np.linalg.norm(s)</span>
+    <span class="c1">#         if direction == 1:</span>
+    <span class="c1">#             self._mps.nodes[site] = Node(u.reshape(self.mps_shape(site)))</span>
+    <span class="c1">#             residual = Node(np.dot(np.diagflat(s), vt))</span>
+    <span class="c1">#             G = self._mps.nodes[site+1]</span>
+    <span class="c1">#             residual[1] ^ G[0]</span>
+    <span class="c1">#             self._mps.nodes[site+1] = residual @ G</span>
+    <span class="c1">#             self._update_left_env(site+1)</span>
+    <span class="c1">#         elif direction == -1:</span>
+    <span class="c1">#             self._mps.nodes[site] = Node(vt.reshape(self.mps_shape(site)))</span>
+    <span class="c1">#             residual = Node(np.dot(u, np.diagflat(s)))</span>
+    <span class="c1">#             G = self._mps.nodes[site-1]</span>
+    <span class="c1">#             G[2] ^ residual[0]</span>
+    <span class="c1">#             self._mps.nodes[site-1] = G @ residual</span>
+    <span class="c1">#             self._update_right_env(site-1)</span>
+
+    <span class="k">def</span> <span class="nf">_init_envs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Initializing left environments&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_left_env</span><span class="p">(</span><span class="n">site</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Initializing right environments&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_right_env</span><span class="p">(</span><span class="n">site</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_update_left_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">):</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">G_conj</span> <span class="o">=</span> <span class="n">conj</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">site</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">G</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="n">G_conj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">G</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">M</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">^</span> <span class="n">G_conj</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">left_envs</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">=</span> <span class="n">G</span> <span class="o">@</span> <span class="n">M</span> <span class="o">@</span> <span class="n">G_conj</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">L</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left_envs</span><span class="p">[</span><span class="n">site</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="n">G</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">L</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">L</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">^</span> <span class="n">G_conj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">G</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">M</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">G_conj</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">M</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">left_envs</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span> <span class="o">@</span> <span class="n">G</span> <span class="o">@</span> <span class="n">M</span> <span class="o">@</span> <span class="n">G_conj</span>
+
+    <span class="k">def</span> <span class="nf">_update_right_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">):</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">G_conj</span> <span class="o">=</span> <span class="n">conj</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">site</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span>
+            <span class="n">G</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">^</span> <span class="n">G_conj</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">G</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">M</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">^</span> <span class="n">G_conj</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">right_envs</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">=</span> <span class="n">G</span> <span class="o">@</span> <span class="n">M</span> <span class="o">@</span> <span class="n">G_conj</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">R</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_envs</span><span class="p">[</span><span class="n">site</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">R</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="n">G</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">R</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">R</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">^</span> <span class="n">G_conj</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">G</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">M</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">G_conj</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">M</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">right_envs</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">=</span> <span class="n">R</span> <span class="o">@</span> <span class="n">G</span> <span class="o">@</span> <span class="n">M</span> <span class="o">@</span> <span class="n">G_conj</span>
+
+    <span class="k">def</span> <span class="nf">_unit_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">):</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">matvec</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="n">G</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mps_shape</span><span class="p">(</span><span class="n">site</span><span class="p">)))</span>
+            <span class="k">if</span> <span class="n">site</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">R</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_envs</span><span class="p">[</span><span class="n">site</span><span class="p">]</span>
+                <span class="n">R</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="n">G</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                <span class="n">R</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">G</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">G</span> <span class="o">@</span> <span class="n">M</span> <span class="o">@</span> <span class="n">R</span>
+            <span class="k">elif</span> <span class="n">site</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">L</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left_envs</span><span class="p">[</span><span class="n">site</span><span class="p">]</span>
+                <span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="n">G</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">L</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">G</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">L</span> <span class="o">@</span> <span class="n">G</span> <span class="o">@</span> <span class="n">M</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">L</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left_envs</span><span class="p">[</span><span class="n">site</span><span class="p">]</span>
+                <span class="n">R</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_envs</span><span class="p">[</span><span class="n">site</span><span class="p">]</span>
+                <span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="n">G</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">L</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">R</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="n">G</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                <span class="n">R</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">G</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">M</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">L</span> <span class="o">@</span> <span class="n">G</span> <span class="o">@</span> <span class="n">M</span> <span class="o">@</span> <span class="n">R</span>
+            <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">v0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">eigshmv</span><span class="p">(</span><span class="n">matvec</span><span class="p">,</span> <span class="n">v0</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">0.1</span><span class="o">*</span><span class="n">tol</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_modified_density_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="c1"># return dm</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="FiniteDMRG.sweep"><a class="viewcode-back" href="../../lib.html#lib.finite_dmrg.FiniteDMRG.sweep">[docs]</a>    <span class="k">def</span> <span class="nf">sweep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iterator</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">):</span>
+        <span class="n">direction</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">iterator</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">iterator</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">iterator</span><span class="p">:</span>
+            <span class="n">E</span><span class="p">,</span> <span class="n">theta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unit_solver</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">tol</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Sweeping to site [</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">], E/N = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="n">E</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">theta</span> <span class="o">=</span> <span class="n">theta</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">mps_shape</span><span class="p">(</span><span class="n">site</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">direction</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">theta</span> <span class="o">=</span> <span class="n">theta</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">mps_shape</span><span class="p">(</span><span class="n">site</span><span class="p">)[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">vt</span> <span class="o">=</span> <span class="n">svd</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">chi</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">site</span><span class="o">+</span><span class="nb">min</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">direction</span><span class="p">)])</span>
+            <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mps_shape</span><span class="p">(</span><span class="n">site</span><span class="p">)))</span>
+                <span class="n">residual</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diagflat</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">vt</span><span class="p">))</span>
+                <span class="n">G</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">residual</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">G</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">residual</span> <span class="o">@</span> <span class="n">G</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_update_left_env</span><span class="p">(</span><span class="n">site</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">direction</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">vt</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mps_shape</span><span class="p">(</span><span class="n">site</span><span class="p">)))</span>
+                <span class="n">residual</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">diagflat</span><span class="p">(</span><span class="n">s</span><span class="p">)))</span>
+                <span class="n">G</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">G</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">^</span> <span class="n">residual</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">G</span> <span class="o">@</span> <span class="n">residual</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_update_right_env</span><span class="p">(</span><span class="n">site</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">E</span></div>
+
+<div class="viewcode-block" id="FiniteDMRG.update"><a class="viewcode-back" href="../../lib.html#lib.finite_dmrg.FiniteDMRG.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span> <span class="n">max_sweep</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Set up tol = </span><span class="si">{}</span><span class="s2">, up to maximally </span><span class="si">{}</span><span class="s2"> sweeps&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tol</span><span class="p">,</span> <span class="n">max_sweep</span><span class="p">))</span>
+        <span class="n">clock</span> <span class="o">=</span> <span class="p">[</span><span class="n">time</span><span class="o">.</span><span class="n">process_time</span><span class="p">()]</span>
+        <span class="k">for</span> <span class="n">n_sweep</span> <span class="ow">in</span> <span class="n">count</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;In sweep epoch [</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_sweep</span><span class="p">,</span> <span class="n">max_sweep</span><span class="p">))</span>
+            <span class="n">El</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sweep</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">Er</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sweep</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">clock</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">process_time</span><span class="p">()</span><span class="o">-</span><span class="n">clock</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">dE</span> <span class="o">=</span> <span class="p">(</span><span class="n">El</span> <span class="o">-</span> <span class="n">Er</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dE</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="k">elif</span> <span class="n">n_sweep</span> <span class="o">==</span> <span class="n">max_sweep</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Maximum number of sweeps </span><span class="si">{}</span><span class="s2"> reached, &quot;</span>
+                                <span class="s2">&quot;yet dE/N = </span><span class="si">{}</span><span class="s2"> &gt; tol = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">max_sweep</span><span class="p">,</span> <span class="n">dE</span><span class="p">,</span> <span class="n">tol</span><span class="p">))</span>
+                <span class="k">break</span>
+            <span class="k">elif</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dE</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">tol</span> <span class="ow">and</span> <span class="n">dE</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Fail on lowering energy, got dE/N = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dE</span><span class="p">))</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> loops, best of 3: </span><span class="si">{}</span><span class="s2"> sec per loop&quot;</span>
+                     <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_sweep</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">clock</span><span class="p">)[:</span><span class="mi">3</span><span class="p">])))</span></div>
+
+<div class="viewcode-block" id="FiniteDMRG.save_mps"><a class="viewcode-back" href="../../lib.html#lib.finite_dmrg.FiniteDMRG.save_mps">[docs]</a>    <span class="k">def</span> <span class="nf">save_mps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, tanlin2013
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
