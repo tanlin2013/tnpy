@@ -1,7 +1,7 @@
-*DS_Store
-*.pyc
+**/*DS_Store
+**/*.pyc
 
 ./TNpy.egg-info/
 ./build/
 ./dist/
-**/*__pycache__/
+**/__pycache__/
