@@ -14,10 +14,10 @@ RUN apt update
 RUN apt-get install -y --no-install-recommends --allow-unauthenticated gfortran
 RUN apt-get install -y --no-install-recommends --allow-unauthenticated libblas-dev liblapack-dev
 
-# Install Primme release-2.2
+# Install Primme
 RUN git clone https://github.com/primme/primme.git
 RUN cd primme && \
-git checkout release-2.2 &&\
+# git checkout release-2.2 &&\
 make python_install &&\
 cd ..
 

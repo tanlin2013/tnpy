@@ -5,6 +5,7 @@ import tensornetwork as tn
 from tensornetwork import Node
 from tensornetwork.network_operations import conj
 from tensornetwork.matrixproductstates.finite_mps import FiniteMPS
+from tqdm import tqdm
 from lib.linalg import svd
 from lib.operators import MPO
 from typing import List
@@ -14,6 +15,7 @@ class FiniteAlgorithmBase:
 
     mps_cls = FiniteMPS
 
+    # @TODO: only init=random needs input D
     def __init__(self, D: List[int], mpo: MPO, init_method='random'):
         logging.basicConfig(format='%(asctime)s [%(filename)s] %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
         logging.root.setLevel(level=logging.INFO)
@@ -29,7 +31,11 @@ class FiniteAlgorithmBase:
         assert (len(D) == self.N - 1)
 
     def __del__(self):
-        pass
+        logging.info("Deleting left-/right- environments and norms")
+        del self.left_envs
+        del self.right_envs
+        del self.left_norms
+        del self.right_norms
 
     @property
     def N(self) -> int:
@@ -93,6 +99,15 @@ class FiniteAlgorithmBase:
     #             G[2] ^ residual[0]
     #             self._mps.nodes[site-1] = G @ residual
     #             self._update_right_env(site-1)
+
+    def _init_envs(self):
+        # @TODO: only need to do for one direction
+        logging.info("Initializing left environments")
+        for site in tqdm(range(1, self.N)):
+            self._update_left_env(site)
+        logging.info("Initializing right environments")
+        for site in tqdm(range(self.N-2, -1, -1)):
+            self._update_right_env(site)
 
     def _update_left_env(self, site):
         W = self.mpo.nodes[site-1]

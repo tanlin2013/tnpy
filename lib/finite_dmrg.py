@@ -3,7 +3,6 @@ import logging
 import numpy as np
 import tensornetwork as tn
 from tensornetwork import Node
-from tqdm import tqdm
 from itertools import count
 from lib.finite_algorithm_base import FiniteAlgorithmBase
 from lib.linalg import svd, eigshmv
@@ -27,15 +26,6 @@ class FiniteDMRG(FiniteAlgorithmBase):
 
     def __del__(self):
         pass
-
-    def _init_envs(self):
-        # @TODO: only need to do for one direction
-        logging.info("Initializing left environments")
-        for site in tqdm(range(1, self.N)):
-            self._update_left_env(site)
-        logging.info("Initializing right environments")
-        for site in tqdm(range(self.N-2, -1, -1)):
-            self._update_right_env(site)
 
     def _unit_solver(self, site, tol=1e-7):
         W = self.mpo.nodes[site]
