@@ -9,15 +9,20 @@ from itertools import count
 from scipy.integrate import solve_ivp
 from lib.finite_algorithm_base import FiniteAlgorithmBase
 from lib.linalg import svd, qr
-from lib.operators import MPO
+from enum import Enum
+
+
+class Evolve(Enum):
+    FORWARD = 1
+    BACKWARD = -1
 
 
 class FiniteTDVP(FiniteAlgorithmBase):
 
-    def __init__(self, mpo, init_method):
+    def __init__(self, mpo, chi, init_method):
         logging.basicConfig(format='%(asctime)s [%(filename)s] %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
         logging.root.setLevel(level=logging.INFO)
-        super(FiniteTDVP, self).__init__(D, mpo, init_method)
+        super(FiniteTDVP, self).__init__(mpo, chi, init_method)
 
     def __del__(self):
         pass
@@ -75,15 +80,15 @@ class FiniteTDVP(FiniteAlgorithmBase):
             return 1j * result.tensor.reshape(x.shape)
 
         v0 = self._mps.nodes[site].tensor.reshape(-1, 1)
-        if proceed == 1:
+        if proceed == Evolve.FORWARD:
             return solve_ivp(forward, t_span, y0=v0)
-        elif proceed == -1:
+        elif proceed == Evolve.BACKWARD:
             return solve_ivp(backward, t_span, y0=v0)
 
     def sweep(self, iterator, t_span):
         direction = 1 if iterator[0] < iterator[-1] else -1
         for site in iterator:
-            theta = self._unit_solver(1, t_span, site)
+            theta = self._unit_solver(Evolve.FORWARD, t_span, site)
             q, r = qr(theta, )
 
     def evolve(self, t_span):

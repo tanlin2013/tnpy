@@ -8,27 +8,27 @@ from tensornetwork.matrixproductstates.finite_mps import FiniteMPS
 from tqdm import tqdm
 from lib.linalg import svd
 from lib.operators import MPO
-from typing import List
+from typing import List, Union
 
 
 class FiniteAlgorithmBase:
 
     mps_cls = FiniteMPS
 
-    # @TODO: only init=random needs input D
-    def __init__(self, D: List[int], mpo: MPO, init_method='random'):
+    def __init__(self, mpo: MPO, chi: Union[int, None] = None, init_method='random'):
         logging.basicConfig(format='%(asctime)s [%(filename)s] %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
         logging.root.setLevel(level=logging.INFO)
+        if init_method == 'random':
+            assert(isinstance(chi, int))
         self.mpo = mpo
         self.d = mpo.physical_dimensions
-        self.D = D
+        self.chi = chi
         self.left_envs = {}
         self.right_envs = {}
         self.left_norms = {}
         self.right_norms = {}
         self._mps = None
         self.reset_mps = init_method
-        assert (len(D) == self.N - 1)
 
     def __del__(self):
         logging.info("Deleting left-/right- environments and norms")
@@ -49,6 +49,16 @@ class FiniteAlgorithmBase:
     def bond_dimensions(self):
         return self._mps.bond_dimensions
 
+    @staticmethod
+    def generate_bond_dimensions(N: int, d: int, chi: int) -> List[int]:
+        if N % 2 == 0:
+            D = [min(d ** i, chi) for i in range(1, N // 2)]
+            D += [int(min(d ** (N / 2), chi))] + D[::-1]
+        else:
+            D = [min(d ** i, chi) for i in range(1, (N + 1) // 2)]
+            D += D[::-1]
+        return D
+
     @property
     def mps(self) -> FiniteMPS:
         return self._mps
@@ -57,14 +67,15 @@ class FiniteAlgorithmBase:
     def reset_mps(self, init_method='random'):
         if init_method == "random":
             logging.info("Initializing finite MPS randomly")
-            self._mps = self.mps_cls.random([self.d] * self.N, self.D, self.dtype)
+            D = FiniteAlgorithmBase.generate_bond_dimensions(self.N, self.d, self.chi)
+            self._mps = self.mps_cls.random([self.d]*self.N, D, self.dtype)
             # self.normalize_mps(direction=1, normalize_sv=True)
         elif os.path.isfile(init_method):
             logging.info("Initializing finite MPS from file: {}".format(init_method))
             # @TODO: Not Implemented
             pass
         else:
-            raise KeyError("Invalid init method")
+            raise KeyError("Invalid init method or file does not exist")
         self._init_envs()
 
     def save_mps(self):

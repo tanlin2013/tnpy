@@ -7,22 +7,22 @@ from itertools import count
 from lib.finite_algorithm_base import FiniteAlgorithmBase
 from lib.linalg import svd, qr, eigshmv
 from lib.operators import MPO
-from typing import List, Iterable
+from typing import Iterable, Union
 
 
 class FiniteDMRG(FiniteAlgorithmBase):
 
-    def __init__(self, D: List[int], mpo: MPO, init_method='random'):
+    def __init__(self, mpo: MPO, chi: Union[int, None], init_method='random'):
         """
 
         Args:
-            D:
             mpo:
-            init_method:
+            chi: Maximum bond dimension of MPS
+            init_method: 'random' or a filepath
         """
         logging.basicConfig(format='%(asctime)s [%(filename)s] %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
         logging.root.setLevel(level=logging.INFO)
-        super(FiniteDMRG, self).__init__(D, mpo, init_method)
+        super(FiniteDMRG, self).__init__(mpo, chi, init_method)
 
     def __del__(self):
         pass
@@ -80,7 +80,7 @@ class FiniteDMRG(FiniteAlgorithmBase):
                 theta = theta.reshape(self.d * self.mps_shape(site)[0], -1)
             elif direction == -1:
                 theta = theta.reshape(-1, self.d * self.mps_shape(site)[2])
-            u, s, vt = svd(theta, chi=self.D[site+min(0, direction)])
+            u, s, vt = svd(theta, chi=self.mps_shape(site)[1+direction])
             if direction == 1:
                 self._mps.nodes[site] = Node(u.reshape(self.mps_shape(site)))
                 residual = Node(np.dot(np.diagflat(s), vt))

@@ -1,7 +1,11 @@
+import numpy as np
+# try:
+#     from TNpy.operators import SpinOperators, MPO
+#     from TNpy.finite_dmrg import FiniteDMRG
+# except ImportError:
 import os
 import sys
 sys.path.insert(0, os.path.abspath('..'))
-import numpy as np
 from lib.operators import SpinOperators, MPO
 from lib.finite_dmrg import FiniteDMRG
 
@@ -32,14 +36,10 @@ class Thirring:
 
 if __name__ == "__main__":
 
-    # D = [2, 4, 8, 16, 32, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 32, 16, 8, 4, 2]
+    N = 20
+    chi = 60
 
-    D = [min(2 ** i, 60) for i in range(1, 6 - 1)]
-    D += D[::-1]
-    N = len(D) + 1
-    print(D)
-
-    model = Thirring(N, 1.7, 5.0, 100.0, 0.0)
-    fdmrg = FiniteDMRG(D, mpo=MPO(N, model.mpo))
+    model = Thirring(N, g=1.7, ma=5.0, lamda=100.0, s_target=0.0)
+    fdmrg = FiniteDMRG(mpo=MPO(N, model.mpo), chi=chi)
     fdmrg.update(tol=1e-8)
     print(fdmrg.bond_dimensions)
