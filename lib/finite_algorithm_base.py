@@ -46,6 +46,10 @@ class FiniteAlgorithmBase:
         return self.mpo.nodes[0].tensor.dtype
 
     @property
+    def bond_dimensions(self):
+        return self._mps.bond_dimensions
+
+    @property
     def mps(self) -> FiniteMPS:
         return self._mps
 

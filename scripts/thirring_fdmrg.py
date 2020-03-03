@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
     # D = [2, 4, 8, 16, 32, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 32, 16, 8, 4, 2]
 
-    D = [min(2 ** i, 60) for i in range(50 - 1)]
+    D = [min(2 ** i, 60) for i in range(1, 6 - 1)]
     D += D[::-1]
     N = len(D) + 1
     print(D)
@@ -42,3 +42,4 @@ if __name__ == "__main__":
     model = Thirring(N, 1.7, 5.0, 100.0, 0.0)
     fdmrg = FiniteDMRG(D, mpo=MPO(N, model.mpo))
     fdmrg.update(tol=1e-8)
+    print(fdmrg.bond_dimensions)

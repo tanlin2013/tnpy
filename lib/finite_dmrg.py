@@ -5,7 +5,7 @@ import tensornetwork as tn
 from tensornetwork import Node
 from itertools import count
 from lib.finite_algorithm_base import FiniteAlgorithmBase
-from lib.linalg import svd, eigshmv
+from lib.linalg import svd, qr, eigshmv
 from lib.operators import MPO
 from typing import List, Iterable
 

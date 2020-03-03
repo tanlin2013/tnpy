@@ -21,6 +21,13 @@ def svd(A: np.ndarray, chi: int):
     return u, s, vt
 
 
+def qr(A: np.ndarray, chi: int):
+    q, r = np.linalg.qr(A, mode='reduced')
+    q = q[:, 0:chi]
+    r = r[0:chi, :]
+    return q, r
+
+
 def eigshmv(Afunc: Callable, v0: np.ndarray, tol=0):
     """
 
@@ -160,4 +167,7 @@ def eigshmv(Afunc: Callable, v0: np.ndarray, tol=0):
 class KrylovExpm:
 
     def __init__(self):
+        pass
+
+    def orthonormalization(self):
         pass
