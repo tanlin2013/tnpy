@@ -28,6 +28,8 @@ class FiniteTDVP(FiniteAlgorithmBase):
         pass
 
     def _unit_solver(self, proceed, t_span, site):
+        # @TODO: this is totally wrong, C tensor is singular matrix
+        # @TODO: have to do this in canonical form
 
         def forward(x):
             M = Node(x.reshape(self.mps_shape(site)))
@@ -89,7 +91,7 @@ class FiniteTDVP(FiniteAlgorithmBase):
         direction = 1 if iterator[0] < iterator[-1] else -1
         for site in iterator:
             theta = self._unit_solver(Evolve.FORWARD, t_span, site)
-            q, r = qr(theta, )
+            q, r = qr(theta, chi=self.mps_shape(site)[1+direction])
 
     def evolve(self, t_span):
         pass
