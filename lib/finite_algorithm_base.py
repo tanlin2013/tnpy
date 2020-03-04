@@ -124,6 +124,15 @@ class FiniteAlgorithmBase:
         for site in tqdm(range(self.N-2, -1, -1)):
             self._update_right_env(site)
 
+    def _init_norms(self):
+        # @TODO: only need to do for one direction
+        logging.info("Initializing left norms")
+        for site in tqdm(range(1, self.N)):
+            self._update_left_norm(site)
+        logging.info("Initializing right norms")
+        for site in tqdm(range(self.N-2, -1, -1)):
+            self._update_right_norm(site)
+
     def _update_left_env(self, site):
         W = self.mpo.nodes[site-1]
         M = self._mps.nodes[site-1]
@@ -171,6 +180,7 @@ class FiniteAlgorithmBase:
             L = self.left_norms[site-1]
             L[0] ^ M[0]
             L[1] ^ M_conj[0]
+            M[1] ^ M_conj[1]
             self.left_norms[site] = L @ M @ M_conj
 
     def _update_right_norm(self, site):
@@ -184,4 +194,5 @@ class FiniteAlgorithmBase:
             R = self.right_norms[site+1]
             R[0] ^ M[2]
             R[1] ^ M_conj[2]
+            M[1] ^ M_conj[1]
             self.right_norms[site] = R @ M @ M_conj
