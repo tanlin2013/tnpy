@@ -31,7 +31,7 @@ class Thirring:
              [O2, O2, O2, O2, O2, Sp],
              [O2, O2, O2, I2, O2, np.sqrt(self.lamda) * Sz],
              [O2, O2, O2, O2, O2, Sz],
-             [O2, O2, O2, O2, O2, I2]])
+             [O2, O2, O2, O2, O2, I2]], dtype=complex)
 
 
 if __name__ == "__main__":
