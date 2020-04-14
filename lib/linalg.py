@@ -166,8 +166,28 @@ def eigshmv(Afunc: Callable, v0: np.ndarray, tol=0):
 
 class KrylovExpm:
 
-    def __init__(self):
+    def __init__(self, delta, mat, v0, n=20):
+        self.delta = delta
+        self.mat = mat
+        self.v0 = v0 / np.linalg.norm(v0)
+        self.n = n
+        assert(n <= mat.shape[0])
+
+    def orthonormalize(self, vecs):
         pass
 
-    def orthonormalization(self):
-        pass
+    def construct_krylov_space(self):
+        vecs = [self.v0]
+        for i in range(self.n-1):
+            vecs.append(np.dot(self.mat, vecs[-1]))
+        # vecs = self.orthonormalize(vecs)
+        print(len(vecs))
+
+
+if __name__ == "__main__":
+
+    mat = np.random.random((50, 50))
+    v0 = np.random.random(50)
+
+    kexpm = KrylovExpm(1e-3, mat, v0)
+    kexpm.construct_krylov_space()
