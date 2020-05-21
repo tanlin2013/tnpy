@@ -114,6 +114,7 @@ class FiniteTDVP(FiniteAlgorithmBase):
                     C = Node(self._unit_solver(Evolve.BACKWARD, t_span, site-1).reshape(q.shape))
                     Mp = self._mps.nodes[site-1]
                     Mp[2] ^ C[0]
+            # @TODO: measure something here to check the status of mps
             print(site)
             print(self._mps.check_orthonormality('l', self.N-1))
             print(self._mps.check_orthonormality('r', 0))
@@ -123,3 +124,4 @@ class FiniteTDVP(FiniteAlgorithmBase):
 
     def evolve(self, t_span):
         pass
+        #
