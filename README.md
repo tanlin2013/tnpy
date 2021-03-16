@@ -1,61 +1,78 @@
 # TNpy
-This project contains several algorithms which are based on the Matrix Product State (MPS) ansatz, and is used for the studies of (1+1)-dimensional physics. 
 
+This project is a python implementation of Tensor Network,
+a numerical approaches to quantum many-body system.
+  
+
+TNpy is built on top of [google/TensorNetwork](https://github.com/google/TensorNetwork) for tensor contractions, 
+with optimized support for various backend engines (TensorFlow, JAX, PyTorch, and Numpy). 
+For eigen-solver we adopt [Primme](https://github.com/primme/primme),
+an iterative multi-method solver with preconditioning.
+
+Currently, we supports Matrix Product State (MPS) algorithms, 
+with more are coming...
+ 
 * Infinite Size Density Matrix Renormalization Group (iDMRG)
 * Infinte Time Evolution Bond Decimation (iTEBD)
 * Finite Size Density Matrix Renormalization Group (fDMRG)
-* Finte Time Evolution Bond Decimation (fTEBD) (developing...)
+* Time Dependent Variational Principle (TDVP) (ongoing...)
 
-This work is still in progress...
+fDMRG is on alpha-release and is much stable. 
+For others, please expect edge cases.
 
 ## Requirments:
-  * Numpy
-  * Scipy  
-  * PRIMME
-  
-Regarding any installation problems with PRIMME, please refer http://www.cs.wm.edu/~andreas/software/. 
+
+See `requirements.txt` for more details.
+But these two are essential building blocks.
+
+  * [google/TensorNetwork](https://github.com/google/TensorNetwork)
+  * [Primme](https://github.com/primme/primme)
+
+Regarding any installation problems with Primme,
+please refer to [Primme official](http://www.cs.wm.edu/~andreas/software/). 
 
 ## Installation
-  Simply run the file `setup.py` with the command:
-  ```
-  python setup.py install
-  ```
-         
+Simply run the file `setup.py` with the command:    
+```
+python setup.py install    
+```
+Or, if you are using docker 
+```
+make build & make run
+```
+    
 ## How to use it?
-1. Declare your Tensor Network State and initialize it.
-   
-   ```
-   import TNpy
-   myMPS=TNpy.tnstate.MPS(whichMPS,d,chi,N)
-   Gs=mymps.initialize()
-   ```
-2. Customize your own Matrix Product Operator for the desired model. What you have to do is to write a function which only depends on `site` and retuns a ndarray that represents your MPO. You may use the default function `TNpy.operators.MPO.assign()` for this purpose.
+1. Defining your model's Hamiltonian in Matrix Product Operator (MPO).
+ What you have to do is to write a function which depends on `site` and retuns a np.ndarray that represents your MPO.
 
    ```
+   import numpy as np
+   from TNpy.operators import SpinOperators, MPO
+   from TNpy.finite_dmrg import FiniteDMRG
+   
    Class XXZ:
-       def __int__(self,N,delta):
-           self.N=N
-           self.delta=delta
+       def __int__(self, N, delta):
+           self.N = N
+           self.delta = delta
            
-       def M(self,site):
-           mympo=TNpy.operators.MPO(whichMPS='f',N=self.N,D=5)
-           Sp,Sm,Sz,I2,O2=TNpy.operators.spin()
+       def mpo(self, site):
+           Sp, Sm, Sz, I2, O2 = SpinOperators()
            
-           elem=[[I2,-0.5*Sp,-0.5*Sm,-self.delta*Sz,O2],
-              [O2,O2,O2,O2,Sm],
-              [O2,O2,O2,O2,Sp],
-              [O2,O2,O2,O2,Sz],
-              [O2,O2,O2,O2,I2]]
-           
-           M=mympo.assign(elem,site)
-           return M
+           return np.array(
+                [[I2,-0.5*Sp,-0.5*Sm,-self.delta*Sz,O2],
+                [O2,O2,O2,O2,Sm],
+                [O2,O2,O2,O2,Sp],
+                [O2,O2,O2,O2,Sz],
+                [O2,O2,O2,O2,I2]])
    ```
-3. Call the algorithm to optimize the state. 
+2. Call the algorithm to optimize the state. 
    
    ```
-   model=XXZ(N,delta)
-   simulation=TNpy.algorithm.fDMRG(model.M,Gs,N,d,chi)
-   E,stats=simulation.variational_optimize()
-   Gs=simulation.Gs
+   N = 100  # length of spin chain
+   chi = 60  # virtual bond dimension 
+   
+   model = XXZ(N, delta)
+   fdmrg = FiniteDMRG(mpo=MPO(N, model.mpo), chi=chi)
+   fdmrg.update(tol=1e-8)
    ```
-4. Compute any physical quantities whatever you want from the obtained state. Those common measurements may be avaliable inside `/src/TNpy/measurement.py`.
+3. Compute any physical quantities whatever you want from the obtained state.
