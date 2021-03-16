@@ -6,7 +6,7 @@ a numerical approaches to quantum many-body system.
 
 TNpy is built on top of [google/TensorNetwork](https://github.com/google/TensorNetwork) for tensor contractions, 
 with optimized support for various backend engines (TensorFlow, JAX, PyTorch, and Numpy). 
-For eigen-solver we adopt [Primme](https://github.com/primme/primme),
+For eigen-solver we adopt [primme](https://github.com/primme/primme),
 an iterative multi-method solver with preconditioning.
 
 Currently, we supports Matrix Product State (MPS) algorithms, 
@@ -26,20 +26,23 @@ See `requirements.txt` for more details.
 But these two are essential building blocks.
 
   * [google/TensorNetwork](https://github.com/google/TensorNetwork)
-  * [Primme](https://github.com/primme/primme)
+  * [primme/primme](https://github.com/primme/primme)
 
 Regarding any installation problems with Primme,
 please refer to [Primme official](http://www.cs.wm.edu/~andreas/software/). 
 
 ## Installation
-Simply run the file `setup.py` with the command:    
+Simply run the file `setup.py` with command:    
 ```
 python setup.py install    
 ```
-Or, if you are using docker 
+Or, if you are using Docker container
 ```
 make build & make run
 ```
+   
+## Documentation
+For details about TNpy, see the [reference documentation](https://tanlin2013.github.io/TNpy/index.html).
     
 ## How to use it?
 1. Defining your model's Hamiltonian in Matrix Product Operator (MPO).
