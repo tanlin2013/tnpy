@@ -42,7 +42,7 @@ make build & make run
 ```
    
 ## Documentation
-For details about TNpy, see the [reference documentation](https://tanlin2013.github.io/TNpy/index.html).
+For details about TNpy, see the [reference documentation](https://tanlin2013.github.io/TNpy/).
     
 ## How to use it?
 1. Defining your model's Hamiltonian in Matrix Product Operator (MPO).
