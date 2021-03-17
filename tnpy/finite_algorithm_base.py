@@ -6,8 +6,8 @@ from tensornetwork import Node
 from tensornetwork.network_operations import conj
 from tensornetwork.matrixproductstates.finite_mps import FiniteMPS
 from tqdm import tqdm
-from lib.linalg import svd
-from lib.operators import MPO
+from tnpy.linalg import svd
+from tnpy.operators import MPO
 from typing import List, Union
 
 

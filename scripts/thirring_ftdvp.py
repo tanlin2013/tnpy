@@ -1,14 +1,14 @@
 import numpy as np
 # try:
-#     from TNpy.operators import SpinOperators, MPO
-#     from TNpy.finite_dmrg import FiniteDMRG
+#     from tnpy.operators import SpinOperators, MPO
+#     from tnpy.finite_dmrg import FiniteDMRG
 # except ImportError:
 import os
 import sys
 sys.path.insert(0, os.path.abspath('..'))
 from thirring_fdmrg import Thirring
-from lib.operators import MPO
-from lib.finite_tdvp import FiniteTDVP
+from tnpy.operators import MPO
+from tnpy.finite_tdvp import FiniteTDVP
 
 
 if __name__ == "__main__":

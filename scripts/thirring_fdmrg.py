@@ -1,13 +1,6 @@
 import numpy as np
-# try:
-#     from TNpy.operators import SpinOperators, MPO
-#     from TNpy.finite_dmrg import FiniteDMRG
-# except ImportError:
-import os
-import sys
-sys.path.insert(0, os.path.abspath('..'))
-from lib.operators import SpinOperators, MPO
-from lib.finite_dmrg import FiniteDMRG
+from tnpy.operators import SpinOperators, MPO
+from tnpy.finite_dmrg import FiniteDMRG
 
 
 class Thirring:

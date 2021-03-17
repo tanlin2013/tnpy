@@ -13,13 +13,13 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('../..'))
-sys.path.insert(0, os.path.abspath('../../lib'))
-from lib import __version__
+sys.path.insert(0, os.path.abspath('../../tnpy'))
+from tnpy import __version__
 
 
 # -- Project information -----------------------------------------------------
 
-project = 'TNpy'
+project = 'tnpy'
 copyright = '2020, tanlin2013'
 author = 'tanlin2013'
 

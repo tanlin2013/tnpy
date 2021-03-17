@@ -7,8 +7,8 @@ from tensornetwork.network_operations import conj
 from tqdm import tqdm
 from itertools import count
 from scipy.integrate import solve_ivp
-from lib.finite_algorithm_base import FiniteAlgorithmBase
-from lib.linalg import svd, qr
+from tnpy.finite_algorithm_base import FiniteAlgorithmBase
+from tnpy.linalg import svd, qr
 from enum import Enum
 
 

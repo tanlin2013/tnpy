@@ -1,6 +1,6 @@
 from setuptools import setup
 #from distutils.core import setup
-from lib import __version__
+from tnpy import __version__
 
 
 with open("README.md", "r") as f:
@@ -11,9 +11,9 @@ with open('requirements.txt') as f:
 
 
 setup(
-    name='TNpy',
-    packages=['TNpy'],
-    package_dir={'TNpy': 'lib'},
+    name='tnpy',
+    packages=['tnpy'],
+    package_dir={'tnpy': 'tnpy'},
     version=__version__,
     license='MIT',
     description='Tensor Network Algorithms',
@@ -21,8 +21,8 @@ setup(
     long_description_content_type="text/markdown",
     author='tao-lin',
     author_email='tanlin2013@gmail.com',
-    url='https://github.com/tanlin2013/TNpy',
-    download_url='https://github.com/tanlin2013/TNpy/archive/v%s.tar.gz' % __version__,
+    url='https://github.com/tanlin2013/tnpy',
+    download_url='https://github.com/tanlin2013/tnpy/archive/v%s.tar.gz' % __version__,
     keywords=['mps', 'tensornetwork'],
     install_requires=required,
     classifiers=[
