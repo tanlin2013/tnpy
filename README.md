@@ -50,8 +50,8 @@ For details about TNpy, see the [reference documentation](https://tanlin2013.git
 
    ```
    import numpy as np
-   from TNpy.operators import SpinOperators, MPO
-   from TNpy.finite_dmrg import FiniteDMRG
+   from tnpy.operators import SpinOperators, MPO
+   from tnpy.finite_dmrg import FiniteDMRG
    
    Class XXZ:
        def __int__(self, N, delta):

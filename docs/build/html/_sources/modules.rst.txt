@@ -1,7 +1,7 @@
-lib
-===
+tnpy
+====
 
 .. toctree::
    :maxdepth: 4
 
-   lib
+   tnpy

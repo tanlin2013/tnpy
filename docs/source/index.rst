@@ -1,9 +1,9 @@
-.. TNpy documentation master file, created by
-   sphinx-quickstart on Sat Feb 29 14:31:32 2020.
+.. tnpy documentation master file, created by
+   sphinx-quickstart on Wed Mar 17 13:01:44 2021.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to TNpy's documentation!
+Welcome to tnpy's documentation!
 ================================
 .. mdinclude:: ../../README.md
 
@@ -11,7 +11,7 @@ Welcome to TNpy's documentation!
    :maxdepth: 5
    :caption: Contents:
 
-   lib.rst
+   tnpy.rst
 
 
 Indices and tables
