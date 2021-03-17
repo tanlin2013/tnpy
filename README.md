@@ -1,10 +1,10 @@
-# TNpy
+# tnpy
 
 This project is a python implementation of Tensor Network,
 a numerical approaches to quantum many-body system.
   
 
-TNpy is built on top of [google/TensorNetwork](https://github.com/google/TensorNetwork) for tensor contractions, 
+**tnpy** is built on top of [google/TensorNetwork](https://github.com/google/TensorNetwork) for tensor contractions, 
 with optimized support for various backend engines (TensorFlow, JAX, PyTorch, and Numpy). 
 For eigen-solver we adopt [primme](https://github.com/primme/primme),
 an iterative multi-method solver with preconditioning.
@@ -42,7 +42,7 @@ make build & make run
 ```
    
 ## Documentation
-For details about TNpy, see the [reference documentation](https://tanlin2013.github.io/TNpy/).
+For details about **tnpy**, see the [reference documentation](https://tanlin2013.github.io/tnpy/).
     
 ## How to use it?
 1. Defining your model's Hamiltonian in Matrix Product Operator (MPO).
