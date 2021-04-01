@@ -13,7 +13,7 @@ jobs:
         uses: ammaraskar/sphinx-action@master
         with:
           docs-folder: "docs/"
-#          pre-build-command: "pip install -r requirements.txt"
+          pre-build-command: "pip install m2r==0.2.1"
 
   test:
     runs-on: ubuntu-latest
