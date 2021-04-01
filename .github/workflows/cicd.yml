@@ -13,7 +13,7 @@ jobs:
         uses: ammaraskar/sphinx-action@master
         with:
           docs-folder: "docs/"
-          pre-build-command: "pip install m2r==0.2.1"
+          pre-build-command: "pip install m2r==0.2.1 sphinx-rtd-theme==0.5.1"
 
   test:
     runs-on: ubuntu-latest
