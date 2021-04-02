@@ -1,5 +1,7 @@
 # tnpy
 
+![cicd workflow](https://github.com/tanlin2013/tnpy/actions/workflows/cicd.yml/badge.svg)
+
 This project is a python implementation of Tensor Network,
 a numerical approaches to quantum many-body system.
   
@@ -44,7 +46,7 @@ make build & make run
 ## Documentation
 For details about **tnpy**, see the [reference documentation](https://tanlin2013.github.io/tnpy/).
     
-## How to use it?
+## Quick Start
 1. Defining your model's Hamiltonian in Matrix Product Operator (MPO).
  What you have to do is to write a function which depends on `site` and retuns a np.ndarray that represents your MPO.
 
