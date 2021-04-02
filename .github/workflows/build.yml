@@ -22,7 +22,7 @@ jobs:
           path: docs/build/html/
 
       - name: Disable jekyll theme
-        run: echo '' > docs/build/.nojekyll
+        run: sudo touch docs/build/.nojekyll
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
