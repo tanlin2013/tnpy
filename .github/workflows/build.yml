@@ -21,8 +21,10 @@ jobs:
           name: DocumentationHTML
           path: docs/build/html/
 
-      - name: Deploy
+      - name: Disable jekyll theme
         run: touch docs/build/.nojekyll
+
+      - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
