@@ -1,6 +1,7 @@
 # tnpy
 
-![cicd workflow](https://github.com/tanlin2013/tnpy/actions/workflows/cicd.yml/badge.svg)
+![build workflow](https://github.com/tanlin2013/tnpy/actions/workflows/build.yml/badge.svg)
+![test workflow](https://github.com/tanlin2013/tnpy/actions/workflows/test.yml/badge.svg)
 
 This project is a python implementation of Tensor Network,
 a numerical approaches to quantum many-body system.

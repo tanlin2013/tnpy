@@ -2,8 +2,7 @@ import os
 import logging
 import numpy as np
 import tensornetwork as tn
-from tensornetwork import Node
-from tensornetwork.network_operations import conj
+from tensornetwork import Node, conj
 from tensornetwork.matrixproductstates.finite_mps import FiniteMPS
 from tqdm import tqdm
 from tnpy.linalg import svd
