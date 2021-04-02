@@ -1,0 +1,321 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Welcome to tnpy’s documentation! &mdash; tnpy 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="tnpy package" href="tnpy.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> tnpy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tnpy.html">tnpy package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">tnpy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Welcome to tnpy’s documentation!</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="welcome-to-tnpy-s-documentation">
+<h1>Welcome to tnpy’s documentation!<a class="headerlink" href="#welcome-to-tnpy-s-documentation" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="tnpy">
+<h1>tnpy<a class="headerlink" href="#tnpy" title="Permalink to this headline">¶</a></h1>
+<a class="reference external image-reference" href="https://github.com/tanlin2013/tnpy/actions/workflows/cicd.yml/badge.svg"><img alt="cicd workflow" src="https://github.com/tanlin2013/tnpy/actions/workflows/cicd.yml/badge.svg" /></a>
+<p>This project is a python implementation of Tensor Network,
+a numerical approaches to quantum many-body system.</p>
+<p><strong>tnpy</strong> is built on top of <a class="reference external" href="https://github.com/google/TensorNetwork">google/TensorNetwork</a> for tensor contractions,
+with optimized support for various backend engines (TensorFlow, JAX, PyTorch, and Numpy).
+For eigen-solver we adopt <a class="reference external" href="https://github.com/primme/primme">primme</a>,
+an iterative multi-method solver with preconditioning.</p>
+<p>Currently, we supports Matrix Product State (MPS) algorithms,
+with more are coming…</p>
+<ul class="simple">
+<li><p>Infinite Size Density Matrix Renormalization Group (iDMRG)</p></li>
+<li><p>Infinte Time Evolution Bond Decimation (iTEBD)</p></li>
+<li><p>Finite Size Density Matrix Renormalization Group (fDMRG)</p></li>
+<li><p>Time Dependent Variational Principle (TDVP) (ongoing…)</p></li>
+</ul>
+<p>fDMRG is on alpha-release and is much stable.
+For others, please expect edge cases.</p>
+<div class="section" id="requirments">
+<h2>Requirments:<a class="headerlink" href="#requirments" title="Permalink to this headline">¶</a></h2>
+<p>See <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> for more details.
+But these two are essential building blocks.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/google/TensorNetwork">google/TensorNetwork</a></p></li>
+<li><p><a class="reference external" href="https://github.com/primme/primme">primme/primme</a></p></li>
+</ul>
+<p>Regarding any installation problems with Primme,
+please refer to <a class="reference external" href="http://www.cs.wm.edu/~andreas/software/">Primme official</a>.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Simply run the file <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> with command:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>python setup.py install
+</pre></div>
+</div>
+<p>Or, if you are using Docker container</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>make build &amp; make run
+</pre></div>
+</div>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>For details about <strong>tnpy</strong>, see the <a class="reference external" href="https://tanlin2013.github.io/tnpy/">reference documentation</a>.</p>
+</div>
+<div class="section" id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p>Defining your model’s Hamiltonian in Matrix Product Operator (MPO).
+What you have to do is to write a function which depends on <code class="docutils literal notranslate"><span class="pre">site</span></code> and retuns a np.ndarray that represents your MPO.</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>import numpy as np
+from tnpy.operators import SpinOperators, MPO
+from tnpy.finite_dmrg import FiniteDMRG
+
+Class XXZ:
+    def __int__(self, N, delta):
+        self.N = N
+        self.delta = delta
+
+    def mpo(self, site):
+        Sp, Sm, Sz, I2, O2 = SpinOperators()
+
+        return np.array(
+             [[I2,-0.5*Sp,-0.5*Sm,-self.delta*Sz,O2],
+             [O2,O2,O2,O2,Sm],
+             [O2,O2,O2,O2,Sp],
+             [O2,O2,O2,O2,Sz],
+             [O2,O2,O2,O2,I2]])
+</pre></div>
+</div>
+</li>
+<li><p>Call the algorithm to optimize the state.</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>N = 100  # length of spin chain
+chi = 60  # virtual bond dimension
+
+model = XXZ(N, delta)
+fdmrg = FiniteDMRG(mpo=MPO(N, model.mpo), chi=chi)
+fdmrg.update(tol=1e-8)
+</pre></div>
+</div>
+</li>
+<li><p>Compute any physical quantities whatever you want from the obtained state.</p></li>
+</ol>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tnpy.html">tnpy package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tnpy.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tnpy.html#tnpy-finite-algorithm-base-module">tnpy.finite_algorithm_base module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tnpy.html#tnpy-finite-dmrg-module">tnpy.finite_dmrg module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tnpy.html#tnpy-finite-tdvp-module">tnpy.finite_tdvp module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tnpy.html#tnpy-linalg-module">tnpy.linalg module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tnpy.html#tnpy-operators-module">tnpy.operators module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tnpy.html#module-tnpy">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="tnpy.html" class="btn btn-neutral float-right" title="tnpy package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Tan Tao-Lin.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
