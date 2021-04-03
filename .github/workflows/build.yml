@@ -14,7 +14,7 @@ jobs:
         with:
           docs-folder: "docs/"
           pre-build-command: "pip install -r docs/requirements.txt"
-          build-command: "make rstdoc && make doc"
+          build-command: "make html"
 
       - name: Create artifact
         uses: actions/upload-artifact@v1
