@@ -6,3 +6,4 @@ mkl-devel==2021.2.0
 tensornetwork==0.3.1
 tqdm==4.59.0
 primme==3.2.0
+h5py==3.2.1
