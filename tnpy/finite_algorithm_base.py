@@ -1,10 +1,10 @@
-import os
 import logging
+import h5py
 import numpy as np
-import tensornetwork as tn
+from pathlib import Path
+from tqdm import tqdm
 from tensornetwork import Node, conj
 from tensornetwork.matrixproductstates.finite_mps import FiniteMPS
-from tqdm import tqdm
 from tnpy.linalg import svd
 from tnpy.operators import MPO
 from typing import List, Union
@@ -18,7 +18,7 @@ class FiniteAlgorithmBase:
         logging.basicConfig(format='%(asctime)s [%(filename)s] %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
         logging.root.setLevel(level=logging.INFO)
         if init_method == 'random':
-            assert(isinstance(chi, int))
+            assert isinstance(chi, int), "chi has to be given for random init"
         self.mpo = mpo
         self.d = mpo.physical_dimensions
         self.chi = chi
@@ -29,7 +29,7 @@ class FiniteAlgorithmBase:
         self._mps = None
         self.reset_mps = init_method
 
-    def __del__(self):
+    def close(self):
         logging.info("Deleting left-/right- environments and norms")
         del self.left_envs
         del self.right_envs
@@ -63,25 +63,46 @@ class FiniteAlgorithmBase:
         return self._mps
 
     @mps.setter
-    def reset_mps(self, init_method='random'):
+    def reset_mps(self, init_method: str = 'random') -> None:
         if init_method == "random":
             logging.info("Initializing finite MPS randomly")
             D = FiniteAlgorithmBase.generate_bond_dimensions(self.N, self.d, self.chi)
             self._mps = self.mps_cls.random([self.d]*self.N, D, self.dtype)
             # self.normalize_mps(direction=1, normalize_sv=True)
-        elif os.path.isfile(init_method):
-            logging.info("Initializing finite MPS from file: {}".format(init_method))
-            # @TODO: Not Implemented
-            pass
+        elif Path(init_method).suffix:
+            self.load_mps(init_method)
         else:
             raise KeyError("Invalid init method or file does not exist")
         self._init_envs()
 
-    def save_mps(self):
-        # @TODO: Not Implemented
-        pass
+    def load_mps(self, filename: str) -> None:
+        logging.info(f"Initializing finite MPS from file: {filename}")
+        path = Path(filename)
+        if path.suffix == '.hdf5':
+            # @TODO: Not Implemented
+            pass
+        elif path.suffix == '.npz':
+            npzfile = np.load(path)
+            # @TODO: this has to be converted into object FiniteMPS
+            self._mps = [npzfile['arr_%i' % i] for i in range(len(npzfile.files))]
+            npzfile.close()
+        else:
+            raise FileNotFoundError(f"File {path} not exists or not supported.")
 
-    def mps_shape(self, site):
+    def save_mps(self, filename: str) -> None:
+        path = Path(filename)
+        tensor_dataset = map(lambda node: node.tensor, self._mps.nodes)
+        if path.suffix == '.hdf5':
+            # @TODO: this requires more cares on axes
+            with h5py.File(path, 'w') as hf:
+                hf.create_dataset(str(path), tensor_dataset)
+                hf.close()
+        elif path.suffix == '.npz':
+            np.savez(path, *tensor_dataset)
+        else:
+            raise NameError(f"File extension {path.suffix} is not supported.")
+
+    def mps_shape(self, site: str):
         return self._mps.nodes[site].tensor.shape
 
     # def normalize_mps(self, direction, normalize_sv=False):
