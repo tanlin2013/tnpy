@@ -16,15 +16,6 @@ jobs:
           pre-build-command: "pip install -r docs/requirements.txt"
           build-command: "make html"
 
-      - name: Create artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: DocumentationHTML
-          path: docs/build/html/
-
-      - name: Disable jekyll theme
-        run: sudo touch docs/build/.nojekyll
-
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
