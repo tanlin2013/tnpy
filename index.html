@@ -213,41 +213,41 @@ please refer to <a class="reference external" href="http://www.cs.wm.edu/~andrea
 <ol class="arabic">
 <li><p>Defining your model’s Hamiltonian in Matrix Product Operator (MPO).
 What you have to do is to write a function which depends on <code class="docutils literal notranslate"><span class="pre">site</span></code> and retuns a np.ndarray that represents your MPO.</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>import numpy as np
-from tnpy.operators import SpinOperators, MPO
-from tnpy.finite_dmrg import FiniteDMRG
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">tnpy.operators</span> <span class="kn">import</span> <span class="n">SpinOperators</span><span class="p">,</span> <span class="n">MPO</span>
+<span class="kn">from</span> <span class="nn">tnpy.finite_dmrg</span> <span class="kn">import</span> <span class="n">FiniteDMRG</span>
 
-class XXZ:
+<span class="k">class</span> <span class="nc">XXZ</span><span class="p">:</span>
 
-    def __init__(self, N: int, delta: float) -&gt; None:
-        self.N = N
-        self.delta = delta
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">delta</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="n">N</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta</span> <span class="o">=</span> <span class="n">delta</span>
 
-    def _elem(self, site: int) -&gt; np.ndarray:
-        Sp, Sm, Sz, I2, O2 = SpinOperators()
-        return np.array(
-            [[I2, -0.5 * Sp, -0.5 * Sm, -self.delta * Sz, O2],
-             [O2, O2, O2, O2, Sm],
-             [O2, O2, O2, O2, Sp],
-             [O2, O2, O2, O2, Sz],
-             [O2, O2, O2, O2, I2]]
-        )
+    <span class="k">def</span> <span class="nf">_elem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="n">Sp</span><span class="p">,</span> <span class="n">Sm</span><span class="p">,</span> <span class="n">Sz</span><span class="p">,</span> <span class="n">I2</span><span class="p">,</span> <span class="n">O2</span> <span class="o">=</span> <span class="n">SpinOperators</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="kp">array</span><span class="p">(</span>
+            <span class="p">[[</span><span class="n">I2</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">Sp</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">Sm</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">delta</span> <span class="o">*</span> <span class="n">Sz</span><span class="p">,</span> <span class="n">O2</span><span class="p">],</span>
+             <span class="p">[</span><span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">Sm</span><span class="p">],</span>
+             <span class="p">[</span><span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">Sp</span><span class="p">],</span>
+             <span class="p">[</span><span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">Sz</span><span class="p">],</span>
+             <span class="p">[</span><span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">I2</span><span class="p">]]</span>
+        <span class="p">)</span>
 
-    def mpo(self) -&gt; MPO:
-        return MPO(self.N, self._elem)
+    <span class="k">def</span> <span class="nf">mpo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MPO</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">MPO</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elem</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
 <li><p>Call the algorithm to optimize the state.</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>N = 100  # length of spin chain
-chi = 60  # virtual bond dimension
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>  <span class="o">#</span> <span class="k">length</span> <span class="k">of</span> <span class="n">spin</span> <span class="k">chain</span>
+<span class="n">chi</span> <span class="o">=</span> <span class="mi">60</span>  <span class="o">#</span> <span class="n">virtual</span> <span class="n">bond</span> <span class="n">dimension</span>
 
-model = XXZ(N, delta)
-fdmrg = FiniteDMRG(
-    mpo=model.mpo(),
-    chi=chi
-)
-fdmrg.update(tol=1e-8)
+<span class="n">model</span> <span class="o">=</span> <span class="n">XXZ</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span>
+<span class="n">fdmrg</span> <span class="o">=</span> <span class="n">FiniteDMRG</span><span class="p">(</span>
+    <span class="n">mpo</span><span class="o">=</span><span class="n">model</span><span class="p">.</span><span class="n">mpo</span><span class="p">(),</span>
+    <span class="n">chi</span><span class="o">=</span><span class="n">chi</span>
+<span class="p">)</span>
+<span class="n">fdmrg</span><span class="p">.</span><span class="k">update</span><span class="p">(</span><span class="n">tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">8</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
