@@ -24,9 +24,6 @@ class FiniteDMRG(FiniteAlgorithmBase):
         logging.root.setLevel(level=logging.INFO)
         super(FiniteDMRG, self).__init__(mpo, chi, init_method)
 
-    def __del__(self):
-        pass
-
     def _unit_solver(self, site, tol=1e-7):
         W = self.mpo.nodes[site]
 
@@ -126,3 +123,9 @@ class FiniteDMRG(FiniteAlgorithmBase):
                 raise ValueError("Fail on lowering energy, got dE/N = {}".format(dE))
         logging.info("{} loops, best of 3: {} sec per loop"
                      "".format(n_sweep, np.mean(np.sort(clock)[:3])))
+
+
+class Projector:
+
+    def __init__(self):
+        pass

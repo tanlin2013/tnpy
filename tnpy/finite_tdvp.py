@@ -25,9 +25,6 @@ class FiniteTDVP(FiniteAlgorithmBase):
         super(FiniteTDVP, self).__init__(mpo, chi, init_method)
         self.center_matrices = {}
 
-    def __del__(self):
-        pass
-
     def _unit_solver(self, proceed, t_span, site):
 
         def forward(t, y):
