@@ -5,14 +5,14 @@ from tnpy.finite_dmrg import FiniteDMRG
 
 class Thirring:
 
-    def __init__(self, N, g, ma, lamda, s_target):
+    def __init__(self, N, g, ma, lamda, s_target) -> None:
         self.N = N
         self.g = g
         self.ma = ma
         self.lamda = lamda
         self.s_target = s_target
 
-    def mpo(self, site):
+    def _elem(self, site: int) -> np.ndarray:
         Sp, Sm, Sz, I2, O2 = SpinOperators()
 
         beta = self.g + ((-1.0) ** site * self.ma) - 2.0 * self.lamda * self.s_target
@@ -24,7 +24,12 @@ class Thirring:
              [O2, O2, O2, O2, O2, Sp],
              [O2, O2, O2, I2, O2, np.sqrt(self.lamda) * Sz],
              [O2, O2, O2, O2, O2, Sz],
-             [O2, O2, O2, O2, O2, I2]], dtype=complex)
+             [O2, O2, O2, O2, O2, I2]],
+            dtype=float
+        )
+
+    def mpo(self) -> MPO:
+        return MPO(self.N, self._elem)
 
 
 if __name__ == "__main__":
@@ -33,6 +38,6 @@ if __name__ == "__main__":
     chi = 60
 
     model = Thirring(N, g=0.5, ma=1.0, lamda=100.0, s_target=0.0)
-    fdmrg = FiniteDMRG(mpo=MPO(N, model.mpo), chi=chi)
+    fdmrg = FiniteDMRG(mpo=model.mpo(), chi=chi)
     fdmrg.update(tol=1e-8)
     print(fdmrg.bond_dimensions)
