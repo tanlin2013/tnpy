@@ -48,8 +48,9 @@ make build & make run
 For details about **tnpy**, see the [reference documentation](https://tanlin2013.github.io/tnpy/).
     
 ## Quick Start
-1. Defining your model's Hamiltonian in Matrix Product Operator (MPO).
- What you have to do is to write a function which depends on `site` and retuns a np.ndarray that represents your MPO.
+1. Defining the Matrix Product Operator of your model as a Callable function with argument `site`, 
+   e.g. the function `_elem(self, site)` below. 
+   The MPO class then accepts such Callable as input and constructs a MPO object. 
 
    ```
    import numpy as np
