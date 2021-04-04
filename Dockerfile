@@ -1,28 +1,20 @@
-FROM python:3.6.5
+FROM python:3.7
 MAINTAINER "TaoLin" <tanlin2013@gmail.com>
 
-ARG WORKDIR=/home/project
+ARG WORKDIR=/home
 ENV PYTHONPATH "${PYTHONPATH}:$WORKDIR"
+WORKDIR $WORKDIR
+
+# Install fortran, blas, lapack
+RUN apt update
+RUN apt-get install -y gfortran libblas-dev liblapack-dev
 
 # Install required python packages
 COPY . $WORKDIR
-WORKDIR $WORKDIR
-RUN pip install -r $WORKDIR/requirements.txt
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
-# Install Blas Lapack
-RUN apt update
-RUN apt-get install -y --no-install-recommends --allow-unauthenticated gfortran
-RUN apt-get install -y --no-install-recommends --allow-unauthenticated libblas-dev liblapack-dev
-
-# Install Primme
-RUN git clone https://github.com/primme/primme.git
-RUN cd primme && \
-# git checkout release-2.2 &&\
-make python_install &&\
-cd ..
-
-# Install TNpy
+# Install tnpy
 RUN python setup.py install
 
-ENTRYPOINT /bin/bash/
-#ENTRYPOINT python -m unittest discover -s $WORKDIR/test -p '*_test.py'
+ENTRYPOINT /bin/bash

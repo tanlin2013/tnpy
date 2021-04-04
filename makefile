@@ -4,7 +4,7 @@ build:
 	docker build --no-cache --force-rm -t tnpy .
 
 run:
-	docker run --rm -it --entrypoint=/bin/bash -v ${PWD}:/home/project tnpy -i
+	docker run --rm -i -t tnpy
 
 test:
 	python -m unittest discover -s test -p 'test_*.py'
