@@ -40,7 +40,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="tnpy package" href="tnpy.html" /> 
+    <link rel="next" title="tnpy" href="modules.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -91,6 +91,7 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">tnpy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tnpy.html">tnpy package</a></li>
 </ul>
 
@@ -211,8 +212,9 @@ please refer to <a class="reference external" href="http://www.cs.wm.edu/~andrea
 <div class="section" id="quick-start">
 <h2>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
-<li><p>Defining your model’s Hamiltonian in Matrix Product Operator (MPO).
-What you have to do is to write a function which depends on <code class="docutils literal notranslate"><span class="pre">site</span></code> and retuns a np.ndarray that represents your MPO.</p>
+<li><p>Defining the Matrix Product Operator of your model as a Callable function with argument <code class="docutils literal notranslate"><span class="pre">site</span></code>,
+e.g. the function <code class="docutils literal notranslate"><span class="pre">_elem(self,</span> <span class="pre">site)</span></code> below.
+The MPO class then accepts such Callable as input and constructs a MPO object.</p>
 <div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">tnpy.operators</span> <span class="kn">import</span> <span class="n">SpinOperators</span><span class="p">,</span> <span class="n">MPO</span>
 <span class="kn">from</span> <span class="nn">tnpy.finite_dmrg</span> <span class="kn">import</span> <span class="n">FiniteDMRG</span>
@@ -256,13 +258,26 @@ What you have to do is to write a function which depends on <code class="docutil
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">tnpy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tnpy.html">tnpy package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tnpy.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tnpy.html#tnpy-finite-algorithm-base-module">tnpy.finite_algorithm_base module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tnpy.html#tnpy-finite-dmrg-module">tnpy.finite_dmrg module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tnpy.html#tnpy-finite-tdvp-module">tnpy.finite_tdvp module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tnpy.html#tnpy-linalg-module">tnpy.linalg module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tnpy.html#module-tnpy.operators">tnpy.operators module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tnpy.html#module-tnpy">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="tnpy.html">tnpy package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tnpy.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tnpy.html#tnpy-finite-algorithm-base-module">tnpy.finite_algorithm_base module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tnpy.html#tnpy-finite-dmrg-module">tnpy.finite_dmrg module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tnpy.html#tnpy-finite-tdvp-module">tnpy.finite_tdvp module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tnpy.html#tnpy-linalg-module">tnpy.linalg module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tnpy.html#tnpy-operators-module">tnpy.operators module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tnpy.html#module-tnpy.operators">tnpy.operators module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tnpy.html#module-tnpy">Module contents</a></li>
 </ul>
 </li>
@@ -285,7 +300,7 @@ What you have to do is to write a function which depends on <code class="docutil
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="tnpy.html" class="btn btn-neutral float-right" title="tnpy package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="modules.html" class="btn btn-neutral float-right" title="tnpy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

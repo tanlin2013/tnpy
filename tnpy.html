@@ -40,7 +40,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Welcome to tnpy’s documentation!" href="index.html" /> 
+    <link rel="prev" title="tnpy" href="modules.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -91,13 +91,26 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">tnpy</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">tnpy package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tnpy-finite-algorithm-base-module">tnpy.finite_algorithm_base module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tnpy-finite-dmrg-module">tnpy.finite_dmrg module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tnpy-finite-tdvp-module">tnpy.finite_tdvp module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tnpy-linalg-module">tnpy.linalg module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-tnpy.operators">tnpy.operators module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-tnpy">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">tnpy package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#tnpy-finite-algorithm-base-module">tnpy.finite_algorithm_base module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#tnpy-finite-dmrg-module">tnpy.finite_dmrg module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#tnpy-finite-tdvp-module">tnpy.finite_tdvp module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#tnpy-linalg-module">tnpy.linalg module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#tnpy-operators-module">tnpy.operators module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-tnpy.operators">tnpy.operators module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-tnpy">Module contents</a></li>
 </ul>
 </li>
@@ -149,6 +162,8 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
+          <li><a href="modules.html">tnpy</a> &raquo;</li>
+        
       <li>tnpy package</li>
     
     
@@ -185,8 +200,35 @@
 <div class="section" id="tnpy-linalg-module">
 <h2>tnpy.linalg module<a class="headerlink" href="#tnpy-linalg-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="tnpy-operators-module">
-<h2>tnpy.operators module<a class="headerlink" href="#tnpy-operators-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-tnpy.operators">
+<span id="tnpy-operators-module"></span><h2>tnpy.operators module<a class="headerlink" href="#module-tnpy.operators" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tnpy.operators.MPO">
+<em class="property">class </em><code class="sig-prename descclassname">tnpy.operators.</code><code class="sig-name descname">MPO</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">N</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/operators.html#MPO"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.operators.MPO" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="tnpy.operators.MPO.bond_dimensions">
+<em class="property">property </em><code class="sig-name descname">bond_dimensions</code><a class="headerlink" href="#tnpy.operators.MPO.bond_dimensions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tnpy.operators.MPO.nodes">
+<em class="property">property </em><code class="sig-name descname">nodes</code><a class="headerlink" href="#tnpy.operators.MPO.nodes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tnpy.operators.MPO.physical_dimensions">
+<em class="property">property </em><code class="sig-name descname">physical_dimensions</code><a class="headerlink" href="#tnpy.operators.MPO.physical_dimensions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tnpy.operators.SpinOperators">
+<em class="property">class </em><code class="sig-prename descclassname">tnpy.operators.</code><code class="sig-name descname">SpinOperators</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spin</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/operators.html#SpinOperators"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.operators.SpinOperators" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-tnpy">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-tnpy" title="Permalink to this headline">¶</a></h2>
@@ -199,7 +241,7 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to tnpy’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="modules.html" class="btn btn-neutral float-left" title="tnpy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
