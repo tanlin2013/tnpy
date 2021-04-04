@@ -11,6 +11,7 @@ Welcome to tnpy's documentation!
    :maxdepth: 5
    :caption: Contents:
 
+   modules.rst
    tnpy.rst
 
 

@@ -9,11 +9,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+
+      - name: Prebuild of Primme
+        run: |
+          apt update
+          apt-get install -y gfortran libblas-dev liblapack-dev
+
       - name: Build Sphinx doc
         uses: ammaraskar/sphinx-action@master
         with:
           docs-folder: "docs/"
-          pre-build-command: "pip install -r docs/requirements.txt"
+          pre-build-command: "pip install -r requirements.txt && pip install -r docs/requirements.txt"
           build-command: "make html"
 
       - name: Deploy
