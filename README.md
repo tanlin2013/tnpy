@@ -1,13 +1,14 @@
 # tnpy
 
-![docker build](https://github.com/tanlin2013/tnpy/actions/workflows/docker_build.yml/badge.svg)
+![build](https://github.com/tanlin2013/tnpy/actions/workflows/build.yml/badge.svg)
 ![tests](https://github.com/tanlin2013/tnpy/actions/workflows/tests.yml/badge.svg)
 ![docs](https://github.com/tanlin2013/tnpy/actions/workflows/docs.yml/badge.svg)
+![license](https://img.shields.io/github/license/tanlin2013/tnpy?style=plastic)
 
 [Documentation](https://tanlin2013.github.io/tnpy/) |
 
 This project is a python implementation of Tensor Network,
-a numerical approaches to quantum many-body system.
+a numerical approach to quantum many-body systems.
   
 
 **tnpy** is built on top of [google/TensorNetwork](https://github.com/google/TensorNetwork) for tensor contractions, 
@@ -15,13 +16,10 @@ with optimized support for various backend engines (TensorFlow, JAX, PyTorch, an
 For eigen-solver we adopt [primme](https://github.com/primme/primme),
 an iterative multi-method solver with preconditioning.
 
-Currently, we supports Matrix Product State (MPS) algorithms, 
+Currently, we support Matrix Product State (MPS) algorithms, 
 with more are coming...
- 
-* Infinite Size Density Matrix Renormalization Group (iDMRG)
-* Infinte Time Evolution Bond Decimation (iTEBD)
-* Finite Size Density Matrix Renormalization Group (fDMRG)
-* Time Dependent Variational Principle (TDVP) (ongoing...)
+
+* Finite-sized Density Matrix Renormalization Group (fDMRG)
 
 fDMRG is on alpha-release and is much stable. 
 For others, please expect edge cases.
