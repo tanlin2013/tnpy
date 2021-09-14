@@ -1,0 +1,17 @@
+name: tests
+
+on:
+  workflow_run:
+    workflows: [ "Docker build" ]
+    types:
+      - completed
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    container:
+      image: docker://tanlin2013/tnpy:latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Unit Test
+        run: python -m unittest discover -s tests -p 'test_*.py'

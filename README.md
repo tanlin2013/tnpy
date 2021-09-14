@@ -1,7 +1,10 @@
 # tnpy
 
-![build workflow](https://github.com/tanlin2013/tnpy/actions/workflows/build.yml/badge.svg)
-![test workflow](https://github.com/tanlin2013/tnpy/actions/workflows/test.yml/badge.svg)
+![docker build](https://github.com/tanlin2013/tnpy/actions/workflows/docker_build.yml/badge.svg)
+![tests](https://github.com/tanlin2013/tnpy/actions/workflows/tests.yml/badge.svg)
+![docs](https://github.com/tanlin2013/tnpy/actions/workflows/docs.yml/badge.svg)
+
+[Documentation](https://tanlin2013.github.io/tnpy/) |
 
 This project is a python implementation of Tensor Network,
 a numerical approaches to quantum many-body system.
@@ -23,8 +26,8 @@ with more are coming...
 fDMRG is on alpha-release and is much stable. 
 For others, please expect edge cases.
 
-## Requirments:
-
+Requirments
+-------
 See `requirements.txt` for more details.
 But these two are essential building blocks.
 
@@ -34,20 +37,24 @@ But these two are essential building blocks.
 Regarding any installation problems with Primme,
 please refer to [Primme official](http://www.cs.wm.edu/~andreas/software/). 
 
-## Installation
-Simply run the file `setup.py` with command:    
-```
-python setup.py install    
-```
-Or, if you are using Docker container
-```
-make build & make run
-```
+Installation
+-------
+
+   * using Docker
+      ```
+      docker run --rm -it tanlin2013/tnpy
+      ```
+   * using pip:
+     ```
+     pip install git+https://github.com/tanlin2013/tnpy@main
+     ```
    
-## Documentation
+Documentation
+-------
 For details about **tnpy**, see the [reference documentation](https://tanlin2013.github.io/tnpy/).
     
-## Quick Start
+Getting started
+-------
 1. Defining the Matrix Product Operator of your model as a Callable function with argument `site`, 
    e.g. the function `_elem(self, site)` below. 
    The MPO class then accepts such Callable as input and constructs a MPO object. 
