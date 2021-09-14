@@ -165,26 +165,26 @@
 </div>
 <div class="section" id="tnpy">
 <h1>tnpy<a class="headerlink" href="#tnpy" title="Permalink to this headline">¶</a></h1>
-<a class="reference external image-reference" href="https://github.com/tanlin2013/tnpy/actions/workflows/build.yml/badge.svg"><img alt="build workflow" src="https://github.com/tanlin2013/tnpy/actions/workflows/build.yml/badge.svg" /></a>
-<a class="reference external image-reference" href="https://github.com/tanlin2013/tnpy/actions/workflows/test.yml/badge.svg"><img alt="test workflow" src="https://github.com/tanlin2013/tnpy/actions/workflows/test.yml/badge.svg" /></a>
+<a class="reference external image-reference" href="https://github.com/tanlin2013/tnpy/actions/workflows/build.yml/badge.svg"><img alt="build" src="https://github.com/tanlin2013/tnpy/actions/workflows/build.yml/badge.svg" /></a>
+<a class="reference external image-reference" href="https://github.com/tanlin2013/tnpy/actions/workflows/tests.yml/badge.svg"><img alt="tests" src="https://github.com/tanlin2013/tnpy/actions/workflows/tests.yml/badge.svg" /></a>
+<a class="reference external image-reference" href="https://github.com/tanlin2013/tnpy/actions/workflows/docs.yml/badge.svg"><img alt="docs" src="https://github.com/tanlin2013/tnpy/actions/workflows/docs.yml/badge.svg" /></a>
+<a class="reference external image-reference" href="https://img.shields.io/github/license/tanlin2013/tnpy?style=plastic"><img alt="license" src="https://img.shields.io/github/license/tanlin2013/tnpy?style=plastic" /></a>
+<p><a class="reference external" href="https://tanlin2013.github.io/tnpy/">Documentation</a> |</p>
 <p>This project is a python implementation of Tensor Network,
-a numerical approaches to quantum many-body system.</p>
+a numerical approach to quantum many-body systems.</p>
 <p><strong>tnpy</strong> is built on top of <a class="reference external" href="https://github.com/google/TensorNetwork">google/TensorNetwork</a> for tensor contractions,
 with optimized support for various backend engines (TensorFlow, JAX, PyTorch, and Numpy).
 For eigen-solver we adopt <a class="reference external" href="https://github.com/primme/primme">primme</a>,
 an iterative multi-method solver with preconditioning.</p>
-<p>Currently, we supports Matrix Product State (MPS) algorithms,
+<p>Currently, we support Matrix Product State (MPS) algorithms,
 with more are coming…</p>
 <ul class="simple">
-<li><p>Infinite Size Density Matrix Renormalization Group (iDMRG)</p></li>
-<li><p>Infinte Time Evolution Bond Decimation (iTEBD)</p></li>
-<li><p>Finite Size Density Matrix Renormalization Group (fDMRG)</p></li>
-<li><p>Time Dependent Variational Principle (TDVP) (ongoing…)</p></li>
+<li><p>Finite-sized Density Matrix Renormalization Group (fDMRG)</p></li>
 </ul>
 <p>fDMRG is on alpha-release and is much stable.
 For others, please expect edge cases.</p>
 <div class="section" id="requirments">
-<h2>Requirments:<a class="headerlink" href="#requirments" title="Permalink to this headline">¶</a></h2>
+<h2>Requirments<a class="headerlink" href="#requirments" title="Permalink to this headline">¶</a></h2>
 <p>See <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> for more details.
 But these two are essential building blocks.</p>
 <ul class="simple">
@@ -196,21 +196,27 @@ please refer to <a class="reference external" href="http://www.cs.wm.edu/~andrea
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p>Simply run the file <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> with command:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>python setup.py install
-</pre></div>
+<ul>
+<li><p>using Docker
+.. code-block:: guess</p>
+<blockquote>
+<div><p>docker run –rm -it tanlin2013/tnpy</p>
+</div></blockquote>
+</li>
+<li><p>using pip:
+.. code-block:: guess</p>
+<blockquote>
+<div><p>pip install git+https://github.com/tanlin2013/tnpy&#64;main</p>
+</div></blockquote>
+</li>
+</ul>
 </div>
-<p>Or, if you are using Docker container</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>make build &amp; make run
-</pre></div>
-</div>
-</div>
-<div class="section" id="documentation">
-<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h2>Documentation<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>For details about <strong>tnpy</strong>, see the <a class="reference external" href="https://tanlin2013.github.io/tnpy/">reference documentation</a>.</p>
 </div>
-<div class="section" id="quick-start">
-<h2>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
 <li><p>Defining the Matrix Product Operator of your model as a Callable function with argument <code class="docutils literal notranslate"><span class="pre">site</span></code>,
 e.g. the function <code class="docutils literal notranslate"><span class="pre">_elem(self,</span> <span class="pre">site)</span></code> below.
