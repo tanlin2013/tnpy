@@ -218,9 +218,9 @@ please refer to <a class="reference external" href="http://www.cs.wm.edu/~andrea
 <div class="section" id="getting-started">
 <h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
-<li><p>Defining the Matrix Product Operator of your model as a Callable function with argument <code class="docutils literal notranslate"><span class="pre">site</span></code>,
+<li><p>Defining the Matrix Product Operator of your model as a Callable function with argument <code class="docutils literal notranslate"><span class="pre">site</span></code> of the type <code class="docutils literal notranslate"><span class="pre">int</span></code>,
 e.g. the function <code class="docutils literal notranslate"><span class="pre">_elem(self,</span> <span class="pre">site)</span></code> below.
-The MPO class then accepts such Callable as input and constructs a MPO object.</p>
+The MPO class then accepts the Callable as an input and constructs a MPO object.</p>
 <div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">tnpy.operators</span> <span class="kn">import</span> <span class="n">SpinOperators</span><span class="p">,</span> <span class="n">MPO</span>
 <span class="kn">from</span> <span class="nn">tnpy.finite_dmrg</span> <span class="kn">import</span> <span class="n">FiniteDMRG</span>
@@ -259,7 +259,14 @@ The MPO class then accepts such Callable as input and constructs a MPO object.</
 </pre></div>
 </div>
 </li>
-<li><p>Compute any physical quantities whatever you want from the obtained state.</p></li>
+<li><p>Compute any physical quantities whatever you want from the obtained state.
+The resulting MPS is of the type <code class="docutils literal notranslate"><span class="pre">tensornetwork.FiniteMPS</span></code>,
+see <a class="reference external" href="https://tensornetwork.readthedocs.io/en/latest/stubs/tensornetwork.FiniteMPS.html#tensornetwork.FiniteMPS">documentation</a> for more details.
+.. code-block:: guess</p>
+<blockquote>
+<div><p>my_mps = fdmrg.mps</p>
+</div></blockquote>
+</li>
 </ol>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
