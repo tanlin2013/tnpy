@@ -53,9 +53,9 @@ For details about **tnpy**, see the [reference documentation](https://tanlin2013
     
 Getting started
 -------
-1. Defining the Matrix Product Operator of your model as a Callable function with argument `site`, 
+1. Defining the Matrix Product Operator of your model as a Callable function with argument `site` of the type `int`, 
    e.g. the function `_elem(self, site)` below. 
-   The MPO class then accepts such Callable as input and constructs a MPO object. 
+   The MPO class then accepts the Callable as an input and constructs a MPO object. 
 
    ```
    import numpy as np
@@ -95,3 +95,8 @@ Getting started
    fdmrg.update(tol=1e-8)
    ```
 3. Compute any physical quantities whatever you want from the obtained state.
+   The resulting MPS is of the type `tensornetwork.FiniteMPS`,
+   see [documentation](https://tensornetwork.readthedocs.io/en/latest/stubs/tensornetwork.FiniteMPS.html#tensornetwork.FiniteMPS) for more details.
+   ```
+   my_mps = fdmrg.mps
+   ```
