@@ -102,8 +102,8 @@ class FiniteAlgorithmBase:
         else:
             raise NameError(f"File extension {path.suffix} is not supported.")
 
-    def mps_shape(self, site: str):
-        return self._mps.nodes[site].tensor.shape
+    def mps_shape(self, site: int):
+        return self._mps.get_tensor(site).shape
 
     # def normalize_mps(self, direction, normalize_sv=False):
     #     if direction == 1:
@@ -155,8 +155,8 @@ class FiniteAlgorithmBase:
 
     def _update_left_env(self, site):
         W = self.mpo.nodes[site-1]
-        M = self._mps.nodes[site-1]
-        M_conj = conj(self._mps.nodes[site-1])
+        M = Node(self._mps.get_tensor(site-1))
+        M_conj = Node(conj(self._mps.get_tensor(site-1)))
         if site == 1:
             M[0] ^ M_conj[0]
             M[1] ^ W[1]
@@ -173,8 +173,8 @@ class FiniteAlgorithmBase:
 
     def _update_right_env(self, site):
         W = self.mpo.nodes[site+1]
-        M = self._mps.nodes[site+1]
-        M_conj = conj(self._mps.nodes[site+1])
+        M = Node(self._mps.get_tensor(site+1))
+        M_conj = Node(conj(self._mps.get_tensor(site+1)))
         if site == self.N-2:
             M[2] ^ M_conj[2]
             M[1] ^ W[1]
