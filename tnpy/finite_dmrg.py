@@ -51,7 +51,7 @@ class FiniteDMRG(FiniteAlgorithmBase):
                 M[1] ^ W[2]
                 result = L @ M @ W @ R
             return result.tensor.reshape(x.shape)
-        v0 = self._mps.nodes[site].tensor.reshape(-1, 1)
+        v0 = self._mps.get_tensor(site).reshape(-1, 1)
         return eigshmv(matvec, v0, tol=0.1*tol)
 
     def _modified_density_matrix(self, site, alpha=0):
@@ -79,18 +79,18 @@ class FiniteDMRG(FiniteAlgorithmBase):
                 theta = theta.reshape(-1, self.d * self.mps_shape(site)[2])
             u, s, vt = svd(theta, chi=self.mps_shape(site)[1+direction])
             if direction == 1:
-                self._mps.nodes[site] = Node(u.reshape(self.mps_shape(site)))
+                self._mps.tensors[site] = u.reshape(self.mps_shape(site))
                 residual = Node(np.dot(np.diagflat(s), vt))
-                M = self._mps.nodes[site+1]
+                M = Node(self._mps.get_tensor(site+1))
                 residual[1] ^ M[0]
-                self._mps.nodes[site+1] = residual @ M
+                self._mps.tensors[site+1] = (residual @ M).tensor
                 self._update_left_env(site+1)
             elif direction == -1:
-                self._mps.nodes[site] = Node(vt.reshape(self.mps_shape(site)))
+                self._mps.tensors[site] = vt.reshape(self.mps_shape(site))
                 residual = Node(np.dot(u, np.diagflat(s)))
-                M = self._mps.nodes[site-1]
+                M = Node(self._mps.get_tensor(site-1))
                 M[2] ^ residual[0]
-                self._mps.nodes[site-1] = M @ residual
+                self._mps.tensors[site-1] = (M @ residual).tensor
                 self._update_right_env(site-1)
         return E
 
