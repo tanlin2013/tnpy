@@ -1,5 +1,5 @@
 from setuptools import setup
-#from distutils.core import setup
+# from distutils.core import setup
 from tnpy import __version__
 
 
@@ -15,25 +15,27 @@ setup(
     packages=['tnpy'],
     package_dir={'tnpy': 'tnpy'},
     version=__version__,
-    license='MIT',
+    license='Apache 2.0',
     description='Tensor Network Algorithms',
     long_description=long_description,
     long_description_content_type="text/markdown",
     author='tao-lin',
     author_email='tanlin2013@gmail.com',
     url='https://github.com/tanlin2013/tnpy',
-    download_url='https://github.com/tanlin2013/tnpy/archive/v%s.tar.gz' % __version__,
-    keywords=['mps', 'tensornetwork'],
+    download_url=f'https://github.com/tanlin2013/tnpy/archive/v{__version__}.tar.gz',
+    keywords=['mps', 'tensor network'],
     install_requires=required,
     classifiers=[
-        'Development Status :: 3 - Alpha',      # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your package
-        'Intended Audience :: Developers',      # Define that your audience are developers
+        'Development Status :: 3 - Alpha',
+        'Intended Audience :: Developers',
         'Topic :: Scientific/Engineering :: Mathematics',
-        'License :: OSI Approved :: MIT License',   # Pick a license
-        'Programming Language :: Python :: 3',      # Specify which pyhton versions that you want to support
+        'License :: OSI Approved :: Apache Software License',
+        'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9'
     ],
 )
