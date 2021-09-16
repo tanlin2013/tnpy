@@ -14,7 +14,7 @@ class FiniteAlgorithmBase:
 
     mps_cls = FiniteMPS
 
-    def __init__(self, mpo: MPO, chi: Union[int, None] = None, init_method='random'):
+    def __init__(self, mpo: MPO, chi: Union[int, None] = None, init_method: str = 'random'):
         logging.basicConfig(format='%(asctime)s [%(filename)s] %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
         logging.root.setLevel(level=logging.INFO)
         if init_method == 'random':
@@ -27,7 +27,7 @@ class FiniteAlgorithmBase:
         self.left_norms = {}
         self.right_norms = {}
         self._mps = None
-        self.reset_mps = init_method
+        self.mps = init_method
 
     def close(self):
         logging.info("Deleting left-/right- environments and norms")
@@ -63,7 +63,7 @@ class FiniteAlgorithmBase:
         return self._mps
 
     @mps.setter
-    def reset_mps(self, init_method: str = 'random') -> None:
+    def mps(self, init_method: str = 'random') -> None:
         if init_method == "random":
             logging.info("Initializing finite MPS randomly")
             D = FiniteAlgorithmBase.generate_bond_dimensions(self.N, self.d, self.chi)
