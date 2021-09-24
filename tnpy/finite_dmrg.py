@@ -7,7 +7,7 @@ from itertools import count
 from tnpy.finite_algorithm_base import FiniteAlgorithmBase
 from tnpy.linalg import svd, qr, eigshmv
 from tnpy.operators import MPO
-from typing import Iterable, Union
+from typing import Iterable, Union, Tuple
 
 
 class FiniteDMRG(FiniteAlgorithmBase):
@@ -24,7 +24,7 @@ class FiniteDMRG(FiniteAlgorithmBase):
         logging.root.setLevel(level=logging.INFO)
         super(FiniteDMRG, self).__init__(mpo, chi, init_method)
 
-    def _unit_solver(self, site, tol=1e-7):
+    def _unit_solver(self, site, tol=1e-7) -> Tuple[float, np.ndarray]:
         W = self.mpo.nodes[site]
 
         def matvec(x):
@@ -72,7 +72,7 @@ class FiniteDMRG(FiniteAlgorithmBase):
         direction = 1 if iterator[0] < iterator[-1] else -1
         for site in iterator:
             E, theta = self._unit_solver(site, tol)
-            logging.info("Sweeping to site [{}/{}], E/N = {}".format(site+1, self.N, E/self.N))
+            logging.info(f"Sweeping to site [{site+1}/{self.N}], E/N = {E/self.N}")
             if direction == 1:
                 theta = theta.reshape(self.d * self.mps_shape(site)[0], -1)
             elif direction == -1:
@@ -104,10 +104,10 @@ class FiniteDMRG(FiniteAlgorithmBase):
         Returns:
 
         """
-        logging.info("Set up tol = {}, up to maximally {} sweeps".format(tol, max_sweep))
+        logging.info(f"Set up tol = {tol}, up to maximally {max_sweep} sweeps")
         clock = [time.process_time()]
         for n_sweep in count(start=1):
-            logging.info("In sweep epoch [{}/{}]".format(n_sweep, max_sweep))
+            logging.info(f"In sweep epoch [{n_sweep}/{max_sweep}]")
             El = self.sweep(range(self.N-1))
             Er = self.sweep(range(self.N-1, 0, -1))
             clock.append(time.process_time()-clock[-1])
@@ -116,13 +116,12 @@ class FiniteDMRG(FiniteAlgorithmBase):
                 break
             elif n_sweep == max_sweep:
                 # @TODO: dump mps to file and raise error
-                logging.warning("Maximum number of sweeps {} reached, "
-                                "yet dE/N = {} > tol = {}".format(max_sweep, dE, tol))
+                logging.warning(f"Maximum number of sweeps {max_sweep} reached, "
+                                f"yet dE/N = {dE} > tol = {tol}")
                 break
             elif abs(dE) > tol and dE < 0:
-                raise ValueError("Fail on lowering energy, got dE/N = {}".format(dE))
-        logging.info("{} loops, best of 3: {} sec per loop"
-                     "".format(n_sweep, np.mean(np.sort(clock)[:3])))
+                raise ValueError(f"Fail on lowering energy, got dE/N = {dE}")
+        logging.info(f"{n_sweep} loops, best of 3: {np.mean(np.sort(clock)[:3])} sec per loop")
 
 
 class Projector:
