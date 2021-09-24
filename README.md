@@ -34,6 +34,8 @@ But these two are essential building blocks.
 
 Regarding any installation problems with Primme,
 please refer to [Primme official](http://www.cs.wm.edu/~andreas/software/). 
+Also, it's required to have [lapack](http://www.netlib.org/lapack/) and [blas](http://www.netlib.org/blas/)
+installed in prior to Primme.
 
 Installation
 -------
@@ -96,7 +98,7 @@ Getting started
    ```
 3. Compute any physical quantities whatever you want from the obtained state.
    The resulting MPS is of the type `tensornetwork.FiniteMPS`,
-   see [documentation](https://tensornetwork.readthedocs.io/en/latest/stubs/tensornetwork.FiniteMPS.html#tensornetwork.FiniteMPS) for more details.
+   see [here](https://tensornetwork.readthedocs.io/en/latest/stubs/tensornetwork.FiniteMPS.html#tensornetwork.FiniteMPS) for more details.
    ```
    my_mps = fdmrg.mps
    ```
