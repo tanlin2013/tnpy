@@ -192,7 +192,9 @@ But these two are essential building blocks.</p>
 <li><p><a class="reference external" href="https://github.com/primme/primme">primme/primme</a></p></li>
 </ul>
 <p>Regarding any installation problems with Primme,
-please refer to <a class="reference external" href="http://www.cs.wm.edu/~andreas/software/">Primme official</a>.</p>
+please refer to <a class="reference external" href="http://www.cs.wm.edu/~andreas/software/">Primme official</a>.
+Also, it’s required to have <a class="reference external" href="http://www.netlib.org/lapack/">lapack</a> and <a class="reference external" href="http://www.netlib.org/blas/">blas</a>
+installed in prior to Primme.</p>
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
@@ -261,7 +263,7 @@ The MPO class then accepts the Callable as an input and constructs a MPO object.
 </li>
 <li><p>Compute any physical quantities whatever you want from the obtained state.
 The resulting MPS is of the type <code class="docutils literal notranslate"><span class="pre">tensornetwork.FiniteMPS</span></code>,
-see <a class="reference external" href="https://tensornetwork.readthedocs.io/en/latest/stubs/tensornetwork.FiniteMPS.html#tensornetwork.FiniteMPS">documentation</a> for more details.
+see <a class="reference external" href="https://tensornetwork.readthedocs.io/en/latest/stubs/tensornetwork.FiniteMPS.html#tensornetwork.FiniteMPS">here</a> for more details.
 .. code-block:: guess</p>
 <blockquote>
 <div><p>my_mps = fdmrg.mps</p>
