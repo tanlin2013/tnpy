@@ -20,8 +20,6 @@ class FiniteDMRG(FiniteAlgorithmBase):
             chi: Maximum bond dimension of MPS
             init_method: 'random' or a filepath
         """
-        logging.basicConfig(format='%(asctime)s [%(filename)s] %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-        logging.root.setLevel(level=logging.INFO)
         super(FiniteDMRG, self).__init__(mpo, chi, init_method)
 
     def _unit_solver(self, site, tol=1e-7) -> Tuple[float, np.ndarray]:

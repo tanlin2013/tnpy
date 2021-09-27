@@ -15,8 +15,6 @@ class FiniteAlgorithmBase:
     mps_cls = FiniteMPS
 
     def __init__(self, mpo: MPO, chi: Union[int, None] = None, init_method: str = 'random'):
-        logging.basicConfig(format='%(asctime)s [%(filename)s] %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-        logging.root.setLevel(level=logging.INFO)
         if init_method == 'random':
             assert isinstance(chi, int), "chi has to be given for random init"
         self.mpo = mpo
