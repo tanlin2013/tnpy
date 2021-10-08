@@ -1,7 +1,7 @@
 import numpy as np
 from collections import namedtuple
 from tensornetwork import Node
-from typing import Callable
+from typing import Callable, List
 
 
 class SpinOperators:
@@ -25,9 +25,12 @@ class MPO:
         self.N = N
         self._nodes = []
         self.nodes = func
+        self.__identity = np.identity(self.bond_dimensions)
+        self._v_left = Node(self.__identity[0])
+        self._v_right = Node(self.__identity[-1])
 
     @property
-    def nodes(self):
+    def nodes(self) -> List[Node]:
         return self._nodes
 
     @nodes.setter
@@ -41,9 +44,27 @@ class MPO:
                 self._nodes.append(Node(func(site)))
 
     @property
-    def physical_dimensions(self):
+    def physical_dimensions(self) -> int:
         return self._nodes[0].tensor.shape[-1]
 
     @property
-    def bond_dimensions(self):
+    def bond_dimensions(self) -> int:
         return self._nodes[0].tensor.shape[0]
+
+    @property
+    def v_left(self) -> Node:
+        return self._v_left
+
+    @v_left.setter
+    def v_left(self, header: int):
+        assert header in [0, -1], "header can only accept 0 or -1"
+        self._v_left = Node(self.__identity[header])
+
+    @property
+    def v_right(self) -> Node:
+        return self._v_right
+
+    @v_right.setter
+    def v_right(self, header: int):
+        assert header in [0, -1], "header can only accept 0 or -1"
+        self._v_right = Node(self.__identity[header])

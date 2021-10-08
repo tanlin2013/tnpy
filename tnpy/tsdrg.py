@@ -51,9 +51,6 @@ class TSDRG:
         self.mpo = mpo
         self._chi = chi
         self._N = len(mpo.nodes)
-        _identity = np.identity(mpo.bond_dimensions)
-        self._v_left = Node(_identity[0])
-        self._v_right = Node(_identity[-1])
         self._tree = [
             TreeNode(id=site, node=self.mpo.nodes[site])
             for site in range(self.n_nodes)
@@ -74,11 +71,11 @@ class TSDRG:
 
     @property
     def v_left(self) -> Node:
-        return self._v_left
+        return self.mpo.v_left
 
     @property
     def v_right(self) -> Node:
-        return self._v_right
+        return self.mpo.v_right
 
     @property
     def tree(self) -> List[TreeNode]:
