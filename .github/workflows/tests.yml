@@ -10,7 +10,7 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     container:
-      image: docker://tanlin2013/tnpy:latest
+      image: docker://${{ secrets.DOCKERHUB_USERNAME }}/tnpy:latest
     steps:
       - uses: actions/checkout@v2
       - name: Unit Test
