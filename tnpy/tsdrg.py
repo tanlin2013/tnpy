@@ -45,7 +45,7 @@ class GapCache:
     evecs: List[np.ndarray] = field(default_factory=list)
 
 
-class SDRG:
+class TSDRG:
 
     def __init__(self, mpo: MPO, chi: int):
         self.mpo = mpo
