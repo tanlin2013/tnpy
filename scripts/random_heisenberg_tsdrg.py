@@ -1,6 +1,6 @@
 import numpy as np
 from tnpy.operators import SpinOperators, MPO
-from tnpy.sdrg import SDRG
+from tnpy.tsdrg import TSDRG
 
 
 class RandomHeisenberg:
@@ -42,12 +42,14 @@ class RandomHeisenberg:
 
 if __name__ == "__main__":
 
-    N = 20
-    h = 0.5
+    N = 10
+    h = 3.0
     penalty = 0.0
     s_target = 0
-    chi = 8
+    chi = 32
 
     model = RandomHeisenberg(N, h, penalty, s_target)
-    sdrg = SDRG(model.mpo(), chi=chi)
+    sdrg = TSDRG(model.mpo(), chi=chi)
     sdrg.run()
+    print([tree.id for tree in sdrg.tree])
+    # print(sdrg.tree[50])
