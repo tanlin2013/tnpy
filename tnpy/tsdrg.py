@@ -17,6 +17,21 @@ class Projection:
 
 @dataclass
 class TreeNode:
+    """
+    The node object in binary tree.
+
+    Attributes:
+        id:
+        node:
+        gap:
+        left:
+        right:
+
+    Notes:
+        This class differs from tensornetwork.Node,
+        which refers to the node in a tensor network.
+        Please be aware of this bad naming.
+    """
     id: int
     node: Node
     gap: float = None
@@ -70,6 +85,17 @@ class SDRG:
         return self._tree
 
     def block_hamiltonian(self, site: int) -> Union[Tensor, np.ndarray]:
+        """
+        Construct the 2-site Hamiltonian from MPO,
+        involving both the hopping term and one-site term.
+
+        Args:
+            site: The site i.
+                The 2-site Hamiltonian is then constructed in site i and i+1.
+
+        Returns:
+            M: The 2-site Hamiltonian.
+        """
         W1 = self.mpo.nodes[site]
         W2 = self.mpo.nodes[site + 1]
         if self.n_nodes == 2:
@@ -127,6 +153,16 @@ class SDRG:
         return evals, evecs
 
     def spectrum_projector(self, site: int, evecs: np.ndarray) -> Tuple[Node, Node]:
+        """
+
+
+        Args:
+            site:
+            evecs:
+
+        Returns:
+
+        """
         W1 = self.mpo.nodes[site]
         W2 = self.mpo.nodes[site + 1]
         V = Node(evecs.reshape((W1.tensor.shape[-1], W2.tensor.shape[-1], evecs.shape[1])))
@@ -171,6 +207,12 @@ class SDRG:
         return neighbours
 
     def run(self) -> None:
+        """
+
+        Returns:
+
+        """
+        # Initializing gap_cache if not exist
         if not self.gap_cache.gap:
             for site in range(self.n_nodes - 1):
                 block_ham = self.block_hamiltonian(site)
