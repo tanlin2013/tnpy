@@ -35,17 +35,22 @@ class SDRG:
     def __init__(self, mpo: MPO, chi: int):
         self.mpo = mpo
         self._chi = chi
+        self._N = len(mpo.nodes)
         _identity = np.identity(mpo.bond_dimensions)
         self._v_left = Node(_identity[0])
         self._v_right = Node(_identity[-1])
         self._tree = [
             TreeNode(id=site, node=self.mpo.nodes[site])
-            for site in range(self.N)
+            for site in range(self.n_nodes)
         ]
         self.gap_cache = GapCache()
 
     @property
     def N(self) -> int:
+        return self._N
+
+    @property
+    def n_nodes(self) -> int:
         return len(self.mpo.nodes)
 
     @property
@@ -67,14 +72,14 @@ class SDRG:
     def block_hamiltonian(self, site: int) -> Union[Tensor, np.ndarray]:
         W1 = self.mpo.nodes[site]
         W2 = self.mpo.nodes[site + 1]
-        if self.N == 2:
+        if self.n_nodes == 2:
             W1[0] ^ W2[0]
             M = W1 @ W2
         elif site == 0:
             W1[0] ^ W2[0]
             W2[1] ^ self.v_right[0]
             M = W1 @ W2 @ self.v_right
-        elif site == self.N - 2:
+        elif site == self.n_nodes - 2:
             self.v_left[0] ^ W1[0]
             W1[1] ^ W2[0]
             M = self.v_left @ W1 @ W2
@@ -83,13 +88,29 @@ class SDRG:
             W1[1] ^ W2[0]
             W2[1] ^ self.v_right[0]
             M = self.v_left @ W1 @ W2 @ self.v_right
+        M.reorder_axes([0, 2, 1, 3])
         shape = int(np.sqrt(M.tensor.size))
         return M.tensor.reshape(shape, shape)
 
-    def largest_gap(self, evals: np.ndarray) -> Tuple[int, float]:
+    def head_node_hamiltonian(self, V: Union[Tensor, np.ndarray]) -> Union[Tensor, np.ndarray]:
+        V_conj = V.copy(conjugate=True)
+        V[0] ^ V_conj[0]
+        V[1] ^ V_conj[1]
+        M = V @ V_conj
+        return M.tensor
+
+    def highest_gap(self, evals: np.ndarray) -> float:
+        """
+        Return the largest gap in spectrum.
+
+        Args:
+            evals: The eigenvalues (energy spectrum).
+
+        Returns:
+            gap: The largest gap.
+        """
         gaps = np.diff(evals)
-        max_idx = np.argmax(gaps)
-        return max_idx, gaps[max_idx]
+        return gaps[self.chi - 1] if gaps.size > self.chi else gaps[-1]
 
     def entanglement_rendering(self, evecs: np.ndarray) -> np.ndarray:
         def von_neumann_entropy(v: np.ndarray) -> float:
@@ -98,13 +119,11 @@ class SDRG:
             return -1 * np.sum(ss @ np.log(ss))
         return np.array([von_neumann_entropy(v) for v in evecs.T])
 
-    def eigen_solver(self, site: int,) -> Tuple[np.ndarray, np.ndarray]:
-        block_ham = self.block_hamiltonian(site)
-        evals, evecs = np.linalg.eigh(block_ham)
-        if block_ham.shape[0] > self.chi:
-            middle = block_ham.shape[0]
-            evals = evals[middle - self.chi//2:middle + self.chi//2]
-            evecs = evecs[:, middle - self.chi//2:middle + self.chi//2]
+    def eigen_solver(self, matrix: Union[Tensor, np.ndarray]) -> Tuple[np.ndarray, np.ndarray]:
+        evals, evecs = np.linalg.eigh(matrix)
+        if matrix.shape[0] > self.chi:
+            evals = evals[:self.chi]
+            evecs = evecs[:, :self.chi]
         return evals, evecs
 
     def spectrum_projector(self, site: int, evecs: np.ndarray) -> Tuple[Node, Node]:
@@ -112,7 +131,7 @@ class SDRG:
         W2 = self.mpo.nodes[site + 1]
         V = Node(evecs.reshape((W1.tensor.shape[-1], W2.tensor.shape[-1], evecs.shape[1])))
         V_conj = V.copy(conjugate=True)
-        if self.N == 2:
+        if self.n_nodes == 2:
             W1[0] ^ W2[0]
             W1[1] ^ V_conj[0]
             W1[2] ^ V[0]
@@ -126,7 +145,7 @@ class SDRG:
             W2[2] ^ V_conj[1]
             W2[3] ^ V[1]
             W = W1 @ W2 @ V_conj @ V
-        elif site == self.N - 2:
+        elif site == self.n_nodes - 2:
             W1[1] ^ W2[0]
             W1[2] ^ V_conj[0]
             W1[3] ^ V[0]
@@ -145,7 +164,7 @@ class SDRG:
     def neighbouring_bonds(self, bond: int) -> List[int]:
         if bond == 0:
             neighbours = [bond]
-        elif bond == self.N - 1:
+        elif bond == self.n_nodes - 1:
             neighbours = [bond - 1]
         else:
             neighbours = [bond - 1, bond]
@@ -153,33 +172,39 @@ class SDRG:
 
     def run(self) -> None:
         if not self.gap_cache.gap:
-            for bond in range(self.N - 1):
-                evals, evecs = self.eigen_solver(bond)
-                _, gap = self.largest_gap(evals)
+            for site in range(self.n_nodes - 1):
+                block_ham = self.block_hamiltonian(site)
+                evals, evecs = self.eigen_solver(block_ham)
+                gap = self.highest_gap(evals)
                 self.gap_cache.gap.append(gap)
                 self.gap_cache.evecs.append(evecs)
 
-        for step in count():
+        for step in count(start=1):
             max_gapped_bond = np.argmax(np.array(self.gap_cache.gap))
-            logging.info(f"step {step}, merging bond {max_gapped_bond}/{self.N}")
-            logging.info(f"entanglement entropy {self.entanglement_rendering(self.gap_cache.evecs[max_gapped_bond]).mean()}")
+            logging.info(f"step {step}, merging bond {max_gapped_bond}/{self.n_nodes}")
             V, W = self.spectrum_projector(max_gapped_bond, self.gap_cache.evecs[max_gapped_bond])
-            self._tree[max_gapped_bond] = TreeNode(
-                id=max_gapped_bond,
-                node=V,
-                gap=self.gap_cache.gap[max_gapped_bond],
-                left=self.tree[max_gapped_bond],
-                right=self.tree[max_gapped_bond + 1]
+            self._tree.append(
+                TreeNode(
+                    id=self.N + step,
+                    node=V,
+                    gap=self.gap_cache.gap[max_gapped_bond],
+                    left=self.tree[max_gapped_bond],
+                    right=self.tree[max_gapped_bond + 1]
+                )
             )
-            self._tree.pop(max_gapped_bond + 1)
+            self.mpo.nodes.pop(max_gapped_bond)
             self.mpo.nodes[max_gapped_bond] = W
-            self.mpo.nodes.pop(max_gapped_bond + 1)
             self.gap_cache.gap.pop(max_gapped_bond)
             self.gap_cache.evecs.pop(max_gapped_bond)
-            if self.N == 1:
+            if self.n_nodes == 1:
+                logging.info('Reach head node of the tree')
+                logging.info(f"Obtain ground state energy {evals}")
+                assert step == self.N - 1, "step out of range"
                 break
             for bond in self.neighbouring_bonds(max_gapped_bond):
-                evals, evecs = self.eigen_solver(bond)
-                _, gap = self.largest_gap(evals)
+                block_ham = self.block_hamiltonian(bond)
+                evals, evecs = self.eigen_solver(block_ham)
+                logging.info(f"{evals[0]}")
+                gap = self.highest_gap(evals)
                 self.gap_cache.gap[bond] = gap
                 self.gap_cache.evecs[bond] = evecs
