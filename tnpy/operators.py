@@ -6,7 +6,7 @@ from typing import Callable, List
 
 class SpinOperators:
 
-    def __init__(self, spin: float):
+    def __init__(self, spin: float = 0.5):
         self.spin = spin
 
     def __new__(cls, spin: float = 0.5):
