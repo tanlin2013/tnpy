@@ -36,6 +36,7 @@ class RandomHeisenberg:
             dtype=float
         )
 
+    @property
     def mpo(self) -> MPO:
         return MPO(self.N, self._elem)
 
@@ -49,7 +50,7 @@ if __name__ == "__main__":
     chi = 32
 
     model = RandomHeisenberg(N, h, penalty, s_target)
-    sdrg = TSDRG(model.mpo(), chi=chi)
+    sdrg = TSDRG(model.mpo, chi=chi)
     sdrg.run()
     print([tree.id for tree in sdrg.tree])
     # print(sdrg.tree[50])

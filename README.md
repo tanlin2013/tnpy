@@ -20,6 +20,7 @@ Currently, we support Matrix Product State (MPS) algorithms,
 with more are coming...
 
 * Finite-sized Density Matrix Renormalization Group (fDMRG)
+* Tree tensor Strong Disorder Renormalization Group (tSDRG)
 
 fDMRG is on alpha-release and is much stable. 
 For others, please expect edge cases.
@@ -79,7 +80,8 @@ Getting started
                 [O2, O2, O2, O2, Sz],
                 [O2, O2, O2, O2, I2]]
            )
-
+        
+       @property
        def mpo(self) -> MPO:
            return MPO(self.N, self._elem)
    ```
@@ -91,7 +93,7 @@ Getting started
    
    model = XXZ(N, delta)
    fdmrg = FiniteDMRG(
-       mpo=model.mpo(),
+       mpo=model.mpo,
        chi=chi
    )
    fdmrg.update(tol=1e-8)
