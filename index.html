@@ -180,6 +180,7 @@ an iterative multi-method solver with preconditioning.</p>
 with more are coming…</p>
 <ul class="simple">
 <li><p>Finite-sized Density Matrix Renormalization Group (fDMRG)</p></li>
+<li><p>Tree tensor Strong Disorder Renormalization Group (tSDRG)</p></li>
 </ul>
 <p>fDMRG is on alpha-release and is much stable.
 For others, please expect edge cases.</p>
@@ -243,6 +244,7 @@ The MPO class then accepts the Callable as an input and constructs a MPO object.
              <span class="p">[</span><span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">I2</span><span class="p">]]</span>
         <span class="p">)</span>
 
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">mpo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MPO</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">MPO</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elem</span><span class="p">)</span>
 </pre></div>
@@ -254,7 +256,7 @@ The MPO class then accepts the Callable as an input and constructs a MPO object.
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">XXZ</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span>
 <span class="n">fdmrg</span> <span class="o">=</span> <span class="n">FiniteDMRG</span><span class="p">(</span>
-    <span class="n">mpo</span><span class="o">=</span><span class="n">model</span><span class="p">.</span><span class="n">mpo</span><span class="p">(),</span>
+    <span class="n">mpo</span><span class="o">=</span><span class="n">model</span><span class="p">.</span><span class="n">mpo</span><span class="p">,</span>
     <span class="n">chi</span><span class="o">=</span><span class="n">chi</span>
 <span class="p">)</span>
 <span class="n">fdmrg</span><span class="p">.</span><span class="k">update</span><span class="p">(</span><span class="n">tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">8</span><span class="p">)</span>
