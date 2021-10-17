@@ -1,7 +1,8 @@
-import numpy as np
+import abc
 import logging
+import numpy as np
 from itertools import count
-from primme import eigsh
+# from primme import eigsh
 from tensornetwork import Node, Tensor
 from dataclasses import dataclass, field
 from tnpy.operators import MPO
@@ -13,6 +14,12 @@ class Projection:
     HarmonicRitz: str = 'primme_proj_harmonic'
     RefinedRitz: str = 'primme_proj_refined'
     RayleighRitz: str = 'primme_proj_RR'
+
+
+@dataclass
+class GapCache:
+    gap: List[float] = field(default_factory=list)
+    evecs: List[np.ndarray] = field(default_factory=list)
 
 
 @dataclass
@@ -39,10 +46,51 @@ class TreeNode:
     right: 'TreeNode' = None
 
 
-@dataclass
-class GapCache:
-    gap: List[float] = field(default_factory=list)
-    evecs: List[np.ndarray] = field(default_factory=list)
+class TensorTree(abc.ABC):
+
+    def __init__(self, leaves: List[TreeNode]):
+        self._leaves = {f"{leaf.id}": leaf for leaf in leaves}
+        self._tree = {}
+        self._root = None
+
+    @property
+    def n_nodes(self) -> int:
+        return len(self._tree)
+
+    @property
+    def n_layers(self) -> int:
+        return
+
+    @property
+    def n_leaves(self) -> int:
+        return len(self._leaves)
+
+    @property
+    def root(self) -> Union[None, TreeNode]:
+        return self._root
+
+    def append(self, node: TreeNode) -> None:
+        self._tree[node.id] = node
+        if self.n_nodes == 2 * self.n_leaves - 1:
+            self._root = node
+
+    def node(self, node_id: int) -> TreeNode:
+        return self._tree[node_id]
+
+    def leaf(self, node_id: int) -> TreeNode:
+        return self._leaves[node_id]
+
+    def parents(self, node_id: int) -> List[TreeNode]:
+        return
+
+    def common_ancestor(self, node_id1, node_id2):
+        return
+
+    def contract_nodes(self, node_ids: List[int]) -> Node:
+        return
+
+    def plot(self):
+        pass
 
 
 class TSDRG:
@@ -56,6 +104,7 @@ class TSDRG:
             for site in range(self.n_nodes)
         ]
         self.gap_cache = GapCache()
+        self._init_gap_cache()
 
     @property
     def N(self) -> int:
@@ -122,15 +171,15 @@ class TSDRG:
         M = V @ V_conj
         return M.tensor
 
-    def highest_gap(self, evals: np.ndarray) -> float:
+    def truncation_gap(self, evals: np.ndarray) -> float:
         """
-        Return the largest gap in spectrum.
+        Return the gap upon `chi` eigenvalues kept.
 
         Args:
             evals: The eigenvalues (energy spectrum).
 
         Returns:
-            gap: The largest gap.
+            gap: The truncation gap, evals[chi+1] - evals[chi].
         """
         gaps = np.diff(evals)
         return gaps[self.chi - 1] if gaps.size > self.chi else gaps[-1]
@@ -203,24 +252,21 @@ class TSDRG:
             neighbours = [bond - 1, bond]
         return neighbours
 
+    def _init_gap_cache(self) -> None:
+        for site in range(self.n_nodes - 1):
+            evals, evecs = self.eigen_solver(self.block_hamiltonian(site))
+            self.gap_cache.gap.append(self.truncation_gap(evals))
+            self.gap_cache.evecs.append(evecs)
+
     def run(self) -> None:
         """
 
         Returns:
 
         """
-        # Initializing gap_cache if not exist
-        if not self.gap_cache.gap:
-            for site in range(self.n_nodes - 1):
-                block_ham = self.block_hamiltonian(site)
-                evals, evecs = self.eigen_solver(block_ham)
-                gap = self.highest_gap(evals)
-                self.gap_cache.gap.append(gap)
-                self.gap_cache.evecs.append(evecs)
-
         for step in count(start=1):
             max_gapped_bond = np.argmax(np.array(self.gap_cache.gap))
-            logging.info(f"step {step}, merging bond {max_gapped_bond}/{self.n_nodes}")
+            logging.info(f"step {step}, merging bond {max_gapped_bond}/{self.n_nodes} to TreeNode({self.N+step})")
             V, W = self.spectrum_projector(max_gapped_bond, self.gap_cache.evecs[max_gapped_bond])
             self._tree.append(
                 TreeNode(
@@ -241,9 +287,7 @@ class TSDRG:
                 assert step == self.N - 1, "step out of range"
                 break
             for bond in self.neighbouring_bonds(max_gapped_bond):
-                block_ham = self.block_hamiltonian(bond)
-                evals, evecs = self.eigen_solver(block_ham)
+                evals, evecs = self.eigen_solver(self.block_hamiltonian(bond))
                 logging.info(f"{evals[0]}")
-                gap = self.highest_gap(evals)
-                self.gap_cache.gap[bond] = gap
+                self.gap_cache.gap[bond] = self.truncation_gap(evals)
                 self.gap_cache.evecs[bond] = evecs
