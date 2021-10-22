@@ -8,7 +8,7 @@ Welcome to tnpy's documentation!
 .. mdinclude:: ../../README.md
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 10
    :caption: Contents:
 
    modules.rst
