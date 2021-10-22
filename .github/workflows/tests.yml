@@ -6,11 +6,14 @@ on:
     types:
       - completed
 
+env:
+  IMAGE_PATH: "docker://${{ secrets.DOCKERHUB_USERNAME }}/tnpy:latest"
+
 jobs:
   tests:
     runs-on: ubuntu-latest
     container:
-      image: docker://${{ secrets.DOCKERHUB_USERNAME }}/tnpy:latest
+      image: ${{ env.IMAGE_PATH }}
     steps:
       - uses: actions/checkout@v2
       - name: Unit Test
