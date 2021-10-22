@@ -1,6 +1,14 @@
 tnpy package
 ============
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   tnpy.model
+
 Submodules
 ----------
 
@@ -44,6 +52,13 @@ tnpy.operators module
    :undoc-members:
    :show-inheritance:
 
+tnpy.tsdrg module
+-----------------
+
+.. automodule:: tnpy.tsdrg
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Module contents
 ---------------
