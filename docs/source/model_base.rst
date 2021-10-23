@@ -5,5 +5,6 @@ where its Hamiltonian can be expressed in
 Matrix Product Operator (MPO).
 
 .. autosummary::
+    :toctree: _autosummary
 
     tnpy.model.ModelBase
