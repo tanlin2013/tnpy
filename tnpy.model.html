@@ -214,6 +214,19 @@
 <dt id="tnpy.model.dimer_xxz.DimerXXZ">
 <em class="property">class </em><code class="sig-prename descclassname">tnpy.model.dimer_xxz.</code><code class="sig-name descname">DimerXXZ</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">N</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">J</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">delta</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">h</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">penalty</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">s_target</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">trial_id</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/model/dimer_xxz.html#DimerXXZ"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.model.dimer_xxz.DimerXXZ" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#tnpy.model.model_base.ModelBase" title="tnpy.model.model_base.ModelBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tnpy.model.model_base.ModelBase</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> – System size.</p></li>
+<li><p><strong>J</strong> – </p></li>
+<li><p><strong>delta</strong> – </p></li>
+<li><p><strong>h</strong> – Disorder strength.</p></li>
+<li><p><strong>penalty</strong> – Penalty strength (or Lagrangian multiplier).</p></li>
+<li><p><strong>s_target</strong> – The targeting total Sz charge sector.</p></li>
+<li><p><strong>trial_id</strong> – ID of the current disorder trial.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -223,6 +236,11 @@
 <dt id="tnpy.model.model_base.ModelBase">
 <em class="property">class </em><code class="sig-prename descclassname">tnpy.model.model_base.</code><code class="sig-name descname">ModelBase</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">N</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/model/model_base.html#ModelBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.model.model_base.ModelBase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>N</strong> – System size.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt id="tnpy.model.model_base.ModelBase.mpo">
 <em class="property">property </em><code class="sig-name descname">mpo</code><a class="headerlink" href="#tnpy.model.model_base.ModelBase.mpo" title="Permalink to this definition">¶</a></dt>
@@ -246,6 +264,18 @@
 <dt id="tnpy.model.random_heisenberg.RandomHeisenberg">
 <em class="property">class </em><code class="sig-prename descclassname">tnpy.model.random_heisenberg.</code><code class="sig-name descname">RandomHeisenberg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">N</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">h</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">penalty</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">s_target</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">trial_id</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">seed</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/model/random_heisenberg.html#RandomHeisenberg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.model.random_heisenberg.RandomHeisenberg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#tnpy.model.model_base.ModelBase" title="tnpy.model.model_base.ModelBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tnpy.model.model_base.ModelBase</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> – System size.</p></li>
+<li><p><strong>h</strong> – Disorder strength.</p></li>
+<li><p><strong>penalty</strong> – Penalty strength (of Lagrangian multiplier).</p></li>
+<li><p><strong>s_target</strong> – The targeting total Sz charge sector.</p></li>
+<li><p><strong>trial_id</strong> – ID of the current disorder trial.</p></li>
+<li><p><strong>seed</strong> – Random seed used to initialize the pseudo-random number generator.</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt id="tnpy.model.random_heisenberg.RandomHeisenberg.seed">
 <em class="property">property </em><code class="sig-name descname">seed</code><a class="headerlink" href="#tnpy.model.random_heisenberg.RandomHeisenberg.seed" title="Permalink to this definition">¶</a></dt>
@@ -260,6 +290,17 @@
 <dt id="tnpy.model.thirring.Thirring">
 <em class="property">class </em><code class="sig-prename descclassname">tnpy.model.thirring.</code><code class="sig-name descname">Thirring</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">N</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">g</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">ma</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">lamda</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">s_target</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/model/thirring.html#Thirring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.model.thirring.Thirring" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#tnpy.model.model_base.ModelBase" title="tnpy.model.model_base.ModelBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tnpy.model.model_base.ModelBase</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> – System size.</p></li>
+<li><p><strong>g</strong> – Bare coupling g.</p></li>
+<li><p><strong>ma</strong> – Bare mass.</p></li>
+<li><p><strong>lamda</strong> – Penalty strength (of Lagrangian multiplier).</p></li>
+<li><p><strong>s_target</strong> – The targeting total Sz charge sector.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -269,6 +310,14 @@
 <dt id="tnpy.model.xxz.XXZ">
 <em class="property">class </em><code class="sig-prename descclassname">tnpy.model.xxz.</code><code class="sig-name descname">XXZ</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">N</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">delta</span><span class="p">:</span> <span class="n">float</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/model/xxz.html#XXZ"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.model.xxz.XXZ" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#tnpy.model.model_base.ModelBase" title="tnpy.model.model_base.ModelBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tnpy.model.model_base.ModelBase</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> – System size.</p></li>
+<li><p><strong>delta</strong> – Coupling strength on z direction.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
