@@ -1,7 +1,7 @@
 Finite Density Matrix Renormalization Group (fDMRG)
 ===================================================
 
-.. autosummary::
-    :toctree: _autosummary
-
-    tnpy.finite_dmrg
+.. automodule:: tnpy.finite_dmrg
+   :members:
+   :undoc-members:
+   :show-inheritance:
