@@ -8,12 +8,28 @@ Welcome to tnpy's documentation!
 .. mdinclude:: ../../README.md
 
 .. toctree::
-   :maxdepth: 10
-   :caption: Contents:
+   :maxdepth: 2
+   :caption: Tutorials
 
-   modules.rst
-   tnpy.rst
+.. toctree::
+   :maxdepth: 2
+   :caption: API Reference
 
+   finite_dmrg
+   finite_tdvp
+   tsdrg
+   operators
+   linalg
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Built-in Models
+
+   model_base
+   xxz
+   dimer_xxz
+   random_heisenberg
+   thirring
 
 Indices and tables
 ==================

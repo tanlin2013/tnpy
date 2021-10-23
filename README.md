@@ -42,10 +42,12 @@ Installation
 -------
 
    * using Docker
-      ```
-      docker run --rm -it tanlin2013/tnpy
-      ```
+     
+     ```
+     docker run --rm -it tanlin2013/tnpy
+     ```
    * using pip:
+     
      ```
      pip install git+https://github.com/tanlin2013/tnpy@main
      ```
@@ -101,6 +103,7 @@ Getting started
 3. Compute any physical quantities whatever you want from the obtained state.
    The resulting MPS is of the type `tensornetwork.FiniteMPS`,
    see [here](https://tensornetwork.readthedocs.io/en/latest/stubs/tensornetwork.FiniteMPS.html#tensornetwork.FiniteMPS) for more details.
+   
    ```
    my_mps = fdmrg.mps
    ```

@@ -34,6 +34,7 @@ def monkeypatch(cls):
         setattr(cls, method, lambda self, *args, **kwargs: f(old_method, self, *args, **kwargs))
     return decorator
 
+
 # workaround until https://github.com/miyakogi/m2r/pull/55 is merged
 @monkeypatch(sphinx.registry.SphinxComponentRegistry)
 def add_source_parser(_old_add_source_parser, self, *args, **kwargs):
@@ -76,7 +77,7 @@ extensions = [
 ]
 
 # Mathjax
-mathjax_path="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+mathjax_path = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
