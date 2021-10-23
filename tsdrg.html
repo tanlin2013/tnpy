@@ -260,6 +260,16 @@ Please be aware of this bad naming.</p>
 <em class="property">class </em><code class="sig-prename descclassname">tnpy.tsdrg.</code><code class="sig-name descname">TensorTree</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">leaves</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode">tnpy.tsdrg.TreeNode</a><span class="p">]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
+<dt id="tnpy.tsdrg.TensorTree.find_path">
+<code class="sig-name descname">find_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.find_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.find_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tnpy.tsdrg.TensorTree.common_ancestor">
+<code class="sig-name descname">common_ancestor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.common_ancestor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.common_ancestor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt id="tnpy.tsdrg.TensorTree.__init__">
 <code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">leaves</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode">tnpy.tsdrg.TreeNode</a><span class="p">]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>The bottom-up binary tree where each node contains a tensor.</p>
@@ -269,16 +279,6 @@ Please be aware of this bad naming.</p>
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py method">
-<dt id="tnpy.tsdrg.TensorTree.find_path">
-<code class="sig-name descname">find_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.find_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.find_path" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="tnpy.tsdrg.TensorTree.common_ancestor">
-<code class="sig-name descname">common_ancestor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.common_ancestor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.common_ancestor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="py method">
 <dt id="tnpy.tsdrg.TensorTree.ancestor">
@@ -388,15 +388,15 @@ while the returning type is List[int] there.</p>
 <em class="property">class </em><code class="sig-prename descclassname">tnpy.tsdrg.</code><code class="sig-name descname">TSDRG</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mpo</span><span class="p">:</span> <span class="n"><a class="reference internal" href="tnpy.html#tnpy.operators.MPO" title="tnpy.operators.MPO">tnpy.operators.MPO</a></span></em>, <em class="sig-param"><span class="n">chi</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
+<dt id="tnpy.tsdrg.TSDRG.N">
+<em class="property">property </em><code class="sig-name descname">N</code><a class="headerlink" href="#tnpy.tsdrg.TSDRG.N" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt id="tnpy.tsdrg.TSDRG.__init__">
 <code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mpo</span><span class="p">:</span> <span class="n"><a class="reference internal" href="tnpy.html#tnpy.operators.MPO" title="tnpy.operators.MPO">tnpy.operators.MPO</a></span></em>, <em class="sig-param"><span class="n">chi</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
-
-<dl class="py method">
-<dt id="tnpy.tsdrg.TSDRG.N">
-<em class="property">property </em><code class="sig-name descname">N</code><a class="headerlink" href="#tnpy.tsdrg.TSDRG.N" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="py method">
 <dt id="tnpy.tsdrg.TSDRG.block_hamiltonian">
