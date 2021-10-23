@@ -1,271 +1,326 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>Matrix Product Operator (MPO) &amp; others &mdash; tnpy 0.0.3 documentation</title>
-  
 
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Matrix Product Operator (MPO) &amp; others &#8212; tnpy 0.0.3 documentation</title>
     
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Linear Algebra" href="linalg.html" />
-    <link rel="prev" title="Thirring model" href="thirring.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
+    <link rel="prev" title="Thirring model" href="thirring.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
 
-          
-            <a href="index.html" class="icon icon-home"> tnpy
-          
+    
 
+    <div class="container-xl">
+      <div class="row">
           
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0.0.3
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Algorithms</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="finite_dmrg.html">Finite Density Matrix Renormalization Group (fDMRG)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="finite_tdvp.html">Finite Time-dependent Variational Principle (fTDVP)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tsdrg.html">Tree Tensor Strong-disorder Renormalization Group (tSDRG)</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Built-in Models</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="model_base.html">Model Base</a></li>
-<li class="toctree-l1"><a class="reference internal" href="xxz.html">XXZ model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dimer_xxz.html">Dimer XXZ model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="random_heisenberg.html">Random Heisenberg model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="thirring.html">Thirring model</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Helper class</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Matrix Product Operator (MPO) &amp; others</a></li>
-<li class="toctree-l1"><a class="reference internal" href="linalg.html">Linear Algebra</a></li>
-</ul>
-<p class="caption"><span class="caption-text">API Reference</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="tnpy.html">tnpy package</a></li>
-</ul>
-
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">tnpy</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-      <li>Matrix Product Operator (MPO) &amp; others</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="_sources/operators.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
+      
+      
+      <h1 class="site-logo" id="site-title">tnpy 0.0.3 documentation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p class="caption" role="heading">
+ <span class="caption-text">
+  Algorithms
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="finite_dmrg.html">
+   Finite Density Matrix Renormalization Group (fDMRG)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="finite_tdvp.html">
+   Finite Time-dependent Variational Principle (fTDVP)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="tsdrg.html">
+   Tree Tensor Strong-disorder Renormalization Group (tSDRG)
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Built-in Models
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="model_base.html">
+   Model Base
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="xxz.html">
+   XXZ model
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dimer_xxz.html">
+   Dimer XXZ model
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="random_heisenberg.html">
+   Random Heisenberg model
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="thirring.html">
+   Thirring model
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Helper class
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Matrix Product Operator (MPO) &amp; others
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="linalg.html">
+   Linear Algebra
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  API Reference
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="tnpy.html">
+   tnpy package
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tnpy.model.html">
+     tnpy.model package
+    </a>
+   </li>
   </ul>
+ </li>
+</ul>
 
-  
-  <hr/>
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
             
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/tanlin2013/tnpy"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/tanlin2013/tnpy/issues/new?title=Issue%20on%20page%20%2Foperators.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/tanlin2013/tnpy/edit/master/docs/operators.rst"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
   <div class="section" id="matrix-product-operator-mpo-others">
 <h1>Matrix Product Operator (MPO) &amp; others<a class="headerlink" href="#matrix-product-operator-mpo-others" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt id="tnpy.operators.MPO">
-<em class="property">class </em><code class="sig-prename descclassname">tnpy.operators.</code><code class="sig-name descname">MPO</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">N</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/operators.html#MPO"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.operators.MPO" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.operators.MPO">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.operators.</span></span><span class="sig-name descname"><span class="pre">MPO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/operators.html#MPO"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.operators.MPO" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py method">
-<dt id="tnpy.operators.MPO.bond_dimensions">
-<em class="property">property </em><code class="sig-name descname">bond_dimensions</code><a class="headerlink" href="#tnpy.operators.MPO.bond_dimensions" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.operators.MPO.bond_dimensions">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">bond_dimensions</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#tnpy.operators.MPO.bond_dimensions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="tnpy.operators.MPO.nodes">
-<em class="property">property </em><code class="sig-name descname">nodes</code><a class="headerlink" href="#tnpy.operators.MPO.nodes" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.operators.MPO.nodes">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">nodes</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">tensornetwork.network_components.Node</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tnpy.operators.MPO.nodes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="tnpy.operators.MPO.physical_dimensions">
-<em class="property">property </em><code class="sig-name descname">physical_dimensions</code><a class="headerlink" href="#tnpy.operators.MPO.physical_dimensions" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.operators.MPO.physical_dimensions">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">physical_dimensions</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#tnpy.operators.MPO.physical_dimensions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="tnpy.operators.MPO.v_left">
-<em class="property">property </em><code class="sig-name descname">v_left</code><a class="headerlink" href="#tnpy.operators.MPO.v_left" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.operators.MPO.v_left">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">v_left</span></span><em class="property"><span class="pre">:</span> <span class="pre">tensornetwork.network_components.Node</span></em><a class="headerlink" href="#tnpy.operators.MPO.v_left" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="tnpy.operators.MPO.v_right">
-<em class="property">property </em><code class="sig-name descname">v_right</code><a class="headerlink" href="#tnpy.operators.MPO.v_right" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.operators.MPO.v_right">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">v_right</span></span><em class="property"><span class="pre">:</span> <span class="pre">tensornetwork.network_components.Node</span></em><a class="headerlink" href="#tnpy.operators.MPO.v_right" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt id="tnpy.operators.SpinOperators">
-<em class="property">class </em><code class="sig-prename descclassname">tnpy.operators.</code><code class="sig-name descname">SpinOperators</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spin</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/operators.html#SpinOperators"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.operators.SpinOperators" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.operators.SpinOperators">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.operators.</span></span><span class="sig-name descname"><span class="pre">SpinOperators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spin</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/operators.html#SpinOperators"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.operators.SpinOperators" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 </dd></dl>
 
 </div>
 
 
-           </div>
-           
-          </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="linalg.html" class="btn btn-neutral float-right" title="Linear Algebra" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="thirring.html" class="btn btn-neutral float-left" title="Thirring model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="thirring.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Thirring model</p>
+            </div>
+        </a>
     </div>
+     <div id="next">
+        <a class="right-next" href="linalg.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Linear Algebra</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
 
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Tan Tao-Lin.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
+</div>
+        
         </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Tan Tao-Lin<br/>
+        
+            &copy; Copyright 2021, Tan Tao-Lin.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
       </div>
-
-    </section>
-
-  </div>
+    </div>
   
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
   
-  
-    
-   
-
-</body>
+  </body>
 </html>

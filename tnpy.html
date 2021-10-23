@@ -1,198 +1,287 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>tnpy package &mdash; tnpy 0.0.3 documentation</title>
-  
 
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tnpy package &#8212; tnpy 0.0.3 documentation</title>
     
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="tnpy.model package" href="tnpy.model.html" />
-    <link rel="prev" title="Linear Algebra" href="linalg.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
+    <link rel="prev" title="Linear Algebra" href="linalg.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
 
-          
-            <a href="index.html" class="icon icon-home"> tnpy
-          
+    
 
+    <div class="container-xl">
+      <div class="row">
           
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0.0.3
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Algorithms</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="finite_dmrg.html">Finite Density Matrix Renormalization Group (fDMRG)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="finite_tdvp.html">Finite Time-dependent Variational Principle (fTDVP)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tsdrg.html">Tree Tensor Strong-disorder Renormalization Group (tSDRG)</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Built-in Models</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="model_base.html">Model Base</a></li>
-<li class="toctree-l1"><a class="reference internal" href="xxz.html">XXZ model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dimer_xxz.html">Dimer XXZ model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="random_heisenberg.html">Random Heisenberg model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="thirring.html">Thirring model</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Helper class</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="operators.html">Matrix Product Operator (MPO) &amp; others</a></li>
-<li class="toctree-l1"><a class="reference internal" href="linalg.html">Linear Algebra</a></li>
-</ul>
-<p class="caption"><span class="caption-text">API Reference</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">tnpy package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="tnpy.model.html">tnpy.model package</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#tnpy-finite-algorithm-base-module">tnpy.finite_algorithm_base module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#tnpy-finite-dmrg-module">tnpy.finite_dmrg module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#tnpy-finite-tdvp-module">tnpy.finite_tdvp module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#tnpy-linalg-module">tnpy.linalg module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-tnpy.operators">tnpy.operators module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-tnpy.tsdrg">tnpy.tsdrg module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-tnpy">Module contents</a></li>
-</ul>
-</li>
-</ul>
-
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">tnpy</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-      <li>tnpy package</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="_sources/tnpy.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
+      
+      
+      <h1 class="site-logo" id="site-title">tnpy 0.0.3 documentation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p class="caption" role="heading">
+ <span class="caption-text">
+  Algorithms
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="finite_dmrg.html">
+   Finite Density Matrix Renormalization Group (fDMRG)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="finite_tdvp.html">
+   Finite Time-dependent Variational Principle (fTDVP)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="tsdrg.html">
+   Tree Tensor Strong-disorder Renormalization Group (tSDRG)
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Built-in Models
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="model_base.html">
+   Model Base
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="xxz.html">
+   XXZ model
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dimer_xxz.html">
+   Dimer XXZ model
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="random_heisenberg.html">
+   Random Heisenberg model
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="thirring.html">
+   Thirring model
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Helper class
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="operators.html">
+   Matrix Product Operator (MPO) &amp; others
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="linalg.html">
+   Linear Algebra
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  API Reference
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="#">
+   tnpy package
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tnpy.model.html">
+     tnpy.model package
+    </a>
+   </li>
   </ul>
+ </li>
+</ul>
 
-  
-  <hr/>
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
             
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/tanlin2013/tnpy"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/tanlin2013/tnpy/issues/new?title=Issue%20on%20page%20%2Ftnpy.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/tanlin2013/tnpy/edit/master/docs/tnpy.rst"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#subpackages">
+   Subpackages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#submodules">
+   Submodules
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tnpy-finite-algorithm-base-module">
+   tnpy.finite_algorithm_base module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tnpy-finite-dmrg-module">
+   tnpy.finite_dmrg module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tnpy-finite-tdvp-module">
+   tnpy.finite_tdvp module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tnpy-linalg-module">
+   tnpy.linalg module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-tnpy.operators">
+   tnpy.operators module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-tnpy.tsdrg">
+   tnpy.tsdrg module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-tnpy">
+   Module contents
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
   <div class="section" id="tnpy-package">
 <h1>tnpy package<a class="headerlink" href="#tnpy-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="subpackages">
@@ -230,39 +319,39 @@
 <div class="section" id="module-tnpy.operators">
 <span id="tnpy-operators-module"></span><h2>tnpy.operators module<a class="headerlink" href="#module-tnpy.operators" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="tnpy.operators.MPO">
-<em class="property">class </em><code class="sig-prename descclassname">tnpy.operators.</code><code class="sig-name descname">MPO</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">N</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/operators.html#MPO"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.operators.MPO" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.operators.MPO">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.operators.</span></span><span class="sig-name descname"><span class="pre">MPO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/operators.html#MPO"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.operators.MPO" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py method">
-<dt id="tnpy.operators.MPO.bond_dimensions">
-<em class="property">property </em><code class="sig-name descname">bond_dimensions</code><a class="headerlink" href="#tnpy.operators.MPO.bond_dimensions" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.operators.MPO.bond_dimensions">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">bond_dimensions</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#tnpy.operators.MPO.bond_dimensions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="tnpy.operators.MPO.nodes">
-<em class="property">property </em><code class="sig-name descname">nodes</code><a class="headerlink" href="#tnpy.operators.MPO.nodes" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.operators.MPO.nodes">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">nodes</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">tensornetwork.network_components.Node</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tnpy.operators.MPO.nodes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="tnpy.operators.MPO.physical_dimensions">
-<em class="property">property </em><code class="sig-name descname">physical_dimensions</code><a class="headerlink" href="#tnpy.operators.MPO.physical_dimensions" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.operators.MPO.physical_dimensions">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">physical_dimensions</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#tnpy.operators.MPO.physical_dimensions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="tnpy.operators.MPO.v_left">
-<em class="property">property </em><code class="sig-name descname">v_left</code><a class="headerlink" href="#tnpy.operators.MPO.v_left" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.operators.MPO.v_left">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">v_left</span></span><em class="property"><span class="pre">:</span> <span class="pre">tensornetwork.network_components.Node</span></em><a class="headerlink" href="#tnpy.operators.MPO.v_left" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="tnpy.operators.MPO.v_right">
-<em class="property">property </em><code class="sig-name descname">v_right</code><a class="headerlink" href="#tnpy.operators.MPO.v_right" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.operators.MPO.v_right">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">v_right</span></span><em class="property"><span class="pre">:</span> <span class="pre">tensornetwork.network_components.Node</span></em><a class="headerlink" href="#tnpy.operators.MPO.v_right" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt id="tnpy.operators.SpinOperators">
-<em class="property">class </em><code class="sig-prename descclassname">tnpy.operators.</code><code class="sig-name descname">SpinOperators</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spin</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/operators.html#SpinOperators"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.operators.SpinOperators" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.operators.SpinOperators">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.operators.</span></span><span class="sig-name descname"><span class="pre">SpinOperators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spin</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/operators.html#SpinOperators"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.operators.SpinOperators" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 </dd></dl>
 
@@ -270,55 +359,55 @@
 <div class="section" id="module-tnpy.tsdrg">
 <span id="tnpy-tsdrg-module"></span><h2>tnpy.tsdrg module<a class="headerlink" href="#module-tnpy.tsdrg" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="tnpy.tsdrg.GapCache">
-<em class="property">class </em><code class="sig-prename descclassname">tnpy.tsdrg.</code><code class="sig-name descname">GapCache</code><span class="sig-paren">(</span><em class="sig-param">gap: List[float] = &lt;factory&gt;</em>, <em class="sig-param">evecs: List[numpy.ndarray] = &lt;factory&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#GapCache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.GapCache" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.GapCache">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.tsdrg.</span></span><span class="sig-name descname"><span class="pre">GapCache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">gap:</span> <span class="pre">List[float]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">evecs:</span> <span class="pre">List[numpy.ndarray]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#GapCache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.GapCache" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Helper class for storing the cache of energy gap in tSDRG algorithm.</p>
 <dl class="py attribute">
-<dt id="tnpy.tsdrg.GapCache.evecs">
-<code class="sig-name descname">evecs</code><em class="property">: List<span class="p">[</span>np.ndarray<span class="p">]</span></em><a class="headerlink" href="#tnpy.tsdrg.GapCache.evecs" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.GapCache.evecs">
+<span class="sig-name descname"><span class="pre">evecs</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tnpy.tsdrg.GapCache.evecs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="tnpy.tsdrg.GapCache.gap">
-<code class="sig-name descname">gap</code><em class="property">: List<span class="p">[</span>float<span class="p">]</span></em><a class="headerlink" href="#tnpy.tsdrg.GapCache.gap" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.GapCache.gap">
+<span class="sig-name descname"><span class="pre">gap</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tnpy.tsdrg.GapCache.gap" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt id="tnpy.tsdrg.Projection">
-<em class="property">class </em><code class="sig-prename descclassname">tnpy.tsdrg.</code><code class="sig-name descname">Projection</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">HarmonicRitz</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'primme_proj_harmonic'</span></em>, <em class="sig-param"><span class="n">RefinedRitz</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'primme_proj_refined'</span></em>, <em class="sig-param"><span class="n">RayleighRitz</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'primme_proj_RR'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#Projection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.Projection" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.Projection">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.tsdrg.</span></span><span class="sig-name descname"><span class="pre">Projection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">HarmonicRitz</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'primme_proj_harmonic'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RefinedRitz</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'primme_proj_refined'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RayleighRitz</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'primme_proj_RR'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#Projection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.Projection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py attribute">
-<dt id="tnpy.tsdrg.Projection.HarmonicRitz">
-<code class="sig-name descname">HarmonicRitz</code><em class="property">: str</em><em class="property"> = 'primme_proj_harmonic'</em><a class="headerlink" href="#tnpy.tsdrg.Projection.HarmonicRitz" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.Projection.HarmonicRitz">
+<span class="sig-name descname"><span class="pre">HarmonicRitz</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'primme_proj_harmonic'</span></em><a class="headerlink" href="#tnpy.tsdrg.Projection.HarmonicRitz" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="tnpy.tsdrg.Projection.RayleighRitz">
-<code class="sig-name descname">RayleighRitz</code><em class="property">: str</em><em class="property"> = 'primme_proj_RR'</em><a class="headerlink" href="#tnpy.tsdrg.Projection.RayleighRitz" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.Projection.RayleighRitz">
+<span class="sig-name descname"><span class="pre">RayleighRitz</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'primme_proj_RR'</span></em><a class="headerlink" href="#tnpy.tsdrg.Projection.RayleighRitz" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="tnpy.tsdrg.Projection.RefinedRitz">
-<code class="sig-name descname">RefinedRitz</code><em class="property">: str</em><em class="property"> = 'primme_proj_refined'</em><a class="headerlink" href="#tnpy.tsdrg.Projection.RefinedRitz" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.Projection.RefinedRitz">
+<span class="sig-name descname"><span class="pre">RefinedRitz</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'primme_proj_refined'</span></em><a class="headerlink" href="#tnpy.tsdrg.Projection.RefinedRitz" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt id="tnpy.tsdrg.TSDRG">
-<em class="property">class </em><code class="sig-prename descclassname">tnpy.tsdrg.</code><code class="sig-name descname">TSDRG</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mpo</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#tnpy.operators.MPO" title="tnpy.operators.MPO">tnpy.operators.MPO</a></span></em>, <em class="sig-param"><span class="n">chi</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.tsdrg.</span></span><span class="sig-name descname"><span class="pre">TSDRG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#tnpy.operators.MPO" title="tnpy.operators.MPO"><span class="pre">tnpy.operators.MPO</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py method">
-<dt id="tnpy.tsdrg.TSDRG.N">
-<em class="property">property </em><code class="sig-name descname">N</code><a class="headerlink" href="#tnpy.tsdrg.TSDRG.N" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.N">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">N</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#tnpy.tsdrg.TSDRG.N" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="tnpy.tsdrg.TSDRG.block_hamiltonian">
-<code class="sig-name descname">block_hamiltonian</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">site</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>tensornetwork.tensor.Tensor<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.block_hamiltonian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.block_hamiltonian" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.block_hamiltonian">
+<span class="sig-name descname"><span class="pre">block_hamiltonian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">tensornetwork.tensor.Tensor</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.block_hamiltonian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.block_hamiltonian" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct the 2-site Hamiltonian from MPO,
 involving both the hopping term and one-site term.</p>
 <dl class="field-list simple">
@@ -335,45 +424,45 @@ The 2-site Hamiltonian is then constructed in site i and i+1.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="tnpy.tsdrg.TSDRG.chi">
-<em class="property">property </em><code class="sig-name descname">chi</code><a class="headerlink" href="#tnpy.tsdrg.TSDRG.chi" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.chi">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">chi</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#tnpy.tsdrg.TSDRG.chi" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="tnpy.tsdrg.TSDRG.eigen_solver">
-<code class="sig-name descname">eigen_solver</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">matrix</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>tensornetwork.tensor.Tensor<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>numpy.ndarray<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.eigen_solver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.eigen_solver" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.eigen_solver">
+<span class="sig-name descname"><span class="pre">eigen_solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">tensornetwork.tensor.Tensor</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.eigen_solver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.eigen_solver" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="tnpy.tsdrg.TSDRG.entanglement_rendering">
-<code class="sig-name descname">entanglement_rendering</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">evecs</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.entanglement_rendering"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.entanglement_rendering" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.entanglement_rendering">
+<span class="sig-name descname"><span class="pre">entanglement_rendering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">evecs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.entanglement_rendering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.entanglement_rendering" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="tnpy.tsdrg.TSDRG.head_node_hamiltonian">
-<code class="sig-name descname">head_node_hamiltonian</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">V</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>tensornetwork.tensor.Tensor<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>tensornetwork.tensor.Tensor<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.head_node_hamiltonian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.head_node_hamiltonian" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.head_node_hamiltonian">
+<span class="sig-name descname"><span class="pre">head_node_hamiltonian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">V</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">tensornetwork.tensor.Tensor</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">tensornetwork.tensor.Tensor</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.head_node_hamiltonian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.head_node_hamiltonian" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.n_nodes">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">n_nodes</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#tnpy.tsdrg.TSDRG.n_nodes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="tnpy.tsdrg.TSDRG.n_nodes">
-<em class="property">property </em><code class="sig-name descname">n_nodes</code><a class="headerlink" href="#tnpy.tsdrg.TSDRG.n_nodes" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.neighbouring_bonds">
+<span class="sig-name descname"><span class="pre">neighbouring_bonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bond</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.neighbouring_bonds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.neighbouring_bonds" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="tnpy.tsdrg.TSDRG.neighbouring_bonds">
-<code class="sig-name descname">neighbouring_bonds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bond</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>int<span class="p">]</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.neighbouring_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.neighbouring_bonds" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="tnpy.tsdrg.TSDRG.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.run" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns:</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="tnpy.tsdrg.TSDRG.spectrum_projector">
-<code class="sig-name descname">spectrum_projector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">site</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">evecs</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>tensornetwork.network_components.Node<span class="p">, </span>tensornetwork.network_components.Node<span class="p">]</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.spectrum_projector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.spectrum_projector" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.spectrum_projector">
+<span class="sig-name descname"><span class="pre">spectrum_projector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">evecs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">tensornetwork.network_components.Node</span><span class="p"><span class="pre">,</span> </span><span class="pre">tensornetwork.network_components.Node</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.spectrum_projector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.spectrum_projector" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -385,14 +474,14 @@ The 2-site Hamiltonian is then constructed in site i and i+1.</p>
 <p>Returns:</p>
 </dd></dl>
 
-<dl class="py method">
-<dt id="tnpy.tsdrg.TSDRG.tree">
-<em class="property">property </em><code class="sig-name descname">tree</code><a class="headerlink" href="#tnpy.tsdrg.TSDRG.tree" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.tree">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">tree</span></span><em class="property"><span class="pre">:</span> <a class="reference internal" href="tsdrg.html#tnpy.tsdrg.TensorTree" title="tnpy.tsdrg.TensorTree"><span class="pre">tnpy.tsdrg.TensorTree</span></a></em><a class="headerlink" href="#tnpy.tsdrg.TSDRG.tree" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="tnpy.tsdrg.TSDRG.truncation_gap">
-<code class="sig-name descname">truncation_gap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">evals</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.truncation_gap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.truncation_gap" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.truncation_gap">
+<span class="sig-name descname"><span class="pre">truncation_gap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">evals</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.truncation_gap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.truncation_gap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the gap upon <cite>chi</cite> eigenvalues kept.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -407,21 +496,21 @@ The 2-site Hamiltonian is then constructed in site i and i+1.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="tnpy.tsdrg.TSDRG.v_left">
-<em class="property">property </em><code class="sig-name descname">v_left</code><a class="headerlink" href="#tnpy.tsdrg.TSDRG.v_left" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.v_left">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">v_left</span></span><em class="property"><span class="pre">:</span> <span class="pre">tensornetwork.network_components.Node</span></em><a class="headerlink" href="#tnpy.tsdrg.TSDRG.v_left" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="tnpy.tsdrg.TSDRG.v_right">
-<em class="property">property </em><code class="sig-name descname">v_right</code><a class="headerlink" href="#tnpy.tsdrg.TSDRG.v_right" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.v_right">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">v_right</span></span><em class="property"><span class="pre">:</span> <span class="pre">tensornetwork.network_components.Node</span></em><a class="headerlink" href="#tnpy.tsdrg.TSDRG.v_right" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt id="tnpy.tsdrg.TensorTree">
-<em class="property">class </em><code class="sig-prename descclassname">tnpy.tsdrg.</code><code class="sig-name descname">TensorTree</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">leaves</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="tsdrg.html#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode">tnpy.tsdrg.TreeNode</a><span class="p">]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.tsdrg.</span></span><span class="sig-name descname"><span class="pre">TensorTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">leaves</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="tsdrg.html#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode"><span class="pre">tnpy.tsdrg.TreeNode</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The bottom-up binary tree where each node contains a tensor.</p>
 <dl class="field-list simple">
@@ -430,8 +519,8 @@ The 2-site Hamiltonian is then constructed in site i and i+1.</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="tnpy.tsdrg.TensorTree.ancestor">
-<code class="sig-name descname">ancestor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node_id</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="tsdrg.html#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode">tnpy.tsdrg.TreeNode</a><span class="p">]</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.ancestor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.ancestor" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.ancestor">
+<span class="sig-name descname"><span class="pre">ancestor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="tsdrg.html#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode"><span class="pre">tnpy.tsdrg.TreeNode</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.ancestor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.ancestor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find all the ancestors of targeted node in the order starting from the root.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -452,53 +541,53 @@ while the returning type is List[int] there.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="tnpy.tsdrg.TensorTree.append">
-<code class="sig-name descname">append</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node</span><span class="p">:</span> <span class="n"><a class="reference internal" href="tsdrg.html#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode">tnpy.tsdrg.TreeNode</a></span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.append" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="tsdrg.html#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode"><span class="pre">tnpy.tsdrg.TreeNode</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.append"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.append" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="tnpy.tsdrg.TensorTree.common_ancestor">
-<code class="sig-name descname">common_ancestor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.common_ancestor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.common_ancestor" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.common_ancestor">
+<span class="sig-name descname"><span class="pre">common_ancestor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.common_ancestor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.common_ancestor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="tnpy.tsdrg.TensorTree.contract_nodes">
-<code class="sig-name descname">contract_nodes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.contract_nodes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.contract_nodes" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.contract_nodes">
+<span class="sig-name descname"><span class="pre">contract_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.contract_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.contract_nodes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="tnpy.tsdrg.TensorTree.find_path">
-<code class="sig-name descname">find_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.find_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.find_path" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.find_path">
+<span class="sig-name descname"><span class="pre">find_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.find_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.find_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.has_root">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">has_root</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><a class="headerlink" href="#tnpy.tsdrg.TensorTree.has_root" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.horizon">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">horizon</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tnpy.tsdrg.TensorTree.horizon" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="tnpy.tsdrg.TensorTree.has_root">
-<em class="property">property </em><code class="sig-name descname">has_root</code><a class="headerlink" href="#tnpy.tsdrg.TensorTree.has_root" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.leaf">
+<span class="sig-name descname"><span class="pre">leaf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="tsdrg.html#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode"><span class="pre">tnpy.tsdrg.TreeNode</span></a></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.leaf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.leaf" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="tnpy.tsdrg.TensorTree.horizon">
-<em class="property">property </em><code class="sig-name descname">horizon</code><a class="headerlink" href="#tnpy.tsdrg.TensorTree.horizon" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.n_layers">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">n_layers</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#tnpy.tsdrg.TensorTree.n_layers" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="tnpy.tsdrg.TensorTree.leaf">
-<code class="sig-name descname">leaf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node_id</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="tsdrg.html#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode">tnpy.tsdrg.TreeNode</a><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.leaf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.leaf" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.n_leaves">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">n_leaves</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#tnpy.tsdrg.TensorTree.n_leaves" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="tnpy.tsdrg.TensorTree.n_layers">
-<em class="property">property </em><code class="sig-name descname">n_layers</code><a class="headerlink" href="#tnpy.tsdrg.TensorTree.n_layers" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="tnpy.tsdrg.TensorTree.n_leaves">
-<em class="property">property </em><code class="sig-name descname">n_leaves</code><a class="headerlink" href="#tnpy.tsdrg.TensorTree.n_leaves" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="tnpy.tsdrg.TensorTree.n_nodes">
-<em class="property">property </em><code class="sig-name descname">n_nodes</code><a class="headerlink" href="#tnpy.tsdrg.TensorTree.n_nodes" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.n_nodes">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">n_nodes</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#tnpy.tsdrg.TensorTree.n_nodes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Total number of nodes in tree.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -511,104 +600,129 @@ while the returning type is List[int] there.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="tnpy.tsdrg.TensorTree.node">
-<code class="sig-name descname">node</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node_id</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="tsdrg.html#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode">tnpy.tsdrg.TreeNode</a><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.node" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.node">
+<span class="sig-name descname"><span class="pre">node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="tsdrg.html#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode"><span class="pre">tnpy.tsdrg.TreeNode</span></a></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.node" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="tnpy.tsdrg.TensorTree.plot">
-<code class="sig-name descname">plot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.plot" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.plot" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="tnpy.tsdrg.TensorTree.root">
-<em class="property">property </em><code class="sig-name descname">root</code><a class="headerlink" href="#tnpy.tsdrg.TensorTree.root" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.root">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">root</span></span><em class="property"><span class="pre">:</span> <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="tsdrg.html#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode"><span class="pre">tnpy.tsdrg.TreeNode</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tnpy.tsdrg.TensorTree.root" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="tnpy.tsdrg.TensorTree.top_tensor">
-<em class="property">property </em><code class="sig-name descname">top_tensor</code><a class="headerlink" href="#tnpy.tsdrg.TensorTree.top_tensor" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.top_tensor">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">top_tensor</span></span><a class="headerlink" href="#tnpy.tsdrg.TensorTree.top_tensor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt id="tnpy.tsdrg.TreeNode">
-<em class="property">class </em><code class="sig-prename descclassname">tnpy.tsdrg.</code><code class="sig-name descname">TreeNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">node</span><span class="p">:</span> <span class="n">tensornetwork.network_components.Node</span></em>, <em class="sig-param"><span class="n">gap</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">left</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference internal" href="tsdrg.html#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode">tnpy.tsdrg.TreeNode</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">right</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference internal" href="tsdrg.html#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode">tnpy.tsdrg.TreeNode</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TreeNode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.TreeNode" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeNode">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.tsdrg.</span></span><span class="sig-name descname"><span class="pre">TreeNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tensornetwork.network_components.Node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="tsdrg.html#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode"><span class="pre">tnpy.tsdrg.TreeNode</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="tsdrg.html#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode"><span class="pre">tnpy.tsdrg.TreeNode</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TreeNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeNode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The node object in binary tree.</p>
 <dl class="py attribute">
-<dt id="tnpy.tsdrg.TreeNode.id">
-<code class="sig-name descname">id</code><a class="headerlink" href="#tnpy.tsdrg.TreeNode.id" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeNode.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#tnpy.tsdrg.TreeNode.id" title="Permalink to this definition">¶</a></dt>
 <dd><p>ID of this TreeNode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="tnpy.tsdrg.TreeNode.node">
-<code class="sig-name descname">node</code><a class="headerlink" href="#tnpy.tsdrg.TreeNode.node" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeNode.node">
+<span class="sig-name descname"><span class="pre">node</span></span><a class="headerlink" href="#tnpy.tsdrg.TreeNode.node" title="Permalink to this definition">¶</a></dt>
 <dd><p>Container of tensornetwork.Node,
 which is supposed to take the ordering of axes (1st physical bond, 2nd physical bond, virtual bond).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>tensornetwork.network_components.Node</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="tnpy.tsdrg.TreeNode.gap">
-<code class="sig-name descname">gap</code><a class="headerlink" href="#tnpy.tsdrg.TreeNode.gap" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeNode.gap">
+<span class="sig-name descname"><span class="pre">gap</span></span><a class="headerlink" href="#tnpy.tsdrg.TreeNode.gap" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
-<dt id="tnpy.tsdrg.TreeNode.left">
-<code class="sig-name descname">left</code><a class="headerlink" href="#tnpy.tsdrg.TreeNode.left" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeNode.left">
+<span class="sig-name descname"><span class="pre">left</span></span><a class="headerlink" href="#tnpy.tsdrg.TreeNode.left" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="tsdrg.html#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode">tnpy.tsdrg.TreeNode</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
-<dt id="tnpy.tsdrg.TreeNode.right">
-<code class="sig-name descname">right</code><a class="headerlink" href="#tnpy.tsdrg.TreeNode.right" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeNode.right">
+<span class="sig-name descname"><span class="pre">right</span></span><a class="headerlink" href="#tnpy.tsdrg.TreeNode.right" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="tsdrg.html#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode">tnpy.tsdrg.TreeNode</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <p class="rubric">Notes</p>
 <p>This class differs from tensornetwork.Node,
 which refers to the node in a tensor network.
 Please be aware of this bad naming.</p>
 <dl class="py attribute">
-<dt id="id0">
-<code class="sig-name descname">gap</code><em class="property">: float</em><em class="property"> = None</em><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">gap</span></span><em class="property"><span class="pre">:</span> <span class="pre">float</span></em><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="id1">
-<code class="sig-name descname">id</code><em class="property">: int</em><a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="tnpy.tsdrg.TreeNode.is_leaf">
-<em class="property">property </em><code class="sig-name descname">is_leaf</code><a class="headerlink" href="#tnpy.tsdrg.TreeNode.is_leaf" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="id2">
-<code class="sig-name descname">left</code><em class="property">: TreeNode</em><em class="property"> = None</em><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeNode.is_leaf">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">is_leaf</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><a class="headerlink" href="#tnpy.tsdrg.TreeNode.is_leaf" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="id3">
-<code class="sig-name descname">node</code><em class="property">: Node</em><a class="headerlink" href="#id3" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">left</span></span><em class="property"><span class="pre">:</span> <a class="reference internal" href="tsdrg.html#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode"><span class="pre">tnpy.tsdrg.TreeNode</span></a></em><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="id4">
-<code class="sig-name descname">right</code><em class="property">: TreeNode</em><em class="property"> = None</em><a class="headerlink" href="#id4" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">node</span></span><em class="property"><span class="pre">:</span> <span class="pre">tensornetwork.network_components.Node</span></em><a class="headerlink" href="#id3" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="tnpy.tsdrg.TreeNode.shape">
-<em class="property">property </em><code class="sig-name descname">shape</code><a class="headerlink" href="#tnpy.tsdrg.TreeNode.shape" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">right</span></span><em class="property"><span class="pre">:</span> <a class="reference internal" href="tsdrg.html#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode"><span class="pre">tnpy.tsdrg.TreeNode</span></a></em><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#id4" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeNode.shape">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">shape</span></span><em class="property"><span class="pre">:</span> <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tnpy.tsdrg.TreeNode.shape" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
-<dt id="tnpy.tsdrg.check_root">
-<code class="sig-prename descclassname">tnpy.tsdrg.</code><code class="sig-name descname">check_root</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span></em><span class="sig-paren">)</span> &#x2192; Callable<a class="reference internal" href="_modules/tnpy/tsdrg.html#check_root"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tnpy.tsdrg.check_root" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.check_root">
+<span class="sig-prename descclassname"><span class="pre">tnpy.tsdrg.</span></span><span class="sig-name descname"><span class="pre">check_root</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#check_root"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.check_root" title="Permalink to this definition">¶</a></dt>
 <dd><p>Helper function for checking the root in TensorTree.
 This is supposed to be applied on the member function of TensorTree as a decorator.</p>
 <dl class="field-list simple">
@@ -626,51 +740,56 @@ This is supposed to be applied on the member function of TensorTree as a decorat
 </div>
 
 
-           </div>
-           
-          </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="tnpy.model.html" class="btn btn-neutral float-right" title="tnpy.model package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="linalg.html" class="btn btn-neutral float-left" title="Linear Algebra" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="linalg.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Linear Algebra</p>
+            </div>
+        </a>
     </div>
+     <div id="next">
+        <a class="right-next" href="tnpy.model.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">tnpy.model package</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
 
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Tan Tao-Lin.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
+</div>
+        
         </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Tan Tao-Lin<br/>
+        
+            &copy; Copyright 2021, Tan Tao-Lin.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
       </div>
-
-    </section>
-
-  </div>
+    </div>
   
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
   
-  
-    
-   
-
-</body>
+  </body>
 </html>

@@ -1,296 +1,259 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>Welcome to tnpy’s documentation! &mdash; tnpy 0.0.3 documentation</title>
-  
 
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to tnpy’s documentation! &#8212; tnpy 0.0.3 documentation</title>
     
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Finite Density Matrix Renormalization Group (fDMRG)" href="finite_dmrg.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
+    <link rel="next" title="Finite Density Matrix Renormalization Group (fDMRG)" href="finite_dmrg.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
 
-          
-            <a href="#" class="icon icon-home"> tnpy
-          
+    
 
+    <div class="container-xl">
+      <div class="row">
           
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0.0.3
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Algorithms</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="finite_dmrg.html">Finite Density Matrix Renormalization Group (fDMRG)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="finite_tdvp.html">Finite Time-dependent Variational Principle (fTDVP)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tsdrg.html">Tree Tensor Strong-disorder Renormalization Group (tSDRG)</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Built-in Models</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="model_base.html">Model Base</a></li>
-<li class="toctree-l1"><a class="reference internal" href="xxz.html">XXZ model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dimer_xxz.html">Dimer XXZ model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="random_heisenberg.html">Random Heisenberg model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="thirring.html">Thirring model</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Helper class</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="operators.html">Matrix Product Operator (MPO) &amp; others</a></li>
-<li class="toctree-l1"><a class="reference internal" href="linalg.html">Linear Algebra</a></li>
-</ul>
-<p class="caption"><span class="caption-text">API Reference</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="tnpy.html">tnpy package</a></li>
-</ul>
-
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="#">
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">tnpy</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-        
-      <li>Welcome to tnpy’s documentation!</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
+      
+      
+      <h1 class="site-logo" id="site-title">tnpy 0.0.3 documentation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p class="caption" role="heading">
+ <span class="caption-text">
+  Algorithms
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="finite_dmrg.html">
+   Finite Density Matrix Renormalization Group (fDMRG)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="finite_tdvp.html">
+   Finite Time-dependent Variational Principle (fTDVP)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="tsdrg.html">
+   Tree Tensor Strong-disorder Renormalization Group (tSDRG)
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Built-in Models
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="model_base.html">
+   Model Base
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="xxz.html">
+   XXZ model
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dimer_xxz.html">
+   Dimer XXZ model
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="random_heisenberg.html">
+   Random Heisenberg model
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="thirring.html">
+   Thirring model
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Helper class
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="operators.html">
+   Matrix Product Operator (MPO) &amp; others
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="linalg.html">
+   Linear Algebra
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  API Reference
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="tnpy.html">
+   tnpy package
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tnpy.model.html">
+     tnpy.model package
+    </a>
+   </li>
   </ul>
+ </li>
+</ul>
 
-  
-  <hr/>
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
             
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/tanlin2013/tnpy"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/tanlin2013/tnpy/issues/new?title=Issue%20on%20page%20%2Findex.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/tanlin2013/tnpy/edit/master/docs/index.rst"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Welcome to tnpy’s documentation!
+  </a>
+  <ul class="visible nav section-nav flex-column">
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#indices-and-tables">
+   Indices and tables
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
   <div class="section" id="welcome-to-tnpy-s-documentation">
 <h1>Welcome to tnpy’s documentation!<a class="headerlink" href="#welcome-to-tnpy-s-documentation" title="Permalink to this headline">¶</a></h1>
-</div>
-<div class="section" id="tnpy">
-<h1>tnpy<a class="headerlink" href="#tnpy" title="Permalink to this headline">¶</a></h1>
-<a class="reference external image-reference" href="https://github.com/tanlin2013/tnpy/actions/workflows/build.yml/badge.svg"><img alt="build" src="https://github.com/tanlin2013/tnpy/actions/workflows/build.yml/badge.svg" /></a>
-<a class="reference external image-reference" href="https://github.com/tanlin2013/tnpy/actions/workflows/tests.yml/badge.svg"><img alt="tests" src="https://github.com/tanlin2013/tnpy/actions/workflows/tests.yml/badge.svg" /></a>
-<a class="reference external image-reference" href="https://github.com/tanlin2013/tnpy/actions/workflows/docs.yml/badge.svg"><img alt="docs" src="https://github.com/tanlin2013/tnpy/actions/workflows/docs.yml/badge.svg" /></a>
-<a class="reference external image-reference" href="https://img.shields.io/github/license/tanlin2013/tnpy?style=plastic"><img alt="license" src="https://img.shields.io/github/license/tanlin2013/tnpy?style=plastic" /></a>
-<p><a class="reference external" href="https://tanlin2013.github.io/tnpy/">Documentation</a> |</p>
-<p>This project is a python implementation of Tensor Network,
-a numerical approach to quantum many-body systems.</p>
-<p><strong>tnpy</strong> is built on top of <a class="reference external" href="https://github.com/google/TensorNetwork">google/TensorNetwork</a> for tensor contractions,
-with optimized support for various backend engines (TensorFlow, JAX, PyTorch, and Numpy).
-For eigen-solver we adopt <a class="reference external" href="https://github.com/primme/primme">primme</a>,
-an iterative multi-method solver with preconditioning.</p>
-<p>Currently, we support Matrix Product State (MPS) algorithms,
-with more are coming…</p>
-<ul class="simple">
-<li><p>Finite-sized Density Matrix Renormalization Group (fDMRG)</p></li>
-<li><p>Tree tensor Strong Disorder Renormalization Group (tSDRG)</p></li>
-</ul>
-<p>fDMRG is on alpha-release and is much stable.
-For others, please expect edge cases.</p>
-<div class="section" id="requirments">
-<h2>Requirments<a class="headerlink" href="#requirments" title="Permalink to this headline">¶</a></h2>
-<p>See <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> for more details.
-But these two are essential building blocks.</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/google/TensorNetwork">google/TensorNetwork</a></p></li>
-<li><p><a class="reference external" href="https://github.com/primme/primme">primme/primme</a></p></li>
-</ul>
-<p>Regarding any installation problems with Primme,
-please refer to <a class="reference external" href="http://www.cs.wm.edu/~andreas/software/">Primme official</a>.
-Also, it’s required to have <a class="reference external" href="http://www.netlib.org/lapack/">lapack</a> and <a class="reference external" href="http://www.netlib.org/blas/">blas</a>
-installed in prior to Primme.</p>
-</div>
-<div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<ul>
-<li><p>using Docker</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>docker run --rm -it tanlin2013/tnpy
-</pre></div>
-</div>
-</li>
-<li><p>using pip:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>pip install git+https://github.com/tanlin2013/tnpy@main
-</pre></div>
-</div>
-</li>
-</ul>
-</div>
-<div class="section" id="id2">
-<h2>Documentation<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>For details about <strong>tnpy</strong>, see the <a class="reference external" href="https://tanlin2013.github.io/tnpy/">reference documentation</a>.</p>
-</div>
-<div class="section" id="getting-started">
-<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic">
-<li><p>Defining the Matrix Product Operator of your model as a Callable function with argument <code class="docutils literal notranslate"><span class="pre">site</span></code> of the type <code class="docutils literal notranslate"><span class="pre">int</span></code>,
-e.g. the function <code class="docutils literal notranslate"><span class="pre">_elem(self,</span> <span class="pre">site)</span></code> below.
-The MPO class then accepts the Callable as an input and constructs a MPO object.</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">tnpy.operators</span> <span class="kn">import</span> <span class="n">SpinOperators</span><span class="p">,</span> <span class="n">MPO</span>
-<span class="kn">from</span> <span class="nn">tnpy.finite_dmrg</span> <span class="kn">import</span> <span class="n">FiniteDMRG</span>
-
-<span class="k">class</span> <span class="nc">XXZ</span><span class="p">:</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">delta</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="n">N</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">delta</span> <span class="o">=</span> <span class="n">delta</span>
-
-    <span class="k">def</span> <span class="nf">_elem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="n">Sp</span><span class="p">,</span> <span class="n">Sm</span><span class="p">,</span> <span class="n">Sz</span><span class="p">,</span> <span class="n">I2</span><span class="p">,</span> <span class="n">O2</span> <span class="o">=</span> <span class="n">SpinOperators</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="kp">array</span><span class="p">(</span>
-            <span class="p">[[</span><span class="n">I2</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">Sp</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">Sm</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">delta</span> <span class="o">*</span> <span class="n">Sz</span><span class="p">,</span> <span class="n">O2</span><span class="p">],</span>
-             <span class="p">[</span><span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">Sm</span><span class="p">],</span>
-             <span class="p">[</span><span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">Sp</span><span class="p">],</span>
-             <span class="p">[</span><span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">Sz</span><span class="p">],</span>
-             <span class="p">[</span><span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">O2</span><span class="p">,</span> <span class="n">I2</span><span class="p">]]</span>
-        <span class="p">)</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">mpo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MPO</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">MPO</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elem</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-<li><p>Call the algorithm to optimize the state.</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>  <span class="o">#</span> <span class="k">length</span> <span class="k">of</span> <span class="n">spin</span> <span class="k">chain</span>
-<span class="n">chi</span> <span class="o">=</span> <span class="mi">60</span>  <span class="o">#</span> <span class="n">virtual</span> <span class="n">bond</span> <span class="n">dimension</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">XXZ</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span>
-<span class="n">fdmrg</span> <span class="o">=</span> <span class="n">FiniteDMRG</span><span class="p">(</span>
-    <span class="n">mpo</span><span class="o">=</span><span class="n">model</span><span class="p">.</span><span class="n">mpo</span><span class="p">,</span>
-    <span class="n">chi</span><span class="o">=</span><span class="n">chi</span>
-<span class="p">)</span>
-<span class="n">fdmrg</span><span class="p">.</span><span class="k">update</span><span class="p">(</span><span class="n">tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">8</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-<li><p>Compute any physical quantities whatever you want from the obtained state.
-The resulting MPS is of the type <code class="docutils literal notranslate"><span class="pre">tensornetwork.FiniteMPS</span></code>,
-see <a class="reference external" href="https://tensornetwork.readthedocs.io/en/latest/stubs/tensornetwork.FiniteMPS.html#tensornetwork.FiniteMPS">here</a> for more details.</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>my_mps = fdmrg.mps
-</pre></div>
-</div>
-</li>
-</ol>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Algorithms</span></p>
+<p class="caption" role="heading"><span class="caption-text">Algorithms</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="finite_dmrg.html">Finite Density Matrix Renormalization Group (fDMRG)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="finite_tdvp.html">Finite Time-dependent Variational Principle (fTDVP)</a></li>
@@ -298,7 +261,7 @@ see <a class="reference external" href="https://tensornetwork.readthedocs.io/en/
 </ul>
 </div>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Built-in Models</span></p>
+<p class="caption" role="heading"><span class="caption-text">Built-in Models</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="model_base.html">Model Base</a></li>
 <li class="toctree-l1"><a class="reference internal" href="xxz.html">XXZ model</a></li>
@@ -308,14 +271,14 @@ see <a class="reference external" href="https://tensornetwork.readthedocs.io/en/
 </ul>
 </div>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Helper class</span></p>
+<p class="caption" role="heading"><span class="caption-text">Helper class</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="operators.html">Matrix Product Operator (MPO) &amp; others</a></li>
 <li class="toctree-l1"><a class="reference internal" href="linalg.html">Linear Algebra</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">API Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tnpy.html">tnpy package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tnpy.html#subpackages">Subpackages</a></li>
@@ -332,7 +295,6 @@ see <a class="reference external" href="https://tensornetwork.readthedocs.io/en/
 </ul>
 </div>
 </div>
-</div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
@@ -343,50 +305,47 @@ see <a class="reference external" href="https://tensornetwork.readthedocs.io/en/
 </div>
 
 
-           </div>
-           
-          </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="finite_dmrg.html" class="btn btn-neutral float-right" title="Finite Density Matrix Renormalization Group (fDMRG)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+              </div>
+              
+        
+            
 
-  <hr/>
 
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Tan Tao-Lin.
 
-    </p>
-  </div>
+<div class='prev-next-bottom'>
     
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+     <div id="next">
+        <a class="right-next" href="finite_dmrg.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Finite Density Matrix Renormalization Group (fDMRG)</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
 
-</footer>
+</div>
+        
         </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Tan Tao-Lin<br/>
+        
+            &copy; Copyright 2021, Tan Tao-Lin.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
       </div>
-
-    </section>
-
-  </div>
+    </div>
   
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
   
-  
-    
-   
-
-</body>
+  </body>
 </html>
