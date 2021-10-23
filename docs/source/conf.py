@@ -92,6 +92,9 @@ source_suffix = ['.rst', '.md']
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
 
+# Allowing docstring in both __init__ and right under class definition
+autoclass_content = 'both'
+
 
 # -- Options for HTML output -------------------------------------------------
 
