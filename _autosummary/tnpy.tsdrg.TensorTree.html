@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tnpy.model.ModelBase &#8212; tnpy 0.0.3 documentation</title>
+    <title>tnpy.tsdrg.TensorTree &#8212; tnpy 0.0.3 documentation</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -35,8 +35,8 @@
     <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="XXZ model" href="../xxz.html" />
-    <link rel="prev" title="Model Base" href="../model_base.html" />
+    <link rel="next" title="tnpy.tsdrg.TSDRG" href="tnpy.tsdrg.TSDRG.html" />
+    <link rel="prev" title="tnpy.tsdrg.TreeNode" href="tnpy.tsdrg.TreeNode.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -70,7 +70,7 @@
   Algorithms
  </span>
 </p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../finite_dmrg.html">
    Finite Density Matrix Renormalization Group (fDMRG)
@@ -81,16 +81,16 @@
    Finite Time-dependent Variational Principle (fTDVP)
   </a>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="../tsdrg.html">
    Tree Tensor Strong-disorder Renormalization Group (tSDRG)
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="tnpy.tsdrg.html">
      tnpy.tsdrg
@@ -101,8 +101,8 @@
      tnpy.tsdrg.TreeNode
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="tnpy.tsdrg.TensorTree.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      tnpy.tsdrg.TensorTree
     </a>
    </li>
@@ -119,19 +119,19 @@
   Built-in Models
  </span>
 </p>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../model_base.html">
    Model Base
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tnpy.model.ModelBase.html">
      tnpy.model.ModelBase
     </a>
    </li>
@@ -307,10 +307,10 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/tanlin2013/tnpy/issues/new?title=Issue%20on%20page%20%2F_autosummary/tnpy.model.ModelBase.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/tanlin2013/tnpy/issues/new?title=Issue%20on%20page%20%2F_autosummary/tnpy.tsdrg.TensorTree.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/tanlin2013/tnpy/edit/master/docs/_autosummary/tnpy.model.ModelBase.rst"><button
+        <a class="edit-button" href="https://github.com/tanlin2013/tnpy/edit/master/docs/_autosummary/tnpy.tsdrg.TensorTree.rst"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -333,22 +333,24 @@
         
               <div>
                 
-  <div class="section" id="tnpy-model-modelbase">
-<h1>tnpy.model.ModelBase<a class="headerlink" href="#tnpy-model-modelbase" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="tnpy-tsdrg-tensortree">
+<h1>tnpy.tsdrg.TensorTree<a class="headerlink" href="#tnpy-tsdrg-tensortree" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="tnpy.model.ModelBase">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.model.</span></span><span class="sig-name descname"><span class="pre">ModelBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/model/model_base.html#ModelBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.ModelBase" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.tsdrg.</span></span><span class="sig-name descname"><span class="pre">TensorTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">leaves</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode"><span class="pre">tnpy.tsdrg.TreeNode</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/tsdrg.html#TensorTree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bottom-up binary tree where each node contains a tensor.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>N</strong> – System size.</p>
+<dd class="field-odd"><p><strong>leaves</strong> – </p>
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="tnpy.model.ModelBase.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/model/model_base.html#ModelBase.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.ModelBase.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">leaves</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode"><span class="pre">tnpy.tsdrg.TreeNode</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/tsdrg.html#TensorTree.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bottom-up binary tree where each node contains a tensor.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>N</strong> – System size.</p>
+<dd class="field-odd"><p><strong>leaves</strong> – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -360,13 +362,32 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.model.ModelBase.__init__" title="tnpy.model.ModelBase.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(N)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">param N</dt>
-<dd class="field-odd"><p>System size.</p>
-</dd>
-</dl>
-</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TensorTree.__init__" title="tnpy.tsdrg.TensorTree.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(leaves)</p></td>
+<td><p>The bottom-up binary tree where each node contains a tensor.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TensorTree.ancestor" title="tnpy.tsdrg.TensorTree.ancestor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ancestor</span></code></a>(node_id)</p></td>
+<td><p>Find all the ancestors of targeted node in the order starting from the root.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TensorTree.append" title="tnpy.tsdrg.TensorTree.append"><code class="xref py py-obj docutils literal notranslate"><span class="pre">append</span></code></a>(node)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TensorTree.common_ancestor" title="tnpy.tsdrg.TensorTree.common_ancestor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">common_ancestor</span></code></a>(node_id1, node_id2)</p></td>
+<td><p>Find all common ancestor of two given nodes in the order starting from the root.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TensorTree.contract_nodes" title="tnpy.tsdrg.TensorTree.contract_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">contract_nodes</span></code></a>(node_ids)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TensorTree.find_path" title="tnpy.tsdrg.TensorTree.find_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_path</span></code></a>(node_id)</p></td>
+<td><p>Find the path to targeted node starting from the root.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TensorTree.leaf" title="tnpy.tsdrg.TensorTree.leaf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">leaf</span></code></a>(node_id)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TensorTree.node" title="tnpy.tsdrg.TensorTree.node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">node</span></code></a>(node_id)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TensorTree.plot" title="tnpy.tsdrg.TensorTree.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a>()</p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -377,8 +398,26 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">mpo</span></code></p></td>
-<td><p>Return matrix product operator (mpo) as a property of the model.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TensorTree.has_root" title="tnpy.tsdrg.TensorTree.has_root"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_root</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TensorTree.horizon" title="tnpy.tsdrg.TensorTree.horizon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">horizon</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TensorTree.n_layers" title="tnpy.tsdrg.TensorTree.n_layers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_layers</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TensorTree.n_leaves" title="tnpy.tsdrg.TensorTree.n_leaves"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_leaves</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TensorTree.n_nodes" title="tnpy.tsdrg.TensorTree.n_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_nodes</span></code></a></p></td>
+<td><p>Total number of nodes in tree.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TensorTree.root" title="tnpy.tsdrg.TensorTree.root"><code class="xref py py-obj docutils literal notranslate"><span class="pre">root</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TensorTree.top_tensor" title="tnpy.tsdrg.TensorTree.top_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">top_tensor</span></code></a></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -397,19 +436,19 @@
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="../model_base.html" title="previous page">
+        <a class="left-prev" href="tnpy.tsdrg.TreeNode.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Model Base</p>
+                <p class="prevnext-title">tnpy.tsdrg.TreeNode</p>
             </div>
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="../xxz.html" title="next page">
+        <a class="right-next" href="tnpy.tsdrg.TSDRG.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">XXZ model</p>
+                <p class="prevnext-title">tnpy.tsdrg.TSDRG</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>
