@@ -52,6 +52,11 @@ extensions = [
 # Turn on sphinx.ext.autosummary
 autosummary_generate = True
 
+# Looks for objects in external projects
+intersphinx_mapping = {
+    'tensornetwork': ('https://tensornetwork.readthedocs.io/en/latest/', None),
+}
+
 # Mathjax
 mathjax_path = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
 
