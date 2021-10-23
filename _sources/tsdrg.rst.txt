@@ -11,10 +11,13 @@ Tree Tensor Strong-disorder Renormalization Group (tSDRG)
    :undoc-members:
    :show-inheritance:
 
-   .. automethod:: find_path(self, node_id)
-   .. automethod:: common_ancestor(self, node_id1, node_id2)
+   .. automethod:: __init__
+   .. automethod:: find_path
+   .. automethod:: common_ancestor
 
 .. autoclass:: tnpy.tsdrg.TSDRG
    :members:
    :undoc-members:
    :show-inheritance:
+
+   .. automethod:: __init__

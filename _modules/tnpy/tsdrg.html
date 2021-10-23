@@ -279,7 +279,7 @@
 
 <div class="viewcode-block" id="TensorTree"><a class="viewcode-back" href="../../tsdrg.html#tnpy.tsdrg.TensorTree">[docs]</a><span class="k">class</span> <span class="nc">TensorTree</span><span class="p">:</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">leaves</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">TreeNode</span><span class="p">]):</span>
+<div class="viewcode-block" id="TensorTree.__init__"><a class="viewcode-back" href="../../tsdrg.html#tnpy.tsdrg.TensorTree.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">leaves</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">TreeNode</span><span class="p">]):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The bottom-up binary tree where each node contains a tensor.</span>
 
@@ -290,7 +290,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_leaves</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_horizon</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tree</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_root</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_top_tensor</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_top_tensor</span> <span class="o">=</span> <span class="kc">None</span></div>
 
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tree</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
@@ -441,7 +441,7 @@
 
 <div class="viewcode-block" id="TSDRG"><a class="viewcode-back" href="../../tsdrg.html#tnpy.tsdrg.TSDRG">[docs]</a><span class="k">class</span> <span class="nc">TSDRG</span><span class="p">:</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mpo</span><span class="p">:</span> <span class="n">MPO</span><span class="p">,</span> <span class="n">chi</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<div class="viewcode-block" id="TSDRG.__init__"><a class="viewcode-back" href="../../tsdrg.html#tnpy.tsdrg.TSDRG.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mpo</span><span class="p">:</span> <span class="n">MPO</span><span class="p">,</span> <span class="n">chi</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span> <span class="o">=</span> <span class="n">mpo</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_chi</span> <span class="o">=</span> <span class="n">chi</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
@@ -452,7 +452,7 @@
             <span class="p">]</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gap_cache</span> <span class="o">=</span> <span class="n">GapCache</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_init_gap_cache</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_gap_cache</span><span class="p">()</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">N</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>

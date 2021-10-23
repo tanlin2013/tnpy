@@ -5,3 +5,5 @@ Finite Density Matrix Renormalization Group (fDMRG)
    :members:
    :undoc-members:
    :show-inheritance:
+
+   .. automethod:: __init__
