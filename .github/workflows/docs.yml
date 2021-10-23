@@ -1,3 +1,7 @@
+# Reference issue
+# Action fails with due to missing log file
+# https://github.com/ammaraskar/sphinx-action/issues/5
+
 name: docs
 
 on:
@@ -19,7 +23,7 @@ jobs:
         with:
           docs-folder: "docs/"
           pre-build-command: "pip install -r docs/requirements.txt && python setup.py install"
-          build-command: "make html SPHINXOPTS='-W --keep-going -n'"
+          build-command: "make html SPHINXOPTS+='-W --keep-going -n'"
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
