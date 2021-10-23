@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>tnpy &mdash; tnpy 0.0.1 documentation</title>
+  <title>Tree Tensor Strong-disorder Renormalization Group (tSDRG) &mdash; tnpy 0.0.3 documentation</title>
   
 
   
@@ -40,8 +40,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="tnpy package" href="tnpy.html" />
-    <link rel="prev" title="Welcome to tnpy’s documentation!" href="index.html" /> 
+    <link rel="next" title="Matrix Product Operator (MPO) &amp; others" href="operators.html" />
+    <link rel="prev" title="Finite Time-dependent Variational Principle (fTDVP)" href="finite_tdvp.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                0.0.1
+                0.0.3
               </div>
             
           
@@ -90,13 +90,21 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">API Reference</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">tnpy</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tnpy.html">tnpy package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="finite_dmrg.html">Finite Density Matrix Renormalization Group (fDMRG)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="finite_tdvp.html">Finite Time-dependent Variational Principle (fTDVP)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tree Tensor Strong-disorder Renormalization Group (tSDRG)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operators.html">Matrix Product Operator (MPO) &amp; others</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linalg.html">Linear Algebra</a></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="tnpy.html">tnpy package</a></li>
+<p class="caption"><span class="caption-text">Built-in Models</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="model_base.html">Model Base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xxz.html">XXZ model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimer_xxz.html">Dimer XXZ model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="random_heisenberg.html">Random Heisenberg model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="thirring.html">Thirring model</a></li>
 </ul>
 
             
@@ -145,13 +153,13 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>tnpy</li>
+      <li>Tree Tensor Strong-disorder Renormalization Group (tSDRG)</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/modules.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/tsdrg.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -164,35 +172,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="tnpy">
-<h1>tnpy<a class="headerlink" href="#tnpy" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="tnpy.html">tnpy package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tnpy.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="tnpy.model.html">tnpy.model package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="tnpy.model.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tnpy.model.html#module-tnpy.model.dimer_xxz">tnpy.model.dimer_xxz module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tnpy.model.html#module-tnpy.model.model_base">tnpy.model.model_base module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tnpy.model.html#module-tnpy.model.random_heisenberg">tnpy.model.random_heisenberg module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tnpy.model.html#module-tnpy.model.thirring">tnpy.model.thirring module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tnpy.model.html#module-tnpy.model">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="tnpy.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tnpy.html#tnpy-finite-algorithm-base-module">tnpy.finite_algorithm_base module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tnpy.html#tnpy-finite-dmrg-module">tnpy.finite_dmrg module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tnpy.html#tnpy-finite-tdvp-module">tnpy.finite_tdvp module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tnpy.html#tnpy-linalg-module">tnpy.linalg module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tnpy.html#module-tnpy.operators">tnpy.operators module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tnpy.html#module-tnpy.tsdrg">tnpy.tsdrg module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tnpy.html#module-tnpy">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</div>
+  <div class="section" id="tree-tensor-strong-disorder-renormalization-group-tsdrg">
+<h1>Tree Tensor Strong-disorder Renormalization Group (tSDRG)<a class="headerlink" href="#tree-tensor-strong-disorder-renormalization-group-tsdrg" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -201,8 +182,8 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="tnpy.html" class="btn btn-neutral float-right" title="tnpy package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to tnpy’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="operators.html" class="btn btn-neutral float-right" title="Matrix Product Operator (MPO) &amp; others" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="finite_tdvp.html" class="btn btn-neutral float-left" title="Finite Time-dependent Variational Principle (fTDVP)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
