@@ -15,6 +15,13 @@ class FiniteAlgorithmBase:
     mps_cls = FiniteMPS
 
     def __init__(self, mpo: MPO, chi: Union[int, None] = None, init_method: str = 'random'):
+        """
+
+        Args:
+            mpo:
+            chi:
+            init_method:
+        """
         if init_method == 'random':
             assert isinstance(chi, int), "chi has to be given for random init"
         self.mpo = mpo
@@ -77,8 +84,8 @@ class FiniteAlgorithmBase:
         logging.info(f"Initializing finite MPS from file: {filename}")
         path = Path(filename)
         if path.suffix == '.hdf5':
-            # @TODO: Not Implemented
-            pass
+            # TODO: Not Implemented
+            NotImplemented
         elif path.suffix == '.npz':
             npzfile = np.load(path)
             # @TODO: this has to be converted into object FiniteMPS

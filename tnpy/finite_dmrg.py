@@ -53,9 +53,8 @@ class FiniteDMRG(FiniteAlgorithmBase):
         return eigshmv(matvec, v0, tol=0.1*tol)
 
     def _modified_density_matrix(self, site, alpha=0):
-        # @TODO: Not Implemented
-        # return dm
-        pass
+        # TODO: return dm
+        NotImplemented
 
     def sweep(self, iterator: Iterable, tol: float = 1e-7) -> float:
         """
@@ -125,4 +124,4 @@ class FiniteDMRG(FiniteAlgorithmBase):
 class Projector:
 
     def __init__(self):
-        pass
+        NotImplemented
