@@ -1,0 +1,41 @@
+﻿tnpy.tsdrg.TSDRG
+================
+
+.. currentmodule:: tnpy.tsdrg
+
+.. autoclass:: TSDRG
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~TSDRG.__init__
+      ~TSDRG.block_hamiltonian
+      ~TSDRG.eigen_solver
+      ~TSDRG.entanglement_rendering
+      ~TSDRG.head_node_hamiltonian
+      ~TSDRG.neighbouring_bonds
+      ~TSDRG.run
+      ~TSDRG.spectrum_projector
+      ~TSDRG.truncation_gap
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~TSDRG.N
+      ~TSDRG.chi
+      ~TSDRG.n_nodes
+      ~TSDRG.tree
+      ~TSDRG.v_left
+      ~TSDRG.v_right
+   
+   

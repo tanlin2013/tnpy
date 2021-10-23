@@ -1,0 +1,38 @@
+﻿tnpy.finite\_tdvp.FiniteTDVP
+============================
+
+.. currentmodule:: tnpy.finite_tdvp
+
+.. autoclass:: FiniteTDVP
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~FiniteTDVP.__init__
+      ~FiniteTDVP.close
+      ~FiniteTDVP.evolve
+      ~FiniteTDVP.generate_bond_dimensions
+      ~FiniteTDVP.load_mps
+      ~FiniteTDVP.mps_shape
+      ~FiniteTDVP.save_mps
+      ~FiniteTDVP.sweep
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~FiniteTDVP.N
+      ~FiniteTDVP.bond_dimensions
+      ~FiniteTDVP.dtype
+      ~FiniteTDVP.mps
+   
+   

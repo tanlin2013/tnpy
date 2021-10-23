@@ -1,0 +1,864 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tnpy.tsdrg &#8212; tnpy 0.0.3 documentation</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">tnpy 0.0.3 documentation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p class="caption" role="heading">
+ <span class="caption-text">
+  Algorithms
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../finite_dmrg.html">
+   Finite Density Matrix Renormalization Group (fDMRG)
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.finite_dmrg.FiniteDMRG.html">
+     tnpy.finite_dmrg.FiniteDMRG
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../finite_tdvp.html">
+   Finite Time-dependent Variational Principle (fTDVP)
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.finite_tdvp.FiniteTDVP.html">
+     tnpy.finite_tdvp.FiniteTDVP
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../tsdrg.html">
+   Tree Tensor Strong-disorder Renormalization Group (tSDRG)
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.tsdrg.TreeNode.html">
+     tnpy.tsdrg.TreeNode
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.tsdrg.TensorTree.html">
+     tnpy.tsdrg.TensorTree
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.tsdrg.TSDRG.html">
+     tnpy.tsdrg.TSDRG
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Built-in Models
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../model_base.html">
+   Model Base
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.model.ModelBase.html">
+     tnpy.model.ModelBase
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../xxz.html">
+   XXZ model
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.model.XXZ.html">
+     tnpy.model.XXZ
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../dimer_xxz.html">
+   Dimer XXZ model
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.model.DimerXXZ.html">
+     tnpy.model.DimerXXZ
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../random_heisenberg.html">
+   Random Heisenberg model
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.model.RandomHeisenberg.html">
+     tnpy.model.RandomHeisenberg
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../thirring.html">
+   Thirring model
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.model.Thirring.html">
+     tnpy.model.Thirring
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Helper class
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../operators.html">
+   Matrix Product Operator (MPO) &amp; others
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.operators.MPO.html">
+     tnpy.operators.MPO
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.operators.SpinOperators.html">
+     tnpy.operators.SpinOperators
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../linalg.html">
+   Linear Algebra
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.linalg.html">
+     tnpy.linalg
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  API Reference
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../tnpy.html">
+   tnpy package
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../tnpy.model.html">
+     tnpy.model package
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/tanlin2013/tnpy"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/tanlin2013/tnpy/issues/new?title=Issue%20on%20page%20%2F_modules/tnpy/tsdrg.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <h1>Source code for tnpy.tsdrg</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">count</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span>
+<span class="kn">from</span> <span class="nn">tensornetwork</span> <span class="kn">import</span> <span class="n">Node</span><span class="p">,</span> <span class="n">Tensor</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="nn">tnpy.operators</span> <span class="kn">import</span> <span class="n">MPO</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterator</span>
+
+
+<div class="viewcode-block" id="Projection"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.Projection">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Projection</span><span class="p">:</span>
+    <span class="n">HarmonicRitz</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;primme_proj_harmonic&#39;</span>
+    <span class="n">RefinedRitz</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;primme_proj_refined&#39;</span>
+    <span class="n">RayleighRitz</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;primme_proj_RR&#39;</span></div>
+
+
+<div class="viewcode-block" id="GapCache"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.GapCache">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">GapCache</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper class for storing the cache of energy gap in tSDRG algorithm.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gap</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">evecs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TreeNode"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.TreeNode">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">TreeNode</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The node object in binary tree.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        id: ID of this TreeNode.</span>
+<span class="sd">        node: Container of tensornetwork.Node,</span>
+<span class="sd">            which is supposed to take the ordering of axes (1st physical bond, 2nd physical bond, virtual bond).</span>
+<span class="sd">        gap:</span>
+<span class="sd">        left:</span>
+<span class="sd">        right:</span>
+
+<span class="sd">    Notes:</span>
+<span class="sd">        This class differs from tensornetwork.Node,</span>
+<span class="sd">        which refers to the node in a tensor network.</span>
+<span class="sd">        Please be aware of this bad naming.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">node</span><span class="p">:</span> <span class="n">Node</span>
+    <span class="c1"># TODO: is it really necessary to keep the gap here. we already have GapCache.</span>
+    <span class="n">gap</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">left</span><span class="p">:</span> <span class="s1">&#39;TreeNode&#39;</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">right</span><span class="p">:</span> <span class="s1">&#39;TreeNode&#39;</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;TreeNode&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check 2 TreeNodes are identical.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            other:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        Warnings:</span>
+<span class="sd">            This is a weak condition, only the id of these 2 TreeNodes</span>
+<span class="sd">            and the id of their 1st generation children (if not a leaf) are compared.</span>
+<span class="sd">            It&#39;s not guaranteed that the value of `TreeNode.node` will be the same,</span>
+<span class="sd">            as well as their posterity.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_leaf</span> <span class="ow">and</span> <span class="n">other</span><span class="o">.</span><span class="n">is_leaf</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_leaf</span> <span class="ow">or</span> <span class="n">other</span><span class="o">.</span><span class="n">is_leaf</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">id</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">id</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_leaf</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="ow">is</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span></div>
+
+
+<div class="viewcode-block" id="check_root"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.check_root">[docs]</a><span class="k">def</span> <span class="nf">check_root</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper function for checking the root in TensorTree.</span>
+<span class="sd">    This is supposed to be applied on the member function of TensorTree as a decorator.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        func:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">TensorTree</span><span class="p">),</span> <span class="s2">&quot;This is supposed to be used on class member of TensorTree.&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">has_root</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Cannot find root in tree.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">wrapper</span></div>
+
+
+<div class="viewcode-block" id="TensorTree"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.TensorTree">[docs]</a><span class="k">class</span> <span class="nc">TensorTree</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TensorTree.__init__"><a class="viewcode-back" href="../../_autosummary/tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">leaves</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">TreeNode</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The bottom-up binary tree where each node contains a tensor.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            leaves:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_leaves</span> <span class="o">=</span> <span class="p">{</span><span class="n">leaf</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">leaf</span> <span class="k">for</span> <span class="n">leaf</span> <span class="ow">in</span> <span class="n">leaves</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_leaves</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_horizon</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tree</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_root</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_top_tensor</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tree</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">n_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Total number of nodes in tree.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            n_nodes:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tree</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">n_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">max_depth</span><span class="p">(</span><span class="n">current_node</span><span class="p">:</span> <span class="n">TreeNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">current_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">left_depth</span> <span class="o">=</span> <span class="n">max_depth</span><span class="p">(</span><span class="n">current_node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+                <span class="n">right_depth</span> <span class="o">=</span> <span class="n">max_depth</span><span class="p">(</span><span class="n">current_node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+                <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">left_depth</span><span class="p">,</span> <span class="n">right_depth</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">max_depth</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">n_leaves</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_leaves</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">root</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">TreeNode</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">has_root</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">horizon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_horizon</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">top_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_top_tensor</span>
+
+    <span class="nd">@top_tensor</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">top_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">top_tensor</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_top_tensor</span> <span class="o">=</span> <span class="n">top_tensor</span>
+
+<div class="viewcode-block" id="TensorTree.append"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.TensorTree.append">[docs]</a>    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">TreeNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_horizon</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_horizon</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">id</span><span class="p">)]</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_horizon</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_nodes</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_leaves</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_root</span> <span class="o">=</span> <span class="n">node</span></div>
+
+<div class="viewcode-block" id="TensorTree.node"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.TensorTree.node">[docs]</a>    <span class="k">def</span> <span class="nf">node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TreeNode</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span><span class="p">[</span><span class="n">node_id</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="TensorTree.leaf"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.TensorTree.leaf">[docs]</a>    <span class="k">def</span> <span class="nf">leaf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TreeNode</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_leaves</span><span class="p">[</span><span class="n">node_id</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="TensorTree.find_path"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.TensorTree.find_path">[docs]</a>    <span class="nd">@check_root</span>
+    <span class="k">def</span> <span class="nf">find_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Find the path to targeted node starting from the root.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            node_id:</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            path: ID of nodes to targeted node, including targeted node itself.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            If path is empty, raises KeyError for input `node_id`.</span>
+
+<span class="sd">        See Also:</span>
+<span class="sd">            The function `TensorTree.ancestor()` does the same job as this function,</span>
+<span class="sd">            while the returning type is List[TreeNode] there.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">find_node</span><span class="p">(</span><span class="n">current_node</span><span class="p">:</span> <span class="n">TreeNode</span><span class="p">,</span> <span class="n">trial_path</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Find the node with depth-first search.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                current_node: Current node in iterative depth-first searching</span>
+<span class="sd">                trial_path: List for recording the trial path to every leaf.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                found: Return True if the given `node_id` is found in tree, else False.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">if</span> <span class="n">current_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">trial_path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_node</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">current_node</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">node_id</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+                <span class="k">elif</span> <span class="n">find_node</span><span class="p">(</span><span class="n">current_node</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">trial_path</span><span class="p">)</span> <span class="ow">or</span>\
+                        <span class="n">find_node</span><span class="p">(</span><span class="n">current_node</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">trial_path</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+                <span class="n">trial_path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">find_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;The given node_id is not found in tree.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">path</span></div>
+
+<div class="viewcode-block" id="TensorTree.ancestor"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.TensorTree.ancestor">[docs]</a>    <span class="k">def</span> <span class="nf">ancestor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">TreeNode</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Find all the ancestors of targeted node in the order starting from the root.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            node_id:</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            ancestor:</span>
+
+<span class="sd">        See Also:</span>
+<span class="sd">            The function `TensorTree.find_path()` does the same job as this function,</span>
+<span class="sd">            while the returning type is List[int] there.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_path</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">path</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="TensorTree.common_ancestor"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.TensorTree.common_ancestor">[docs]</a>    <span class="nd">@check_root</span>
+    <span class="k">def</span> <span class="nf">common_ancestor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">node_id2</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Find all common ancestor of two given nodes in the order starting from the root.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            node_id1:</span>
+<span class="sd">            node_id2:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_path</span><span class="p">(</span><span class="n">node_id1</span><span class="p">)</span>
+        <span class="n">path2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_path</span><span class="p">(</span><span class="n">node_id2</span><span class="p">)</span>
+        <span class="n">first_unmatched</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">path1</span><span class="p">,</span> <span class="n">path2</span><span class="p">))</span> <span class="k">if</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">path1</span><span class="p">[:</span><span class="n">first_unmatched</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="TensorTree.contract_nodes"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.TensorTree.contract_nodes">[docs]</a>    <span class="nd">@check_root</span>
+    <span class="k">def</span> <span class="nf">contract_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
+        <span class="bp">NotImplemented</span></div>
+
+<div class="viewcode-block" id="TensorTree.plot"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.TensorTree.plot">[docs]</a>    <span class="nd">@check_root</span>
+    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">NotImplemented</span></div></div>
+
+
+<div class="viewcode-block" id="TSDRG"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.TSDRG">[docs]</a><span class="k">class</span> <span class="nc">TSDRG</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TSDRG.__init__"><a class="viewcode-back" href="../../_autosummary/tnpy.tsdrg.TSDRG.html#tnpy.tsdrg.TSDRG.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mpo</span><span class="p">:</span> <span class="n">MPO</span><span class="p">,</span> <span class="n">chi</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span> <span class="o">=</span> <span class="n">mpo</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_chi</span> <span class="o">=</span> <span class="n">chi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span> <span class="o">=</span> <span class="n">TensorTree</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">TreeNode</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">site</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_nodes</span><span class="p">)</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gap_cache</span> <span class="o">=</span> <span class="n">GapCache</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_gap_cache</span><span class="p">()</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">N</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_N</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">n_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">chi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chi</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">v_left</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">v_left</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">v_right</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">v_right</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tree</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TensorTree</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span>
+
+<div class="viewcode-block" id="TSDRG.block_hamiltonian"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.TSDRG.block_hamiltonian">[docs]</a>    <span class="k">def</span> <span class="nf">block_hamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct the 2-site Hamiltonian from MPO,</span>
+<span class="sd">        involving both the hopping term and one-site term.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            site: The site i.</span>
+<span class="sd">                The 2-site Hamiltonian is then constructed in site i and i+1.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            M: The 2-site Hamiltonian.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">W1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="p">]</span>
+        <span class="n">W2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_nodes</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">W1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="n">W2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">M</span> <span class="o">=</span> <span class="n">W1</span> <span class="o">@</span> <span class="n">W2</span>
+        <span class="k">elif</span> <span class="n">site</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">W1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="n">W2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">W2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_right</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">M</span> <span class="o">=</span> <span class="n">W1</span> <span class="o">@</span> <span class="n">W2</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_right</span>
+        <span class="k">elif</span> <span class="n">site</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_nodes</span> <span class="o">-</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">v_left</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="n">W1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">W1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">W2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">M</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_left</span> <span class="o">@</span> <span class="n">W1</span> <span class="o">@</span> <span class="n">W2</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">v_left</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="n">W1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">W1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">W2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">W2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_right</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">M</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_left</span> <span class="o">@</span> <span class="n">W1</span> <span class="o">@</span> <span class="n">W2</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_right</span>
+        <span class="n">M</span><span class="o">.</span><span class="n">reorder_axes</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">M</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TSDRG.head_node_hamiltonian"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.TSDRG.head_node_hamiltonian">[docs]</a>    <span class="k">def</span> <span class="nf">head_node_hamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">V</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="n">V_conj</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">conjugate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">V</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="n">V_conj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">V</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">V_conj</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="n">V</span> <span class="o">@</span> <span class="n">V_conj</span>
+        <span class="k">return</span> <span class="n">M</span><span class="o">.</span><span class="n">tensor</span></div>
+
+<div class="viewcode-block" id="TSDRG.truncation_gap"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.TSDRG.truncation_gap">[docs]</a>    <span class="k">def</span> <span class="nf">truncation_gap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">evals</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the gap upon `chi` eigenvalues kept.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            evals: The eigenvalues (energy spectrum).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            gap: The truncation gap, evals[chi+1] - evals[chi].</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">gaps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">evals</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">gaps</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">chi</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">gaps</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">chi</span> <span class="k">else</span> <span class="n">gaps</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="TSDRG.entanglement_rendering"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.TSDRG.entanglement_rendering">[docs]</a>    <span class="k">def</span> <span class="nf">entanglement_rendering</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">evecs</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">von_neumann_entropy</span><span class="p">(</span><span class="n">v</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+            <span class="n">singular_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">ss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">singular_values</span><span class="p">)</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ss</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">ss</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">von_neumann_entropy</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">evecs</span><span class="o">.</span><span class="n">T</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="TSDRG.eigen_solver"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.TSDRG.eigen_solver">[docs]</a>    <span class="k">def</span> <span class="nf">eigen_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">matrix</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="n">evals</span><span class="p">,</span> <span class="n">evecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">chi</span><span class="p">:</span>
+            <span class="n">evals</span> <span class="o">=</span> <span class="n">evals</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">chi</span><span class="p">]</span>
+            <span class="n">evecs</span> <span class="o">=</span> <span class="n">evecs</span><span class="p">[:,</span> <span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">chi</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">evals</span><span class="p">,</span> <span class="n">evecs</span></div>
+
+<div class="viewcode-block" id="TSDRG.spectrum_projector"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.TSDRG.spectrum_projector">[docs]</a>    <span class="k">def</span> <span class="nf">spectrum_projector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">evecs</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Node</span><span class="p">,</span> <span class="n">Node</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="sd">        Args:</span>
+<span class="sd">            site:</span>
+<span class="sd">            evecs:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">W1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="p">]</span>
+        <span class="n">W2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">V</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">evecs</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">W1</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">W2</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">evecs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span>
+        <span class="n">V_conj</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">conjugate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_nodes</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">W1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="n">W2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">W1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">V_conj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">W1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">^</span> <span class="n">V</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">W2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">V_conj</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">W2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">^</span> <span class="n">V</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">site</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">W1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="n">W2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">W1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">V_conj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">W1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">^</span> <span class="n">V</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">W2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">^</span> <span class="n">V_conj</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">W2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">^</span> <span class="n">V</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">site</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_nodes</span> <span class="o">-</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">W1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">W2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">W1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">^</span> <span class="n">V_conj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">W1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">^</span> <span class="n">V</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">W2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">V_conj</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">W2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">^</span> <span class="n">V</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">W1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">W2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">W1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">^</span> <span class="n">V_conj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">W1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">^</span> <span class="n">V</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">W2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">^</span> <span class="n">V_conj</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">W2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">^</span> <span class="n">V</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="n">W1</span> <span class="o">@</span> <span class="n">W2</span> <span class="o">@</span> <span class="n">V_conj</span> <span class="o">@</span> <span class="n">V</span>
+        <span class="k">return</span> <span class="n">V</span><span class="p">,</span> <span class="n">W</span></div>
+
+<div class="viewcode-block" id="TSDRG.neighbouring_bonds"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.TSDRG.neighbouring_bonds">[docs]</a>    <span class="k">def</span> <span class="nf">neighbouring_bonds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bond</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">bond</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">neighbours</span> <span class="o">=</span> <span class="p">[</span><span class="n">bond</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">bond</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_nodes</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">neighbours</span> <span class="o">=</span> <span class="p">[</span><span class="n">bond</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">neighbours</span> <span class="o">=</span> <span class="p">[</span><span class="n">bond</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">bond</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">neighbours</span></div>
+
+    <span class="k">def</span> <span class="nf">_init_gap_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_nodes</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">evals</span><span class="p">,</span> <span class="n">evecs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eigen_solver</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">block_hamiltonian</span><span class="p">(</span><span class="n">site</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gap_cache</span><span class="o">.</span><span class="n">gap</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">truncation_gap</span><span class="p">(</span><span class="n">evals</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gap_cache</span><span class="o">.</span><span class="n">evecs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">evecs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TSDRG.run"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.TSDRG.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="n">count</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">max_gapped_bond</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gap_cache</span><span class="o">.</span><span class="n">gap</span><span class="p">))</span>
+            <span class="n">V</span><span class="p">,</span> <span class="n">W</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spectrum_projector</span><span class="p">(</span><span class="n">max_gapped_bond</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gap_cache</span><span class="o">.</span><span class="n">evecs</span><span class="p">[</span><span class="n">max_gapped_bond</span><span class="p">])</span>
+            <span class="n">horizon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">horizon</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;step </span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s2">, merging TreeNode(</span><span class="si">{</span><span class="n">horizon</span><span class="p">[</span><span class="n">max_gapped_bond</span><span class="p">]</span><span class="si">}</span><span class="s2">) &quot;</span>
+                         <span class="sa">f</span><span class="s2">&quot;and TreeNode(</span><span class="si">{</span><span class="n">horizon</span><span class="p">[</span><span class="n">max_gapped_bond</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">) to TreeNode(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">+</span> <span class="n">step</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">TreeNode</span><span class="p">(</span>
+                    <span class="nb">id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">+</span> <span class="n">step</span><span class="p">,</span>
+                    <span class="n">node</span><span class="o">=</span><span class="n">V</span><span class="p">,</span>
+                    <span class="n">gap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gap_cache</span><span class="o">.</span><span class="n">gap</span><span class="p">[</span><span class="n">max_gapped_bond</span><span class="p">],</span>
+                    <span class="n">left</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">horizon</span><span class="p">[</span><span class="n">max_gapped_bond</span><span class="p">]),</span>
+                    <span class="n">right</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">horizon</span><span class="p">[</span><span class="n">max_gapped_bond</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">max_gapped_bond</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">max_gapped_bond</span><span class="p">]</span> <span class="o">=</span> <span class="n">W</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gap_cache</span><span class="o">.</span><span class="n">gap</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">max_gapped_bond</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gap_cache</span><span class="o">.</span><span class="n">evecs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">max_gapped_bond</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_nodes</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Reach head node of the tree&#39;</span><span class="p">)</span>
+                <span class="c1"># TODO: [Bug] evals may not be assigned</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Obtain ground state energy </span><span class="si">{</span><span class="n">evals</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">assert</span> <span class="n">step</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;step out of range&quot;</span>
+                <span class="k">break</span>
+            <span class="k">for</span> <span class="n">bond</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighbouring_bonds</span><span class="p">(</span><span class="n">max_gapped_bond</span><span class="p">):</span>
+                <span class="n">evals</span><span class="p">,</span> <span class="n">evecs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eigen_solver</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">block_hamiltonian</span><span class="p">(</span><span class="n">bond</span><span class="p">))</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">evals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">gap_cache</span><span class="o">.</span><span class="n">gap</span><span class="p">[</span><span class="n">bond</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">truncation_gap</span><span class="p">(</span><span class="n">evals</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">gap_cache</span><span class="o">.</span><span class="n">evecs</span><span class="p">[</span><span class="n">bond</span><span class="p">]</span> <span class="o">=</span> <span class="n">evecs</span></div></div>
+</pre></div>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Tan Tao-Lin<br/>
+        
+            &copy; Copyright 2021, Tan Tao-Lin.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

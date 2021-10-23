@@ -1,0 +1,37 @@
+﻿tnpy.linalg
+===========
+
+.. automodule:: tnpy.linalg
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      eigshmv
+      qr
+      svd
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      KrylovExpm
+   
+   
+
+   
+   
+   
+
+
+

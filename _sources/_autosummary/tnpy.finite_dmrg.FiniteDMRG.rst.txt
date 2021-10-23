@@ -1,0 +1,38 @@
+﻿tnpy.finite\_dmrg.FiniteDMRG
+============================
+
+.. currentmodule:: tnpy.finite_dmrg
+
+.. autoclass:: FiniteDMRG
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~FiniteDMRG.__init__
+      ~FiniteDMRG.close
+      ~FiniteDMRG.generate_bond_dimensions
+      ~FiniteDMRG.load_mps
+      ~FiniteDMRG.mps_shape
+      ~FiniteDMRG.save_mps
+      ~FiniteDMRG.sweep
+      ~FiniteDMRG.update
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~FiniteDMRG.N
+      ~FiniteDMRG.bond_dimensions
+      ~FiniteDMRG.dtype
+      ~FiniteDMRG.mps
+   
+   
