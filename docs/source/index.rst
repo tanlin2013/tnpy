@@ -5,10 +5,8 @@
 
 Welcome to tnpy's documentation!
 ================================
-.. toctree::
-   :maxdepth: 4
 
-   ../../README.md
+.. include:: ../../README.md
 
 .. toctree::
    :maxdepth: 4
