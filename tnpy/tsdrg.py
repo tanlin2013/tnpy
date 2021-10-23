@@ -3,7 +3,6 @@ import numpy as np
 from functools import wraps
 from itertools import count
 from copy import copy
-# from primme import eigsh
 from tensornetwork import Node, Tensor
 from dataclasses import dataclass, field
 from tnpy.operators import MPO

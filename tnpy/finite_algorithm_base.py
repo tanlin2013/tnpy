@@ -5,7 +5,7 @@ from pathlib import Path
 from tqdm import tqdm
 from tensornetwork import Node, conj
 from tensornetwork.matrixproductstates.finite_mps import FiniteMPS
-from tnpy.linalg import svd
+# from tnpy.linalg import svd
 from tnpy.operators import MPO
 from typing import List, Union
 

@@ -1,11 +1,10 @@
 import time
 import logging
 import numpy as np
-import tensornetwork as tn
 from tensornetwork import Node
 from itertools import count
 from tnpy.finite_algorithm_base import FiniteAlgorithmBase
-from tnpy.linalg import svd, qr, eigshmv
+from tnpy.linalg import svd, eigshmv
 from tnpy.operators import MPO
 from typing import Iterable, Union, Tuple
 
