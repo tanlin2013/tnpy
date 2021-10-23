@@ -1,0 +1,29 @@
+﻿tnpy.model.xxz
+==============
+
+.. automodule:: tnpy.model.xxz
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      XXZ
+   
+   
+
+   
+   
+   
+
+
+

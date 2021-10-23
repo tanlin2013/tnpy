@@ -1,0 +1,29 @@
+﻿tnpy.model.random\_heisenberg
+=============================
+
+.. automodule:: tnpy.model.random_heisenberg
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      RandomHeisenberg
+   
+   
+
+   
+   
+   
+
+
+

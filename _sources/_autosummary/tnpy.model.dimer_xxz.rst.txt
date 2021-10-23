@@ -1,0 +1,29 @@
+﻿tnpy.model.dimer\_xxz
+=====================
+
+.. automodule:: tnpy.model.dimer_xxz
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      DimerXXZ
+   
+   
+
+   
+   
+   
+
+
+

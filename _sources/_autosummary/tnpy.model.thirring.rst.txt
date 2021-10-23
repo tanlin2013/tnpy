@@ -1,0 +1,29 @@
+﻿tnpy.model.thirring
+===================
+
+.. automodule:: tnpy.model.thirring
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      Thirring
+   
+   
+
+   
+   
+   
+
+
+
