@@ -14,9 +14,10 @@ Welcome to tnpy's documentation!
    :maxdepth: 4
    :caption: Algorithms
 
-   finite_dmrg
-   finite_tdvp
    tsdrg
+.. finite_dmrg
+   finite_tdvp
+
 
 .. toctree::
    :maxdepth: 4
