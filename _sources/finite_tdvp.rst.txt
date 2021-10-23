@@ -1,7 +1,7 @@
 Finite Time-dependent Variational Principle (fTDVP)
 ===================================================
 
-.. autoclass:: tnpy.finite_tdvp.FiniteTDVP
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. autosummary::
+   :toctree: _autosummary
+
+    tnpy.finite_tdvp.FiniteTDVP

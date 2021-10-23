@@ -7,4 +7,4 @@ Matrix Product Operator (MPO).
 .. autosummary::
     :toctree: _autosummary
 
-    tnpy.model.model_base
+    tnpy.model.ModelBase

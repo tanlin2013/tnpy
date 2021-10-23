@@ -1,0 +1,39 @@
+﻿tnpy.tsdrg
+==========
+
+.. automodule:: tnpy.tsdrg
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      check_root
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      GapCache
+      Projection
+      TSDRG
+      TensorTree
+      TreeNode
+   
+   
+
+   
+   
+   
+
+
+

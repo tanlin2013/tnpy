@@ -1,12 +1,8 @@
 Matrix Product Operator (MPO) & others
 =========================================================
 
-.. autoclass:: tnpy.operators.MPO
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. autosummary::
+   :toctree: _autosummary
 
-.. autoclass:: tnpy.operators.SpinOperators
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    tnpy.operators.MPO
+    tnpy.operators.SpinOperators
