@@ -230,6 +230,28 @@
    Welcome to tnpy’s documentation!
   </a>
   <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#requirments">
+     Requirments
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#installation">
+     Installation
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#documentation">
+     Documentation
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#getting-started">
+     Getting started
+    </a>
+    <ul class="nav section-nav flex-column">
+    </ul>
+   </li>
   </ul>
  </li>
  <li class="toc-h1 nav-item toc-entry">
@@ -250,8 +272,122 @@
                 
   <div class="section" id="welcome-to-tnpy-s-documentation">
 <h1>Welcome to tnpy’s documentation!<a class="headerlink" href="#welcome-to-tnpy-s-documentation" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
+<p># tnpy</p>
+<p>![build](<a class="reference external" href="https://github.com/tanlin2013/tnpy/actions/workflows/build.yml/badge.svg">https://github.com/tanlin2013/tnpy/actions/workflows/build.yml/badge.svg</a>)
+![tests](<a class="reference external" href="https://github.com/tanlin2013/tnpy/actions/workflows/tests.yml/badge.svg">https://github.com/tanlin2013/tnpy/actions/workflows/tests.yml/badge.svg</a>)
+![docs](<a class="reference external" href="https://github.com/tanlin2013/tnpy/actions/workflows/docs.yml/badge.svg">https://github.com/tanlin2013/tnpy/actions/workflows/docs.yml/badge.svg</a>)
+![license](<a class="reference external" href="https://img.shields.io/github/license/tanlin2013/tnpy?style=plastic">https://img.shields.io/github/license/tanlin2013/tnpy?style=plastic</a>)</p>
+<p>[Documentation](<a class="reference external" href="https://tanlin2013.github.io/tnpy/">https://tanlin2013.github.io/tnpy/</a>) |</p>
+<p>This project is a python implementation of Tensor Network,
+a numerical approach to quantum many-body systems.</p>
+<p><strong>tnpy</strong> is built on top of [google/TensorNetwork](<a class="reference external" href="https://github.com/google/TensorNetwork">https://github.com/google/TensorNetwork</a>) for tensor contractions,
+with optimized support for various backend engines (TensorFlow, JAX, PyTorch, and Numpy).
+For eigen-solver we adopt [primme](<a class="reference external" href="https://github.com/primme/primme">https://github.com/primme/primme</a>),
+an iterative multi-method solver with preconditioning.</p>
+<p>Currently, we support Matrix Product State (MPS) algorithms,
+with more are coming…</p>
+<ul class="simple">
+<li><p>Finite-sized Density Matrix Renormalization Group (fDMRG)</p></li>
+<li><p>Tree tensor Strong Disorder Renormalization Group (tSDRG)</p></li>
+</ul>
+<p>fDMRG is on alpha-release and is much stable.
+For others, please expect edge cases.</p>
+<div class="section" id="requirments">
+<h2>Requirments<a class="headerlink" href="#requirments" title="Permalink to this headline">¶</a></h2>
+<p>See <cite>requirements.txt</cite> for more details.
+But these two are essential building blocks.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[google/TensorNetwork](<a class="reference external" href="https://github.com/google/TensorNetwork">https://github.com/google/TensorNetwork</a>)</p></li>
+<li><p>[primme/primme](<a class="reference external" href="https://github.com/primme/primme">https://github.com/primme/primme</a>)</p></li>
+</ul>
+</div></blockquote>
+<p>Regarding any installation problems with Primme,
+please refer to [Primme official](<a class="reference external" href="http://www.cs.wm.edu/~andreas/software/">http://www.cs.wm.edu/~andreas/software/</a>).
+Also, it’s required to have [lapack](<a class="reference external" href="http://www.netlib.org/lapack/">http://www.netlib.org/lapack/</a>) and [blas](<a class="reference external" href="http://www.netlib.org/blas/">http://www.netlib.org/blas/</a>)
+installed in prior to Primme.</p>
 </div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul>
+<li><p>using Docker</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--rm</span> <span class="pre">-it</span> <span class="pre">tanlin2013/tnpy</span>
+<span class="pre">`</span></code></p>
+</li>
+<li><p>using pip:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/tanlin2013/tnpy&#64;main</span>
+<span class="pre">`</span></code></p>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>For details about <strong>tnpy</strong>, see the [reference documentation](<a class="reference external" href="https://tanlin2013.github.io/tnpy/">https://tanlin2013.github.io/tnpy/</a>).</p>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p>Defining the Matrix Product Operator of your model as a Callable function with argument <cite>site</cite> of the type <cite>int</cite>,
+e.g. the function <cite>_elem(self, site)</cite> below.
+The MPO class then accepts the Callable as an input and constructs a MPO object.</p>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a>`
+import numpy as np
+from tnpy.operators import SpinOperators, MPO
+from tnpy.finite_dmrg import FiniteDMRG</p>
+<p>class XXZ:</p>
+<blockquote>
+<div><dl>
+<dt>def __init__(self, N: int, delta: float) -&gt; None:</dt><dd><p>self.N = N
+self.delta = delta</p>
+</dd>
+<dt>def _elem(self, site: int) -&gt; np.ndarray:</dt><dd><p>Sp, Sm, Sz, I2, O2 = SpinOperators()
+return np.array(</p>
+<blockquote>
+<div><dl class="simple">
+<dt>[[I2, -0.5 * Sp, -0.5 * Sm, -self.delta * Sz, O2],</dt><dd><p>[O2, O2, O2, O2, Sm],
+[O2, O2, O2, O2, Sp],
+[O2, O2, O2, O2, Sz],
+[O2, O2, O2, O2, I2]]</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>)</p>
+</dd>
+</dl>
+<p>&#64;property
+def mpo(self) -&gt; MPO:</p>
+<blockquote>
+<div><p>return MPO(self.N, self._elem)</p>
+</div></blockquote>
+</div></blockquote>
+<p><a href="#id3"><span class="problematic" id="id4">``</span></a><a href="#id5"><span class="problematic" id="id6">`</span></a></p>
+</li>
+<li><p>Call the algorithm to optimize the state.</p>
+<p><a href="#id7"><span class="problematic" id="id8">``</span></a>`
+N = 100  # length of spin chain
+chi = 60  # virtual bond dimension</p>
+<p>model = XXZ(N, delta)
+fdmrg = FiniteDMRG(</p>
+<blockquote>
+<div><p>mpo=model.mpo,
+chi=chi</p>
+</div></blockquote>
+<p>)
+fdmrg.update(tol=1e-8)
+<a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a></p>
+</li>
+<li><p>Compute any physical quantities whatever you want from the obtained state.
+The resulting MPS is of the type <cite>tensornetwork.FiniteMPS</cite>,
+see [here](<a class="reference external" href="https://tensornetwork.readthedocs.io/en/latest/stubs/tensornetwork.FiniteMPS.html#tensornetwork.FiniteMPS">https://tensornetwork.readthedocs.io/en/latest/stubs/tensornetwork.FiniteMPS.html#tensornetwork.FiniteMPS</a>) for more details.</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">my_mps</span> <span class="pre">=</span> <span class="pre">fdmrg.mps</span>
+<span class="pre">`</span></code></p>
+</li>
+</ol>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Algorithms</span></p>
 <ul>
@@ -305,6 +441,7 @@
 </ul>
 </li>
 </ul>
+</div>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
