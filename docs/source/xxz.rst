@@ -4,4 +4,4 @@ XXZ model
 .. autosummary::
     :toctree: _autosummary
 
-    tnpy.model.xxz
+    tnpy.model.XXZ

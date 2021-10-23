@@ -8,7 +8,7 @@ Welcome to tnpy's documentation!
 .. toctree::
    :maxdepth: 4
 
-   ../../README
+   ../../README.md
 
 .. toctree::
    :maxdepth: 4

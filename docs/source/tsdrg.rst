@@ -1,20 +1,7 @@
 Tree Tensor Strong-disorder Renormalization Group (tSDRG)
 =========================================================
 
-.. autoclass:: tnpy.tsdrg.TreeNode
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. autosummary::
+   :toctree: _autosummary
 
-.. autoclass:: tnpy.tsdrg.TensorTree
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-   .. automethod:: find_path
-   .. automethod:: common_ancestor
-
-.. autoclass:: tnpy.tsdrg.TSDRG
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    tnpy.tsdrg
