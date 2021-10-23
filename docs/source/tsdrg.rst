@@ -10,8 +10,8 @@ Tree Tensor Strong-disorder Renormalization Group (tSDRG)
    :members:
    :undoc-members:
    :show-inheritance:
+   :special-members: __init__
 
-   .. automethod:: __init__
    .. automethod:: find_path
    .. automethod:: common_ancestor
 
@@ -19,5 +19,4 @@ Tree Tensor Strong-disorder Renormalization Group (tSDRG)
    :members:
    :undoc-members:
    :show-inheritance:
-
-   .. automethod:: __init__
+   :special-members: __init__
