@@ -87,6 +87,7 @@ Getting started
        def mpo(self) -> MPO:
            return MPO(self.N, self._elem)
    ```
+   
 2. Call the algorithm to optimize the state. 
    
    ```
@@ -100,6 +101,7 @@ Getting started
    )
    fdmrg.update(tol=1e-8)
    ```
+   
 3. Compute any physical quantities whatever you want from the obtained state.
    The resulting MPS is of the type `tensornetwork.FiniteMPS`,
    see [here](https://tensornetwork.readthedocs.io/en/latest/stubs/tensornetwork.FiniteMPS.html#tensornetwork.FiniteMPS) for more details.
