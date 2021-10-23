@@ -1,5 +1,6 @@
 import logging
 import numpy as np
+from functools import wraps
 from itertools import count
 from copy import copy
 # from primme import eigsh
@@ -91,11 +92,12 @@ def check_root(func: Callable) -> Callable:
     Returns:
 
     """
+    @wraps(func)
     def wrapper(*args):
         assert isinstance(args[0], TensorTree), "This is supposed to be used on class member of TensorTree."
         if not args[0].has_root:
             raise RuntimeError("Cannot find root in tree.")
-        return func(*args)
+        func(*args)
     return wrapper
 
 
