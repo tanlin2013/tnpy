@@ -12,7 +12,7 @@
 #
 import os
 import sys
-import sphinx
+# import sphinx
 sys.path.insert(0, os.path.abspath('../..'))
 sys.path.insert(0, os.path.abspath('../../tnpy'))
 from tnpy import __version__
@@ -26,23 +26,23 @@ See https://github.com/sphinx-doc/sphinx/issues/7795 for more details.
 """
 
 
-def monkeypatch(cls):
-    """ decorator to monkey-patch methods """
-    def decorator(f):
-        method = f.__name__
-        old_method = getattr(cls, method)
-        setattr(cls, method, lambda self, *args, **kwargs: f(old_method, self, *args, **kwargs))
-    return decorator
+# def monkeypatch(cls):
+#     """ decorator to monkey-patch methods """
+#     def decorator(f):
+#         method = f.__name__
+#         old_method = getattr(cls, method)
+#         setattr(cls, method, lambda self, *args, **kwargs: f(old_method, self, *args, **kwargs))
+#     return decorator
 
 
 # workaround until https://github.com/miyakogi/m2r/pull/55 is merged
-@monkeypatch(sphinx.registry.SphinxComponentRegistry)
-def add_source_parser(_old_add_source_parser, self, *args, **kwargs):
-    # signature is (parser: Type[Parser], **kwargs), but m2r expects
-    # the removed (str, parser: Type[Parser], **kwargs).
-    if isinstance(args[0], str):
-        args = args[1:]
-    return _old_add_source_parser(self, *args, **kwargs)
+# @monkeypatch(sphinx.registry.SphinxComponentRegistry)
+# def add_source_parser(_old_add_source_parser, self, *args, **kwargs):
+#     # signature is (parser: Type[Parser], **kwargs), but m2r expects
+#     # the removed (str, parser: Type[Parser], **kwargs).
+#     if isinstance(args[0], str):
+#         args = args[1:]
+#     return _old_add_source_parser(self, *args, **kwargs)
 
 
 # -- Project information -----------------------------------------------------
@@ -73,7 +73,7 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.githubpages',
     'sphinx.ext.inheritance_diagram',
-    'm2r',
+    # 'm2r',
 ]
 
 # Mathjax
@@ -101,7 +101,21 @@ autoclass_content = 'both'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'sphinx_book_theme'
+
+# Theme options are theme-specific and customize the look and feel of a theme
+# further.  For a list of options available for each theme, see the
+# documentation.
+html_theme_options = {
+    "github_url": "https://github.com/tanlin2013/tnpy",
+    "repository_url": "https://github.com/tanlin2013/tnpy",
+    "use_repository_button": True,
+    "use_issues_button": True,
+    "use_edit_page_button": True,
+    "path_to_docs": "docs",
+    "use_fullscreen_button": False,
+    "use_download_button": False,
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
