@@ -97,7 +97,7 @@ def check_root(func: Callable) -> Callable:
         assert isinstance(args[0], TensorTree), "This is supposed to be used on class member of TensorTree."
         if not args[0].has_root:
             raise RuntimeError("Cannot find root in tree.")
-        func(*args)
+        return func(*args)
     return wrapper
 
 
