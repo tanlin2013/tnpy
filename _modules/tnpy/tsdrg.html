@@ -187,14 +187,14 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterator</span>
 
 
-<div class="viewcode-block" id="Projection"><a class="viewcode-back" href="../../tsdrg.html#tnpy.tsdrg.Projection">[docs]</a><span class="nd">@dataclass</span>
+<div class="viewcode-block" id="Projection"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.Projection">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">Projection</span><span class="p">:</span>
     <span class="n">HarmonicRitz</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;primme_proj_harmonic&#39;</span>
     <span class="n">RefinedRitz</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;primme_proj_refined&#39;</span>
     <span class="n">RayleighRitz</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;primme_proj_RR&#39;</span></div>
 
 
-<div class="viewcode-block" id="GapCache"><a class="viewcode-back" href="../../tsdrg.html#tnpy.tsdrg.GapCache">[docs]</a><span class="nd">@dataclass</span>
+<div class="viewcode-block" id="GapCache"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.GapCache">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">GapCache</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Helper class for storing the cache of energy gap in tSDRG algorithm.</span>
@@ -258,7 +258,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span></div>
 
 
-<div class="viewcode-block" id="check_root"><a class="viewcode-back" href="../../tsdrg.html#tnpy.tsdrg.check_root">[docs]</a><span class="k">def</span> <span class="nf">check_root</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+<div class="viewcode-block" id="check_root"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.check_root">[docs]</a><span class="k">def</span> <span class="nf">check_root</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Helper function for checking the root in TensorTree.</span>
 <span class="sd">    This is supposed to be applied on the member function of TensorTree as a decorator.</span>
