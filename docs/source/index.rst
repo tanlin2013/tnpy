@@ -5,14 +5,13 @@
 
 Welcome to tnpy's documentation!
 ================================
-.. mdinclude:: ../../README.md
+.. toctree::
+   :maxdepth: 4
+
+   ../../README
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Tutorials
-
-.. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Algorithms
 
    finite_dmrg
@@ -20,7 +19,7 @@ Welcome to tnpy's documentation!
    tsdrg
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Built-in Models
 
    model_base
@@ -30,14 +29,14 @@ Welcome to tnpy's documentation!
    thirring
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Helper class
 
    operators
    linalg
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: API Reference
 
    tnpy
