@@ -32,14 +32,14 @@ class TreeNode:
 
     Attributes:
         id: ID of this TreeNode.
-        node: Container of :py:class:`tensornetwork.Node`,
+        node: Container of :class:`~tensornetwork.Node`,
             which is supposed to take the ordering of axes `(1st physical bond, 2nd physical bond, virtual bond)`.
         gap:
         left:
         right:
 
     Notes:
-        This class differs from :py:class:`tensornetwork.Node`,
+        This class differs from :class:`~tensornetwork.Node`,
         which refers to the node in a tensor network.
         Please be aware of this bad naming.
     """
@@ -62,7 +62,7 @@ class TreeNode:
         Warnings:
             This is a weak condition, only the id of these 2 TreeNodes
             and the id of their 1st generation children (if not a leaf) are compared.
-            It's not guaranteed that the value of :py:attr:`TreeNode.node` will be the same,
+            It's not guaranteed that the value of :attr:`~TreeNode.node` will be the same,
             as well as their posterity.
         """
         if self.is_leaf and other.is_leaf:
@@ -82,8 +82,8 @@ class TreeNode:
 
 def check_root(func: Callable) -> Callable:
     """
-    Helper function for checking the root in :py:class:`TensorTree`.
-    This is supposed to be applied on the member function of :py:class:`TensorTree` as a decorator.
+    Helper function for checking the root in :class:`~TensorTree`.
+    This is supposed to be applied on the member function of :class:`~TensorTree` as a decorator.
 
     Args:
         func:
@@ -191,7 +191,7 @@ class TensorTree:
 
         See Also:
             The function :py:func:`TensorTree.ancestor` does the same job as this function,
-            while the returning type is List[:py:class:`TreeNode`] there.
+            while the returning type is List[:class:`~TreeNode`] there.
         """
         def find_node(current_node: TreeNode, trial_path: List[int]) -> bool:
             """
@@ -230,7 +230,7 @@ class TensorTree:
             ancestor:
 
         See Also:
-            The function :py:func:`TensorTree.find_path` does the same job as this function,
+            The function :func:`~TensorTree.find_path` does the same job as this function,
             while the returning type is List[int] there.
         """
         path = self.find_path(node_id)
@@ -344,7 +344,7 @@ class TSDRG:
 
     def truncation_gap(self, evals: np.ndarray) -> float:
         """
-        Return the gap upon :py:attr:`TSDRG.chi` eigenvalues kept.
+        Return the gap upon :attr:`~TSDRG.chi` eigenvalues kept.
 
         Args:
             evals: The eigenvalues (energy spectrum).
