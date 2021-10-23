@@ -1,5 +1,5 @@
 Random Heisenberg model
-==========
+=======================
 
 .. autosummary::
     :toctree: _autosummary

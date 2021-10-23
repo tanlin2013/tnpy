@@ -1,5 +1,5 @@
 Thirring model
-==========
+==============
 
 .. autosummary::
     :toctree: _autosummary

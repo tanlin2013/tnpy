@@ -26,7 +26,7 @@ fDMRG is on alpha-release and is much stable.
 For others, please expect edge cases.
 
 Requirments
--------
+-----------
 See `requirements.txt` for more details.
 But these two are essential building blocks.
 
@@ -39,7 +39,7 @@ Also, it's required to have [lapack](http://www.netlib.org/lapack/) and [blas](h
 installed in prior to Primme.
 
 Installation
--------
+------------
 
    * using Docker
      
@@ -53,11 +53,11 @@ Installation
      ```
    
 Documentation
--------
+-------------
 For details about **tnpy**, see the [reference documentation](https://tanlin2013.github.io/tnpy/).
     
 Getting started
--------
+---------------
 1. Defining the Matrix Product Operator of your model as a Callable function with argument `site` of the type `int`, 
    e.g. the function `_elem(self, site)` below. 
    The MPO class then accepts the Callable as an input and constructs a MPO object. 

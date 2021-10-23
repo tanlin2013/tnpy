@@ -1,5 +1,5 @@
 Dimer XXZ model
-==========
+===============
 
 .. autosummary::
     :toctree: _autosummary
