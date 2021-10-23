@@ -13,13 +13,11 @@ Welcome to tnpy's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: API Reference
+   :caption: Algorithms
 
    finite_dmrg
    finite_tdvp
    tsdrg
-   operators
-   linalg
 
 .. toctree::
    :maxdepth: 2
@@ -30,6 +28,19 @@ Welcome to tnpy's documentation!
    dimer_xxz
    random_heisenberg
    thirring
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Helper class
+
+   operators
+   linalg
+
+.. toctree::
+   :maxdepth: 2
+   :caption: API Reference
+
+   tnpy
 
 Indices and tables
 ==================
