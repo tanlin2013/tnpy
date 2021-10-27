@@ -1,7 +1,7 @@
 import numpy as np
 from collections import namedtuple
-from tensornetwork import Node
-from typing import Callable, List
+from tensornetwork import Node, Tensor, ncon
+from typing import Callable, List, Union
 
 
 class SpinOperators:
@@ -68,3 +68,51 @@ class MPO:
     def v_right(self, header: int):
         assert header in [0, -1], "header can only accept 0 or -1"
         self._v_right = Node(self.__identity[header])
+
+
+class FullHamiltonian:
+
+    def __init__(self, mpo: MPO):
+        self._N = mpo.N
+        self._matrix = None
+        self.matrix = mpo
+
+    @property
+    def N(self) -> int:
+        return self._N
+
+    @property
+    def matrix(self) -> Union[np.ndarray, Tensor]:
+        return self._matrix
+
+    @matrix.setter
+    def matrix(self, mpo: MPO):
+        for site in range(self.N):
+            W = mpo.nodes[site].tensor
+            if site == 0:
+                self._matrix = W
+            elif site == self.N - 1:
+                self._matrix = ncon(
+                    [self._matrix, W],
+                    [(1, '-a1', '-a2'), (1, '-b1', '-b2')],
+                    out_order=['-a1', '-b1', '-a2', '-b2']
+                )
+                self._matrix = self._matrix.reshape(
+                    (
+                        mpo.physical_dimensions ** self.N,
+                        mpo.physical_dimensions ** self.N
+                    )
+                )
+            else:
+                self._matrix = ncon(
+                    [self._matrix, W],
+                    [(1, '-a1', '-a2'), (1, -1, '-b1', '-b2')],
+                    out_order=[-1, '-a1', '-b1', '-a2', '-b2']
+                )
+                self._matrix = self._matrix.reshape(
+                    (
+                        mpo.bond_dimensions,
+                        mpo.physical_dimensions ** (site + 1),
+                        mpo.physical_dimensions ** (site + 1)
+                    )
+                )
