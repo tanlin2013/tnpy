@@ -363,8 +363,8 @@
   <h1>Source code for tnpy.operators</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
-<span class="kn">from</span> <span class="nn">tensornetwork</span> <span class="kn">import</span> <span class="n">Node</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">tensornetwork</span> <span class="kn">import</span> <span class="n">Node</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">ncon</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
 
 
 <div class="viewcode-block" id="SpinOperators"><a class="viewcode-back" href="../../tnpy.html#tnpy.operators.SpinOperators">[docs]</a><span class="k">class</span> <span class="nc">SpinOperators</span><span class="p">:</span>
@@ -431,6 +431,54 @@
     <span class="k">def</span> <span class="nf">v_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">header</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="k">assert</span> <span class="n">header</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;header can only accept 0 or -1&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_v_right</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__identity</span><span class="p">[</span><span class="n">header</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="FullHamiltonian"><a class="viewcode-back" href="../../tnpy.html#tnpy.operators.FullHamiltonian">[docs]</a><span class="k">class</span> <span class="nc">FullHamiltonian</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mpo</span><span class="p">:</span> <span class="n">MPO</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_N</span> <span class="o">=</span> <span class="n">mpo</span><span class="o">.</span><span class="n">N</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="n">mpo</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">N</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_N</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span>
+
+    <span class="nd">@matrix</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mpo</span><span class="p">:</span> <span class="n">MPO</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">):</span>
+            <span class="n">W</span> <span class="o">=</span> <span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">tensor</span>
+            <span class="k">if</span> <span class="n">site</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="n">W</span>
+            <span class="k">elif</span> <span class="n">site</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="n">ncon</span><span class="p">(</span>
+                    <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span><span class="p">,</span> <span class="n">W</span><span class="p">],</span>
+                    <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;-a1&#39;</span><span class="p">,</span> <span class="s1">&#39;-a2&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;-b1&#39;</span><span class="p">,</span> <span class="s1">&#39;-b2&#39;</span><span class="p">)],</span>
+                    <span class="n">out_order</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;-a1&#39;</span><span class="p">,</span> <span class="s1">&#39;-b1&#39;</span><span class="p">,</span> <span class="s1">&#39;-a2&#39;</span><span class="p">,</span> <span class="s1">&#39;-b2&#39;</span><span class="p">]</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+                    <span class="p">(</span>
+                        <span class="n">mpo</span><span class="o">.</span><span class="n">physical_dimensions</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">,</span>
+                        <span class="n">mpo</span><span class="o">.</span><span class="n">physical_dimensions</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="n">ncon</span><span class="p">(</span>
+                    <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span><span class="p">,</span> <span class="n">W</span><span class="p">],</span>
+                    <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;-a1&#39;</span><span class="p">,</span> <span class="s1">&#39;-a2&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;-b1&#39;</span><span class="p">,</span> <span class="s1">&#39;-b2&#39;</span><span class="p">)],</span>
+                    <span class="n">out_order</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;-a1&#39;</span><span class="p">,</span> <span class="s1">&#39;-b1&#39;</span><span class="p">,</span> <span class="s1">&#39;-a2&#39;</span><span class="p">,</span> <span class="s1">&#39;-b2&#39;</span><span class="p">]</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+                    <span class="p">(</span>
+                        <span class="n">mpo</span><span class="o">.</span><span class="n">bond_dimensions</span><span class="p">,</span>
+                        <span class="n">mpo</span><span class="o">.</span><span class="n">physical_dimensions</span> <span class="o">**</span> <span class="p">(</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
+                        <span class="n">mpo</span><span class="o">.</span><span class="n">physical_dimensions</span> <span class="o">**</span> <span class="p">(</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="p">)</span></div>
 </pre></div>
 
               </div>
