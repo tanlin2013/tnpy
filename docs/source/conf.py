@@ -47,6 +47,7 @@ extensions = [
     'sphinx.ext.githubpages',
     'sphinx.ext.inheritance_diagram',
     'm2r2',
+    'nbsphinx',
 ]
 
 # Turn on sphinx.ext.autosummary
