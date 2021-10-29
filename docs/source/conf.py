@@ -49,7 +49,6 @@ extensions = [
     'sphinx.ext.inheritance_diagram',
     'm2r2',
     'nbsphinx',
-    'sphinx_math_dollar',
 ]
 
 # Turn on sphinx.ext.autosummary
@@ -61,12 +60,15 @@ intersphinx_mapping = {
 }
 
 # Mathjax
-# mathjax_path = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-mathjax_config = {
+mathjax_path = 'https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
+mathjax2_config = {
     'tex2jax': {
-        'inlineMath': [["$", "$"]],
+        'inlineMath': [['$', '$']],
         'displayMath': [["$$", "$$"]],
-    },
+        'processEscapes': True,
+        'ignoreClass': 'document',
+        'processClass': 'math|output_area',
+    }
 }
 
 # Add any paths that contain templates here, relative to this directory.
@@ -111,3 +113,46 @@ html_theme_options = {
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+
+# -- Options for LaTeX output ---------------------------------------------
+
+latex_elements = {  # type: ignore
+# The paper size ('letterpaper' or 'a4paper').
+# 'papersize': 'letterpaper',
+
+# The font size ('10pt', '11pt' or '12pt').
+# 'pointsize': '10pt',
+
+# Additional stuff for the LaTeX preamble.
+#  'preamble': '',
+}
+
+# Grouping the document tree into LaTeX files. List of tuples
+# (source start file, target name, title,
+#  author, documentclass [howto, manual, or own class]).
+latex_documents = [
+    ('index', 'tnpy.tex', 'tnpy Documentation',
+    'Tan Tao-Lin', 'manual'),
+]
+
+# The name of an image file (relative to this directory) to place at the top of
+# the title page.
+# latex_logo = None
+
+# For "manual" documents, if this is true, then toplevel headings are parts,
+# not chapters.
+# latex_use_parts = False
+
+# If true, show page references after internal links.
+# latex_show_pagerefs = False
+
+# If true, show URL addresses after external links.
+# latex_show_urls = False
+
+# Documents to append as an appendix to all manuals.
+# latex_appendices = []
+
+# If false, no module index is generated.
+# latex_domain_indices = True
+
