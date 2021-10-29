@@ -49,6 +49,7 @@ extensions = [
     'sphinx.ext.inheritance_diagram',
     'm2r2',
     'nbsphinx',
+    'sphinx_math_dollar',
 ]
 
 # Turn on sphinx.ext.autosummary
@@ -61,6 +62,12 @@ intersphinx_mapping = {
 
 # Mathjax
 # mathjax_path = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+mathjax_config = {
+    'tex2jax': {
+        'inlineMath': [["\\(", "\\)"]],
+        'displayMath': [["\\[", "\\]"]],
+    },
+}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
