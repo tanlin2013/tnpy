@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Algorithm 🚀 &#8212; tnpy 0.0.3 documentation</title>
+    <title>1. Algorithm 🚀 &#8212; tnpy 0.0.3 documentation</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -36,6 +36,8 @@
     <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Model Base" href="model_base.html" />
+    <link rel="prev" title="tnpy.tsdrg.TSDRG" href="_autosummary/tnpy.tsdrg.TSDRG.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -69,7 +71,7 @@
   Algorithms
  </span>
 </p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="finite_dmrg.html">
    Finite Density Matrix Renormalization Group (fDMRG)
@@ -104,16 +106,16 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="tsdrg.html">
    Tree Tensor Strong-disorder Renormalization Group (tSDRG)
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="_autosummary/tnpy.tsdrg.TreeNode.html">
      tnpy.tsdrg.TreeNode
@@ -127,6 +129,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="_autosummary/tnpy.tsdrg.TSDRG.html">
      tnpy.tsdrg.TSDRG
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     1. Algorithm 🚀
     </a>
    </li>
   </ul>
@@ -362,39 +369,39 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
-   Algorithm 🚀
+   1. Algorithm 🚀
   </a>
   <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#Preparation">
-     Preparation
+     1.1. Preparation
     </a>
    </li>
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#Main-part:-growing-the-tree">
-     Main part: growing the tree
+     1.2. Main part: growing the tree
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#Data-Structure-🚀">
-   Data Structure 🚀
+   2. Data Structure 🚀
   </a>
  </li>
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#Measurements-🚀">
-   Measurements 🚀
+   3. Measurements 🚀
   </a>
   <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#Correlation-function">
-     Correlation function
+     3.1. Correlation function
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h3 nav-item toc-entry">
       <a class="reference internal nav-link" href="#Depth-first-Search-(DFS)-&amp;-Common-Ancestor">
-       Depth-first Search (DFS) &amp; Common Ancestor
+       3.1.1. Depth-first Search (DFS) &amp; Common Ancestor
       </a>
      </li>
     </ul>
@@ -403,7 +410,7 @@
  </li>
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#References-🚀">
-   References 🚀
+   4. References 🚀
   </a>
  </li>
 </ul>
@@ -666,9 +673,9 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="section" id="Algorithm-🚀">
-<h1>Algorithm 🚀<a class="headerlink" href="#Algorithm-🚀" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">1. </span>Algorithm 🚀<a class="headerlink" href="#Algorithm-🚀" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="Preparation">
-<h2>Preparation<a class="headerlink" href="#Preparation" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">1.1. </span>Preparation<a class="headerlink" href="#Preparation" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Decompose Hamiltonian (of an 1D system) into MPO form.</p></li>
 <li><p>Calculate the 2-site Hamiltonian for each nearest-neighbor <span class="math">i</span> and <span class="math">i+1</span>.</p></li>
@@ -709,8 +716,8 @@ I
 </div><p>where <span class="math">N</span> is the total number of eigenvectors.</p>
 </div>
 <div class="section" id="Main-part:-growing-the-tree">
-<h2>Main part: growing the tree<a class="headerlink" href="#Main-part:-growing-the-tree" title="Permalink to this headline">¶</a></h2>
-<div><p><img alt="5959bfb833614937b91dd9db1d14472e" class="no-scaled-link" src="_images/tsdrg1.png" style="width: 300px;" />   <img alt="22746bc0fdc94ead9edce25809db33ba" class="no-scaled-link" src="_images/tsdrg2.png" style="width: 300px;" /></p>
+<h2><span class="section-number">1.2. </span>Main part: growing the tree<a class="headerlink" href="#Main-part:-growing-the-tree" title="Permalink to this headline">¶</a></h2>
+<div><p><img alt="e1b8dcb1224e4fcf8e8b106d8a7b8e5f" class="no-scaled-link" src="_images/tsdrg1.png" style="width: 300px;" />   <img alt="beafb255d8c345dca797ad6ca8cfff26" class="no-scaled-link" src="_images/tsdrg2.png" style="width: 300px;" /></p>
 </div><ol class="arabic simple">
 <li><p>Merge the 2-site block with largest energy gap. This can be performed by constructing the isometric tensor <span class="math">V</span> (the triangular tensor in the figure) to be <span class="math">min(\chi, N)</span> eigenvectors of the 2-site Hamiltonian. By contracting <span class="math">V^{\dagger}</span> and <span class="math">V</span> with 2 MPO tensors, one gets the updated MPO.</p></li>
 <li><p>Compute the energy spectrum and the energy gap accordingly for affected block with its neighbors.</p></li>
@@ -722,7 +729,7 @@ I
 </div>
 </div>
 <div class="section" id="Data-Structure-🚀">
-<h1>Data Structure 🚀<a class="headerlink" href="#Data-Structure-🚀" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">2. </span>Data Structure 🚀<a class="headerlink" href="#Data-Structure-🚀" title="Permalink to this headline">¶</a></h1>
 <p>The problem considered here essentially forms a random binary tree. Though the construction of this tree is bottom-up, the data structure takes the same as in the standard top-down approach. Here we take Python for implementation</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
@@ -744,7 +751,7 @@ I
 </ul>
 </div>
 <div class="section" id="Measurements-🚀">
-<h1>Measurements 🚀<a class="headerlink" href="#Measurements-🚀" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">3. </span>Measurements 🚀<a class="headerlink" href="#Measurements-🚀" title="Permalink to this headline">¶</a></h1>
 <p>We consider 3 physical measurements, energy spectrum near the ground state, correlation function and entanglement entropy. For latter two, one needs to consider the problem of lowest common ancestor (LCA) in graph theory and computer science.</p>
 <p>We may compare the tSDRG result with exact diagonalization (ED)</p>
 <div class="nbinput docutils container">
@@ -848,15 +855,15 @@ tsdrg.run()
 </pre></div></div>
 </div>
 <div class="section" id="Correlation-function">
-<h2>Correlation function<a class="headerlink" href="#Correlation-function" title="Permalink to this headline">¶</a></h2>
-<div><p><img alt="7e79b310a8c747c8988b4c474397d88d" class="no-scaled-link" src="_images/tsdrg3.png" style="width: 800px;" /></p>
+<h2><span class="section-number">3.1. </span>Correlation function<a class="headerlink" href="#Correlation-function" title="Permalink to this headline">¶</a></h2>
+<div><p><img alt="6e6ce4405ad84aae922050ed9847134d" class="no-scaled-link" src="_images/tsdrg3.png" style="width: 800px;" /></p>
 </div><div class="section" id="Depth-first-Search-(DFS)-&amp;-Common-Ancestor">
-<h3>Depth-first Search (DFS) &amp; Common Ancestor<a class="headerlink" href="#Depth-first-Search-(DFS)-&-Common-Ancestor" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">3.1.1. </span>Depth-first Search (DFS) &amp; Common Ancestor<a class="headerlink" href="#Depth-first-Search-(DFS)-&-Common-Ancestor" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 </div>
 <div class="section" id="References-🚀">
-<h1>References 🚀<a class="headerlink" href="#References-🚀" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">4. </span>References 🚀<a class="headerlink" href="#References-🚀" title="Permalink to this headline">¶</a></h1>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.96.064427">Griffiths singularities in the random quantum Ising antiferromagnet: A tree tensor network renormalization group study</a></p></li>
 <li><p><a class="reference external" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.89.214203">Self-assembling tensor networks and holography in disordered spin chains</a></p></li>
@@ -873,6 +880,24 @@ tsdrg.run()
 
 <div class='prev-next-bottom'>
     
+    <div id="prev">
+        <a class="left-prev" href="_autosummary/tnpy.tsdrg.TSDRG.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">tnpy.tsdrg.TSDRG</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="model_base.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Model Base</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
 
 </div>
         
