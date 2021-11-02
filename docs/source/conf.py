@@ -36,19 +36,19 @@ release = __version__
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
-    'sphinx.ext.doctest',
+    'sphinx.ext.napoleon',
+    'nbsphinx',
     'sphinx.ext.mathjax',
     'sphinx.ext.intersphinx',
+    'sphinx.ext.doctest',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
     'sphinx.ext.imgmath',
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
-    'sphinx.ext.napoleon',
     'sphinx.ext.githubpages',
     'sphinx.ext.inheritance_diagram',
     'm2r2',
-    'nbsphinx',
 ]
 
 # Turn on sphinx.ext.autosummary
