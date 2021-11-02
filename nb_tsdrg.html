@@ -34,6 +34,8 @@
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area", "displayMath": [["$$", "$$"]]}})</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Model Base" href="model_base.html" />
@@ -683,20 +685,20 @@ div.rendered_html tbody tr:hover {
 <h2><span class="section-number">1.1. </span>Preparation<a class="headerlink" href="#Preparation" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Decompose Hamiltonian (of an 1D system) into MPO form.</p></li>
-<li><p>Calculate the 2-site Hamiltonian for each nearest-neighbor <span class="math">i</span> and <span class="math">i+1</span>.</p></li>
+<li><p>Calculate the 2-site Hamiltonian for each nearest-neighbor <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(i+1\)</span>.</p></li>
 </ol>
 <blockquote>
-<div><p>👉 This can be done in the following way. Suppose we have the following MPO on site <span class="math">i</span>,</p>
-<div class="math">
-<p><span class="math">W_i =
+<div><p>👉 This can be done in the following way. Suppose we have the following MPO on site <span class="math notranslate nohighlight">\(i\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}W_i =
 \begin{bmatrix}
 I &amp; S^+_i &amp; S^z_i\\
 0 &amp; 0 &amp; S^-_i \\
 0 &amp; 0 &amp; I
-\end{bmatrix}</span></p>
-</div><p>By considering the product of the left vector <span class="math">W^{[L]}</span> and the right vector <span class="math">W^{[R]}</span> on site <span class="math">i</span> and <span class="math">i+1</span>, respectively, we have</p>
-<div class="math">
-<p><span class="math">W^{[L]}_i W^{[R]}_{i+1} \\
+\end{bmatrix}\end{split}\]</div>
+<p>By considering the product of the left vector <span class="math notranslate nohighlight">\(W^{[L]}\)</span> and the right vector <span class="math notranslate nohighlight">\(W^{[R]}\)</span> on site <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(i+1\)</span>, respectively, we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}W^{[L]}_i W^{[R]}_{i+1} \\
 = \begin{bmatrix}
 I &amp; S^+_i &amp; S^z_i
 \end{bmatrix}
@@ -704,27 +706,27 @@ I &amp; S^+_i &amp; S^z_i
 S^z_{i+1}\\
 S^-_{i+1} \\
 I
-\end{bmatrix},</span></p>
-</div><p>where the left vector is taken from the 1st row of the MPO, and the right vector is taken from the last column of the MPO. The vector product immediately yields the 2-site Hamiltonian.</p>
+\end{bmatrix},\end{split}\]</div>
+<p>where the left vector is taken from the 1st row of the MPO, and the right vector is taken from the last column of the MPO. The vector product immediately yields the 2-site Hamiltonian.</p>
 <p><strong>Note:</strong> The example here is the Ising model with transverse field.</p>
 </div></blockquote>
 <ol class="arabic simple" start="3">
 <li><p>Compute the energy spectrum (eigenvalues) for every 2-site Hamiltonian.</p></li>
-<li><p>Considering the bond dimension <span class="math">\chi</span> to be the number of eigenvectors that will be preserved later. We define the energy gap <span class="math">\Delta_{\chi}</span> to be</p></li>
+<li><p>Considering the bond dimension <span class="math notranslate nohighlight">\(\chi\)</span> to be the number of eigenvectors that will be preserved later. We define the energy gap <span class="math notranslate nohighlight">\(\Delta_{\chi}\)</span> to be</p></li>
 </ol>
-<div class="math">
-<p><span class="math">\Delta_{\chi} =
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta_{\chi} =
 \begin{cases}
     E_N - E_{N-1} \,\,\,\,\,when \,\,\chi \geq N - 1,\\
     E_{\chi+1} - E_{\chi} \,\,\,\,\,when \,\,\chi &lt; N - 1,
-\end{cases}</span></p>
-</div><p>where <span class="math">N</span> is the total number of eigenvectors.</p>
+\end{cases}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(N\)</span> is the total number of eigenvectors.</p>
 </div>
 <div class="section" id="Main-part:-growing-the-tree">
 <h2><span class="section-number">1.2. </span>Main part: growing the tree<a class="headerlink" href="#Main-part:-growing-the-tree" title="Permalink to this headline">¶</a></h2>
-<div><p><img alt="f1e9353d934e4be0920b5b7884226997" class="no-scaled-link" src="_images/tsdrg1.png" style="width: 300px;" />   <img alt="37ab382075e043b49619af2d554e10bc" class="no-scaled-link" src="_images/tsdrg2.png" style="width: 300px;" /></p>
+<div><p><img alt="2ae0021eb007427192a84fbf96e47257" class="no-scaled-link" src="_images/tsdrg1.png" style="width: 300px;" />   <img alt="01556401f2964e7986743cc9a96cbc8a" class="no-scaled-link" src="_images/tsdrg2.png" style="width: 300px;" /></p>
 </div><ol class="arabic simple">
-<li><p>Merge the 2-site block with largest energy gap. This can be performed by constructing the isometric tensor <span class="math">V</span> (the triangular tensor in the figure) to be <span class="math">min(\chi, N)</span> eigenvectors of the 2-site Hamiltonian. By contracting <span class="math">V^{\dagger}</span> and <span class="math">V</span> with 2 MPO tensors, one gets the updated MPO.</p></li>
+<li><p>Merge the 2-site block with largest energy gap. This can be performed by constructing the isometric tensor <span class="math notranslate nohighlight">\(V\)</span> (the triangular tensor in the figure) to be <span class="math notranslate nohighlight">\(min(\chi, N)\)</span> eigenvectors of the 2-site Hamiltonian. By contracting <span class="math notranslate nohighlight">\(V^{\dagger}\)</span> and <span class="math notranslate nohighlight">\(V\)</span> with 2 MPO tensors, one gets the updated MPO.</p></li>
 <li><p>Compute the energy spectrum and the energy gap accordingly for affected block with its neighbors.</p></li>
 <li><p>Repeat this procedure until there is only one MPO tensor remained.</p></li>
 </ol>
@@ -750,7 +752,7 @@ I
 <p>In class <code class="docutils literal notranslate"><span class="pre">TreeNode</span></code>, for each attribute we mean</p>
 <ul class="simple">
 <li><p><strong>id:</strong> The identity of each tree node</p></li>
-<li><p><strong>value:</strong> Data you want to save. Here it will be the isometric tensor <span class="math">V</span>.</p></li>
+<li><p><strong>value:</strong> Data you want to save. Here it will be the isometric tensor <span class="math notranslate nohighlight">\(V\)</span>.</p></li>
 <li><p><strong>left:</strong> The child tree node on the left.</p></li>
 <li><p><strong>right:</strong> The child tree node on the right.</p></li>
 </ul>
@@ -792,7 +794,7 @@ print(ed.evals)
   3.59608887  4.2094474   4.42301798  5.18876342]
 </pre></div></div>
 </div>
-<p>whereas for tSDRG, and with truncated bond dimensions <span class="math">\chi &lt; 2**N</span></p>
+<p>whereas for tSDRG, and with truncated bond dimensions <span class="math notranslate nohighlight">\(\chi &lt; 2**N\)</span></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -824,7 +826,7 @@ tsdrg.run()
   0.11860807  0.14026275]
 </pre></div></div>
 </div>
-<p>but if we take the maximum bond dimensions <span class="math">\chi = 2 ** N</span>, which is 64 here, then the result will then be exact.</p>
+<p>but if we take the maximum bond dimensions <span class="math notranslate nohighlight">\(\chi = 2 ** N\)</span>, which is 64 here, then the result will then be exact.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -861,7 +863,7 @@ tsdrg.run()
 </div>
 <div class="section" id="Correlation-function">
 <h2><span class="section-number">3.1. </span>Correlation function<a class="headerlink" href="#Correlation-function" title="Permalink to this headline">¶</a></h2>
-<div><p><img alt="1a6ee20d17554f81bc97ab343e7240b7" class="no-scaled-link" src="_images/tsdrg3.png" style="width: 800px;" /></p>
+<div><p><img alt="d49ef0679ade40e88d0b8f3448f0cbfd" class="no-scaled-link" src="_images/tsdrg3.png" style="width: 800px;" /></p>
 </div><div class="section" id="Depth-first-Search-(DFS)-&amp;-Common-Ancestor">
 <h3><span class="section-number">3.1.1. </span>Depth-first Search (DFS) &amp; Common Ancestor<a class="headerlink" href="#Depth-first-Search-(DFS)-&-Common-Ancestor" title="Permalink to this headline">¶</a></h3>
 </div>
