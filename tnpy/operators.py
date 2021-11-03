@@ -6,10 +6,7 @@ from typing import Callable, List, Union
 
 class SpinOperators:
 
-    def __init__(self, spin: float = 0.5):
-        self.spin = spin
-
-    def __new__(cls, spin: float = 0.5):
+    def __new__(cls, spin: float = 0.5) -> namedtuple:
         super(SpinOperators, cls).__init__(spin)
         SOp = namedtuple('SpinOperators', ['Sp', 'Sm', 'Sz', 'I2', 'O2'])
         return SOp(Sp=spin * np.array([[0, 2], [0, 0]], dtype=float),
