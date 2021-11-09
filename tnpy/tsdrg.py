@@ -2,8 +2,9 @@ import logging
 import numpy as np
 from functools import wraps
 from itertools import count
+from collections import deque
 from copy import copy
-from tensornetwork import Node, Tensor
+from tensornetwork import ncon, Node, Tensor
 from dataclasses import dataclass, field
 from tnpy.operators import MPO
 from typing import Tuple, List, Union, Callable, Iterator
@@ -92,11 +93,11 @@ def check_root(func: Callable) -> Callable:
 
     """
     @wraps(func)
-    def wrapper(*args):
+    def wrapper(*args, **kwargs):
         assert isinstance(args[0], TensorTree), "This is supposed to be used on class member of TensorTree."
         if not args[0].has_root:
             raise RuntimeError("Cannot find root in tree.")
-        return func(*args)
+        return func(*args, **kwargs)
     return wrapper
 
 
@@ -253,9 +254,52 @@ class TensorTree:
         first_unmatched = next(idx for idx, (x, y) in enumerate(zip(path1, path2)) if x != y)
         return path1[:first_unmatched]
 
+    def filter_out_leaf(self, node_ids: List[int]) -> List[int]:
+        return [node_id for node_id in node_ids if not self.node(node_id).is_leaf]
+
     @check_root
-    def contract_nodes(self, node_ids: List[int]) -> Node:
-        NotImplemented
+    def contract_nodes(self, node_ids: List[int], open_bonds: List[Tuple[int, str]] = None) -> Tensor:
+        node_queue = deque([self.root])
+        contractible = {
+            f"{node_id}": {
+                'tensor': self.node(node_id).node.tensor,
+                'bonds': [f'-Node{node_id}Sub0', f'-Node{node_id}Sub1', f'-Node{node_id}Sub2']
+            } for node_id in node_ids
+        }
+        contractible.update(
+            {
+                f"conj{node_id}": {
+                    'tensor': self.node(node_id).node.copy().tensor,
+                    'bonds': [f'-ConjNode{node_id}Sub0', f'-ConjNode{node_id}Sub1', f'-ConjNode{node_id}Sub2']
+                } for node_id in node_ids
+            }
+        )
+        if not all(isinstance(elem, tuple) and list(map(type, elem)) == [int, str] for elem in open_bonds):
+            raise TypeError("open_bonds takes the type List[Tuple[ins, str]].")
+
+        def update_contractible(parent: TreeNode, on: str):
+            child = getattr(parent, on)
+            on_bond_idx = 0 if on == 'left' else 1
+            if child.id in node_ids:
+                assert not child.is_leaf, "node_ids contains leaves"
+                contractible[f"{parent.id}"]['bonds'][on_bond_idx] = f"Node{parent.id}ToNode{child.id}"
+                contractible[f"{child.id}"]['bonds'][2] = f"Node{parent.id}ToNode{child.id}"
+                contractible[f"conj{parent.id}"]['bonds'][on_bond_idx] = f"ConjNode{parent.id}ToConjNode{child.id}"
+                contractible[f"conj{child.id}"]['bonds'][2] = f"ConjNode{parent.id}ToConjNode{child.id}"
+                if (child.id, on) not in open_bonds:
+                    node_queue.append(child)
+            elif (parent.id, on) not in open_bonds:
+                contractible[f"conj{parent.id}"]['bonds'][on_bond_idx] = f"Node{parent.id}Sub{on_bond_idx}ToConjNode{parent.id}Sub{on_bond_idx}"
+                contractible[f"{parent.id}"]['bonds'][on_bond_idx] = f"Node{parent.id}Sub{on_bond_idx}ToConjNode{parent.id}Sub{on_bond_idx}"
+
+        while len(node_queue) > 0:
+            current_node = node_queue.popleft()
+            update_contractible(current_node, on='left')
+            update_contractible(current_node, on='right')
+
+        target_tensors = [node['tensor'] for node in contractible.values()]
+        contract_bonds = [tuple(node['bonds']) for node in contractible.values()]
+        return ncon(target_tensors, contract_bonds)
 
     @check_root
     def plot(self):
@@ -454,11 +498,10 @@ class TSDRG:
             if self.n_nodes == 1:
                 logging.info('Reach head node of the tree')
                 # TODO: [Bug] evals may not be assigned
-                logging.info(f"Obtain ground state energy {evals}")
+                logging.info(f"Obtain ground state energies {evals}")
                 assert step == self.N - 1, "step out of range"
                 break
             for bond in self.neighbouring_bonds(max_gapped_bond):
                 evals, evecs = self.eigen_solver(self.block_hamiltonian(bond))
-                logging.info(f"{evals[0]}")
                 self.gap_cache.gap[bond] = self.truncation_gap(evals)
                 self.gap_cache.evecs[bond] = evecs
