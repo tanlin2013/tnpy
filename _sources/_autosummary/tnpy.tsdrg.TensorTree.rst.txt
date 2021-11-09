@@ -18,6 +18,7 @@
       ~TensorTree.append
       ~TensorTree.common_ancestor
       ~TensorTree.contract_nodes
+      ~TensorTree.filter_out_leaf
       ~TensorTree.find_path
       ~TensorTree.leaf
       ~TensorTree.node
