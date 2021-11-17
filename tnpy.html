@@ -834,8 +834,14 @@ The 2-site Hamiltonian is then constructed in site i and i+1.</p>
 <li><p><strong>evecs</strong> – </p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The isometric tensor
+W: The coarse-grained MPO</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>V</p>
+</dd>
 </dl>
-<p>Returns:</p>
 </dd></dl>
 
 <dl class="py property">
@@ -882,6 +888,42 @@ The 2-site Hamiltonian is then constructed in site i and i+1.</p>
 <dd class="field-odd"><p><strong>leaves</strong> – </p>
 </dd>
 </dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.Contractible">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Contractible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_cls</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#tnpy.tsdrg.TensorTree" title="tnpy.tsdrg.TensorTree"><span class="pre">tnpy.tsdrg.TensorTree</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_ids</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_bonds</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.Contractible"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.Contractible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.Contractible.cell">
+<span class="sig-name descname"><span class="pre">cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conj</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.Contractible.cell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.Contractible.cell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.Contractible.input_checker">
+<span class="sig-name descname"><span class="pre">input_checker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_ids</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_bonds</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.Contractible.input_checker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.Contractible.input_checker" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.Contractible.network_structure">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">network_structure</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tnpy.tsdrg.TensorTree.Contractible.network_structure" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.Contractible.out_order">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">out_order</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tnpy.tsdrg.TensorTree.Contractible.out_order" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.Contractible.syntax">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">syntax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conj</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.Contractible.syntax"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.Contractible.syntax" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.Contractible.tensors">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">tensors</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">tensornetwork.tensor.Tensor</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tnpy.tsdrg.TensorTree.Contractible.tensors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.ancestor">
 <span class="sig-name descname"><span class="pre">ancestor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode"><span class="pre">tnpy.tsdrg.TreeNode</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.ancestor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.ancestor" title="Permalink to this definition">¶</a></dt>
@@ -926,8 +968,23 @@ while the returning type is List[int] there.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.contract_nodes">
-<span class="sig-name descname"><span class="pre">contract_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_ids</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_bonds</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensornetwork.tensor.Tensor</span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.contract_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.contract_nodes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">contract_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_ids</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_bonds</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_out_order</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">tensornetwork.tensor.Tensor</span><span class="p"><span class="pre">,</span> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">tensornetwork.tensor.Tensor</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.contract_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.contract_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node_ids</strong> – </p></li>
+<li><p><strong>open_bonds</strong> – </p></li>
+<li><p><strong>return_out_order</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>out_order:</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>contracted_network</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.filter_out_leaf">
