@@ -32,13 +32,13 @@ class MPO:
 
     @nodes.setter
     def nodes(self, func: Callable):
-        for site in range(self.N):
+        def with_open_boundary(site: int) -> np.ndarray:
             if site == 0:
-                self._nodes.append(Node(func(site)[0, :, :, :]))
-            elif site == self.N-1:
-                self._nodes.append(Node(func(site)[:, -1, :, :]))
-            else:
-                self._nodes.append(Node(func(site)))
+                return func(site)[0, :, :, :]
+            elif site == self.N - 1:
+                return func(site)[:, -1, :, :]
+            return func(site)
+        self._nodes = [Node(with_open_boundary(site)) for site in range(self.N)]
 
     @property
     def physical_dimensions(self) -> int:
@@ -84,13 +84,12 @@ class FullHamiltonian:
 
     @matrix.setter
     def matrix(self, mpo: MPO):
-        def network_structure(site: int) -> Tuple:
+        def network_structure(site: int) -> Union[Tuple[int, str, str], Tuple[int, int, str, str]]:
             if site == 1:
                 return site, f'-a{site}', f'-b{site}'
             elif site == self.N:
                 return site-1, f'-a{site}', f'-b{site}'
             return site-1, site, f'-a{site}', f'-b{site}'
-
         self._matrix = ncon(
             [node.tensor for node in mpo.nodes],
             [network_structure(site) for site in range(1, self.N + 1)],
