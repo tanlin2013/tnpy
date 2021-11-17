@@ -1,24 +1,32 @@
 import unittest
+import numpy as np
+from tensornetwork import Node, ncon, Tensor
 from tnpy.tsdrg import TreeNode, TensorTree, TSDRG
+from tnpy.exact_diagonalization import ExactDiagonalization as ed
 from tnpy.model import RandomHeisenberg
+from tnpy.operators import SpinOperators
 
 
 class TestTensorTree(unittest.TestCase):
 
-    node0 = TreeNode(0, None)
-    node1 = TreeNode(1, None)
-    node2 = TreeNode(2, None)
-    node3 = TreeNode(3, None)
+    model = RandomHeisenberg(N=4, h=0, penalty=0.0, s_target=0)
+    node0 = TreeNode(0, model.mpo.nodes[0])
+    node1 = TreeNode(1, model.mpo.nodes[1])
+    node2 = TreeNode(2, model.mpo.nodes[2])
+    node3 = TreeNode(3, model.mpo.nodes[3])
+    node4 = Node(ed(RandomHeisenberg(N=2, h=0).mpo).evecs.reshape((2, 2, 4)))
+    node5 = Node(ed(RandomHeisenberg(N=3, h=0).mpo).evecs.reshape((2, 4, 8)))
+    node6 = Node(ed(RandomHeisenberg(N=4, h=0).mpo).evecs.reshape((8, 2, 16)))
 
     def __init__(self, *args, **kwargs):
         super(TestTensorTree, self).__init__(*args, **kwargs)
         self.tree = TensorTree([self.node0, self.node1, self.node2, self.node3])
         # test TensorTree.append() and TensorTree.horizon
-        self.tree.append(TreeNode(4, None, left=self.node1, right=self.node2))
+        self.tree.append(TreeNode(4, self.node4, left=self.node1, right=self.node2))
         self.assertCountEqual([0, 4, 3], self.tree.horizon)
-        self.tree.append(TreeNode(5, None, left=self.node0, right=self.tree.node(4)))
+        self.tree.append(TreeNode(5, self.node5, left=self.node0, right=self.tree.node(4)))
         self.assertCountEqual([5, 3], self.tree.horizon)
-        self.tree.append(TreeNode(6, None, left=self.tree.node(5), right=self.node3))
+        self.tree.append(TreeNode(6, self.node6, left=self.tree.node(5), right=self.node3))
         self.assertCountEqual([6], self.tree.horizon)
 
     def test_is_leaf(self):
@@ -66,6 +74,105 @@ class TestTensorTree(unittest.TestCase):
         self.assertCountEqual([6, 5], self.tree.common_ancestor(0, 2))
         self.assertCountEqual([6, 5], self.tree.common_ancestor(0, 4))
         self.assertCountEqual([6], self.tree.common_ancestor(2, 3))
+
+    def test_contract_nodes(self):
+        np.testing.assert_allclose(
+            np.identity(16),
+            self.tree.contract_nodes([4, 5, 6]),
+            atol=1e-12
+        )
+        np.testing.assert_allclose(
+            np.identity(16),
+            self.tree.contract_nodes([5, 6]),
+            atol=1e-12
+        )
+        np.testing.assert_allclose(
+            np.identity(16),
+            self.tree.contract_nodes([6]),
+            atol=1e-12
+        )
+        out_tensor, out_order = self.tree.contract_nodes(
+            [6, 5, 4],
+            open_bonds=[(5, 'left')],
+            return_out_order=True
+        )
+        self.assertCountEqual(
+            (16, 2, 16, 2),
+            out_tensor.shape
+        )
+        self.assertListEqual(
+            ["-Node6Sub2", "-Node5Sub0", "-ConjNode6Sub2", "-ConjNode5Sub0"],
+            out_order
+        )
+        out_tensor, out_order = self.tree.contract_nodes(
+            [6, 5],
+            open_bonds=[(5, 'right')],
+            return_out_order=True
+        )
+        self.assertCountEqual(
+            (16, 4, 16, 4),
+            out_tensor.shape
+        )
+        self.assertListEqual(
+            ["-Node6Sub2", "-Node5Sub1", "-ConjNode6Sub2", "-ConjNode5Sub1"],
+            out_order
+        )
+
+
+class TestTSDRG(unittest.TestCase):
+
+    model = RandomHeisenberg(N=6, h=0, penalty=0.0, s_target=0)
+    tsdrg = TSDRG(model.mpo, chi=2**6)
+
+    def test_N(self):
+        self.assertEqual(6, self.tsdrg.N)
+
+    def test_block_hamiltonian(self):
+        for site in range(self.tsdrg.N - 1):
+            np.testing.assert_array_equal(
+                np.array(
+                    [[0.25, 0, 0, 0],
+                     [0, -0.25, 0.5, 0],
+                     [0, 0.5, -0.25, 0],
+                     [0, 0, 0, 0.25]]
+                ),
+                self.tsdrg.block_hamiltonian(site)
+            )
+
+    def test_spectrum_projector(self):
+        spin_op = SpinOperators()
+        evecs = np.array(
+            [[0, 1, 0, 0],
+             [1 / np.sqrt(2), 0, 1 / np.sqrt(2), 0],
+             [-1 / np.sqrt(2), 0, 1 / np.sqrt(2), 0],
+             [0, 0, 0, 1]]
+        )
+
+        def elem(name1: str, name2: str) -> Tensor:
+            tensor_dot = ncon(
+                [getattr(spin_op, name1), getattr(spin_op, name2)],
+                [('-a1', '-a2'), ('-b1', '-b2')],
+                out_order=['-a1', '-b1', '-a2', '-b2']
+            ).reshape((4, 4))
+            return evecs.T @ tensor_dot @ evecs
+
+        V, W = self.tsdrg.spectrum_projector(site=3, evecs=evecs)
+        np.testing.assert_array_equal(
+            evecs.reshape((2, 2, 4)),
+            V.tensor
+        )
+        np.testing.assert_allclose(
+            np.array(
+                [[elem('I2', 'I2'), 0.5*elem('I2', 'Sp'), 0.5*elem('I2', 'Sm'), elem('O2', 'O2'), elem('I2', 'Sz'), elem('O2', 'O2')],
+                 [elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('Sz', 'I2')],
+                 [elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('Sp', 'I2')],
+                 [elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('I2', 'I2'), elem('O2', 'O2'), elem('I2', 'Sz')+elem('Sz', 'I2')],
+                 [elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2')],
+                 [elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('I2', 'I2')]]
+            ),
+            W.tensor,
+            atol=1e-12
+        )
 
 
 if __name__ == '__main__':
