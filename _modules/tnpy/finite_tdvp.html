@@ -392,7 +392,7 @@
 
         <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
             <span class="n">M</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mps_shape</span><span class="p">(</span><span class="n">site</span><span class="p">)))</span>
-            <span class="n">W</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="p">]</span>
+            <span class="n">W</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">[</span><span class="n">site</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">site</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">Renv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_envs</span><span class="p">[</span><span class="n">site</span><span class="p">]</span>
                 <span class="n">Rnorm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_norms</span><span class="p">[</span><span class="n">site</span><span class="p">]</span>

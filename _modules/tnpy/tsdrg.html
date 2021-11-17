@@ -747,8 +747,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span> <span class="o">=</span> <span class="n">TensorTree</span><span class="p">(</span>
             <span class="p">[</span>
-                <span class="n">TreeNode</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">site</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="p">])</span>
-                <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_nodes</span><span class="p">)</span>
+                <span class="n">TreeNode</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">site</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">site</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">)</span>
             <span class="p">]</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gap_cache</span> <span class="o">=</span> <span class="n">GapCache</span><span class="p">()</span>
@@ -790,8 +790,8 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            M: The 2-site Hamiltonian.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">W1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="p">]</span>
-        <span class="n">W2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">W1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">[</span><span class="n">site</span><span class="p">]</span>
+        <span class="n">W2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_nodes</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
             <span class="n">W1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="n">W2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">M</span> <span class="o">=</span> <span class="n">W1</span> <span class="o">@</span> <span class="n">W2</span>
@@ -858,8 +858,8 @@
 <span class="sd">            V: The isometric tensor</span>
 <span class="sd">            W: The coarse-grained MPO</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">W1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="p">]</span>
-        <span class="n">W2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">W1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">[</span><span class="n">site</span><span class="p">]</span>
+        <span class="n">W2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
         <span class="n">V</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">evecs</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">W1</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">W2</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">evecs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span>
         <span class="n">V_conj</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">conjugate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_nodes</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>

@@ -416,7 +416,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">dtype</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">dtype</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">bond_dimensions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -528,7 +528,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_right_norm</span><span class="p">(</span><span class="n">site</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_update_left_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">):</span>
-        <span class="n">W</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">[</span><span class="n">site</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">M</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="o">.</span><span class="n">get_tensor</span><span class="p">(</span><span class="n">site</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
         <span class="n">M_conj</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">conj</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="o">.</span><span class="n">get_tensor</span><span class="p">(</span><span class="n">site</span><span class="o">-</span><span class="mi">1</span><span class="p">)))</span>
         <span class="k">if</span> <span class="n">site</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -546,7 +546,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">left_envs</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span> <span class="o">@</span> <span class="n">M</span> <span class="o">@</span> <span class="n">W</span> <span class="o">@</span> <span class="n">M_conj</span>
 
     <span class="k">def</span> <span class="nf">_update_right_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">):</span>
-        <span class="n">W</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">site</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">[</span><span class="n">site</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">M</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="o">.</span><span class="n">get_tensor</span><span class="p">(</span><span class="n">site</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
         <span class="n">M_conj</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">conj</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="o">.</span><span class="n">get_tensor</span><span class="p">(</span><span class="n">site</span><span class="o">+</span><span class="mi">1</span><span class="p">)))</span>
         <span class="k">if</span> <span class="n">site</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span>
