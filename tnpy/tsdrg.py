@@ -7,7 +7,7 @@ from copy import copy
 from tensornetwork import ncon, Node, Tensor
 from dataclasses import dataclass, field
 from tnpy.operators import MPO
-from typing import Tuple, List, Union, Callable, Iterator
+from typing import Tuple, List, Union, Callable, Iterator, Dict
 
 
 @dataclass
@@ -257,49 +257,113 @@ class TensorTree:
     def filter_out_leaf(self, node_ids: List[int]) -> List[int]:
         return [node_id for node_id in node_ids if not self.node(node_id).is_leaf]
 
-    @check_root
-    def contract_nodes(self, node_ids: List[int], open_bonds: List[Tuple[int, str]] = None) -> Tensor:
-        node_queue = deque([self.root])
-        contractible = {
-            f"{node_id}": {
-                'tensor': self.node(node_id).node.tensor,
-                'bonds': [f'-Node{node_id}Sub0', f'-Node{node_id}Sub1', f'-Node{node_id}Sub2']
-            } for node_id in node_ids
-        }
-        contractible.update(
-            {
-                f"conj{node_id}": {
-                    'tensor': self.node(node_id).node.copy().tensor,
-                    'bonds': [f'-ConjNode{node_id}Sub0', f'-ConjNode{node_id}Sub1', f'-ConjNode{node_id}Sub2']
-                } for node_id in node_ids
+    class Contractible:
+
+        def __init__(self, parent_cls: 'TensorTree', node_ids: List[int], open_bonds: List[Tuple[int, str]]):
+            self.parent_cls = parent_cls
+            self.open_bonds = open_bonds
+            self.input_checker(node_ids, open_bonds)
+            self._contractible = {
+                k: v for node_id in node_ids for k, v in zip(
+                    [f"{node_id}", f"conj{node_id}"],
+                    [self.cell(node_id), self.cell(node_id, conj=True)]
+                )
             }
-        )
-        if not all(isinstance(elem, tuple) and list(map(type, elem)) == [int, str] for elem in open_bonds):
-            raise TypeError("open_bonds takes the type List[Tuple[ins, str]].")
+
+        def __getitem__(self, node_id: str):
+            return self._contractible[node_id]['bonds']
+
+        @property
+        def tensors(self) -> List[Tensor]:
+            return [node['tensor'] for node in self._contractible.values()]
+
+        @property
+        def network_structure(self) -> List[Tuple[str, str, str]]:
+            return [tuple(node['bonds']) for node in self._contractible.values()]
+
+        @property
+        def out_order(self) -> List[str]:
+            edge_bonds = [self.syntax(*open_bond) for open_bond in self.open_bonds]
+            conj_edge_bonds = [self.syntax(*open_bond, conj=True) for open_bond in self.open_bonds]
+            return [self.syntax(self.parent_cls.root.id, 2)] + edge_bonds +\
+                   [self.syntax(self.parent_cls.root.id, 2, conj=True)] + conj_edge_bonds
+
+        @staticmethod
+        def syntax(node_id: int, idx: Union[int, str], conj: bool = False) -> str:
+            if type(idx) is str:
+                idx = 0 if idx == 'left' else 1
+            prefix = "Conj" if conj else ""
+            return f"-{prefix}Node{node_id}Sub{idx}"
+
+        def cell(self, node_id: int, conj: bool = False) -> Dict:
+            def _tensor_setter() -> Tensor:
+                node = self.parent_cls.node(node_id).node
+                return node.copy().tensor if conj else node.tensor
+
+            def _bonds_setter() -> List[str]:
+                return [self.syntax(node_id, idx, conj) for idx in range(3)]
+            return {'tensor': _tensor_setter(), 'bonds': _bonds_setter()}
+
+        def input_checker(self, node_ids: List[int], open_bonds: List[Tuple[int, str]]):
+            if len(node_ids) > len(set(node_ids)):
+                raise KeyError("Every id in node_ids must be given uniquely.")
+            for elem in open_bonds:
+                if not isinstance(elem, tuple) and list(map(type, elem)) == [int, str]:
+                    raise TypeError("Argument `open_bonds` takes the type List[Tuple[int, str]].")
+                if elem[1] not in ['left', 'right']:
+                    raise KeyError("Second argument of `open_bonds` must be either `left` or `right`.")
+                if getattr(self.parent_cls.node(elem[0]), elem[1]).id in node_ids:
+                    raise KeyError("Child node of `open_bonds` cannot present in `node_ids`.")
+
+    @check_root
+    def contract_nodes(self, node_ids: List[int], open_bonds: List[Tuple[int, str]] = None,
+                       return_out_order: bool = False) -> Union[Tensor, Tuple[Tensor, List[str]]]:
+        """
+
+        Args:
+            node_ids:
+            open_bonds:
+            return_out_order:
+
+        Returns:
+            contracted_network:
+            out_order:
+        """
+        if open_bonds is None:
+            open_bonds = []
+        node_queue = deque([self.root])
+        contractible = self.Contractible(self, node_ids, open_bonds)
 
         def update_contractible(parent: TreeNode, on: str):
             child = getattr(parent, on)
             on_bond_idx = 0 if on == 'left' else 1
             if child.id in node_ids:
                 assert not child.is_leaf, "node_ids contains leaves"
-                contractible[f"{parent.id}"]['bonds'][on_bond_idx] = f"Node{parent.id}ToNode{child.id}"
-                contractible[f"{child.id}"]['bonds'][2] = f"Node{parent.id}ToNode{child.id}"
-                contractible[f"conj{parent.id}"]['bonds'][on_bond_idx] = f"ConjNode{parent.id}ToConjNode{child.id}"
-                contractible[f"conj{child.id}"]['bonds'][2] = f"ConjNode{parent.id}ToConjNode{child.id}"
-                if (child.id, on) not in open_bonds:
+                contractible[f"{parent.id}"][on_bond_idx] = f"Node{parent.id}ToNode{child.id}"
+                contractible[f"{child.id}"][2] = f"Node{parent.id}ToNode{child.id}"
+                contractible[f"conj{parent.id}"][on_bond_idx] = f"ConjNode{parent.id}ToConjNode{child.id}"
+                contractible[f"conj{child.id}"][2] = f"ConjNode{parent.id}ToConjNode{child.id}"
+                if (child.id, 'left') or (child.id, 'right') not in open_bonds:
                     node_queue.append(child)
             elif (parent.id, on) not in open_bonds:
-                contractible[f"conj{parent.id}"]['bonds'][on_bond_idx] = f"Node{parent.id}Sub{on_bond_idx}ToConjNode{parent.id}Sub{on_bond_idx}"
-                contractible[f"{parent.id}"]['bonds'][on_bond_idx] = f"Node{parent.id}Sub{on_bond_idx}ToConjNode{parent.id}Sub{on_bond_idx}"
+                contractible[f"conj{parent.id}"][on_bond_idx] = f"Node{parent.id}Sub{on_bond_idx}" \
+                                                                f"ToConjNode{parent.id}Sub{on_bond_idx}"
+                contractible[f"{parent.id}"][on_bond_idx] = f"Node{parent.id}Sub{on_bond_idx}" \
+                                                            f"ToConjNode{parent.id}Sub{on_bond_idx}"
 
         while len(node_queue) > 0:
             current_node = node_queue.popleft()
             update_contractible(current_node, on='left')
             update_contractible(current_node, on='right')
 
-        target_tensors = [node['tensor'] for node in contractible.values()]
-        contract_bonds = [tuple(node['bonds']) for node in contractible.values()]
-        return ncon(target_tensors, contract_bonds)
+        out_tensor = ncon(
+            contractible.tensors,
+            contractible.network_structure,
+            out_order=contractible.out_order
+        )
+        if return_out_order:
+            return out_tensor, contractible.out_order
+        return out_tensor
 
     @check_root
     def plot(self):
@@ -422,7 +486,8 @@ class TSDRG:
             evecs:
 
         Returns:
-
+            V: The isometric tensor
+            W: The coarse-grained MPO
         """
         W1 = self.mpo.nodes[site]
         W2 = self.mpo.nodes[site + 1]
