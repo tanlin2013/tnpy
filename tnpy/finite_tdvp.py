@@ -23,7 +23,7 @@ class FiniteTDVP(FiniteAlgorithmBase):
 
         def forward(t, y):
             M = Node(y.reshape(self.mps_shape(site)))
-            W = self.mpo.nodes[site]
+            W = self.mpo[site]
             if site == 0:
                 Renv = self.right_envs[site]
                 Rnorm = self.right_norms[site]

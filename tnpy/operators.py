@@ -26,6 +26,9 @@ class MPO:
         self._v_left = Node(self.__identity[0])
         self._v_right = Node(self.__identity[-1])
 
+    def __getitem__(self, site: int):
+        return self._nodes[site]
+
     @property
     def nodes(self) -> List[Node]:
         return self._nodes
@@ -91,7 +94,7 @@ class FullHamiltonian:
                 return site-1, f'-a{site}', f'-b{site}'
             return site-1, site, f'-a{site}', f'-b{site}'
         self._matrix = ncon(
-            [node.tensor for node in mpo.nodes],
+            [node.tensor for node in mpo],
             [network_structure(site) for site in range(1, self.N + 1)],
             out_order=[f'-a{site}' for site in range(1, self.N + 1)] +
                       [f'-b{site}' for site in range(1, self.N + 1)]

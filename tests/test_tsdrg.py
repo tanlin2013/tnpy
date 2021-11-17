@@ -10,10 +10,10 @@ from tnpy.operators import SpinOperators
 class TestTensorTree(unittest.TestCase):
 
     model = RandomHeisenberg(N=4, h=0, penalty=0.0, s_target=0)
-    node0 = TreeNode(0, model.mpo.nodes[0])
-    node1 = TreeNode(1, model.mpo.nodes[1])
-    node2 = TreeNode(2, model.mpo.nodes[2])
-    node3 = TreeNode(3, model.mpo.nodes[3])
+    node0 = TreeNode(0, model.mpo[0])
+    node1 = TreeNode(1, model.mpo[1])
+    node2 = TreeNode(2, model.mpo[2])
+    node3 = TreeNode(3, model.mpo[3])
     node4 = Node(ed(RandomHeisenberg(N=2, h=0).mpo).evecs.reshape((2, 2, 4)))
     node5 = Node(ed(RandomHeisenberg(N=3, h=0).mpo).evecs.reshape((2, 4, 8)))
     node6 = Node(ed(RandomHeisenberg(N=4, h=0).mpo).evecs.reshape((8, 2, 16)))

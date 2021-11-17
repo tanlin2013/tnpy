@@ -22,7 +22,7 @@ class FiniteDMRG(FiniteAlgorithmBase):
         super(FiniteDMRG, self).__init__(mpo, chi, init_method)
 
     def _unit_solver(self, site, tol=1e-7) -> Tuple[float, np.ndarray]:
-        W = self.mpo.nodes[site]
+        W = self.mpo[site]
 
         def matvec(x):
             M = Node(x.reshape(self.mps_shape(site)))

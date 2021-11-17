@@ -378,8 +378,8 @@ class TSDRG:
         self._N = len(mpo.nodes)
         self._tree = TensorTree(
             [
-                TreeNode(id=site, node=self.mpo.nodes[site])
-                for site in range(self.n_nodes)
+                TreeNode(id=site, node=node)
+                for site, node in enumerate(self.mpo)
             ]
         )
         self.gap_cache = GapCache()
@@ -421,8 +421,8 @@ class TSDRG:
         Returns:
             M: The 2-site Hamiltonian.
         """
-        W1 = self.mpo.nodes[site]
-        W2 = self.mpo.nodes[site + 1]
+        W1 = self.mpo[site]
+        W2 = self.mpo[site + 1]
         if self.n_nodes == 2:
             W1[0] ^ W2[0]
             M = W1 @ W2
@@ -489,8 +489,8 @@ class TSDRG:
             V: The isometric tensor
             W: The coarse-grained MPO
         """
-        W1 = self.mpo.nodes[site]
-        W2 = self.mpo.nodes[site + 1]
+        W1 = self.mpo[site]
+        W2 = self.mpo[site + 1]
         V = Node(evecs.reshape((W1.tensor.shape[-1], W2.tensor.shape[-1], evecs.shape[1])))
         V_conj = V.copy(conjugate=True)
         if self.n_nodes == 2:

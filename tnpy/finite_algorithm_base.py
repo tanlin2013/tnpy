@@ -47,7 +47,7 @@ class FiniteAlgorithmBase:
 
     @property
     def dtype(self):
-        return self.mpo.nodes[0].tensor.dtype
+        return self.mpo[0].tensor.dtype
 
     @property
     def bond_dimensions(self):
@@ -159,7 +159,7 @@ class FiniteAlgorithmBase:
             self._update_right_norm(site)
 
     def _update_left_env(self, site):
-        W = self.mpo.nodes[site-1]
+        W = self.mpo[site-1]
         M = Node(self._mps.get_tensor(site-1))
         M_conj = Node(conj(self._mps.get_tensor(site-1)))
         if site == 1:
@@ -177,7 +177,7 @@ class FiniteAlgorithmBase:
             self.left_envs[site] = L @ M @ W @ M_conj
 
     def _update_right_env(self, site):
-        W = self.mpo.nodes[site+1]
+        W = self.mpo[site+1]
         M = Node(self._mps.get_tensor(site+1))
         M_conj = Node(conj(self._mps.get_tensor(site+1)))
         if site == self.N-2:
