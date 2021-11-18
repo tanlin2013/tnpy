@@ -489,35 +489,21 @@ class TSDRG:
             V: The isometric tensor
             W: The coarse-grained MPO
         """
-        W1 = self.mpo[site]
-        W2 = self.mpo[site + 1]
-        V = Node(evecs.reshape((W1.tensor.shape[-1], W2.tensor.shape[-1], evecs.shape[1])))
-        V_conj = V.copy(conjugate=True)
-        if self.n_nodes == 2:
-            W1[0] ^ W2[0]
-            W1[1] ^ V_conj[0]
-            W1[2] ^ V[0]
-            W2[1] ^ V_conj[1]
-            W2[2] ^ V[1]
-        elif site == 0:
-            W1[0] ^ W2[0]
-            W1[1] ^ V_conj[0]
-            W1[2] ^ V[0]
-            W2[2] ^ V_conj[1]
-            W2[3] ^ V[1]
-        elif site == self.n_nodes - 2:
-            W1[1] ^ W2[0]
-            W1[2] ^ V_conj[0]
-            W1[3] ^ V[0]
-            W2[1] ^ V_conj[1]
-            W2[2] ^ V[1]
-        else:
-            W1[1] ^ W2[0]
-            W1[2] ^ V_conj[0]
-            W1[3] ^ V[0]
-            W2[2] ^ V_conj[1]
-            W2[3] ^ V[1]
-        W = W1 @ W2 @ V_conj @ V
+        def network_structure() -> List:
+            if self.n_nodes == 2:
+                return [(1, 'a1', 'a2'), (1, 'b1', 'b2'), ('a1', 'b1', -3), ('a2', 'b2', -4)]
+            elif site == 0:
+                return [(1, 'a1', 'a2'), (1, -2, 'b1', 'b2'), ('a1', 'b1', -3), ('a2', 'b2', -4)]
+            elif site == self.n_nodes - 2:
+                return [(-1, 1, 'a1', 'a2'), (1, 'b1', 'b2'), ('a1', 'b1', -3), ('a2', 'b2', -4)]
+            return [(-1, 1, 'a1', 'a2'), (1, -2, 'b1', 'b2'), ('a1', 'b1', -3), ('a2', 'b2', -4)]
+        W1 = self.mpo[site].tensor
+        W2 = self.mpo[site + 1].tensor
+        V = Node(evecs.reshape((W1.shape[-1], W2.shape[-1], evecs.shape[1])))
+        W = Node(ncon(
+            [W1, W2, V.copy(conjugate=True).tensor, V.tensor],
+            network_structure()
+        ))
         return V, W
 
     def neighbouring_bonds(self, bond: int) -> List[int]:
