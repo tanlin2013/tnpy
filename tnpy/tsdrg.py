@@ -18,15 +18,6 @@ class Projection:
 
 
 @dataclass
-class GapCache:
-    """
-    Helper class for storing the cache of energy gap in tSDRG algorithm.
-    """
-    gap: List[float] = field(default_factory=list)
-    evecs: List[np.ndarray] = field(default_factory=list)
-
-
-@dataclass
 class TreeNode:
     """
     The node object in binary tree.
@@ -258,6 +249,9 @@ class TensorTree:
         return [node_id for node_id in node_ids if not self.node(node_id).is_leaf]
 
     class Contractible:
+        """
+        Accessory helper class for contracting TreeNodes.
+        """
 
         def __init__(self, parent_cls: 'TensorTree', node_ids: List[int], open_bonds: List[Tuple[int, str]]):
             self.parent_cls = parent_cls
@@ -372,6 +366,24 @@ class TensorTree:
 
 class TSDRG:
 
+    @dataclass
+    class GapCache:
+        """
+        Helper class for storing the cache of energy gap in tSDRG algorithm.
+        """
+        parent_cls: 'TSDRG'
+        gap: List[float] = field(default_factory=list)
+        evecs: List[np.ndarray] = field(default_factory=list)
+        evals: np.ndarray = None
+
+        def __post_init__(self):
+            for site in range(self.parent_cls.n_nodes - 1):
+                evals, evecs = self.parent_cls.eigen_solver(self.parent_cls.block_hamiltonian(site))
+                self.gap.append(self.parent_cls.truncation_gap(evals))
+                self.evecs.append(evecs)
+                if self.parent_cls.n_nodes == 2:
+                    self.evals = evals
+
     def __init__(self, mpo: MPO, chi: int):
         self.mpo = mpo
         self._chi = chi
@@ -382,8 +394,8 @@ class TSDRG:
                 for site, node in enumerate(self.mpo)
             ]
         )
-        self.gap_cache = GapCache()
-        self._init_gap_cache()
+        self.gap_cache = self.GapCache(self)
+        self._top_tensor = None
 
     @property
     def N(self) -> int:
@@ -408,6 +420,10 @@ class TSDRG:
     @property
     def tree(self) -> TensorTree:
         return self._tree
+
+    @property
+    def top_tensor(self) -> Tensor:
+        return self._top_tensor
 
     def block_hamiltonian(self, site: int) -> Union[Tensor, np.ndarray]:
         """
@@ -442,13 +458,6 @@ class TSDRG:
         M.reorder_axes([0, 2, 1, 3])
         shape = int(np.sqrt(M.tensor.size))
         return M.tensor.reshape(shape, shape)
-
-    def head_node_hamiltonian(self, V: Union[Tensor, np.ndarray]) -> Union[Tensor, np.ndarray]:
-        V_conj = V.copy(conjugate=True)
-        V[0] ^ V_conj[0]
-        V[1] ^ V_conj[1]
-        M = V @ V_conj
-        return M.tensor
 
     def truncation_gap(self, evals: np.ndarray) -> float:
         """
@@ -515,18 +524,14 @@ class TSDRG:
             neighbours = [bond - 1, bond]
         return neighbours
 
-    def _init_gap_cache(self) -> None:
-        for site in range(self.n_nodes - 1):
-            evals, evecs = self.eigen_solver(self.block_hamiltonian(site))
-            self.gap_cache.gap.append(self.truncation_gap(evals))
-            self.gap_cache.evecs.append(evecs)
-
     def run(self) -> None:
         """
 
         Returns:
 
         """
+        evals = self.gap_cache.evals if self.n_nodes == 2 else None
+        evecs = self.gap_cache.evecs[0] if self.n_nodes == 2 else None
         for step in count(start=1):
             max_gapped_bond = np.argmax(np.array(self.gap_cache.gap))
             V, W = self.spectrum_projector(max_gapped_bond, self.gap_cache.evecs[max_gapped_bond])
@@ -535,7 +540,7 @@ class TSDRG:
                          f"and TreeNode({horizon[max_gapped_bond + 1]}) to TreeNode({self.N + step})")
             self._tree.append(
                 TreeNode(
-                    id=self.N + step,
+                    id=self.N + step - 1,
                     node=V,
                     gap=self.gap_cache.gap[max_gapped_bond],
                     left=self.tree.node(horizon[max_gapped_bond]),
@@ -548,8 +553,8 @@ class TSDRG:
             self.gap_cache.evecs.pop(max_gapped_bond)
             if self.n_nodes == 1:
                 logging.info('Reach head node of the tree')
-                # TODO: [Bug] evals may not be assigned
                 logging.info(f"Obtain ground state energies {evals}")
+                self._top_tensor = evecs
                 assert step == self.N - 1, "step out of range"
                 break
             for bond in self.neighbouring_bonds(max_gapped_bond):
