@@ -23,7 +23,6 @@
 
    .. autosummary::
    
-      ~TreeNode.gap
       ~TreeNode.is_leaf
       ~TreeNode.left
       ~TreeNode.right

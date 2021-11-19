@@ -17,7 +17,6 @@
       ~TSDRG.block_hamiltonian
       ~TSDRG.eigen_solver
       ~TSDRG.entanglement_rendering
-      ~TSDRG.head_node_hamiltonian
       ~TSDRG.neighbouring_bonds
       ~TSDRG.run
       ~TSDRG.spectrum_projector
@@ -34,6 +33,7 @@
       ~TSDRG.N
       ~TSDRG.chi
       ~TSDRG.n_nodes
+      ~TSDRG.top_tensor
       ~TSDRG.tree
       ~TSDRG.v_left
       ~TSDRG.v_right
