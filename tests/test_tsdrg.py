@@ -1,10 +1,9 @@
 import unittest
 import numpy as np
-from tensornetwork import Node, ncon, Tensor
+from tensornetwork import Node, ncon
 from tnpy.tsdrg import TreeNode, TensorTree, TSDRG
 from tnpy.exact_diagonalization import ExactDiagonalization as ed
 from tnpy.model import RandomHeisenberg
-from tnpy.operators import SpinOperators
 
 
 class TestTensorTree(unittest.TestCase):
@@ -140,35 +139,27 @@ class TestTSDRG(unittest.TestCase):
             )
 
     def test_spectrum_projector(self):
-        spin_op = SpinOperators()
         evecs = np.array(
             [[0, 1, 0, 0],
              [1 / np.sqrt(2), 0, 1 / np.sqrt(2), 0],
              [-1 / np.sqrt(2), 0, 1 / np.sqrt(2), 0],
              [0, 0, 0, 1]]
         )
-
-        def elem(name1: str, name2: str) -> Tensor:
-            tensor_dot = ncon(
-                [getattr(spin_op, name1), getattr(spin_op, name2)],
-                [('-a1', '-a2'), ('-b1', '-b2')],
-                out_order=['-a1', '-b1', '-a2', '-b2']
-            ).reshape((4, 4))
-            return evecs.T @ tensor_dot @ evecs
-
         V, W = self.tsdrg.spectrum_projector(site=3, evecs=evecs)
         np.testing.assert_array_equal(
             evecs.reshape((2, 2, 4)),
             V.tensor
         )
+        coarse_grained_mpo = ncon(
+            [self.model.mpo[3].tensor, self.model.mpo[4].tensor],
+            [(-1, 1, '-a1', '-a2'), (1, -2, '-b1', '-b2')],
+            out_order=[-1, -2, '-a1', '-b1', '-a2', '-b2']
+        ).reshape((6, 6, 4, 4))
         np.testing.assert_allclose(
-            np.array(
-                [[elem('I2', 'I2'), 0.5*elem('I2', 'Sp'), 0.5*elem('I2', 'Sm'), elem('O2', 'O2'), elem('I2', 'Sz'), elem('O2', 'O2')],
-                 [elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('Sz', 'I2')],
-                 [elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('Sp', 'I2')],
-                 [elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('I2', 'I2'), elem('O2', 'O2'), elem('I2', 'Sz')+elem('Sz', 'I2')],
-                 [elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2')],
-                 [elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('O2', 'O2'), elem('I2', 'I2')]]
+            ncon(
+                [coarse_grained_mpo, evecs, evecs],
+                [('-m1', '-m2', 1, 2), (1, '-a1'), (2, '-b1')],
+                out_order=['-m1', '-m2', '-a1', '-b1']
             ),
             W.tensor,
             atol=1e-12
