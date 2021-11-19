@@ -26,7 +26,6 @@ class TreeNode:
         id: ID of this TreeNode.
         node: Container of :class:`~tensornetwork.Node`,
             which is supposed to take the ordering of axes `(1st physical bond, 2nd physical bond, virtual bond)`.
-        gap:
         left:
         right:
 
@@ -37,8 +36,6 @@ class TreeNode:
     """
     id: int
     node: Node
-    # TODO: is it really necessary to keep the gap here. we already have GapCache.
-    gap: float = None
     left: 'TreeNode' = None
     right: 'TreeNode' = None
 
@@ -542,7 +539,6 @@ class TSDRG:
                 TreeNode(
                     id=self.N + step - 1,
                     node=V,
-                    gap=self.gap_cache.gap[max_gapped_bond],
                     left=self.tree.node(horizon[max_gapped_bond]),
                     right=self.tree.node(horizon[max_gapped_bond + 1])
                 )
