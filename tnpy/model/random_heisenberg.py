@@ -1,4 +1,5 @@
 import numpy as np
+from tensornetwork import ncon, Tensor
 from tnpy.model import ModelBase
 from tnpy.operators import SpinOperators
 
@@ -49,3 +50,16 @@ class RandomHeisenberg(ModelBase):
         self._seed = seed
         rng = np.random.RandomState(self.seed)
         self._random_sequence = rng.uniform(-self.h, self.h, size=self.N)
+
+
+class SpectralFoldedRandomHeisenberg(RandomHeisenberg):
+
+    def __init__(self, N: int, h: float, penalty: float = 0, s_target: int = 0, trial_id: int = None, seed: int = None):
+        super(SpectralFoldedRandomHeisenberg, self).__init__(N, h, penalty, s_target, trial_id, seed)
+
+    def _elem(self, site: int) -> Tensor:
+        M = super()._elem(site)
+        return ncon(
+            [M, M],
+            [(-1, -3, '-a1', 1), (-2, -4, 1, '-b2')]
+        ).reshape((36, 36, 2, 2))
