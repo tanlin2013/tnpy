@@ -12,8 +12,8 @@ with open('requirements.txt') as f:
 
 setup(
     name='tnpy',
-    packages=['tnpy'],
-    package_dir={'tnpy': 'tnpy'},
+    packages=['tnpy', 'tnpy.model'],
+    package_dir={'tnpy': 'tnpy', 'tnpy.model': 'tnpy/model'},
     version=__version__,
     license='Apache 2.0',
     description='Tensor Network Algorithms',
