@@ -26,7 +26,7 @@ class MPO:
         self._v_left = Node(self.__identity[0])
         self._v_right = Node(self.__identity[-1])
 
-    def __getitem__(self, site: int):
+    def __getitem__(self, site: int) -> Node:
         return self._nodes[site]
 
     @property
