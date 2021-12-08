@@ -1,9 +1,10 @@
 import unittest
 import numpy as np
+from itertools import product
 from tensornetwork import Node, ncon
 from tnpy.tsdrg import TreeNode, TensorTree, TSDRG
-from tnpy.exact_diagonalization import ExactDiagonalization as ed
-from tnpy.model import RandomHeisenberg
+from tnpy.exact_diagonalization import ExactDiagonalization as ED
+from tnpy.model import RandomHeisenberg, SpectralFoldedRandomHeisenberg
 
 
 class TestTensorTree(unittest.TestCase):
@@ -13,9 +14,9 @@ class TestTensorTree(unittest.TestCase):
     node1 = TreeNode(1, model.mpo[1])
     node2 = TreeNode(2, model.mpo[2])
     node3 = TreeNode(3, model.mpo[3])
-    node4 = Node(ed(RandomHeisenberg(N=2, h=0).mpo).evecs.reshape((2, 2, 4)))
-    node5 = Node(ed(RandomHeisenberg(N=3, h=0).mpo).evecs.reshape((2, 4, 8)))
-    node6 = Node(ed(RandomHeisenberg(N=4, h=0).mpo).evecs.reshape((8, 2, 16)))
+    node4 = Node(ED(RandomHeisenberg(N=2, h=0).mpo).evecs.reshape((2, 2, 4)))
+    node5 = Node(ED(RandomHeisenberg(N=3, h=0).mpo).evecs.reshape((2, 4, 8)))
+    node6 = Node(ED(RandomHeisenberg(N=4, h=0).mpo).evecs.reshape((8, 2, 16)))
 
     def __init__(self, *args, **kwargs):
         super(TestTensorTree, self).__init__(*args, **kwargs)
@@ -120,14 +121,18 @@ class TestTensorTree(unittest.TestCase):
 
 class TestTSDRG(unittest.TestCase):
 
-    model = RandomHeisenberg(N=6, h=0, penalty=0.0, s_target=0)
-    tsdrg = TSDRG(model.mpo, chi=2**6)
+    ordered_model = RandomHeisenberg(N=6, h=0.0, penalty=0.0, s_target=0)
+    ordered_tsdrg = TSDRG(ordered_model.mpo, chi=2**6)
+    model = RandomHeisenberg(N=6, h=0.5, penalty=0.5, s_target=0)
+    model.seed = 2021
+    tsdrg = TSDRG(model.mpo, chi=2**5)
+    ed = ED(model.mpo)
 
     def test_N(self):
         self.assertEqual(6, self.tsdrg.N)
 
     def test_block_hamiltonian(self):
-        for site in range(self.tsdrg.N - 1):
+        for site in range(self.ordered_tsdrg.N - 1):
             np.testing.assert_array_equal(
                 np.array(
                     [[0.25, 0, 0, 0],
@@ -135,7 +140,7 @@ class TestTSDRG(unittest.TestCase):
                      [0, 0.5, -0.25, 0],
                      [0, 0, 0, 0.25]]
                 ),
-                self.tsdrg.block_hamiltonian(site)
+                self.ordered_tsdrg.block_hamiltonian(site)
             )
 
     def test_spectrum_projector(self):
@@ -145,13 +150,13 @@ class TestTSDRG(unittest.TestCase):
              [-1 / np.sqrt(2), 0, 1 / np.sqrt(2), 0],
              [0, 0, 0, 1]]
         )
-        V, W = self.tsdrg.spectrum_projector(site=3, evecs=evecs)
+        V, W = self.ordered_tsdrg.spectrum_projector(site=3, evecs=evecs)
         np.testing.assert_array_equal(
             evecs.reshape((2, 2, 4)),
             V.tensor
         )
         coarse_grained_mpo = ncon(
-            [self.model.mpo[3].tensor, self.model.mpo[4].tensor],
+            [self.ordered_model.mpo[3].tensor, self.ordered_model.mpo[4].tensor],
             [(-1, 1, '-a1', '-a2'), (1, -2, '-b1', '-b2')],
             out_order=[-1, -2, '-a1', '-b1', '-a2', '-b2']
         ).reshape((6, 6, 4, 4))
@@ -164,6 +169,58 @@ class TestTSDRG(unittest.TestCase):
             W.tensor,
             atol=1e-12
         )
+
+    def test_run(self):
+        self.tsdrg.run()
+        np.testing.assert_allclose(
+            np.diagflat(self.ed.evals[:self.tsdrg.chi]),
+            self.tsdrg.mpo[0].tensor,
+            atol=1e-12
+        )
+
+    def test_reduced_density_matrix(self):
+        self.tsdrg.run()
+        for site, energy_level in product(range(self.tsdrg.N), range(self.tsdrg.chi)[:4]):
+            ss = self.ed.reduced_density_matrix(site, energy_level)
+            rho = self.tsdrg.reduced_density_matrix(site, energy_level)
+            s = np.linalg.svd(rho, compute_uv=False)
+            np.testing.assert_allclose(
+                ss,
+                s,
+                atol=1e-12
+            )
+
+    def test_entanglement_entropy(self):
+        self.tsdrg.run()
+        for site, energy_level in product(range(self.tsdrg.N), range(self.tsdrg.chi)[:4]):
+            self.assertAlmostEqual(
+                self.ed.entanglement_entropy(site, energy_level),
+                self.tsdrg.entanglement_entropy(site, energy_level),
+                places=12
+            )
+
+    def test_energies(self):
+        self.tsdrg.run()
+        np.testing.assert_allclose(
+            np.diagflat(self.ed.evals[:self.tsdrg.chi]),
+            self.tsdrg.energies(),
+            atol=1e-12
+        )
+        np.testing.assert_allclose(
+            np.diagflat(self.ed.evals[:self.tsdrg.chi]),
+            self.tsdrg.energies(self.model.mpo),
+            atol=1e-12
+        )
+        # model2 = SpectralFoldedRandomHeisenberg(N=6, h=0.5, penalty=0.0, s_target=0)
+        # model2.seed = 2021
+        # tsdrg2 = TSDRG(model2.mpo, chi=2 ** 5)
+        # tsdrg2.run()
+        # print(self.ed.evals[:tsdrg2.chi])
+        # np.testing.assert_allclose(
+        #     self.ed.evals[:tsdrg2.chi],
+        #     np.sort(np.diag(tsdrg2.energies(self.model.mpo))),
+        #     atol=1e-12
+        # )
 
 
 if __name__ == '__main__':
