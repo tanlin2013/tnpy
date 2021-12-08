@@ -11,13 +11,6 @@ from typing import Tuple, List, Union, Callable, Iterator, Dict
 
 
 @dataclass
-class Projection:
-    HarmonicRitz: str = 'primme_proj_harmonic'
-    RefinedRitz: str = 'primme_proj_refined'
-    RayleighRitz: str = 'primme_proj_RR'
-
-
-@dataclass
 class TreeNode:
     """
     The node object in binary tree.
