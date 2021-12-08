@@ -95,10 +95,17 @@ class TensorTree:
         self._tree = copy(self._leaves)
         self._horizon = list(self._tree.keys())
         self._root = None
-        self._top_tensor = None
 
     def __iter__(self) -> Iterator:
         return iter(self._tree.values())
+
+    @property
+    def keys(self) -> List:
+        return list(self._tree.keys())
+
+    @property
+    def leaves(self) -> Dict:
+        return self._leaves
 
     @property
     def n_nodes(self) -> int:
@@ -135,14 +142,6 @@ class TensorTree:
     @property
     def horizon(self) -> List[int]:
         return self._horizon
-
-    @property
-    def top_tensor(self):
-        return self._top_tensor
-
-    @top_tensor.setter
-    def top_tensor(self, top_tensor):
-        self._top_tensor = top_tensor
 
     def append(self, node: TreeNode) -> None:
         self._tree[node.id] = node
@@ -232,8 +231,15 @@ class TensorTree:
         """
         path1 = self.find_path(node_id1)
         path2 = self.find_path(node_id2)
-        first_unmatched = next(idx for idx, (x, y) in enumerate(zip(path1, path2)) if x != y)
-        return path1[:first_unmatched]
+        try:
+            first_unmatched = next(idx for idx, (x, y) in enumerate(zip(path1, path2)) if x != y)
+            return path1[:first_unmatched]
+        except StopIteration:
+            assert path1 == path2
+            return path1[:-1]
+
+    def lowest_common_ancestor(self, node_id1: int, node_id2: int) -> int:
+        return self.common_ancestor(node_id1, node_id2)[-1]
 
     def filter_out_leaf(self, node_ids: List[int]) -> List[int]:
         return [node_id for node_id in node_ids if not self.node(node_id).is_leaf]
@@ -378,6 +384,8 @@ class TSDRG:
         self.mpo = mpo
         self._chi = chi
         self._N = len(mpo.nodes)
+        self._physical_dimensions = mpo.physical_dimensions
+        assert self._N >= 2, "There must be more than 2 sites by definition."
         self._tree = TensorTree(
             [
                 TreeNode(id=site, node=node)
@@ -385,11 +393,14 @@ class TSDRG:
             ]
         )
         self.gap_cache = self.GapCache(self)
-        self._top_tensor = None
 
     @property
     def N(self) -> int:
         return self._N
+
+    @property
+    def physical_dimensions(self) -> int:
+        return self._physical_dimensions
 
     @property
     def n_nodes(self) -> int:
@@ -410,10 +421,6 @@ class TSDRG:
     @property
     def tree(self) -> TensorTree:
         return self._tree
-
-    @property
-    def top_tensor(self) -> Tensor:
-        return self._top_tensor
 
     def block_hamiltonian(self, site: int) -> Union[Tensor, np.ndarray]:
         """
@@ -461,13 +468,6 @@ class TSDRG:
         """
         gaps = np.diff(evals)
         return gaps[self.chi - 1] if gaps.size > self.chi else gaps[-1]
-
-    def entanglement_rendering(self, evecs: np.ndarray) -> np.ndarray:
-        def von_neumann_entropy(v: np.ndarray) -> float:
-            singular_values = np.linalg.svd(v.reshape(2, -1))[1]
-            ss = np.square(singular_values)
-            return -1 * np.sum(ss @ np.log(ss))
-        return np.array([von_neumann_entropy(v) for v in evecs.T])
 
     def eigen_solver(self, matrix: Union[Tensor, np.ndarray]) -> Tuple[np.ndarray, np.ndarray]:
         evals, evecs = np.linalg.eigh(matrix)
@@ -521,13 +521,12 @@ class TSDRG:
 
         """
         evals = self.gap_cache.evals if self.n_nodes == 2 else None
-        evecs = self.gap_cache.evecs[0] if self.n_nodes == 2 else None
         for step in count(start=1):
             max_gapped_bond = np.argmax(np.array(self.gap_cache.gap))
             V, W = self.spectrum_projector(max_gapped_bond, self.gap_cache.evecs[max_gapped_bond])
             horizon = self.tree.horizon
             logging.info(f"step {step}, merging TreeNode({horizon[max_gapped_bond]}) "
-                         f"and TreeNode({horizon[max_gapped_bond + 1]}) to TreeNode({self.N + step})")
+                         f"and TreeNode({horizon[max_gapped_bond + 1]}) to TreeNode({self.N + step - 1})")
             self._tree.append(
                 TreeNode(
                     id=self.N + step - 1,
@@ -541,12 +540,89 @@ class TSDRG:
             self.gap_cache.gap.pop(max_gapped_bond)
             self.gap_cache.evecs.pop(max_gapped_bond)
             if self.n_nodes == 1:
-                logging.info('Reach head node of the tree')
+                logging.info('Reach the root in tree')
                 logging.info(f"Obtain ground state energies {evals}")
-                self._top_tensor = evecs
                 assert step == self.N - 1, "step out of range"
                 break
             for bond in self.neighbouring_bonds(max_gapped_bond):
                 evals, evecs = self.eigen_solver(self.block_hamiltonian(bond))
                 self.gap_cache.gap[bond] = self.truncation_gap(evals)
                 self.gap_cache.evecs[bond] = evecs
+
+    def reduced_density_matrix(self, on_site: int, energy_level: int = 0) -> Union[Tensor, np.ndarray]:
+        assert 0 <= on_site < self.N
+        assert 0 <= energy_level < self.physical_dimensions ** self.chi
+
+        def descendant_chirality(ancestor: int, descendant: int) -> Tuple[int, str]:
+            path = self.tree.find_path(descendant)
+            return (ancestor, 'left') if self.tree.node(ancestor).left.id in path else (ancestor, 'right')
+        iterator = range(on_site+1) if (on_site + 1) / (self.N - on_site) < 1 else range(on_site, self.N)
+        open_bonds = [
+            descendant_chirality(
+                self.tree.lowest_common_ancestor(node_id, on_site),
+                node_id
+            ) for node_id in iterator
+        ]
+        rho = self.tree.contract_nodes(
+            self.tree.find_path(on_site)[:-1],
+            open_bonds=list(set(open_bonds))
+        ).reshape((
+            min(self.physical_dimensions ** self.N, self.chi),
+            self.physical_dimensions ** min(on_site + 1, self.N - on_site),
+            min(self.physical_dimensions ** self.N, self.chi),
+            self.physical_dimensions ** min(on_site + 1, self.N - on_site)
+        ))
+        return rho[energy_level, :, energy_level, :]
+
+    def entanglement_entropy(self, on_site: int, energy_level: int = 0) -> float:
+        ss = np.linalg.svd(self.reduced_density_matrix(on_site, energy_level), compute_uv=False)
+        return -1 * ss @ np.log(ss)
+
+    def correlation_function(self):
+        NotImplemented
+
+    def energies(self, mpo: MPO = None) -> Union[Tensor, np.ndarray]:
+        node_queue = deque([self.tree.root])
+        node_ids = self.tree.filter_out_leaf(self.tree.keys)
+        contractible = self.tree.Contractible(self.tree, node_ids, [])
+
+        def update_contractible(parent: TreeNode, on: str):
+            child = getattr(parent, on)
+            on_bond_idx = 0 if on == 'left' else 1
+            if child.is_leaf:
+                contractible[f"{parent.id}"][on_bond_idx] = f"NodeToMPO{child.id}"
+                contractible[f"conj{parent.id}"][on_bond_idx] = f"ConjNodeToMPO{child.id}"
+            else:
+                contractible[f"{parent.id}"][on_bond_idx] = f"Node{parent.id}ToNode{child.id}"
+                contractible[f"{child.id}"][2] = f"Node{parent.id}ToNode{child.id}"
+                contractible[f"conj{parent.id}"][on_bond_idx] = f"ConjNode{parent.id}ToConjNode{child.id}"
+                contractible[f"conj{child.id}"][2] = f"ConjNode{parent.id}ToConjNode{child.id}"
+                node_queue.append(child)
+
+        while len(node_queue) > 0:
+            current_node = node_queue.popleft()
+            update_contractible(current_node, on='left')
+            update_contractible(current_node, on='right')
+
+        def mpo_network(node_id: int):
+            net = (
+                f"MPO{node_id - 1}ToMPO{node_id}",
+                f"MPO{node_id}ToMPO{node_id + 1}",
+                f"NodeToMPO{node_id}",
+                f"ConjNodeToMPO{node_id}"
+            )
+            if node_id == 0:
+                return net[1:]
+            elif node_id == self.N - 1:
+                return (net[0], *net[2:])
+            return net
+
+        mpo_tensors = [node.tensor for node in mpo] if mpo is not None \
+            else [tree_node.node.tensor for tree_node in self.tree.leaves.values()]
+        mpo_network_structure = [mpo_network(node_id) for node_id in self.tree.leaves.keys()]
+
+        return ncon(
+            contractible.tensors + mpo_tensors,
+            contractible.network_structure + mpo_network_structure,
+            out_order=contractible.out_order
+        )
