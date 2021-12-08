@@ -680,6 +680,11 @@
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">matrix</span></span><em class="property"><span class="pre">:</span> <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">tensornetwork.tensor.Tensor</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tnpy.operators.FullHamiltonian.matrix" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.operators.FullHamiltonian.physical_dimensions">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">physical_dimensions</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#tnpy.operators.FullHamiltonian.physical_dimensions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -722,27 +727,6 @@
 </div>
 <div class="section" id="module-tnpy.tsdrg">
 <span id="tnpy-tsdrg-module"></span><h2>tnpy.tsdrg module<a class="headerlink" href="#module-tnpy.tsdrg" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="tnpy.tsdrg.Projection">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.tsdrg.</span></span><span class="sig-name descname"><span class="pre">Projection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">HarmonicRitz</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'primme_proj_harmonic'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RefinedRitz</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'primme_proj_refined'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RayleighRitz</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'primme_proj_RR'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#Projection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.Projection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="tnpy.tsdrg.Projection.HarmonicRitz">
-<span class="sig-name descname"><span class="pre">HarmonicRitz</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'primme_proj_harmonic'</span></em><a class="headerlink" href="#tnpy.tsdrg.Projection.HarmonicRitz" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="tnpy.tsdrg.Projection.RayleighRitz">
-<span class="sig-name descname"><span class="pre">RayleighRitz</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'primme_proj_RR'</span></em><a class="headerlink" href="#tnpy.tsdrg.Projection.RayleighRitz" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="tnpy.tsdrg.Projection.RefinedRitz">
-<span class="sig-name descname"><span class="pre">RefinedRitz</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'primme_proj_refined'</span></em><a class="headerlink" href="#tnpy.tsdrg.Projection.RefinedRitz" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 <dl class="py class">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.tsdrg.</span></span><span class="sig-name descname"><span class="pre">TSDRG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#tnpy.operators.MPO" title="tnpy.operators.MPO"><span class="pre">tnpy.operators.MPO</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG" title="Permalink to this definition">¶</a></dt>
@@ -804,13 +788,23 @@ The 2-site Hamiltonian is then constructed in site i and i+1.</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.correlation_function">
+<span class="sig-name descname"><span class="pre">correlation_function</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.correlation_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.correlation_function" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.eigen_solver">
 <span class="sig-name descname"><span class="pre">eigen_solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">tensornetwork.tensor.Tensor</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.eigen_solver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.eigen_solver" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.entanglement_rendering">
-<span class="sig-name descname"><span class="pre">entanglement_rendering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">evecs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.entanglement_rendering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.entanglement_rendering" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.energies">
+<span class="sig-name descname"><span class="pre">energies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tnpy.operators.MPO" title="tnpy.operators.MPO"><span class="pre">tnpy.operators.MPO</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">tensornetwork.tensor.Tensor</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.energies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.energies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.entanglement_entropy">
+<span class="sig-name descname"><span class="pre">entanglement_entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">on_site</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">energy_level</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.entanglement_entropy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.entanglement_entropy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
@@ -821,6 +815,16 @@ The 2-site Hamiltonian is then constructed in site i and i+1.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.neighbouring_bonds">
 <span class="sig-name descname"><span class="pre">neighbouring_bonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bond</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.neighbouring_bonds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.neighbouring_bonds" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.physical_dimensions">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">physical_dimensions</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#tnpy.tsdrg.TSDRG.physical_dimensions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.reduced_density_matrix">
+<span class="sig-name descname"><span class="pre">reduced_density_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">on_site</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">energy_level</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">tensornetwork.tensor.Tensor</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TSDRG.reduced_density_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TSDRG.reduced_density_matrix" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -848,11 +852,6 @@ W: The coarse-grained MPO</p>
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.top_tensor">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">top_tensor</span></span><em class="property"><span class="pre">:</span> <span class="pre">tensornetwork.tensor.Tensor</span></em><a class="headerlink" href="#tnpy.tsdrg.TSDRG.top_tensor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TSDRG.tree">
@@ -1037,9 +1036,24 @@ while the returning type is List[<a class="reference internal" href="#tnpy.tsdrg
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">horizon</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tnpy.tsdrg.TensorTree.horizon" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.keys">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">keys</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span></em><a class="headerlink" href="#tnpy.tsdrg.TensorTree.keys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.leaf">
 <span class="sig-name descname"><span class="pre">leaf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode"><span class="pre">tnpy.tsdrg.TreeNode</span></a></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.leaf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.leaf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.leaves">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">leaves</span></span><em class="property"><span class="pre">:</span> <span class="pre">Dict</span></em><a class="headerlink" href="#tnpy.tsdrg.TensorTree.leaves" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.lowest_common_ancestor">
+<span class="sig-name descname"><span class="pre">lowest_common_ancestor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_id2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.lowest_common_ancestor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.lowest_common_ancestor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
@@ -1079,11 +1093,6 @@ while the returning type is List[<a class="reference internal" href="#tnpy.tsdrg
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.root">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">root</span></span><em class="property"><span class="pre">:</span> <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode"><span class="pre">tnpy.tsdrg.TreeNode</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tnpy.tsdrg.TensorTree.root" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.top_tensor">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">top_tensor</span></span><a class="headerlink" href="#tnpy.tsdrg.TensorTree.top_tensor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

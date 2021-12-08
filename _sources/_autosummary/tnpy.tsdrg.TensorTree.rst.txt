@@ -21,6 +21,7 @@
       ~TensorTree.filter_out_leaf
       ~TensorTree.find_path
       ~TensorTree.leaf
+      ~TensorTree.lowest_common_ancestor
       ~TensorTree.node
       ~TensorTree.plot
    
@@ -34,10 +35,11 @@
    
       ~TensorTree.has_root
       ~TensorTree.horizon
+      ~TensorTree.keys
+      ~TensorTree.leaves
       ~TensorTree.n_layers
       ~TensorTree.n_leaves
       ~TensorTree.n_nodes
       ~TensorTree.root
-      ~TensorTree.top_tensor
    
    

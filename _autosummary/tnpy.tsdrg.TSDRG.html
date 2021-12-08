@@ -393,26 +393,35 @@
 <tr class="row-even"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TSDRG.block_hamiltonian" title="tnpy.tsdrg.TSDRG.block_hamiltonian"><code class="xref py py-obj docutils literal notranslate"><span class="pre">block_hamiltonian</span></code></a>(site)</p></td>
 <td><p>Construct the 2-site Hamiltonian from MPO, involving both the hopping term and one-site term.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TSDRG.eigen_solver" title="tnpy.tsdrg.TSDRG.eigen_solver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eigen_solver</span></code></a>(matrix)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TSDRG.correlation_function" title="tnpy.tsdrg.TSDRG.correlation_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">correlation_function</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TSDRG.entanglement_rendering" title="tnpy.tsdrg.TSDRG.entanglement_rendering"><code class="xref py py-obj docutils literal notranslate"><span class="pre">entanglement_rendering</span></code></a>(evecs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TSDRG.eigen_solver" title="tnpy.tsdrg.TSDRG.eigen_solver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eigen_solver</span></code></a>(matrix)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TSDRG.energies" title="tnpy.tsdrg.TSDRG.energies"><code class="xref py py-obj docutils literal notranslate"><span class="pre">energies</span></code></a>([mpo])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TSDRG.entanglement_entropy" title="tnpy.tsdrg.TSDRG.entanglement_entropy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">entanglement_entropy</span></code></a>(on_site[, energy_level])</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TSDRG.neighbouring_bonds" title="tnpy.tsdrg.TSDRG.neighbouring_bonds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">neighbouring_bonds</span></code></a>(bond)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TSDRG.run" title="tnpy.tsdrg.TSDRG.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TSDRG.reduced_density_matrix" title="tnpy.tsdrg.TSDRG.reduced_density_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reduced_density_matrix</span></code></a>(on_site[, energy_level])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TSDRG.run" title="tnpy.tsdrg.TSDRG.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a>()</p></td>
 <td><p>Returns:</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TSDRG.spectrum_projector" title="tnpy.tsdrg.TSDRG.spectrum_projector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spectrum_projector</span></code></a>(site, evecs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TSDRG.spectrum_projector" title="tnpy.tsdrg.TSDRG.spectrum_projector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spectrum_projector</span></code></a>(site, evecs)</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">param site</dt>
 <dd class="field-odd"><p></p></dd>
 </dl>
 </p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TSDRG.truncation_gap" title="tnpy.tsdrg.TSDRG.truncation_gap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">truncation_gap</span></code></a>(evals)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TSDRG.truncation_gap" title="tnpy.tsdrg.TSDRG.truncation_gap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">truncation_gap</span></code></a>(evals)</p></td>
 <td><p>Return the gap upon <a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TSDRG.chi" title="tnpy.tsdrg.TSDRG.chi"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chi</span></code></a> eigenvalues kept.</p></td>
 </tr>
 </tbody>
@@ -433,7 +442,7 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TSDRG.n_nodes" title="tnpy.tsdrg.TSDRG.n_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_nodes</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TSDRG.top_tensor" title="tnpy.tsdrg.TSDRG.top_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">top_tensor</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TSDRG.physical_dimensions" title="tnpy.tsdrg.TSDRG.physical_dimensions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">physical_dimensions</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="../tnpy.html#tnpy.tsdrg.TSDRG.tree" title="tnpy.tsdrg.TSDRG.tree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tree</span></code></a></p></td>

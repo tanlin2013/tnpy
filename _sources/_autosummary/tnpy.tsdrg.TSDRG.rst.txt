@@ -15,9 +15,12 @@
    
       ~TSDRG.__init__
       ~TSDRG.block_hamiltonian
+      ~TSDRG.correlation_function
       ~TSDRG.eigen_solver
-      ~TSDRG.entanglement_rendering
+      ~TSDRG.energies
+      ~TSDRG.entanglement_entropy
       ~TSDRG.neighbouring_bonds
+      ~TSDRG.reduced_density_matrix
       ~TSDRG.run
       ~TSDRG.spectrum_projector
       ~TSDRG.truncation_gap
@@ -33,7 +36,7 @@
       ~TSDRG.N
       ~TSDRG.chi
       ~TSDRG.n_nodes
-      ~TSDRG.top_tensor
+      ~TSDRG.physical_dimensions
       ~TSDRG.tree
       ~TSDRG.v_left
       ~TSDRG.v_right
