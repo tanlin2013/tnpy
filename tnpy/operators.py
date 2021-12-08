@@ -76,10 +76,15 @@ class FullHamiltonian:
         self._N = mpo.N
         self._matrix = None
         self.matrix = mpo
+        self._physical_dimensions = mpo.physical_dimensions
 
     @property
     def N(self) -> int:
         return self._N
+
+    @property
+    def physical_dimensions(self) -> int:
+        return self._physical_dimensions
 
     @property
     def matrix(self) -> Union[np.ndarray, Tensor]:
