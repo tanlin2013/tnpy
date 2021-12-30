@@ -120,7 +120,7 @@ class TestTensorTree(unittest.TestCase):
 
     def test_plot(self):
         g = self.tree.plot()
-        g.render(format='png', view=True)
+        g.render(format='png', view=False)
 
 
 class TestTSDRG(unittest.TestCase):
