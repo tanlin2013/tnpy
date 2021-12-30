@@ -123,9 +123,10 @@ class TestTSDRG(unittest.TestCase):
 
     ordered_model = RandomHeisenberg(N=6, h=0.0, penalty=0.0, s_target=0)
     ordered_tsdrg = TSDRG(ordered_model.mpo, chi=2**6)
-    model = RandomHeisenberg(N=6, h=0.5, penalty=0.5, s_target=0)
+    model = RandomHeisenberg(N=6, h=1e-5, penalty=0.0, s_target=0)
     model.seed = 2021
-    tsdrg = TSDRG(model.mpo, chi=2**5)
+    tsdrg = TSDRG(model.mpo, chi=2**6)
+    tsdrg.run()
     ed = ED(model.mpo)
 
     def test_N(self):
@@ -171,7 +172,6 @@ class TestTSDRG(unittest.TestCase):
         )
 
     def test_run(self):
-        self.tsdrg.run()
         np.testing.assert_allclose(
             np.diagflat(self.ed.evals[:self.tsdrg.chi]),
             self.tsdrg.mpo[0].tensor,
@@ -179,8 +179,7 @@ class TestTSDRG(unittest.TestCase):
         )
 
     def test_reduced_density_matrix(self):
-        self.tsdrg.run()
-        for site, energy_level in product(range(self.tsdrg.N), range(self.tsdrg.chi)[:4]):
+        for site, energy_level in product(range(self.tsdrg.N), range(self.tsdrg.chi)):
             ss = self.ed.reduced_density_matrix(site, energy_level)
             rho = self.tsdrg.reduced_density_matrix(site, energy_level)
             s = np.linalg.svd(rho, compute_uv=False)
@@ -189,9 +188,10 @@ class TestTSDRG(unittest.TestCase):
                 s,
                 atol=1e-12
             )
+        # TODO: confirm the order of open_bonds, i.e. the basis of reduced rho
+        # TODO: [fix] error for energy_level > 0 when there's no disorder
 
     def test_entanglement_entropy(self):
-        self.tsdrg.run()
         for site, energy_level in product(range(self.tsdrg.N), range(self.tsdrg.chi)[:4]):
             self.assertAlmostEqual(
                 self.ed.entanglement_entropy(site, energy_level),
@@ -200,7 +200,6 @@ class TestTSDRG(unittest.TestCase):
             )
 
     def test_energies(self):
-        self.tsdrg.run()
         np.testing.assert_allclose(
             np.diagflat(self.ed.evals[:self.tsdrg.chi]),
             self.tsdrg.energies(),
@@ -211,16 +210,18 @@ class TestTSDRG(unittest.TestCase):
             self.tsdrg.energies(self.model.mpo),
             atol=1e-12
         )
-        # model2 = SpectralFoldedRandomHeisenberg(N=6, h=0.5, penalty=0.0, s_target=0)
-        # model2.seed = 2021
-        # tsdrg2 = TSDRG(model2.mpo, chi=2 ** 5)
-        # tsdrg2.run()
-        # print(self.ed.evals[:tsdrg2.chi])
-        # np.testing.assert_allclose(
-        #     self.ed.evals[:tsdrg2.chi],
-        #     np.sort(np.diag(tsdrg2.energies(self.model.mpo))),
-        #     atol=1e-12
-        # )
+        model2 = SpectralFoldedRandomHeisenberg(
+            N=self.model.N, h=self.model.h,
+            penalty=self.model.penalty, s_target=self.model.s_target
+        )
+        model2.seed = self.model.seed
+        tsdrg2 = TSDRG(model2.mpo, chi=2**self.model.N)
+        tsdrg2.run()
+        np.testing.assert_allclose(
+            self.ed.evals,
+            np.sort(np.diag(tsdrg2.energies(self.model.mpo))),
+            atol=1e-12
+        )
 
 
 if __name__ == '__main__':
