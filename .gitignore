@@ -9,3 +9,6 @@
 .idea/
 
 *checkpoint.ipynb
+
+*.gv
+*.gv.png

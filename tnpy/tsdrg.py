@@ -4,6 +4,7 @@ from functools import wraps
 from itertools import count
 from collections import deque
 from copy import copy
+from graphviz import Digraph
 from tensornetwork import ncon, Node, Tensor
 from dataclasses import dataclass, field
 from tnpy.operators import MPO
@@ -346,6 +347,7 @@ class TensorTree:
             update_contractible(current_node, on='left')
             update_contractible(current_node, on='right')
 
+        # TODO: con_order should be given
         out_tensor = ncon(
             contractible.tensors,
             contractible.network_structure,
@@ -356,8 +358,32 @@ class TensorTree:
         return out_tensor
 
     @check_root
-    def plot(self):
-        NotImplemented
+    def plot(self) -> Digraph:
+        def find_child(node: TreeNode):
+            for attr in ['left', 'right']:
+                if getattr(node, attr) is not None:
+                    if not getattr(node, attr).is_leaf:
+                        graph.node(f'{getattr(node, attr).id}', shape='triangle', style='rounded')
+                    graph.edge(
+                        f'{node.id}', f'{getattr(node, attr).id}',
+                        splines='ortho', minlen='2',
+                        headport='n', tailport='_', arrowhead='inv', constraint='true'
+                    )
+                    find_child(getattr(node, attr))
+
+        graph = Digraph()
+        graph.node('head', style='invis')
+        graph.edge('head', f'{self.root.id}', headport='n', arrowhead="inv")
+        graph.node(f'{self.root.id}', shape='triangle', rank='max', style='rounded')
+        find_child(self.root)
+        with graph.subgraph(name='cluster_0') as sg:
+            sg.attr(style='invis')
+            for k, v in enumerate(self._leaves.keys()):
+                sg.node(f'{v}', shape='box', rank='sink', style='rounded')
+                if k < len(self._leaves.keys()) - 1:
+                    sg.edge(f'{v}', f'{v+1}', splines='ortho', minlen='0', arrowhead="none", constraint='true')
+        logging.debug(graph)
+        return graph
 
 
 class TSDRG:
@@ -599,11 +625,6 @@ class TSDRG:
                 contractible[f"conj{child.id}"][2] = f"ConjNode{parent.id}ToConjNode{child.id}"
                 node_queue.append(child)
 
-        while len(node_queue) > 0:
-            current_node = node_queue.popleft()
-            update_contractible(current_node, on='left')
-            update_contractible(current_node, on='right')
-
         def mpo_network(node_id: int):
             net = (
                 f"MPO{node_id - 1}ToMPO{node_id}",
@@ -617,10 +638,16 @@ class TSDRG:
                 return (net[0], *net[2:])
             return net
 
+        while len(node_queue) > 0:
+            current_node = node_queue.popleft()
+            update_contractible(current_node, on='left')
+            update_contractible(current_node, on='right')
+
         mpo_tensors = [node.tensor for node in mpo] if mpo is not None \
             else [tree_node.node.tensor for tree_node in self.tree.leaves.values()]
         mpo_network_structure = [mpo_network(node_id) for node_id in self.tree.leaves.keys()]
 
+        # TODO: con_order should be given
         return ncon(
             contractible.tensors + mpo_tensors,
             contractible.network_structure + mpo_network_structure,

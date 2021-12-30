@@ -118,6 +118,10 @@ class TestTensorTree(unittest.TestCase):
             out_order
         )
 
+    def test_plot(self):
+        g = self.tree.plot()
+        g.render(format='png', view=True)
+
 
 class TestTSDRG(unittest.TestCase):
 

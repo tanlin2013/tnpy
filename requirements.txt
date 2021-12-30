@@ -7,3 +7,4 @@ tensornetwork==0.4.5
 tqdm==4.62.3
 primme==3.2.0
 h5py==3.2.1
+graphviz==2.50.0
