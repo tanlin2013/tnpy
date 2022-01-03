@@ -120,7 +120,12 @@ class TestTensorTree(unittest.TestCase):
 
     def test_plot(self):
         g = self.tree.plot()
-        g.render(format='png', view=False)
+        self.assertEqual(
+            str(g),
+            'digraph {\n\thead [style=invis]\n\thead -> 6 [arrowhead=inv headport=n]\n\t6 [rank=max shape=triangle style=rounded]\n\t5 [shape=triangle style=rounded]\n\t6 -> 5 [arrowhead=inv constraint=true headport=n minlen=2 splines=ortho tailport=_]\n\t5 -> 0 [arrowhead=inv constraint=true headport=n minlen=2 splines=ortho tailport=_]\n\t4 [shape=triangle style=rounded]\n\t5 -> 4 [arrowhead=inv constraint=true headport=n minlen=2 splines=ortho tailport=_]\n\t4 -> 1 [arrowhead=inv constraint=true headport=n minlen=2 splines=ortho tailport=_]\n\t4 -> 2 [arrowhead=inv constraint=true headport=n minlen=2 splines=ortho tailport=_]\n\t6 -> 3 [arrowhead=inv constraint=true headport=n minlen=2 splines=ortho tailport=_]\n\tsubgraph cluster_0 {\n\t\tstyle=invis\n\t\t0 [rank=sink shape=box style=rounded]\n\t\t0 -> 1 [arrowhead=none constraint=true minlen=0 splines=ortho]\n\t\t1 [rank=sink shape=box style=rounded]\n\t\t1 -> 2 [arrowhead=none constraint=true minlen=0 splines=ortho]\n\t\t2 [rank=sink shape=box style=rounded]\n\t\t2 -> 3 [arrowhead=none constraint=true minlen=0 splines=ortho]\n\t\t3 [rank=sink shape=box style=rounded]\n\t}\n}\n'
+        )
+        # @Note: Method Digraph.render() doesn't work in command-line environment
+        # g.render(format='png', view=True)
 
 
 class TestTSDRG(unittest.TestCase):
