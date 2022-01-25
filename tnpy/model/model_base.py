@@ -1,6 +1,6 @@
 import abc
 import numpy as np
-from tnpy.operators import MPO
+from tnpy.operators import MatrixProductOperator
 
 
 class ModelBase(abc.ABC):
@@ -22,11 +22,14 @@ class ModelBase(abc.ABC):
         return NotImplemented
 
     @property
-    def mpo(self) -> MPO:
+    def mpo(self) -> MatrixProductOperator:
         """
         Return matrix product operator (mpo) as a property of the model.
 
         Returns:
             mpo:
         """
-        return MPO(self.N, self._elem)
+        tensors = [self._elem(site) for site in range(self.n)]
+        tensors[0] = tensors[0][0, :, :, :]
+        tensors[-1] = tensors[-1][:, -1, :, :]
+        return MatrixProductOperator(tensors)

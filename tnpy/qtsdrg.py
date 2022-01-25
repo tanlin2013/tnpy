@@ -2,7 +2,8 @@ import logging
 import re
 import numpy as np
 import quimb.tensor as qtn
-from quimb.tensor.tensor_1d import MatrixProductOperator as MPO
+from tnpy.operators import MatrixProductOperator
+from graphviz import Digraph
 from functools import wraps
 from itertools import count, islice
 from dataclasses import dataclass, field
