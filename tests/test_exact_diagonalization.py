@@ -1,12 +1,14 @@
-import unittest
+from unittest import TestCase
 import numpy as np
 from tnpy.model import RandomHeisenberg
 from tnpy.exact_diagonalization import ExactDiagonalization
 
 
-class TestExactDiagonalization(unittest.TestCase):
+class TestExactDiagonalization(TestCase):
 
-    ed = ExactDiagonalization(RandomHeisenberg(N=2, h=0).mpo)
+    def __init__(self, *args, **kwargs):
+        super(TestExactDiagonalization, self).__init__(*args, **kwargs)
+        self.ed = ExactDiagonalization(RandomHeisenberg(n=2, h=0).mpo)
 
     def test_matrix(self):
         np.testing.assert_array_equal(
@@ -35,7 +37,3 @@ class TestExactDiagonalization(unittest.TestCase):
             ),
             self.ed.evecs
         )
-
-
-if __name__ == '__main__':
-    unittest.main()

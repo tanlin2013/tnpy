@@ -5,14 +5,14 @@ from tnpy.operators import SpinOperators
 
 class XXZ(ModelBase):
 
-    def __init__(self, N: int, delta: float):
+    def __init__(self, n: int, delta: float):
         """
 
         Args:
-            N: System size.
+            n: System size.
             delta: Coupling strength on z direction.
         """
-        super(XXZ, self).__init__(N)
+        super(XXZ, self).__init__(n)
         self.delta = delta
 
     def _elem(self, site: int) -> np.ndarray:

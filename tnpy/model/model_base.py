@@ -5,13 +5,17 @@ from tnpy.operators import MPO
 
 class ModelBase(abc.ABC):
 
-    def __init__(self, N: int):
+    def __init__(self, n: int):
         """
 
         Args:
-            N: System size.
+            n: System size.
         """
-        self.N = N
+        self._n = n
+
+    @property
+    def n(self) -> int:
+        return self._n
 
     @abc.abstractmethod
     def _elem(self, site: int) -> np.ndarray:

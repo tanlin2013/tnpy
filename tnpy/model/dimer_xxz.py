@@ -5,11 +5,11 @@ from tnpy.operators import SpinOperators
 
 class DimerXXZ(ModelBase):
 
-    def __init__(self, N: int, J: float, delta: float, h: float,
+    def __init__(self, n: int, J: float, delta: float, h: float,
                  penalty: float = 0, s_target: int = 0, trial_id: int = None):
         """
         Args:
-            N: System size.
+            n: System size.
             J:
             delta:
             h: Disorder strength.
@@ -17,7 +17,7 @@ class DimerXXZ(ModelBase):
             s_target: The targeting total Sz charge sector.
             trial_id: ID of the current disorder trial.
         """
-        super(DimerXXZ, self).__init__(N)
+        super(DimerXXZ, self).__init__(n)
         self.J = J
         self.delta = delta
         self.h = h
@@ -29,7 +29,7 @@ class DimerXXZ(ModelBase):
         Sp, Sm, Sz, I2, O2 = SpinOperators(spin=1)
 
         rand_J = (1 + self.delta * (-1) ** site) * np.random.uniform() ** self.J
-        alpha = self.penalty * (0.25 + self.s_target ** 2 / self.N)
+        alpha = self.penalty * (0.25 + self.s_target ** 2 / self.n)
         beta = np.random.uniform(-self.h, self.h) - 2.0 * self.penalty * self.s_target
 
         return np.array(

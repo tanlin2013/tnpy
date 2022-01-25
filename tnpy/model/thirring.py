@@ -5,17 +5,17 @@ from tnpy.operators import SpinOperators
 
 class Thirring(ModelBase):
 
-    def __init__(self, N: int, g: float, ma: float, lamda: float, s_target: int) -> None:
+    def __init__(self, n: int, g: float, ma: float, lamda: float, s_target: int) -> None:
         """
 
         Args:
-            N: System size.
+            n: System size.
             g: Bare coupling g.
             ma: Bare mass.
             lamda: Penalty strength (of Lagrangian multiplier).
             s_target: The targeting total Sz charge sector.
         """
-        super(Thirring, self).__init__(N)
+        super(Thirring, self).__init__(n)
         self.g = g
         self.ma = ma
         self.lamda = lamda
@@ -25,7 +25,7 @@ class Thirring(ModelBase):
         Sp, Sm, Sz, I2, O2 = SpinOperators()
 
         beta = self.g + ((-1.0) ** site * self.ma) - 2.0 * self.lamda * self.s_target
-        gamma = self.lamda * (0.25 + self.s_target ** 2 / self.N) + 0.25 * self.g
+        gamma = self.lamda * (0.25 + self.s_target ** 2 / self.n) + 0.25 * self.g
 
         return np.array(
             [[I2, -0.5 * Sp, -0.5 * Sm, 2.0 * np.sqrt(self.lamda) * Sz, self.g * Sz, gamma * I2 + beta * Sz],
