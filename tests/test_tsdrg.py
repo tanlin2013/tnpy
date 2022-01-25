@@ -3,7 +3,7 @@ import numpy as np
 from itertools import product
 from tnpy.model import RandomHeisenberg
 from tnpy.exact_diagonalization import ExactDiagonalization
-from tnpy.qtsdrg import (
+from tnpy.tsdrg import (
     TensorTree,
     TreeTensorNetworkSDRG as tSDRG,
     TreeTensorNetworkMeasurements
