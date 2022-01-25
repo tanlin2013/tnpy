@@ -1,5 +1,5 @@
-import logging
 import re
+import logging
 import numpy as np
 import quimb.tensor as qtn
 from tnpy.operators import MatrixProductOperator
@@ -47,7 +47,13 @@ class Node(qtn.Tensor):
 
 class TensorTree:
 
-    def __init__(self, mpo: MPO):
+    @dataclass
+    class Syntax:
+        node: str = 'Node'
+        conj_node: str = 'ConjNode'
+        level_idx: str = 'LevelIdx'
+
+    def __init__(self, mpo: MatrixProductOperator):
         self._root_id = None
         self._tree = {
             site: Node(
@@ -72,6 +78,10 @@ class TensorTree:
 
     def __repr__(self):
         return 'TensorTree([\n\t{}\n])'.format(', \n\t'.join(repr(node) for node in self._tree.values()))
+
+    @property
+    def root_id(self) -> int:
+        return self._root_id
 
     @property
     def root(self) -> Node:
@@ -100,18 +110,28 @@ class TensorTree:
         return self._n_leaves
 
     def fuse(self, left_id: int, right_id: int, new_id: int, data: np.ndarray):
-        left_ind = f'Node{new_id}-Node{left_id}' if not self[left_id].is_leaf else f'k{left_id}'
-        right_ind = f'Node{new_id}-Node{right_id}' if not self[right_id].is_leaf else f'k{right_id}'
+        if self.root_id is not None:
+            raise RuntimeError("Can't perform fuse on a grown tree.")
+        left_ind = f'{self.Syntax.node}{new_id}-{self.Syntax.node}{left_id}' \
+            if not self[left_id].is_leaf else f'k{left_id}'
+        right_ind = f'{self.Syntax.node}{new_id}-{self.Syntax.node}{right_id}' \
+            if not self[right_id].is_leaf else f'k{right_id}'
         self[new_id] = Node(
             node_id=new_id,
             left=self[left_id],
             right=self[right_id],
             data=data,
-            inds=(left_ind, right_ind, f'Node{new_id}LevelIdx'),
-            tags=f'Node{new_id}'
+            inds=(left_ind, right_ind, f'{self.Syntax.node}{new_id}{self.Syntax.level_idx}'),
+            tags=f'{self.Syntax.node}{new_id}'
         )
-        self[left_id].reindex({f'Node{left_id}LevelIdx': f'Node{new_id}-Node{left_id}'}, inplace=True)
-        self[right_id].reindex({f'Node{right_id}LevelIdx': f'Node{new_id}-Node{right_id}'}, inplace=True)
+        self[left_id].reindex(
+            {f'{self.Syntax.node}{left_id}{self.Syntax.level_idx}':
+                f'{self.Syntax.node}{new_id}-{self.Syntax.node}{left_id}'}, inplace=True
+        )
+        self[right_id].reindex(
+            {f'{self.Syntax.node}{right_id}{self.Syntax.level_idx}':
+                f'{self.Syntax.node}{new_id}-{self.Syntax.node}{right_id}'}, inplace=True
+        )
         self._horizon[self._horizon.index(left_id)] = new_id
         self._horizon.remove(right_id)
         if self.n_nodes == 2 * self.n_leaves - 1:
@@ -121,9 +141,20 @@ class TensorTree:
         @wraps(func)
         def wrapper(self, *args, **kwargs):
             if self._root_id is None:
-                raise KeyError("Cannot find root in tree.")
+                raise KeyError("Can't find root in tree.")
             return func(self, *args, **kwargs)
         return wrapper
+
+    @property
+    @check_root
+    def n_layers(self) -> int:
+        def max_depth(current_node: Node) -> int:
+            if current_node is not None:
+                left_depth = max_depth(current_node.left)
+                right_depth = max_depth(current_node.right)
+                return max(left_depth, right_depth) + 1
+            return 0
+        return max_depth(self.root)
 
     @check_root
     def tensor_network(self, node_ids: Sequence[int] = None, conj: bool = False,
@@ -133,21 +164,115 @@ class TensorTree:
             else [self[node_id] for node_id in node_ids]
         net = qtn.TensorNetwork(nodes)
         if conj:
-            conj_net = net.copy(deep=True)
-            conj_net.reindex({f'Node{self._root_id}LevelIdx': f'ConjNode{self._root_id}LevelIdx'}, inplace=True)
-            conj_net.retag({tag: tag.replace('Node', 'ConjNode')
-                            for node in conj_net for tag in node.tags}, inplace=True)
+            conj_net = net.reindex(
+                {f'{self.Syntax.node}{self._root_id}{self.Syntax.level_idx}':
+                    f'{self.Syntax.conj_node}{self._root_id}{self.Syntax.level_idx}'}
+            )
+            conj_net = conj_net.retag(
+                {tag: tag.replace(self.Syntax.node, self.Syntax.conj_node)
+                 for node in conj_net for tag in node.tags}
+            )
             if mangle_outer:
-                conj_net.reindex({ind: re.sub(r'^k([0-9]+)', r'b\1', ind)
-                                  for node in conj_net for ind in node.inds
-                                  if ind.startswith('k')}, inplace=True)
+                conj_net = conj_net.reindex(
+                    {ind: re.sub(r'^k([0-9]+)', r'b\1', ind)
+                     for node in conj_net for ind in node.inds if ind.startswith('k')}
+                )
             return conj_net
         return net
 
     @check_root
-    def find_path(self, node_id: int):
-        print('get', node_id)
-        return
+    def find_path(self, node_id: int, return_itself: bool = False) -> List[int]:
+        """
+        Find the path to targeted node starting from the root.
+
+        Args:
+            node_id:
+            return_itself:
+
+        Returns:
+            path: ID of nodes to targeted node, including targeted node itself.
+
+        Raises:
+            If path is empty, raises KeyError for input ``node_id``.
+        """
+        def find_node(current_node: Node, trial_path: List[int]) -> bool:
+            """
+            Find the node with depth-first search.
+
+            Args:
+                current_node: Current node in iterative depth-first searching
+                trial_path: List for recording the trial path to the targeted leaf.
+
+            Returns:
+                found: Return True if the given ``node_id`` is found in tree, else False.
+            """
+            if current_node is not None:
+                trial_path.append(current_node.node_id)
+                if current_node.node_id == node_id:
+                    return True
+                elif find_node(current_node.left, trial_path) or \
+                        find_node(current_node.right, trial_path):
+                    return True
+                trial_path.pop()
+            return False
+
+        path = []
+        if not find_node(self.root, path):
+            raise KeyError("The given node_id is not found in tree.")
+        return path if return_itself else path[:-1]
+
+    @check_root
+    def common_ancestor(self, node_id1: int, node_id2: int, lowest: bool = False) -> Union[int, List[int]]:
+        """
+        Find all common ancestor of two given nodes in the order starting from the root.
+
+        Args:
+            node_id1:
+            node_id2:
+            lowest:
+
+        Returns:
+
+        """
+        path1 = self.find_path(node_id1, return_itself=True)
+        path2 = self.find_path(node_id2, return_itself=True)
+        try:
+            first_unmatched = next(idx for idx, (x, y) in enumerate(zip(path1, path2)) if x != y)
+            common_path = path1[:first_unmatched]
+        except StopIteration:
+            assert path1 == path2
+            common_path = path1[:-1]
+        return common_path if not lowest else common_path[-1]
+
+    @check_root
+    def plot(self, view: bool = False) -> Digraph:
+        def find_child(node: Node):
+            for attr in ['left', 'right']:
+                if getattr(node, attr) is not None:
+                    if not getattr(node, attr).is_leaf:
+                        graph.node(f'{getattr(node, attr).node_id}', shape='triangle', style='rounded')
+                    graph.edge(
+                        f'{node.node_id}', f'{getattr(node, attr).node_id}',
+                        splines='ortho', minlen='2',
+                        headport='n', tailport='_', arrowhead='inv', constraint='true'
+                    )
+                    find_child(getattr(node, attr))
+
+        graph = Digraph()
+        graph.node('head', style='invis')
+        graph.edge('head', f'{self.root.node_id}', headport='n', arrowhead="inv")
+        graph.node(f'{self.root.node_id}', shape='triangle', rank='max', style='rounded')
+        find_child(self.root)
+        with graph.subgraph(name='cluster_0') as sg:  # for constraining mpo inside an invisible box
+            sg.attr(style='invis')
+            for k, v in enumerate(self.leaves.keys()):
+                sg.node(f'{v}', shape='box', rank='sink', style='rounded')
+                if k < len(self.leaves.keys()) - 1:
+                    sg.edge(f'{v}', f'{v + 1}', splines='ortho', minlen='0', arrowhead="none", constraint='true')
+        logging.debug(graph)
+        if view:
+            graph.render(format='png', view=True)
+        return graph
 
 
 class TreeTensorNetworkSDRG:
@@ -183,7 +308,7 @@ class TreeTensorNetworkSDRG:
                 self.evecs[bond] = evecs
                 self.tsdrg._evals = evals
 
-    def __init__(self, mpo: MPO, chi: int):
+    def __init__(self, mpo: MatrixProductOperator, chi: int):
         self._mpo = mpo
         self._chi = chi
         self._tree = TensorTree(mpo)
@@ -192,7 +317,7 @@ class TreeTensorNetworkSDRG:
         self._evals = None
 
     @property
-    def mpo(self) -> MPO:
+    def mpo(self) -> MatrixProductOperator:
         return self._mpo
 
     @property
@@ -276,7 +401,8 @@ class TreeTensorNetworkSDRG:
 
     @property
     def measurements(self) -> 'TreeTensorNetworkMeasurements':
-        assert len(self._fused_mpo_cache) == 1, "tSDRG algorithm hasn't been executed yet."
+        if not len(self._fused_mpo_cache) == 1:
+            raise RuntimeError("tSDRG algorithm hasn't been executed yet.")
         return TreeTensorNetworkMeasurements(self._tree)
 
 
@@ -285,27 +411,59 @@ class TreeTensorNetworkMeasurements:
     def __init__(self, tree: TensorTree):
         self._tree = tree
 
-    def sandwich(self, mpo: MPO = None) -> qtn.Tensor:
-        bra = self._tree.tensor_network()
-        ket = self._tree.tensor_network(conj=True, mangle_outer=False) if mpo is None \
-            else self._tree.tensor_network(conj=True)
+    @property
+    def tree(self):
+        return self._tree
+
+    def sandwich(self, mpo: MatrixProductOperator = None) -> qtn.Tensor:
+        ket = self.tree.tensor_network()
+        bra = self.tree.tensor_network(conj=True, mangle_outer=False) if mpo is None \
+            else self.tree.tensor_network(conj=True)
         net = (bra & ket) if mpo is None else (bra & mpo & ket)
         return net.contract(all)
 
-    def expectation_value(self, mpo: MPO) -> np.ndarray:
-        exp_val = TreeTensorNetworkMeasurements(self._tree).sandwich(mpo).data
-        assert np.allclose(
-            np.zeros(exp_val.shape),
-            exp_val - np.diagflat(np.diag(exp_val)),
-            atol=1e-12
-        ), "Expectation value contains large off-diagonal elements."
+    def expectation_value(self, mpo: MatrixProductOperator) -> np.ndarray:
+        exp_val = self.sandwich(mpo).data
+        if not np.allclose(np.zeros(exp_val.shape), exp_val - np.diagflat(np.diag(exp_val)), atol=1e-12):
+            logging.warning("Expectation value may contain large off-diagonal elements.")
         return np.diag(exp_val)
 
-    def reduced_density_matrix(self):
-        NotImplemented
+    def _min_surface(self, bipartite_site: int) -> Tuple[Dict, Dict]:
+        min_side = 0 if (bipartite_site + 1) / (self.tree.n_leaves - bipartite_site) < 1 else 1
+        iterator = range(bipartite_site + 1) if min_side == 0 \
+            else range(bipartite_site, self.tree.n_leaves)
+        ket_inds_map, bra_inds_map = {}, {}
+        for leaf_id in iterator:
+            lca_id = self.tree.common_ancestor(leaf_id, bipartite_site + 1, lowest=True)
+            ket_inds_map[f'{self.tree[lca_id].inds[min_side]}'] = f'rho_k{leaf_id}'
+            bra_inds_map[f'{self.tree[lca_id].inds[min_side]}'] = f'rho_b{leaf_id}'
+        return ket_inds_map, bra_inds_map
 
-    def entanglement_entropy(self):
-        NotImplemented
+    def reduced_density_matrix(self, site: int, level_idx: int) -> np.ndarray:
+        if not 0 <= site < self.tree.n_leaves - 1:
+            raise ValueError("Parameter `site` for bi-partition has to be within the system size.")
+        if not 0 <= level_idx < self.tree.root.shape[2]:
+            raise ValueError("Parameter `level_idx` has to be lower than truncation dimension.")
+        node_ids = self.tree.find_path(site + 1)
+        on_min_ket_surface, on_min_bra_surface = self._min_surface(site)
+        ket = self.tree.tensor_network(node_ids).reindex(on_min_ket_surface)
+        ket.isel(
+            {f'{TensorTree.Syntax.node}{self.tree.root_id}{TensorTree.Syntax.level_idx}': level_idx},
+            inplace=True
+        )
+        bra = self.tree.tensor_network(node_ids, conj=True, mangle_outer=False).reindex(on_min_bra_surface)
+        bra.isel(
+            {f'{TensorTree.Syntax.conj_node}{self.tree.root_id}{TensorTree.Syntax.level_idx}': level_idx},
+            inplace=True
+        )
+        return (ket & bra).contract(
+            [elem for node_id in node_ids
+             for elem in (f'{TensorTree.Syntax.node}{node_id}', f'{TensorTree.Syntax.conj_node}{node_id}')]
+        ).to_dense([*on_min_ket_surface.values()], [*on_min_bra_surface.values()])
+
+    def entanglement_entropy(self, site: int, level_idx: int) -> float:
+        rho = np.linalg.eigvalsh(self.reduced_density_matrix(site, level_idx))[::-1]
+        return -1 * rho @ np.log(rho)
 
     def one_point_function(self):
         NotImplemented
