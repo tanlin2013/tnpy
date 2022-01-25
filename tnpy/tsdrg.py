@@ -1,14 +1,12 @@
-import logging
 import re
+import logging
+import numpy as np
+import quimb.tensor as qtn
 from dataclasses import dataclass, field
 from functools import wraps
 from itertools import count, islice
 from typing import Union, List, Dict, Iterator, Callable, Sequence, Tuple
-
-import numpy as np
-import quimb.tensor as qtn
 from graphviz import Digraph
-
 from tnpy.operators import MatrixProductOperator
 
 
