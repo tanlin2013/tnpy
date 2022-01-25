@@ -1,28 +1,35 @@
 import abc
 import numpy as np
-from tnpy.operators import MPO
+from tnpy.operators import MatrixProductOperator
 
 
 class ModelBase(abc.ABC):
 
-    def __init__(self, N: int):
+    def __init__(self, n: int):
         """
 
         Args:
-            N: System size.
+            n: System size.
         """
-        self.N = N
+        self._n = n
+
+    @property
+    def n(self) -> int:
+        return self._n
 
     @abc.abstractmethod
     def _elem(self, site: int) -> np.ndarray:
         return NotImplemented
 
     @property
-    def mpo(self) -> MPO:
+    def mpo(self) -> MatrixProductOperator:
         """
         Return matrix product operator (mpo) as a property of the model.
 
         Returns:
             mpo:
         """
-        return MPO(self.N, self._elem)
+        tensors = [self._elem(site) for site in range(self.n)]
+        tensors[0] = tensors[0][0, :, :, :]
+        tensors[-1] = tensors[-1][:, -1, :, :]
+        return MatrixProductOperator(tensors)

@@ -1,7 +1,10 @@
 import numpy as np
+import quimb.tensor as qtn
+from tensornetwork import Node
 from collections import namedtuple
-from tensornetwork import Node, Tensor, ncon
-from typing import Callable, List, Union, Tuple
+from itertools import groupby
+from typing import Callable, List
+import warnings
 
 
 class SpinOperators:
@@ -19,6 +22,7 @@ class SpinOperators:
 class MPO:
 
     def __init__(self, N: int, func: Callable):
+        warnings.warn("Deprecated, pls use tnpy.operators.MatrixProductOperator instead.", DeprecationWarning)
         self.N = N
         self._nodes = []
         self.nodes = func
@@ -70,43 +74,60 @@ class MPO:
         self._v_right = Node(self.__identity[header])
 
 
+class MatrixProductOperator(qtn.MatrixProductOperator):
+
+    def __init__(self, *args, **kwargs):
+        super(MatrixProductOperator, self).__init__(*args, **kwargs)
+
+    def square(self) -> qtn.MatrixProductOperator:
+        first_layer = self.reindex(
+            {f'b{site}': f'dummy{site}' for site in range(self.nsites)}
+        )
+        second_layer = self.reindex(
+            {f'k{site}': f'dummy{site}' for site in range(self.nsites)}
+        )
+        second_layer.reindex(
+            {ind: qtn.rand_uuid() for ind in second_layer.inner_inds()}, inplace=True
+        )
+
+        def _fuse_bilayer(site: int) -> qtn.Tensor:
+            bilayer_mpo = first_layer[site] @ second_layer[site]
+            if site == 0 or site == self.nsites - 1:
+                return bilayer_mpo.fuse({qtn.rand_uuid(): [bilayer_mpo.inds[0], bilayer_mpo.inds[2]]})
+            return bilayer_mpo.fuse(
+                {qtn.rand_uuid(): [bilayer_mpo.inds[0], bilayer_mpo.inds[3]],
+                 qtn.rand_uuid(): [bilayer_mpo.inds[1], bilayer_mpo.inds[4]]}
+            )
+        return qtn.MatrixProductOperator([_fuse_bilayer(site).data for site in range(self.nsites)])
+
+
 class FullHamiltonian:
 
-    def __init__(self, mpo: MPO):
-        self._N = mpo.N
-        self._matrix = None
-        self.matrix = mpo
-        self._physical_dimensions = mpo.physical_dimensions
+    def __init__(self, mpo: MatrixProductOperator):
+        self._n_sites = mpo.nsites
+        self._phys_dim = mpo.phys_dim(0)
+
+        def all_equal(iterable):
+            g = groupby(iterable)
+            return next(g, True) and not next(g, False)
+        assert all_equal([mpo.phys_dim(site) for site in range(self.n_sites)])
+
+        if self.phys_dim ** self.n_sites > 2 ** 12:
+            raise ResourceWarning(f"Requesting more than {self.n_sites} sites with physical dim {self.phys_dim}.")
+
+        self._matrix = mpo.contract().fuse(
+            {'0': [f'k{site}' for site in range(self.n_sites)],
+             '1': [f'b{site}' for site in range(self.n_sites)]}
+        ).data
 
     @property
-    def N(self) -> int:
-        return self._N
+    def n_sites(self) -> int:
+        return self._n_sites
 
     @property
-    def physical_dimensions(self) -> int:
-        return self._physical_dimensions
+    def phys_dim(self) -> int:
+        return self._phys_dim
 
     @property
-    def matrix(self) -> Union[np.ndarray, Tensor]:
+    def matrix(self) -> np.ndarray:
         return self._matrix
-
-    @matrix.setter
-    def matrix(self, mpo: MPO):
-        def network_structure(site: int) -> Union[Tuple[int, str, str], Tuple[int, int, str, str]]:
-            if site == 1:
-                return site, f'-a{site}', f'-b{site}'
-            elif site == self.N:
-                return site-1, f'-a{site}', f'-b{site}'
-            return site-1, site, f'-a{site}', f'-b{site}'
-        self._matrix = ncon(
-            [node.tensor for node in mpo],
-            [network_structure(site) for site in range(1, self.N + 1)],
-            out_order=[f'-a{site}' for site in range(1, self.N + 1)] +
-                      [f'-b{site}' for site in range(1, self.N + 1)]
-        )
-        self._matrix = self._matrix.reshape(
-            (
-                mpo.physical_dimensions ** self.N,
-                mpo.physical_dimensions ** self.N
-            )
-        )

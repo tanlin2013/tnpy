@@ -7,7 +7,7 @@ WORKDIR $WORKDIR
 
 # Install fortran, blas, lapack
 RUN apt update
-RUN apt-get install -y gfortran libblas-dev liblapack-dev
+RUN apt-get install -y gfortran libblas-dev liblapack-dev graphviz
 
 # Install required python packages
 COPY . $WORKDIR

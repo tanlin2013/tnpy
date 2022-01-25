@@ -1,96 +1,10 @@
-import unittest
+from unittest import TestCase
 import numpy as np
-from tnpy.operators import FullHamiltonian, SpinOperators
+from tnpy.operators import SpinOperators, FullHamiltonian
 from tnpy.model import XXZ, RandomHeisenberg
 
 
-class TestMPO(unittest.TestCase):
-
-    model_set = [
-        RandomHeisenberg(N=4, h=0).mpo,
-        XXZ(N=6, delta=0.5).mpo
-    ]
-
-    def test_nodes(self):
-        self.assertEqual(4, len(self.model_set[0].nodes))
-        self.assertEqual(6, len(self.model_set[1].nodes))
-        self.assertEqual((6, 2, 2), self.model_set[0].nodes[0].shape)
-        self.assertEqual((6, 6, 2, 2), self.model_set[0].nodes[1].shape)
-        self.assertEqual((5, 2, 2), self.model_set[1].nodes[0].shape)
-        self.assertEqual((5, 5, 2, 2), self.model_set[1].nodes[1].shape)
-
-    def test_physical_dimensions(self):
-        self.assertEqual(2, self.model_set[0].physical_dimensions)
-        self.assertEqual(2, self.model_set[1].physical_dimensions)
-
-    def test_bond_dimensions(self):
-        self.assertEqual(6, self.model_set[0].bond_dimensions)
-        self.assertEqual(5, self.model_set[1].bond_dimensions)
-
-
-class TestFullHamiltonian(unittest.TestCase):
-
-    ham_set = [
-        FullHamiltonian(RandomHeisenberg(N=2, h=0).mpo),
-        FullHamiltonian(RandomHeisenberg(N=3, h=0).mpo),
-        FullHamiltonian(XXZ(N=2, delta=0.5).mpo),
-        FullHamiltonian(XXZ(N=3, delta=0.5).mpo)
-    ]
-
-    def test_N(self):
-        self.assertEqual(2, self.ham_set[0].N)
-        self.assertEqual(3, self.ham_set[1].N)
-        self.assertEqual(2, self.ham_set[2].N)
-        self.assertEqual(3, self.ham_set[3].N)
-
-    def test_matrix(self):
-        np.testing.assert_array_equal(
-            np.array(
-                [[0.25, 0, 0, 0],
-                 [0, -0.25, 0.5, 0],
-                 [0, 0.5, -0.25, 0],
-                 [0, 0, 0, 0.25]]
-            ),
-            self.ham_set[0].matrix
-        )
-        np.testing.assert_array_equal(
-            np.array(
-                [[0.5, 0, 0, 0, 0, 0, 0, 0],
-                 [0, 0, 0.5, 0, 0, 0, 0, 0],
-                 [0, 0.5, -0.5, 0, 0.5, 0, 0, 0],
-                 [0, 0, 0, 0, 0, 0.5, 0, 0],
-                 [0, 0, 0.5, 0, 0, 0, 0, 0],
-                 [0, 0, 0, 0.5, 0, -0.5, 0.5, 0],
-                 [0, 0, 0, 0, 0, 0.5, 0, 0],
-                 [0, 0, 0, 0, 0, 0, 0, 0.5]]
-            ),
-            self.ham_set[1].matrix
-        )
-        np.testing.assert_array_equal(
-            np.array(
-                [[-0.125, 0, 0, 0],
-                 [0, 0.125, -0.5, 0],
-                 [0, -0.5, 0.125, 0],
-                 [0, 0, 0, -0.125]]
-            ),
-            self.ham_set[2].matrix
-        )
-        np.testing.assert_array_equal(
-            np.array(
-                [[-0.25, 0, 0, 0, 0, 0, 0, 0],
-                 [0, 0, -0.5, 0, 0, 0, 0, 0],
-                 [0, -0.5, 0.25, 0, -0.5, 0, 0, 0],
-                 [0, 0, 0, 0, 0, -0.5, 0, 0],
-                 [0, 0, -0.5, 0, 0, 0, 0, 0],
-                 [0, 0, 0, -0.5, 0, 0.25, -0.5, 0],
-                 [0, 0, 0, 0, 0, -0.5, 0, 0],
-                 [0, 0, 0, 0, 0, 0, 0, -0.25]]
-            ),
-            self.ham_set[3].matrix
-        )
-
-
-class TestSpinOperators(unittest.TestCase):
+class TestSpinOperators(TestCase):
 
     def test_SOp(self):
         spin_half_ops = SpinOperators()
@@ -110,5 +24,85 @@ class TestSpinOperators(unittest.TestCase):
         )
 
 
-if __name__ == '__main__':
-    unittest.main()
+class TestMatrixProductOperator(TestCase):
+
+    def test_square(self):
+        bilayer_mpo = RandomHeisenberg(n=4, h=0).mpo.square()
+        self.assertCountEqual(
+            (36, 2, 2),
+            bilayer_mpo[0].shape
+        )
+        self.assertCountEqual(
+            (36, 36, 2, 2),
+            bilayer_mpo[1].shape
+        )
+        self.assertCountEqual(
+            (36, 36, 2, 2),
+            bilayer_mpo[2].shape
+        )
+        self.assertCountEqual(
+            (36, 2, 2),
+            bilayer_mpo[3].shape
+        )
+
+
+class TestFullHamiltonian(TestCase):
+
+    def __init__(self, *args, **kwargs):
+        super(TestFullHamiltonian, self).__init__(*args, **kwargs)
+        self.ham1 = FullHamiltonian(RandomHeisenberg(n=2, h=0).mpo)
+        self.ham2 = FullHamiltonian(RandomHeisenberg(n=3, h=0).mpo)
+        self.ham3 = FullHamiltonian(XXZ(n=2, delta=0.5).mpo)
+        self.ham4 = FullHamiltonian(XXZ(n=3, delta=0.5).mpo)
+
+    def test_n_sites(self):
+        self.assertEqual(2, self.ham1.n_sites)
+        self.assertEqual(3, self.ham2.n_sites)
+        self.assertEqual(2, self.ham3.n_sites)
+        self.assertEqual(3, self.ham4.n_sites)
+
+    def test_matrix(self):
+        np.testing.assert_array_equal(
+            np.array(
+                [[0.25, 0, 0, 0],
+                 [0, -0.25, 0.5, 0],
+                 [0, 0.5, -0.25, 0],
+                 [0, 0, 0, 0.25]]
+            ),
+            self.ham1.matrix
+        )
+        np.testing.assert_array_equal(
+            np.array(
+                [[0.5, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0.5, 0, 0, 0, 0, 0],
+                 [0, 0.5, -0.5, 0, 0.5, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 0.5, 0, 0],
+                 [0, 0, 0.5, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 0.5, 0, -0.5, 0.5, 0],
+                 [0, 0, 0, 0, 0, 0.5, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 0.5]]
+            ),
+            self.ham2.matrix
+        )
+        np.testing.assert_array_equal(
+            np.array(
+                [[-0.125, 0, 0, 0],
+                 [0, 0.125, -0.5, 0],
+                 [0, -0.5, 0.125, 0],
+                 [0, 0, 0, -0.125]]
+            ),
+            self.ham3.matrix
+        )
+        np.testing.assert_array_equal(
+            np.array(
+                [[-0.25, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 0, -0.5, 0, 0, 0, 0, 0],
+                 [0, -0.5, 0.25, 0, -0.5, 0, 0, 0],
+                 [0, 0, 0, 0, 0, -0.5, 0, 0],
+                 [0, 0, -0.5, 0, 0, 0, 0, 0],
+                 [0, 0, 0, -0.5, 0, 0.25, -0.5, 0],
+                 [0, 0, 0, 0, 0, -0.5, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, -0.25]]
+            ),
+            self.ham4.matrix
+        )
