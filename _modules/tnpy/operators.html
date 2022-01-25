@@ -115,23 +115,13 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../_autosummary/tnpy.tsdrg.TreeNode.html">
-     tnpy.tsdrg.TreeNode
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../../_autosummary/tnpy.tsdrg.TensorTree.html">
      tnpy.tsdrg.TensorTree
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../_autosummary/tnpy.tsdrg.TSDRG.html">
-     tnpy.tsdrg.TSDRG
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../../nb_tsdrg.html">
-     1. Algorithm 🚀
+     🚀 Algorithm
     </a>
    </li>
   </ul>
@@ -368,9 +358,12 @@
                 
   <h1>Source code for tnpy.operators</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">quimb.tensor</span> <span class="k">as</span> <span class="nn">qtn</span>
+<span class="kn">from</span> <span class="nn">tensornetwork</span> <span class="kn">import</span> <span class="n">Node</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
-<span class="kn">from</span> <span class="nn">tensornetwork</span> <span class="kn">import</span> <span class="n">Node</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">ncon</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">groupby</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 
 
 <div class="viewcode-block" id="SpinOperators"><a class="viewcode-back" href="../../tnpy.html#tnpy.operators.SpinOperators">[docs]</a><span class="k">class</span> <span class="nc">SpinOperators</span><span class="p">:</span>
@@ -388,6 +381,7 @@
 <div class="viewcode-block" id="MPO"><a class="viewcode-back" href="../../tnpy.html#tnpy.operators.MPO">[docs]</a><span class="k">class</span> <span class="nc">MPO</span><span class="p">:</span>
 
 <div class="viewcode-block" id="MPO.__init__"><a class="viewcode-back" href="../../_autosummary/tnpy.operators.MPO.html#tnpy.operators.MPO.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Deprecated, pls use tnpy.operators.MatrixProductOperator instead.&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="n">N</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="n">func</span>
@@ -439,46 +433,63 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_v_right</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__identity</span><span class="p">[</span><span class="n">header</span><span class="p">])</span></div>
 
 
+<div class="viewcode-block" id="MatrixProductOperator"><a class="viewcode-back" href="../../tnpy.html#tnpy.operators.MatrixProductOperator">[docs]</a><span class="k">class</span> <span class="nc">MatrixProductOperator</span><span class="p">(</span><span class="n">qtn</span><span class="o">.</span><span class="n">MatrixProductOperator</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MatrixProductOperator</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MatrixProductOperator.square"><a class="viewcode-back" href="../../tnpy.html#tnpy.operators.MatrixProductOperator.square">[docs]</a>    <span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">qtn</span><span class="o">.</span><span class="n">MatrixProductOperator</span><span class="p">:</span>
+        <span class="n">first_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span>
+            <span class="p">{</span><span class="sa">f</span><span class="s1">&#39;b</span><span class="si">{</span><span class="n">site</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;dummy</span><span class="si">{</span><span class="n">site</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nsites</span><span class="p">)}</span>
+        <span class="p">)</span>
+        <span class="n">second_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span>
+            <span class="p">{</span><span class="sa">f</span><span class="s1">&#39;k</span><span class="si">{</span><span class="n">site</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;dummy</span><span class="si">{</span><span class="n">site</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nsites</span><span class="p">)}</span>
+        <span class="p">)</span>
+        <span class="n">second_layer</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span>
+            <span class="p">{</span><span class="n">ind</span><span class="p">:</span> <span class="n">qtn</span><span class="o">.</span><span class="n">rand_uuid</span><span class="p">()</span> <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">second_layer</span><span class="o">.</span><span class="n">inner_inds</span><span class="p">()},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_fuse_bilayer</span><span class="p">(</span><span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">qtn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+            <span class="n">bilayer_mpo</span> <span class="o">=</span> <span class="n">first_layer</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">@</span> <span class="n">second_layer</span><span class="p">[</span><span class="n">site</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">site</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">site</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">nsites</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">bilayer_mpo</span><span class="o">.</span><span class="n">fuse</span><span class="p">({</span><span class="n">qtn</span><span class="o">.</span><span class="n">rand_uuid</span><span class="p">():</span> <span class="p">[</span><span class="n">bilayer_mpo</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bilayer_mpo</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">2</span><span class="p">]]})</span>
+            <span class="k">return</span> <span class="n">bilayer_mpo</span><span class="o">.</span><span class="n">fuse</span><span class="p">(</span>
+                <span class="p">{</span><span class="n">qtn</span><span class="o">.</span><span class="n">rand_uuid</span><span class="p">():</span> <span class="p">[</span><span class="n">bilayer_mpo</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bilayer_mpo</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">3</span><span class="p">]],</span>
+                 <span class="n">qtn</span><span class="o">.</span><span class="n">rand_uuid</span><span class="p">():</span> <span class="p">[</span><span class="n">bilayer_mpo</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">bilayer_mpo</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">4</span><span class="p">]]}</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">qtn</span><span class="o">.</span><span class="n">MatrixProductOperator</span><span class="p">([</span><span class="n">_fuse_bilayer</span><span class="p">(</span><span class="n">site</span><span class="p">)</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nsites</span><span class="p">)])</span></div></div>
+
+
 <div class="viewcode-block" id="FullHamiltonian"><a class="viewcode-back" href="../../tnpy.html#tnpy.operators.FullHamiltonian">[docs]</a><span class="k">class</span> <span class="nc">FullHamiltonian</span><span class="p">:</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mpo</span><span class="p">:</span> <span class="n">MPO</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_N</span> <span class="o">=</span> <span class="n">mpo</span><span class="o">.</span><span class="n">N</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="n">mpo</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_physical_dimensions</span> <span class="o">=</span> <span class="n">mpo</span><span class="o">.</span><span class="n">physical_dimensions</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mpo</span><span class="p">:</span> <span class="n">MatrixProductOperator</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n_sites</span> <span class="o">=</span> <span class="n">mpo</span><span class="o">.</span><span class="n">nsites</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_phys_dim</span> <span class="o">=</span> <span class="n">mpo</span><span class="o">.</span><span class="n">phys_dim</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">all_equal</span><span class="p">(</span><span class="n">iterable</span><span class="p">):</span>
+            <span class="n">g</span> <span class="o">=</span> <span class="n">groupby</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">all_equal</span><span class="p">([</span><span class="n">mpo</span><span class="o">.</span><span class="n">phys_dim</span><span class="p">(</span><span class="n">site</span><span class="p">)</span> <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span><span class="p">)])</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">phys_dim</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="o">**</span> <span class="mi">12</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ResourceWarning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Requesting more than </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span><span class="si">}</span><span class="s2"> sites with physical dim </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">phys_dim</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="n">mpo</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span><span class="o">.</span><span class="n">fuse</span><span class="p">(</span>
+            <span class="p">{</span><span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;k</span><span class="si">{</span><span class="n">site</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span><span class="p">)],</span>
+             <span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;b</span><span class="si">{</span><span class="n">site</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span><span class="p">)]}</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">data</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">N</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_N</span>
+    <span class="k">def</span> <span class="nf">n_sites</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_sites</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">physical_dimensions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_physical_dimensions</span>
+    <span class="k">def</span> <span class="nf">phys_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_phys_dim</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span>
-
-    <span class="nd">@matrix</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mpo</span><span class="p">:</span> <span class="n">MPO</span><span class="p">):</span>
-        <span class="k">def</span> <span class="nf">network_structure</span><span class="p">(</span><span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
-            <span class="k">if</span> <span class="n">site</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">site</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;-a</span><span class="si">{</span><span class="n">site</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;-b</span><span class="si">{</span><span class="n">site</span><span class="si">}</span><span class="s1">&#39;</span>
-            <span class="k">elif</span> <span class="n">site</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">site</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;-a</span><span class="si">{</span><span class="n">site</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;-b</span><span class="si">{</span><span class="n">site</span><span class="si">}</span><span class="s1">&#39;</span>
-            <span class="k">return</span> <span class="n">site</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">site</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;-a</span><span class="si">{</span><span class="n">site</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;-b</span><span class="si">{</span><span class="n">site</span><span class="si">}</span><span class="s1">&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="n">ncon</span><span class="p">(</span>
-            <span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">tensor</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">mpo</span><span class="p">],</span>
-            <span class="p">[</span><span class="n">network_structure</span><span class="p">(</span><span class="n">site</span><span class="p">)</span> <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)],</span>
-            <span class="n">out_order</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;-a</span><span class="si">{</span><span class="n">site</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">+</span>
-                      <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;-b</span><span class="si">{</span><span class="n">site</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
-            <span class="p">(</span>
-                <span class="n">mpo</span><span class="o">.</span><span class="n">physical_dimensions</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">,</span>
-                <span class="n">mpo</span><span class="o">.</span><span class="n">physical_dimensions</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span>
-            <span class="p">)</span>
-        <span class="p">)</span></div>
+    <span class="k">def</span> <span class="nf">matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span></div>
 </pre></div>
 
               </div>

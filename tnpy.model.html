@@ -116,23 +116,13 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="_autosummary/tnpy.tsdrg.TreeNode.html">
-     tnpy.tsdrg.TreeNode
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="_autosummary/tnpy.tsdrg.TensorTree.html">
      tnpy.tsdrg.TensorTree
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="_autosummary/tnpy.tsdrg.TSDRG.html">
-     tnpy.tsdrg.TSDRG
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="nb_tsdrg.html">
-     1. Algorithm 🚀
+     🚀 Algorithm
     </a>
    </li>
   </ul>
@@ -421,12 +411,12 @@
 <span id="tnpy-model-dimer-xxz-module"></span><h2>tnpy.model.dimer_xxz module<a class="headerlink" href="#module-tnpy.model.dimer_xxz" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="tnpy.model.dimer_xxz.DimerXXZ">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.model.dimer_xxz.</span></span><span class="sig-name descname"><span class="pre">DimerXXZ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">J</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penalty</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_target</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trial_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/model/dimer_xxz.html#DimerXXZ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.dimer_xxz.DimerXXZ" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.model.dimer_xxz.</span></span><span class="sig-name descname"><span class="pre">DimerXXZ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">J</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penalty</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_target</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trial_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/model/dimer_xxz.html#DimerXXZ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.dimer_xxz.DimerXXZ" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#tnpy.model.model_base.ModelBase" title="tnpy.model.model_base.ModelBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tnpy.model.model_base.ModelBase</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>N</strong> – System size.</p></li>
+<li><p><strong>n</strong> – System size.</p></li>
 <li><p><strong>J</strong> – </p></li>
 <li><p><strong>delta</strong> – </p></li>
 <li><p><strong>h</strong> – Disorder strength.</p></li>
@@ -443,16 +433,16 @@
 <span id="tnpy-model-model-base-module"></span><h2>tnpy.model.model_base module<a class="headerlink" href="#module-tnpy.model.model_base" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="tnpy.model.model_base.ModelBase">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.model.model_base.</span></span><span class="sig-name descname"><span class="pre">ModelBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/model/model_base.html#ModelBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.model_base.ModelBase" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.model.model_base.</span></span><span class="sig-name descname"><span class="pre">ModelBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/model/model_base.html#ModelBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.model_base.ModelBase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>N</strong> – System size.</p>
+<dd class="field-odd"><p><strong>n</strong> – System size.</p>
 </dd>
 </dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.model.model_base.ModelBase.mpo">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">mpo</span></span><em class="property"><span class="pre">:</span> <a class="reference internal" href="tnpy.html#tnpy.operators.MPO" title="tnpy.operators.MPO"><span class="pre">tnpy.operators.MPO</span></a></em><a class="headerlink" href="#tnpy.model.model_base.ModelBase.mpo" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">mpo</span></span><em class="property"><span class="pre">:</span> <a class="reference internal" href="tnpy.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a></em><a class="headerlink" href="#tnpy.model.model_base.ModelBase.mpo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return matrix product operator (mpo) as a property of the model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -464,6 +454,11 @@
 </dl>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.model.model_base.ModelBase.n">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">n</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#tnpy.model.model_base.ModelBase.n" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
@@ -471,43 +466,51 @@
 <span id="tnpy-model-random-heisenberg-module"></span><h2>tnpy.model.random_heisenberg module<a class="headerlink" href="#module-tnpy.model.random_heisenberg" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="tnpy.model.random_heisenberg.RandomHeisenberg">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.model.random_heisenberg.</span></span><span class="sig-name descname"><span class="pre">RandomHeisenberg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penalty</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_target</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trial_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/model/random_heisenberg.html#RandomHeisenberg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.random_heisenberg.RandomHeisenberg" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.model.random_heisenberg.</span></span><span class="sig-name descname"><span class="pre">RandomHeisenberg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penalty</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_target</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trial_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/model/random_heisenberg.html#RandomHeisenberg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.random_heisenberg.RandomHeisenberg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#tnpy.model.model_base.ModelBase" title="tnpy.model.model_base.ModelBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tnpy.model.model_base.ModelBase</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>N</strong> – System size.</p></li>
+<li><p><strong>n</strong> – System size.</p></li>
 <li><p><strong>h</strong> – Disorder strength.</p></li>
 <li><p><strong>penalty</strong> – Penalty strength (of Lagrangian multiplier).</p></li>
 <li><p><strong>s_target</strong> – The targeting total Sz charge sector.</p></li>
+<li><p><strong>offset</strong> – An overall constant to shift the spectrum.</p></li>
 <li><p><strong>trial_id</strong> – ID of the current disorder trial.</p></li>
 <li><p><strong>seed</strong> – Random seed used to initialize the pseudo-random number generator.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py property">
+<dt class="sig sig-object py" id="tnpy.model.random_heisenberg.RandomHeisenberg.h">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">h</span></span><em class="property"><span class="pre">:</span> <span class="pre">float</span></em><a class="headerlink" href="#tnpy.model.random_heisenberg.RandomHeisenberg.h" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.model.random_heisenberg.RandomHeisenberg.offset">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">offset</span></span><em class="property"><span class="pre">:</span> <span class="pre">float</span></em><a class="headerlink" href="#tnpy.model.random_heisenberg.RandomHeisenberg.offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.model.random_heisenberg.RandomHeisenberg.penalty">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">penalty</span></span><em class="property"><span class="pre">:</span> <span class="pre">float</span></em><a class="headerlink" href="#tnpy.model.random_heisenberg.RandomHeisenberg.penalty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.model.random_heisenberg.RandomHeisenberg.s_target">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">s_target</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#tnpy.model.random_heisenberg.RandomHeisenberg.s_target" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="tnpy.model.random_heisenberg.RandomHeisenberg.seed">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">seed</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#tnpy.model.random_heisenberg.RandomHeisenberg.seed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.model.random_heisenberg.RandomHeisenberg.trial_id">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">trial_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#tnpy.model.random_heisenberg.RandomHeisenberg.trial_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
-<dl class="py class">
-<dt class="sig sig-object py" id="tnpy.model.random_heisenberg.SpectralFoldedRandomHeisenberg">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.model.random_heisenberg.</span></span><span class="sig-name descname"><span class="pre">SpectralFoldedRandomHeisenberg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penalty</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_target</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trial_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/model/random_heisenberg.html#SpectralFoldedRandomHeisenberg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.random_heisenberg.SpectralFoldedRandomHeisenberg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#tnpy.model.random_heisenberg.RandomHeisenberg" title="tnpy.model.random_heisenberg.RandomHeisenberg"><code class="xref py py-class docutils literal notranslate"><span class="pre">tnpy.model.random_heisenberg.RandomHeisenberg</span></code></a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>N</strong> – System size.</p></li>
-<li><p><strong>h</strong> – Disorder strength.</p></li>
-<li><p><strong>penalty</strong> – Penalty strength (of Lagrangian multiplier).</p></li>
-<li><p><strong>s_target</strong> – The targeting total Sz charge sector.</p></li>
-<li><p><strong>trial_id</strong> – ID of the current disorder trial.</p></li>
-<li><p><strong>seed</strong> – Random seed used to initialize the pseudo-random number generator.</p></li>
-</ul>
-</dd>
-</dl>
 </dd></dl>
 
 </div>
@@ -515,12 +518,12 @@
 <span id="tnpy-model-thirring-module"></span><h2>tnpy.model.thirring module<a class="headerlink" href="#module-tnpy.model.thirring" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="tnpy.model.thirring.Thirring">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.model.thirring.</span></span><span class="sig-name descname"><span class="pre">Thirring</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ma</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lamda</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_target</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/model/thirring.html#Thirring"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.thirring.Thirring" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.model.thirring.</span></span><span class="sig-name descname"><span class="pre">Thirring</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ma</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lamda</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_target</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/model/thirring.html#Thirring"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.thirring.Thirring" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#tnpy.model.model_base.ModelBase" title="tnpy.model.model_base.ModelBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tnpy.model.model_base.ModelBase</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>N</strong> – System size.</p></li>
+<li><p><strong>n</strong> – System size.</p></li>
 <li><p><strong>g</strong> – Bare coupling g.</p></li>
 <li><p><strong>ma</strong> – Bare mass.</p></li>
 <li><p><strong>lamda</strong> – Penalty strength (of Lagrangian multiplier).</p></li>
@@ -535,12 +538,12 @@
 <span id="tnpy-model-xxz-module"></span><h2>tnpy.model.xxz module<a class="headerlink" href="#module-tnpy.model.xxz" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="tnpy.model.xxz.XXZ">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.model.xxz.</span></span><span class="sig-name descname"><span class="pre">XXZ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/model/xxz.html#XXZ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.xxz.XXZ" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.model.xxz.</span></span><span class="sig-name descname"><span class="pre">XXZ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/model/xxz.html#XXZ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.xxz.XXZ" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#tnpy.model.model_base.ModelBase" title="tnpy.model.model_base.ModelBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tnpy.model.model_base.ModelBase</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>N</strong> – System size.</p></li>
+<li><p><strong>n</strong> – System size.</p></li>
 <li><p><strong>delta</strong> – Coupling strength on z direction.</p></li>
 </ul>
 </dd>

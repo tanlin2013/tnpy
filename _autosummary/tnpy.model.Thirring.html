@@ -117,23 +117,13 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="tnpy.tsdrg.TreeNode.html">
-     tnpy.tsdrg.TreeNode
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="tnpy.tsdrg.TensorTree.html">
      tnpy.tsdrg.TensorTree
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tnpy.tsdrg.TSDRG.html">
-     tnpy.tsdrg.TSDRG
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../nb_tsdrg.html">
-     1. Algorithm 🚀
+     🚀 Algorithm
     </a>
    </li>
   </ul>
@@ -374,11 +364,11 @@
 <h1>tnpy.model.Thirring<a class="headerlink" href="#tnpy-model-thirring" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="tnpy.model.Thirring">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.model.</span></span><span class="sig-name descname"><span class="pre">Thirring</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ma</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lamda</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_target</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/model/thirring.html#Thirring"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.Thirring" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.model.</span></span><span class="sig-name descname"><span class="pre">Thirring</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ma</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lamda</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_target</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/model/thirring.html#Thirring"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.Thirring" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>N</strong> – System size.</p></li>
+<li><p><strong>n</strong> – System size.</p></li>
 <li><p><strong>g</strong> – Bare coupling g.</p></li>
 <li><p><strong>ma</strong> – Bare mass.</p></li>
 <li><p><strong>lamda</strong> – Penalty strength (of Lagrangian multiplier).</p></li>
@@ -388,11 +378,11 @@
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.model.Thirring.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ma</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lamda</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_target</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/tnpy/model/thirring.html#Thirring.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.Thirring.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ma</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lamda</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_target</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/tnpy/model/thirring.html#Thirring.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.Thirring.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>N</strong> – System size.</p></li>
+<li><p><strong>n</strong> – System size.</p></li>
 <li><p><strong>g</strong> – Bare coupling g.</p></li>
 <li><p><strong>ma</strong> – Bare mass.</p></li>
 <li><p><strong>lamda</strong> – Penalty strength (of Lagrangian multiplier).</p></li>
@@ -409,9 +399,9 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.model.Thirring.__init__" title="tnpy.model.Thirring.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(N, g, ma, lamda, s_target)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.model.Thirring.__init__" title="tnpy.model.Thirring.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(n, g, ma, lamda, s_target)</p></td>
 <td><p><dl class="field-list simple">
-<dt class="field-odd">param N</dt>
+<dt class="field-odd">param n</dt>
 <dd class="field-odd"><p>System size.</p>
 </dd>
 </dl>
@@ -428,6 +418,9 @@
 <tbody>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">mpo</span></code></p></td>
 <td><p>Return matrix product operator (mpo) as a property of the model.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>

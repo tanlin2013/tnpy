@@ -36,7 +36,7 @@
     <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="tnpy.tsdrg.TreeNode" href="_autosummary/tnpy.tsdrg.TreeNode.html" />
+    <link rel="next" title="tnpy.tsdrg.TensorTree" href="_autosummary/tnpy.tsdrg.TensorTree.html" />
     <link rel="prev" title="tnpy.finite_tdvp.FiniteTDVP" href="_autosummary/tnpy.finite_tdvp.FiniteTDVP.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -117,23 +117,13 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="_autosummary/tnpy.tsdrg.TreeNode.html">
-     tnpy.tsdrg.TreeNode
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="_autosummary/tnpy.tsdrg.TensorTree.html">
      tnpy.tsdrg.TensorTree
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="_autosummary/tnpy.tsdrg.TSDRG.html">
-     tnpy.tsdrg.TSDRG
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="nb_tsdrg.html">
-     1. Algorithm 🚀
+     🚀 Algorithm
     </a>
    </li>
   </ul>
@@ -378,31 +368,25 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="tnpy.html#tnpy.tsdrg.TreeNode" title="tnpy.tsdrg.TreeNode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tnpy.tsdrg.TreeNode</span></code></a>(id, node[, left, right])</p></td>
-<td><p>The node object in binary tree.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="tnpy.html#tnpy.tsdrg.TensorTree" title="tnpy.tsdrg.TensorTree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tnpy.tsdrg.TensorTree</span></code></a>(leaves)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="tnpy.html#tnpy.tsdrg.TensorTree" title="tnpy.tsdrg.TensorTree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tnpy.tsdrg.TensorTree</span></code></a>(mpo)</p></td>
 <td><p>The bottom-up binary tree where each node contains a tensor.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="tnpy.html#tnpy.tsdrg.TSDRG" title="tnpy.tsdrg.TSDRG"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tnpy.tsdrg.TSDRG</span></code></a>(mpo, chi)</p></td>
-<td><p></p></td>
 </tr>
 </tbody>
 </table>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="nb_tsdrg.html">1. Algorithm 🚀</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="nb_tsdrg.html#Preparation">1.1. Preparation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nb_tsdrg.html#Main-part:-growing-the-tree">1.2. Main part: growing the tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nb_tsdrg.html">🚀 Algorithm</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nb_tsdrg.html#Preparation">Preparation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nb_tsdrg.html#Main-part:-growing-the-tree">Main part: growing the tree</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="nb_tsdrg.html#Data-Structure-🚀">2. Data Structure 🚀</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nb_tsdrg.html#Measurements-🚀">3. Measurements 🚀</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="nb_tsdrg.html#Correlation-function">3.1. Correlation function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nb_tsdrg.html#Entanglement-entropy">3.2. Entanglement entropy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nb_tsdrg.html#🚀-Data-Structure">🚀 Data Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nb_tsdrg.html#🚀-Measurements">🚀 Measurements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nb_tsdrg.html#Correlation-function">Correlation function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nb_tsdrg.html#Entanglement-entropy">Entanglement entropy</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="nb_tsdrg.html#References-🚀">4. References 🚀</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nb_tsdrg.html#🚀-References">🚀 References</a></li>
 </ul>
 </div>
 </div>
@@ -427,10 +411,10 @@
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="_autosummary/tnpy.tsdrg.TreeNode.html" title="next page">
+        <a class="right-next" href="_autosummary/tnpy.tsdrg.TensorTree.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">tnpy.tsdrg.TreeNode</p>
+                <p class="prevnext-title">tnpy.tsdrg.TensorTree</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>
