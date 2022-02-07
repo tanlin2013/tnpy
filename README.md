@@ -11,7 +11,7 @@ This project is a python implementation of Tensor Network,
 a numerical approach to quantum many-body systems.
   
 
-**tnpy** is built on top of [google/TensorNetwork](https://github.com/google/TensorNetwork) for tensor contractions, 
+**tnpy** is built on top of [quimb](https://github.com/jcmgray/quimb) for tensor contractions, 
 with optimized support for various backend engines (TensorFlow, JAX, PyTorch, and Numpy). 
 For eigen-solver we adopt [primme](https://github.com/primme/primme),
 an iterative multi-method solver with preconditioning.
@@ -22,7 +22,7 @@ with more are coming...
 * Finite-sized Density Matrix Renormalization Group (fDMRG)
 * Tree tensor Strong Disorder Renormalization Group (tSDRG)
 
-fDMRG is on alpha-release and is much stable. 
+fDMRG & tSDRG are on alpha-release. 
 For others, please expect edge cases.
 
 Requirments
@@ -30,7 +30,7 @@ Requirments
 See `requirements.txt` for more details.
 But these two are essential building blocks.
 
-  * [google/TensorNetwork](https://github.com/google/TensorNetwork)
+  * [quimb](https://github.com/jcmgray/quimb)
   * [primme/primme](https://github.com/primme/primme)
 
 Regarding any installation problems with Primme,
