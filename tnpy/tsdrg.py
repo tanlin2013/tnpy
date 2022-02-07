@@ -392,14 +392,12 @@ class TreeTensorNetworkSDRG:
         Returns:
             block_ham: The 2-site Hamiltonian.
         """
-        ham = self._fused_mpo_cache[locus] @ self._fused_mpo_cache[locus + 1]
-        if len(self._fused_mpo_cache) > 2:
-            if locus == 0:
-                ham.isel({ham.inds[2]: -1}, inplace=True)
-            elif locus == len(self._fused_mpo_cache) - 2:
-                ham.isel({ham.inds[0]: 0}, inplace=True)
-            else:
-                ham.isel({ham.inds[0]: 0, ham.inds[3]: -1}, inplace=True)
+        mpo1, mpo2 = self._fused_mpo_cache[locus], self._fused_mpo_cache[locus + 1]
+        if len(mpo1.inds) == 4:
+            mpo1 = mpo1.isel({mpo1.inds[0]: 0})
+        if len(mpo2.inds) == 4:
+            mpo2 = mpo2.isel({mpo2.inds[1]: -1})
+        ham = mpo1 @ mpo2
         ham.fuse({'0': [ham.inds[0], ham.inds[2]], '1': [ham.inds[1], ham.inds[3]]}, inplace=True)
         return ham.data
 
