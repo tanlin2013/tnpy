@@ -29,19 +29,19 @@ class TestMatrixProductOperator(TestCase):
     def test_square(self):
         bilayer_mpo = RandomHeisenberg(n=4, h=0).mpo.square()
         self.assertCountEqual(
-            (36, 2, 2),
+            (25, 2, 2),
             bilayer_mpo[0].shape
         )
         self.assertCountEqual(
-            (36, 36, 2, 2),
+            (25, 25, 2, 2),
             bilayer_mpo[1].shape
         )
         self.assertCountEqual(
-            (36, 36, 2, 2),
+            (25, 25, 2, 2),
             bilayer_mpo[2].shape
         )
         self.assertCountEqual(
-            (36, 2, 2),
+            (25, 2, 2),
             bilayer_mpo[3].shape
         )
 
