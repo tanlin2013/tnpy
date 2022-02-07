@@ -21,12 +21,6 @@
 
    
    
-   .. rubric:: Classes
-
-   .. autosummary::
-   
-      KrylovExpm
-   
    
 
    

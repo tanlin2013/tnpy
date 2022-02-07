@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tnpy package &#8212; tnpy 0.0.7 documentation</title>
+    <title>tnpy package &#8212; tnpy 0.0.8 documentation</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -58,7 +58,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">tnpy 0.0.7 documentation</h1>
+      <h1 class="site-logo" id="site-title">tnpy 0.0.8 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -603,29 +603,13 @@
 </div>
 <div class="section" id="module-tnpy.linalg">
 <span id="tnpy-linalg-module"></span><h2>tnpy.linalg module<a class="headerlink" href="#module-tnpy.linalg" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="tnpy.linalg.KrylovExpm">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.linalg.</span></span><span class="sig-name descname"><span class="pre">KrylovExpm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/linalg.html#KrylovExpm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.linalg.KrylovExpm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="tnpy.linalg.KrylovExpm.construct_krylov_space">
-<span class="sig-name descname"><span class="pre">construct_krylov_space</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/linalg.html#KrylovExpm.construct_krylov_space"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.linalg.KrylovExpm.construct_krylov_space" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="tnpy.linalg.KrylovExpm.orthonormalize">
-<span class="sig-name descname"><span class="pre">orthonormalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vecs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/linalg.html#KrylovExpm.orthonormalize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.linalg.KrylovExpm.orthonormalize" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="tnpy.linalg.eigshmv">
-<span class="sig-prename descclassname"><span class="pre">tnpy.linalg.</span></span><span class="sig-name descname"><span class="pre">eigshmv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Afunc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/linalg.html#eigshmv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.linalg.eigshmv" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">tnpy.linalg.</span></span><span class="sig-name descname"><span class="pre">eigshmv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matvec_func</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/linalg.html#eigshmv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.linalg.eigshmv" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>Afunc</strong> – </p></li>
+<li><p><strong>matvec_func</strong> – </p></li>
 <li><p><strong>v0</strong> – </p></li>
 <li><p><strong>tol</strong> – </p></li>
 </ul>
@@ -636,16 +620,16 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tnpy.linalg.qr">
-<span class="sig-prename descclassname"><span class="pre">tnpy.linalg.</span></span><span class="sig-name descname"><span class="pre">qr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/linalg.html#qr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.linalg.qr" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">tnpy.linalg.</span></span><span class="sig-name descname"><span class="pre">qr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/linalg.html#qr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.linalg.qr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tnpy.linalg.svd">
-<span class="sig-prename descclassname"><span class="pre">tnpy.linalg.</span></span><span class="sig-name descname"><span class="pre">svd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/linalg.html#svd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.linalg.svd" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">tnpy.linalg.</span></span><span class="sig-name descname"><span class="pre">svd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/linalg.html#svd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.linalg.svd" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>A</strong> – Input Matrix</p></li>
+<li><p><strong>matrix</strong> – Input Matrix</p></li>
 <li><p><strong>chi</strong> – Truncated dimension</p></li>
 </ul>
 </dd>
