@@ -494,24 +494,26 @@ class TreeTensorNetworkMeasurements:
             logging.warning("Expectation value may contain large off-diagonal elements.")
         return np.diag(exp_val)
 
-    def _min_surface(self, bipartite_site: int) -> Tuple[Dict, Dict]:
+    def _min_surface(self, bipartite_site: int) -> Tuple[int, Dict, Dict]:
         min_side = 0 if (bipartite_site + 1) / (self.tree.n_leaves - bipartite_site) < 1 else 1
         iterator = range(bipartite_site + 1) if min_side == 0 \
-            else range(bipartite_site, self.tree.n_leaves)
+            else range(bipartite_site + 1, self.tree.n_leaves)
+        bipartite_site = bipartite_site + 1 if min_side == 0 else bipartite_site
         ket_inds_map, bra_inds_map = {}, {}
         for leaf_id in iterator:
-            lca_id = self.tree.common_ancestor(leaf_id, bipartite_site + 1, lowest=True)
+            lca_id = self.tree.common_ancestor(leaf_id, bipartite_site, lowest=True)
             ket_inds_map[f'{self.tree[lca_id].inds[min_side]}'] = f'rho_k{leaf_id}'
             bra_inds_map[f'{self.tree[lca_id].inds[min_side]}'] = f'rho_b{leaf_id}'
-        return ket_inds_map, bra_inds_map
+        return min_side, ket_inds_map, bra_inds_map
 
     def reduced_density_matrix(self, site: int, level_idx: int) -> np.ndarray:
         if not 0 <= site < self.tree.n_leaves - 1:
             raise ValueError("Parameter `site` for bi-partition has to be within the system size.")
         if not 0 <= level_idx < self.tree.root.shape[2]:
             raise ValueError("Parameter `level_idx` has to be lower than truncation dimension.")
-        node_ids = self.tree.find_path(site + 1)
-        on_min_ket_surface, on_min_bra_surface = self._min_surface(site)
+        min_side, on_min_ket_surface, on_min_bra_surface = self._min_surface(site)
+        to_site = site + 1 if min_side == 0 else site
+        node_ids = self.tree.find_path(to_site)
         ket = self.tree.tensor_network(node_ids).reindex(on_min_ket_surface)
         ket.isel(
             {f'{TensorTree.Syntax.node}{self.tree.root_id}{TensorTree.Syntax.level_idx}': level_idx},
@@ -522,10 +524,11 @@ class TreeTensorNetworkMeasurements:
             {f'{TensorTree.Syntax.conj_node}{self.tree.root_id}{TensorTree.Syntax.level_idx}': level_idx},
             inplace=True
         )
-        return (ket & bra).contract(
+        net = (ket & bra).contract(
             [elem for node_id in node_ids
              for elem in (f'{TensorTree.Syntax.node}{node_id}', f'{TensorTree.Syntax.conj_node}{node_id}')]
-        ).to_dense([*on_min_ket_surface.values()], [*on_min_bra_surface.values()])
+        )
+        return net.to_dense([*on_min_ket_surface.values()], [*on_min_bra_surface.values()])
 
     def entanglement_entropy(self, site: int, level_idx: int) -> float:
         rho = np.linalg.eigvalsh(self.reduced_density_matrix(site, level_idx))[::-1]
