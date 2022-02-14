@@ -467,12 +467,26 @@ class TreeTensorNetworkMeasurements:
     def tree(self):
         return self._tree
 
+    def loop_simplify(self, bra: qtn.TensorNetwork, ket: qtn.TensorNetwork,
+                      mpo: MatrixProductOperator = None) -> qtn.Tensor:
+        net = (bra & ket) if mpo is None else (bra & mpo & ket)
+        if mpo is not None:
+            for node_id in range(self.tree.n_leaves, self.tree.n_nodes):
+                net = net.contract([
+                    f"{TensorTree.Syntax.node}{node_id}",
+                    list(self.tree[node_id].left.tags)[0],
+                    list(self.tree[node_id].right.tags)[0],
+                    f"{TensorTree.Syntax.conj_node}{node_id}"
+                ])
+        else:
+            net = net.contract(all)
+        return net
+
     def sandwich(self, mpo: MatrixProductOperator = None) -> qtn.Tensor:
         ket = self.tree.tensor_network()
         bra = self.tree.tensor_network(conj=True, mangle_outer=False) if mpo is None \
             else self.tree.tensor_network(conj=True)
-        net = (bra & ket) if mpo is None else (bra & mpo & ket)
-        return net.contract(all)
+        return self.loop_simplify(bra, ket, mpo)
 
     def expectation_value(self, mpo: MatrixProductOperator) -> np.ndarray:
         exp_val = self.sandwich(mpo).data
