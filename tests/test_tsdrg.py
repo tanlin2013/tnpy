@@ -140,7 +140,7 @@ class TestTreeTensorNetworkMeasurements(TestCase):
 
     def __init__(self, *args, **kwargs):
         super(TestTreeTensorNetworkMeasurements, self).__init__(*args, **kwargs)
-        self.model = RandomHeisenberg(n=8, h=0.0, penalty=0, s_target=0)
+        self.model = RandomHeisenberg(n=8, h=0.5, penalty=0, s_target=0)
         self.chi = 2 ** 8
         self.tsdrg = tSDRG(self.model.mpo, self.chi)
         self.tsdrg.run()
@@ -170,10 +170,12 @@ class TestTreeTensorNetworkMeasurements(TestCase):
 
     def test_min_surface(self):
         for site in range(self.tsdrg.n_sites - 1):
-            surface, _ = self.measurer._min_surface(site)
+            min_side, surface, _ = self.measurer._min_surface(site)
+            # print(site, surface)
 
     def test_reduced_density_matrix(self):
         # TODO: With the absence of disorder, h = 0, these tests fail for level_idx > 0
+        # self.tsdrg.tree.plot().render(format='png', view=True)
         for site, level_idx in product(range(self.tsdrg.n_sites - 1), range(self.chi)[:1]):
             # print(site, level_idx)
             np.testing.assert_allclose(
@@ -184,8 +186,9 @@ class TestTreeTensorNetworkMeasurements(TestCase):
 
     def test_entanglement_entropy(self):
         for site, level_idx in product(range(self.tsdrg.n_sites - 1), range(self.chi)[:1]):
+            # print(site, level_idx)
             self.assertAlmostEqual(
-                self.ed.entanglement_entropy(site=site, level_idx=level_idx),
+                self.ed.entanglement_entropy(site=site, level_idx=level_idx, nan_to_num=True),
                 self.measurer.entanglement_entropy(site=site, level_idx=level_idx),
                 places=12
             )
