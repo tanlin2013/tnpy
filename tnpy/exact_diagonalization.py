@@ -29,6 +29,7 @@ class ExactDiagonalization(FullHamiltonian):
             else (-1, self.phys_dim ** (self.n_sites - site - 1))
         return np.square(np.linalg.svd(self.evecs[:, level_idx].reshape(to_shape), compute_uv=False))
 
-    def entanglement_entropy(self, site: int, level_idx: int = 0) -> float:
+    def entanglement_entropy(self, site: int, level_idx: int = 0, nan_to_num: bool = False) -> float:
         rho = self.reduced_density_matrix(site, level_idx)
-        return -1 * rho @ np.log(rho)
+        entropy = -1 * rho @ np.log(rho)
+        return np.nan_to_num(entropy) if nan_to_num else entropy
