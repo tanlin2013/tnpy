@@ -530,9 +530,10 @@ class TreeTensorNetworkMeasurements:
         )
         return net.to_dense([*on_min_ket_surface.values()], [*on_min_bra_surface.values()])
 
-    def entanglement_entropy(self, site: int, level_idx: int) -> float:
+    def entanglement_entropy(self, site: int, level_idx: int, nan_to_num: bool = False) -> float:
         rho = np.linalg.eigvalsh(self.reduced_density_matrix(site, level_idx))[::-1]
-        return -1 * rho @ np.log(rho)
+        entropy = -1 * rho @ np.log(rho)
+        return np.nan_to_num(entropy) if nan_to_num else entropy
 
     def one_point_function(self):
         NotImplemented

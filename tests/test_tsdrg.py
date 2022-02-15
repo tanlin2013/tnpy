@@ -189,6 +189,6 @@ class TestTreeTensorNetworkMeasurements(TestCase):
             # print(site, level_idx)
             self.assertAlmostEqual(
                 self.ed.entanglement_entropy(site=site, level_idx=level_idx, nan_to_num=True),
-                self.measurer.entanglement_entropy(site=site, level_idx=level_idx),
+                self.measurer.entanglement_entropy(site=site, level_idx=level_idx, nan_to_num=True),
                 places=12
             )
