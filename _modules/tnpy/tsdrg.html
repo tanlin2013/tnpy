@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tnpy.tsdrg &#8212; tnpy 0.0.8 documentation</title>
+    <title>tnpy.tsdrg &#8212; tnpy 0.0.9 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -56,7 +56,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">tnpy 0.0.8 documentation</h1>
+      <h1 class="site-logo" id="site-title">tnpy 0.0.9 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -889,9 +889,10 @@
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">net</span><span class="o">.</span><span class="n">to_dense</span><span class="p">([</span><span class="o">*</span><span class="n">on_min_ket_surface</span><span class="o">.</span><span class="n">values</span><span class="p">()],</span> <span class="p">[</span><span class="o">*</span><span class="n">on_min_bra_surface</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span></div>
 
-<div class="viewcode-block" id="TreeTensorNetworkMeasurements.entanglement_entropy"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.TreeTensorNetworkMeasurements.entanglement_entropy">[docs]</a>    <span class="k">def</span> <span class="nf">entanglement_entropy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">level_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="TreeTensorNetworkMeasurements.entanglement_entropy"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.TreeTensorNetworkMeasurements.entanglement_entropy">[docs]</a>    <span class="k">def</span> <span class="nf">entanglement_entropy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">level_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">nan_to_num</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="n">rho</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvalsh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reduced_density_matrix</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">level_idx</span><span class="p">))[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">rho</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span></div>
+        <span class="n">entropy</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">rho</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">entropy</span><span class="p">)</span> <span class="k">if</span> <span class="n">nan_to_num</span> <span class="k">else</span> <span class="n">entropy</span></div>
 
 <div class="viewcode-block" id="TreeTensorNetworkMeasurements.one_point_function"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.TreeTensorNetworkMeasurements.one_point_function">[docs]</a>    <span class="k">def</span> <span class="nf">one_point_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">NotImplemented</span></div>
