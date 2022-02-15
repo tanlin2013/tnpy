@@ -1,5 +1,4 @@
 import re
-import logging
 import numpy as np
 import quimb.tensor as qtn
 from dataclasses import dataclass, field
@@ -7,6 +6,7 @@ from functools import wraps
 from itertools import count, islice
 from typing import Union, List, Dict, Iterator, Callable, Sequence, Tuple
 from graphviz import Digraph
+from tnpy import logger
 from tnpy.operators import MatrixProductOperator
 
 
@@ -291,7 +291,7 @@ class TensorTree:
                 sg.node(f'{v}', shape='box', rank='sink', style='rounded')
                 if k < len(self.leaves.keys()) - 1:
                     sg.edge(f'{v}', f'{v + 1}', splines='ortho', minlen='0', arrowhead="none", constraint='true')
-        logging.debug(graph)
+        logger.debug(graph)
         if view:
             graph.render(format='png', view=True)
         return graph
@@ -434,10 +434,10 @@ class TreeTensorNetworkSDRG:
     def run(self):
         for step in count(start=1):
             max_gapped_bond = int(np.argmax(np.array(self._gap_cache.gap)))
-            logging.info(f"On step {step}, "
-                         f"merging Node({self.tree.horizon[max_gapped_bond]}) "
-                         f"and Node({self.tree.horizon[max_gapped_bond + 1]}) "
-                         f"into Node({self.n_sites + step - 1}).")
+            logger.info(f"On step {step}, "
+                        f"merging Node({self.tree.horizon[max_gapped_bond]}) "
+                        f"and Node({self.tree.horizon[max_gapped_bond + 1]}) "
+                        f"into Node({self.n_sites + step - 1}).")
             self.tree.fuse(
                 left_id=self.tree.horizon[max_gapped_bond],
                 right_id=self.tree.horizon[max_gapped_bond + 1],
@@ -445,8 +445,8 @@ class TreeTensorNetworkSDRG:
                 data=self.spectrum_projector(max_gapped_bond, self._gap_cache.evecs[max_gapped_bond])
             )
             if len(self._fused_mpo_cache) == 1:
-                logging.info('Reaching the root in tree.')
-                logging.info(f"Obtain ground state energies, {repr(self.evals)}.")
+                logger.info('Reaching the root in tree.')
+                logger.info(f"Obtain ground state energies, {repr(self.evals)}.")
                 assert step == self.n_sites - 1, "step is out of range."
                 break
             self._gap_cache.update(max_gapped_bond)
@@ -491,7 +491,7 @@ class TreeTensorNetworkMeasurements:
     def expectation_value(self, mpo: MatrixProductOperator) -> np.ndarray:
         exp_val = self.sandwich(mpo).data
         if not np.allclose(np.zeros(exp_val.shape), exp_val - np.diagflat(np.diag(exp_val)), atol=1e-12):
-            logging.warning("Expectation value may contain large off-diagonal elements.")
+            logger.warning("Expectation value may contain large off-diagonal elements.")
         return np.diag(exp_val)
 
     def _min_surface(self, bipartite_site: int) -> Tuple[int, Dict, Dict]:
