@@ -8,7 +8,7 @@ name: docs
 
 on:
   workflow_run:
-    workflows: [ "Docker build" ]
+    workflows: [ "docker-build" ]
     types:
       - completed
 
