@@ -8,8 +8,7 @@ WORKDIR $WORKDIR
 # Install fortran, blas, lapack
 RUN apt update && \
     apt-get install -y --no-install-recommends \
-      gfortran libblas-dev liblapack-dev graphviz && \
-    rm -rf /var/lib/apt/lists/*
+      gfortran libblas-dev liblapack-dev graphviz
 
 # Install required python packages and tnpy
 COPY . $WORKDIR
