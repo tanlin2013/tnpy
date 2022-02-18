@@ -6,15 +6,17 @@ ENV PYTHONPATH "${PYTHONPATH}:$WORKDIR"
 WORKDIR $WORKDIR
 
 # Install fortran, blas, lapack
-RUN apt update
-RUN apt-get install -y gfortran libblas-dev liblapack-dev graphviz
+RUN apt update && \
+    apt-get install -y --no-install-recommends \
+      gfortran libblas-dev liblapack-dev graphviz && \
+    rm -rf /var/lib/apt/lists/*
 
-# Install required python packages
+# Install required python packages and tnpy
 COPY . $WORKDIR
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
-
-# Install tnpy
-RUN python setup.py install
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt && \
+    python setup.py install && \
+    rm requirements.txt setup.py && \
+    rm -rf tnpy
 
 ENTRYPOINT /bin/bash

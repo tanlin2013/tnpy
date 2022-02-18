@@ -1,0 +1,9 @@
+/.github
+/docs
+/tests
+.dockerignore
+.gitignore
+Dockerfile
+LICENSE
+makefile
+README.md
