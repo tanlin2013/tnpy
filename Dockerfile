@@ -9,6 +9,8 @@ WORKDIR $WORKDIR
 RUN apt update && \
     apt-get install -y --no-install-recommends \
       gfortran libblas-dev liblapack-dev graphviz
+RUN apt-get -y clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install required python packages and tnpy
 COPY . $WORKDIR
