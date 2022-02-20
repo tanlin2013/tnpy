@@ -302,7 +302,7 @@ class TreeTensorNetworkSDRG:
     @dataclass
     class GapCache:
         """
-        Helper class for caching the energy gap in tSDRG algorithm.
+        Helper class for caching the energy gap in :class:`~TreeTensorNetworkSDRG` algorithm.
         """
         tsdrg: 'TreeTensorNetworkSDRG'
         evecs: List[np.ndarray] = field(default_factory=list)
@@ -334,6 +334,25 @@ class TreeTensorNetworkSDRG:
                 self.tsdrg._evals = evals
 
     def __init__(self, mpo: MatrixProductOperator, chi: int):
+        """
+        The tree tensor network version of strong disorder renormalization group algorithm.
+
+        Args:
+            mpo: The matrix product operator.
+            chi: The truncation dimensions.
+
+        Examples:
+            The tSDRG algorithm can be launched by calling :func:`~TreeTensorNetworkSDRG.run` method.
+
+                tsdrg = TreeTensorNetworkSDRG(mpo, chi=32)
+                tsdrg.run()
+
+            After executing :func:`~TreeTensorNetworkSDRG.run`,
+            one can access the binary tensor tree :class:`~TensorTree`
+            through the attribute :attr:`~TreeTensorNetworkSDRG.tree`.
+            For measurements, please refer to :attr:`~TreeTensorNetworkSDRG.measurements`
+            or :class:`~TreeTensorNetworkMeasurements`.
+        """
         self._mpo = mpo
         self._chi = chi
         self._tree = TensorTree(mpo)
@@ -371,7 +390,7 @@ class TreeTensorNetworkSDRG:
 
     def truncation_gap(self, evals: np.ndarray) -> float:
         """
-        Return the gap upon :attr:`~TSDRG.chi` eigenvalues kept.
+        Return the gap upon :attr:`~TreeTensorNetworkSDRG.chi` eigenvalues kept.
 
         Args:
             evals: The eigenvalues (energy spectrum).
@@ -469,6 +488,19 @@ class TreeTensorNetworkMeasurements:
 
     def loop_simplify(self, bra: qtn.TensorNetwork, ket: qtn.TensorNetwork,
                       mpo: MatrixProductOperator = None) -> qtn.Tensor:
+        """
+        Simplify every closed loop within the network ``bra`` & ``mpo`` & ``ket``.
+
+        Args:
+            bra: Tree tensor network which represents the bra vector.
+            ket: Tree tensor network which represents the ket vector.
+            mpo: (Optional) If not given, ``bra`` & ``ket`` will be computed.
+
+        Returns:
+            tensor: The contracted tensor.
+        Notes:
+
+        """
         net = (bra & ket) if mpo is None else (bra & mpo & ket)
         if mpo is not None:
             for node_id in range(self.tree.n_leaves, self.tree.n_nodes):
