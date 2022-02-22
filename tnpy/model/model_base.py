@@ -29,7 +29,6 @@ class ModelBase(abc.ABC):
         Returns:
             mpo:
         """
-        tensors = [self._elem(site) for site in range(self.n)]
-        tensors[0] = tensors[0][0, :, :, :]
-        tensors[-1] = tensors[-1][:, -1, :, :]
-        return MatrixProductOperator(tensors)
+        return MatrixProductOperator(
+            [self._elem(site) for site in range(self.n)]
+        )

@@ -1,7 +1,7 @@
 import numpy as np
 from tnpy.model import ModelBase
 from tnpy.operators import SpinOperators
-from .utils import minors_if_no_penalty
+from .utils import boundary_vectors, minors_if_no_penalty
 
 
 class RandomHeisenberg(ModelBase):
@@ -48,6 +48,7 @@ class RandomHeisenberg(ModelBase):
     def trial_id(self) -> int:
         return self._trial_id
 
+    @boundary_vectors(row=0, col=-1)
     @minors_if_no_penalty(row=3, col=3)
     def _elem(self, site: int) -> np.ndarray:
         Sp, Sm, Sz, I2, O2 = SpinOperators()

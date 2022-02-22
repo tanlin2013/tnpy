@@ -1,6 +1,7 @@
 import numpy as np
 from tnpy.model import ModelBase
 from tnpy.operators import SpinOperators
+from .utils import boundary_vectors
 
 
 class XXZ(ModelBase):
@@ -15,6 +16,7 @@ class XXZ(ModelBase):
         super(XXZ, self).__init__(n)
         self.delta = delta
 
+    @boundary_vectors(row=0, col=-1)
     def _elem(self, site: int) -> np.ndarray:
         Sp, Sm, Sz, I2, O2 = SpinOperators()
         return np.array(
