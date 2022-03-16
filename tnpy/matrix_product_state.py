@@ -13,6 +13,9 @@ from typing import Dict
 
 
 class Direction(Enum):
+    """
+    Enumeration for specifying the direction (leftward or rightward).
+    """
     rightward = 1
     leftward = -1
 
@@ -20,6 +23,18 @@ class Direction(Enum):
 class MatrixProductState(qtn.MatrixProductState):
 
     def __init__(self, *args, **kwargs):
+        """
+        Matrix product state (MPS) for a finite size system.
+
+        Args:
+            *args: Positional arguments for :class:`qtn.MatrixProductState`.
+            **kwargs: Keyword arguments for :class:`qtn.MatrixProductState`.
+
+        Note:
+            This class inherits directly from :class:`qtn.MatrixProductState`,
+            with some added features. But, note that the underlying tensors are in the shape 'lpr',
+            which differs from the parent class :class:`qtn.MatrixProductState`.
+        """
         super(MatrixProductState, self).__init__(*args, **kwargs)
         self.permute_arrays('lpr')
 
@@ -29,27 +44,40 @@ class MatrixProductState(qtn.MatrixProductState):
 
     @property
     def phys_dim(self) -> int:
+        """
+        Physical dimensions of local state.
+
+        Returns:
+
+        """
         return self[0].shape[0]
 
     @property
     def bond_dim(self) -> int:
+        """
+        The bond dimensions.
+
+        Returns:
+
+        Notes:
+            The actual bond dimensions can be smaller than this one at the boundaries.
+        """
         return self.max_bond()
 
     def __getitem__(self, site: int) -> qtn.Tensor:
         tensor, = self.select_tensors(self.site_tag(site))
         return tensor
 
-    def permute_arrays(self, shape='lrp'):
-        """Permute the indices of each tensor in this MPS to match ``shape``.
+    def permute_arrays(self, shape: str = 'lrp'):
+        """
+        Permute the indices of each tensor in this MPS to match ``shape``.
         This doesn't change how the overall object interacts with other tensor
         networks but may be useful for extracting the underlying arrays
         consistently. This is an inplace operation.
 
-        Parameters
-        ----------
-        shape : str, optional
-            A permutation of ``'lrp'`` specifying the desired order of the
-            left, right, and physical indices respectively.
+        Args:
+            shape: A permutation of ``'lrp'`` specifying the desired order of the
+                left, right, and physical indices respectively.
         """
         for i in self.sites:
             inds = {'p': self.site_ind(i)}
@@ -61,6 +89,18 @@ class MatrixProductState(qtn.MatrixProductState):
             self[i].transpose_(*inds)
 
     def conj(self, mangle_inner: bool = False, mangle_outer: bool = False) -> 'MatrixProductState':
+        """
+        Create a conjugated copy of this :class:`~MatrixProductState`.
+
+        Args:
+            mangle_inner: Whether to rename the inner indices,
+                so that there will no conflict with the original one when contracting the network.
+            mangle_outer: Whether to rename the outer indices,
+                so that there will no conflict with the original one when contracting the network.
+
+        Returns:
+            conj_mps:
+        """
         mps = super(MatrixProductState, self).conj()
         if mangle_inner:
             mps.reindex({ind: qtn.rand_uuid() for ind in mps.inner_inds()}, inplace=True)
@@ -72,10 +112,12 @@ class MatrixProductState(qtn.MatrixProductState):
 
     def save(self, filename: str, extension: str = 'npz'):
         """
+        Save the underlying tensors of this :class:`~MatrixProductState`
+        with the order of indices ``'lpr'`` into a file.
 
         Args:
             filename:
-            extension:
+            extension: ``'hdf5'`` or ``'npz'``.
 
         Returns:
 
@@ -95,13 +137,15 @@ class MatrixProductState(qtn.MatrixProductState):
     @classmethod
     def load(cls, filename: str, extension: str = 'npz') -> 'MatrixProductState':
         """
+        Initialize the underlying tensors of :class:`~MatrixProductState` from a file.
+        Tensors in the file should take the order of indices ``'lpr'``.
 
         Args:
             filename:
-            extension:
+            extension: ``'hdf5'`` or ``'npz'``.
 
         Returns:
-
+            mps:
         """
         filepath = Path(f"{filename}.{extension}")
         if extension == 'hdf5':
@@ -116,11 +160,12 @@ class MatrixProductState(qtn.MatrixProductState):
     @classmethod
     def random(cls, n: int, bond_dim: int, phys_dim: int, **kwargs) -> 'MatrixProductState':
         """
+        Create a randomly initialized :class:`~MatrixProductState`.
 
         Args:
-            n:
-            bond_dim:
-            phys_dim:
+            n: The system size.
+            bond_dim: The bond dimensions.
+            phys_dim: Physical dimensions of local state.
 
         Returns:
 
@@ -130,6 +175,18 @@ class MatrixProductState(qtn.MatrixProductState):
         return cls([tensor.data for tensor in rand_mps], **kwargs)
 
     def split_tensor(self, site: int, direction: Direction):
+        """
+        Split the tensor at given ``site`` into two tensors,
+        and multiply the one on left or right ``direction`` into its neighbouring tensor.
+        This is an inplace operation.
+
+        Args:
+            site:
+            direction:
+
+        Returns:
+
+        """
         if direction == direction.rightward:
             psi = self[site].data if site == 0 \
                 else self[site].data.reshape(self.phys_dim * self[site].shape[0], -1)
@@ -149,7 +206,7 @@ class MatrixProductState(qtn.MatrixProductState):
             neighbour[-1] ^ residual[0]
             self[site - 1].modify(data=(neighbour @ residual).tensor)
         else:
-            raise KeyError
+            raise KeyError("MatrixProductState only supplies left or right direction.")
 
     def enlarge_bond_dim(self):
         return NotImplemented
@@ -158,6 +215,13 @@ class MatrixProductState(qtn.MatrixProductState):
 class Environment:
 
     def __init__(self, mpo: MatrixProductOperator, mps: MatrixProductState):
+        """
+        The effective environment for :class:`~MatrixProductState`-based algorithms.
+
+        Args:
+            mpo: Input :class:`~MatrixProductOperator`.
+            mps: Input :class:`~MatrixProductState`.
+        """
         self._mpo = mpo
         self._mps = mps
         self._conj_mps = mps.conj(mangle_inner=True, mangle_outer=True)
@@ -169,6 +233,12 @@ class Environment:
             self.update_right(site)
 
     def close(self):
+        """
+        Delete the underlying data of left and right environments.
+
+        Returns:
+
+        """
         logger.info("Deleting left and right environments.")
         del self._left, self._right
 
@@ -186,13 +256,34 @@ class Environment:
 
     @property
     def left(self) -> Dict[int, qtn.Tensor]:
+        """
+        Get a dictionary where left environments are stored on the respective site.
+
+        Returns:
+
+        """
         return self._left
 
     @property
     def right(self) -> Dict[int, qtn.Tensor]:
+        """
+        Get a dictionary where right environments are stored on the respective site.
+
+        Returns:
+
+        """
         return self._right
 
     def update_left(self, site: int):
+        """
+        Update the left environment at ``site``.
+
+        Args:
+            site:
+
+        Returns:
+
+        """
         if site == 1:
             net = self._mps[site - 1] & \
                   self._mpo[site - 1] & \
@@ -205,6 +296,15 @@ class Environment:
         self._left[site] = net.contract()
 
     def update_right(self, site: int):
+        """
+        Update the right environment at ``site``.
+
+        Args:
+            site:
+
+        Returns:
+
+        """
         if site == self.n_sites - 2:
             net = self._mps[site + 1] & \
                   self._mpo[site + 1] & \
@@ -217,6 +317,17 @@ class Environment:
         self._right[site] = net.contract()
 
     def update(self, site: int, direction: Direction):
+        """
+        Alias to :func:`~Environment.update_left` or :func:`~Environment.update_right`
+        depending on the given ``direction``.
+
+        Args:
+            site:
+            direction:
+
+        Returns:
+
+        """
         if direction == Direction.rightward:
             self.update_left(site + 1)
         elif direction == Direction.leftward:
@@ -236,6 +347,16 @@ class Environment:
             self._conj_mps[site + 1].modify(data=self._mps[site + 1].data)
 
     def one_site_full_matrix(self, site: int) -> np.ndarray:
+        """
+        Construct the effective matrix for variational solver,
+        with one site remained un-contracted.
+
+        Args:
+            site:
+
+        Returns:
+
+        """
         if site == 0:
             tn = self.right[site] & self.mpo[site]
             fuse_map = {
@@ -257,6 +378,16 @@ class Environment:
         return tn.contract().fuse(fuse_map).data
 
     def one_site_matvec(self, site: int) -> LinearOperator:
+        """
+        Construct the effective linear operator (matrix-vector product) for variational solver,
+        with one site remained un-contracted.
+
+        Args:
+            site:
+
+        Returns:
+
+        """
         def matvec(x: np.ndarray) -> np.ndarray:
             vec = qtn.Tensor(x.reshape(self.mps[site].shape), inds=self.mps[site].inds)
             if site == 0:

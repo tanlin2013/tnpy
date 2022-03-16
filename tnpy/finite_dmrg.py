@@ -16,15 +16,21 @@ class FiniteDMRG:
                  block_size: int = 1,
                  mps: MatrixProductState = None):
         """
+        The Density Matrix Renormalization Group (DMRG) algorithm for a finite size system.
 
         Args:
-            mpo:
-            bond_dim:
+            mpo: Matrix product operator.
+            bond_dim: Bond dimensions.
             block_size: Block size of each local update.
-            mps:
+            mps: (Optional) Initial guess of matrix product state.
 
         Examples:
+            To start the algorithm, one can call :func:`~FiniteDMRG.run`,
 
+                fdmrg = FiniteDMRG(mpo, bond_dim=20)
+                fdmrg.run(tol=1e-8)
+
+            The optimized matrix product state can then be retrieved with :attr:`~FiniteDMRG.mps`.
         """
         self._n_sites = mpo.nsites
         self._bond_dim = bond_dim
@@ -52,6 +58,16 @@ class FiniteDMRG:
         return self._phys_dim
 
     def one_site_solver(self, site: int, tol: float = 1e-8, **kwargs) -> Tuple[float, np.ndarray]:
+        """
+
+        Args:
+            site:
+            tol: Tolerance to the eigensolver.
+            **kwargs: Keyword arguments to the eigensolver.
+
+        Returns:
+
+        """
         v0 = self.mps[site].data.reshape(-1, 1)
         if v0.size < 200:
             return eigh(self._env.one_site_full_matrix(site))
@@ -71,12 +87,12 @@ class FiniteDMRG:
         Perform a single sweep on the given direction.
 
         Args:
-            direction:
-            tol:
-            **kwargs:
+            direction: The left or right direction on which the sweep to perform.
+            tol: Tolerance to the eigensolver.
+            **kwargs: Keyword arguments to the eigensolver.
 
         Returns:
-
+            energy: Variationally optimized energy after this sweep.
         """
         iter_sites = range(self.n_sites - 1) if direction == Direction.rightward \
             else range(self.n_sites - 1, 0, -1)
@@ -90,6 +106,18 @@ class FiniteDMRG:
         return energy
 
     def _converged(self, energy_gradient: float, tol: float, n_sweep: int, max_sweep: int) -> bool:
+        """
+        Helper function for checking the convergence.
+
+        Args:
+            energy_gradient:
+            tol:
+            n_sweep:
+            max_sweep:
+
+        Returns:
+
+        """
         if abs(energy_gradient) < tol:
             logger.info(f"Reaching set tolerance {tol}, stop sweeping.")
             return True
@@ -104,14 +132,16 @@ class FiniteDMRG:
 
     def run(self, tol: float = 1e-7, max_sweep: int = 100, **kwargs) -> List[float]:
         """
+        By calling this method, the DMRG algorithm will start the sweeping procedure
+        until the given tolerance is reached or touching the maximally allowed number of sweeps.
 
         Args:
-            tol:
-            max_sweep:
-            **kwargs:
+            tol: Stopping criterion.
+            max_sweep: Maximum number of sweeps.
+            **kwargs: Keyword arguments to the eigensolver.
 
         Returns:
-
+            energies: A record to the energies computed on each sweep.
         """
         clock, energies = [time.process_time()], [np.nan]
         logger.info(f"Set tolerance = {tol}, up to maximally {max_sweep} sweeps.")
@@ -139,6 +169,7 @@ class ShiftInvertDMRG(FiniteDMRG):
                  block_size: int = 1,
                  mps: MatrixProductState = None):
         """
+        The DMRG algorithm for optimizing the shift-invert spectrum with a finite size system.
 
         Args:
             mpo:
@@ -176,6 +207,7 @@ class ShiftInvertDMRG(FiniteDMRG):
             self._env.update_mps(site, data=psi.reshape(self.mps[site].shape))
             self._env.split_tensor(site, direction=direction)
             self._env.update(site, direction=direction)
+            # TODO: copy mps directly for env2
             self._env2.update_mps(site, data=psi.reshape(self.mps[site].shape))
             self._env2.split_tensor(site, direction=direction)
             self._env2.update(site, direction=direction)
