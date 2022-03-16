@@ -2,13 +2,12 @@ import time
 import numpy as np
 from datetime import timedelta
 from itertools import count
-from functools import partial
 from tqdm import tqdm
 from tnpy import logger
-from tnpy.linalg import eigh, eigshmv, LinearOperator
+from tnpy.linalg import eigh, eigshmv
 from tnpy.matrix_product_state import MatrixProductState, Environment, Direction
 from tnpy.operators import MatrixProductOperator
-from typing import Union, Tuple, List
+from typing import Tuple, List
 
 
 class FiniteDMRG:
@@ -58,7 +57,7 @@ class FiniteDMRG:
         if v0.size < 200:
             return eigh(self._env.one_site_full_matrix(site))
         return eigshmv(
-            LinearOperator((v0.size, v0.size), matvec=partial(self._env.one_site_matvec, site=site)),
+            self._env.one_site_matvec(site),
             v0=v0, tol=tol, **kwargs
         )
 
@@ -155,8 +154,8 @@ class ShiftInvertDMRG(FiniteDMRG):
                 backend='scipy'
             )
         return eigshmv(
-            LinearOperator((v0.size, v0.size), matvec=partial(self._env.one_site_matvec, site=site)),
-            M=LinearOperator((v0.size, v0.size), matvec=partial(self._env2.one_site_matvec, site=site)),
+            self._env.one_site_matvec(site),
+            M=self._env2.one_site_matvec(site),
             v0=v0, tol=tol, **kwargs
         )
 

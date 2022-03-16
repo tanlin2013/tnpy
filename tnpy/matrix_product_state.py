@@ -7,7 +7,7 @@ from pathlib import Path
 from tqdm import tqdm
 from enum import Enum
 from tnpy import logger
-from tnpy.linalg import svd
+from tnpy.linalg import svd, LinearOperator
 from tnpy.operators import MatrixProductOperator
 from typing import Dict
 
@@ -256,16 +256,17 @@ class Environment:
             }
         return tn.contract().fuse(fuse_map).data
 
-    def one_site_matvec(self, x: np.ndarray, site: int) -> np.ndarray:
-        vec = qtn.Tensor(x.reshape(self.mps[site].shape), inds=self.mps[site].inds)
-        if site == 0:
-            tn = self.right[site] & self.mpo[site] & vec
-            output_inds = [self.mpo[site].inds[-1], self.right[site].inds[-1]]
-        elif site == self.n_sites - 1:
-            tn = self.left[site] & self.mpo[site] & vec
-            output_inds = [self.left[site].inds[-1], self.mpo[site].inds[-1]]
-        else:
-            tn = self.left[site] & self.right[site] & self.mpo[site] & vec
-            output_inds = [self.left[site].inds[-1], self.mpo[site].inds[-1], self.right[site].inds[-1]]
-        return tn.contract(output_inds=output_inds).data.reshape(-1, 1)
-
+    def one_site_matvec(self, site: int) -> LinearOperator:
+        def matvec(x: np.ndarray) -> np.ndarray:
+            vec = qtn.Tensor(x.reshape(self.mps[site].shape), inds=self.mps[site].inds)
+            if site == 0:
+                tn = self.right[site] & self.mpo[site] & vec
+                output_inds = [self.mpo[site].inds[-1], self.right[site].inds[-1]]
+            elif site == self.n_sites - 1:
+                tn = self.left[site] & self.mpo[site] & vec
+                output_inds = [self.left[site].inds[-1], self.mpo[site].inds[-1]]
+            else:
+                tn = self.left[site] & self.right[site] & self.mpo[site] & vec
+                output_inds = [self.left[site].inds[-1], self.mpo[site].inds[-1], self.right[site].inds[-1]]
+            return tn.contract(output_inds=output_inds).data.reshape(-1, 1)
+        return LinearOperator((self.mps[site].size, self.mps[site].size), matvec=matvec)
