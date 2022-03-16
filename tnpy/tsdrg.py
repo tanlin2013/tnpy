@@ -515,18 +515,45 @@ class TreeTensorNetworkMeasurements:
         return net
 
     def sandwich(self, mpo: MatrixProductOperator = None) -> qtn.Tensor:
+        """
+
+        Args:
+            mpo:
+
+        Returns:
+
+        """
         ket = self.tree.tensor_network()
         bra = self.tree.tensor_network(conj=True, mangle_outer=False) if mpo is None \
             else self.tree.tensor_network(conj=True)
         return self.loop_simplify(bra, ket, mpo)
 
-    def expectation_value(self, mpo: MatrixProductOperator) -> np.ndarray:
+    def expectation_value(self, mpo: MatrixProductOperator, tol: float = 1e-12) -> np.ndarray:
+        """
+
+        Args:
+            mpo:
+            tol:
+
+        Returns:
+
+        Warnings:
+            Warning will be raised if any off-diagonal element is larger than ``tol``.
+        """
         exp_val = self.sandwich(mpo).data
-        if not np.allclose(np.zeros(exp_val.shape), exp_val - np.diagflat(np.diag(exp_val)), atol=1e-12):
+        if not np.allclose(np.zeros(exp_val.shape), exp_val - np.diagflat(np.diag(exp_val)), atol=tol):
             logger.warning("Expectation value may contain large off-diagonal elements.")
         return np.diag(exp_val)
 
     def _min_surface(self, bipartite_site: int) -> Tuple[int, Dict, Dict]:
+        """
+
+        Args:
+            bipartite_site:
+
+        Returns:
+
+        """
         min_side = 0 if (bipartite_site + 1) / (self.tree.n_leaves - bipartite_site) < 1 else 1
         iterator = range(bipartite_site + 1) if min_side == 0 \
             else range(bipartite_site + 1, self.tree.n_leaves)
@@ -539,6 +566,15 @@ class TreeTensorNetworkMeasurements:
         return min_side, ket_inds_map, bra_inds_map
 
     def reduced_density_matrix(self, site: int, level_idx: int) -> np.ndarray:
+        """
+
+        Args:
+            site:
+            level_idx:
+
+        Returns:
+
+        """
         if not 0 <= site < self.tree.n_leaves - 1:
             raise ValueError("Parameter `site` for bi-partition has to be within the system size.")
         if not 0 <= level_idx < self.tree.root.shape[2]:
@@ -563,6 +599,16 @@ class TreeTensorNetworkMeasurements:
         return net.to_dense([*on_min_ket_surface.values()], [*on_min_bra_surface.values()])
 
     def entanglement_entropy(self, site: int, level_idx: int, nan_to_num: bool = False) -> float:
+        """
+
+        Args:
+            site:
+            level_idx:
+            nan_to_num:
+
+        Returns:
+
+        """
         rho = np.linalg.eigvalsh(self.reduced_density_matrix(site, level_idx))[::-1]
         entropy = -1 * rho @ np.log(rho)
         return np.nan_to_num(entropy) if nan_to_num else entropy
