@@ -1,126 +1,181 @@
 import time
-import logging
 import numpy as np
-from tensornetwork import Node
+from datetime import timedelta
 from itertools import count
-from tnpy.finite_algorithm_base import FiniteAlgorithmBase
-from tnpy.linalg import svd, eigshmv
-from tnpy.operators import MPO
-from typing import Iterable, Union, Tuple
+from functools import partial
+from tqdm import tqdm
+from tnpy import logger
+from tnpy.linalg import eigh, eigshmv, LinearOperator
+from tnpy.matrix_product_state import MatrixProductState, Environment, Direction
+from tnpy.operators import MatrixProductOperator
+from typing import Union, Tuple, List
 
 
-class FiniteDMRG(FiniteAlgorithmBase):
+class FiniteDMRG:
 
-    def __init__(self, mpo: MPO, chi: Union[int, None], init_method='random'):
+    def __init__(self, mpo: MatrixProductOperator,
+                 bond_dim: int,
+                 block_size: int = 1,
+                 mps: MatrixProductState = None):
         """
 
         Args:
             mpo:
-            chi: Maximum bond dimension of MPS
-            init_method: 'random' or a filepath
+            bond_dim:
+            block_size: Block size of each local update.
+            mps:
+
+        Examples:
+
         """
-        super(FiniteDMRG, self).__init__(mpo, chi, init_method)
+        self._n_sites = mpo.nsites
+        self._bond_dim = bond_dim
+        self._phys_dim = mpo.phys_dim(0)
+        self._block_size = block_size
+        mps = MatrixProductState.random(
+            n=self.n_sites, bond_dim=self.bond_dim, phys_dim=self.phys_dim
+        ) if mps is None else mps
+        self._env = Environment(mpo=mpo, mps=mps)
 
-    def _unit_solver(self, site, tol=1e-7) -> Tuple[float, np.ndarray]:
-        W = self.mpo[site]
+    @property
+    def bond_dim(self) -> int:
+        return self._bond_dim
 
-        def matvec(x):
-            M = Node(x.reshape(self.mps_shape(site)))
-            if site == 0:
-                R = self.right_envs[site]
-                R[0] ^ M[2]
-                R[1] ^ W[0]
-                M[1] ^ W[1]
-                result = M @ W @ R
-            elif site == self.N-1:
-                L = self.left_envs[site]
-                L[0] ^ M[0]
-                L[1] ^ W[0]
-                M[1] ^ W[1]
-                result = L @ M @ W
-            else:
-                L = self.left_envs[site]
-                R = self.right_envs[site]
-                L[0] ^ M[0]
-                L[1] ^ W[0]
-                R[0] ^ M[2]
-                R[1] ^ W[1]
-                M[1] ^ W[2]
-                result = L @ M @ W @ R
-            return result.tensor.reshape(x.shape)
-        v0 = self._mps.get_tensor(site).reshape(-1, 1)
-        return eigshmv(matvec, v0, tol=0.1*tol)
+    @property
+    def mps(self) -> MatrixProductState:
+        return self._env.mps
 
-    def _modified_density_matrix(self, site, alpha=0):
-        # TODO: return dm
-        NotImplemented
+    @property
+    def n_sites(self) -> int:
+        return self._n_sites
 
-    def sweep(self, iterator: Iterable, tol: float = 1e-7) -> float:
+    @property
+    def phys_dim(self) -> int:
+        return self._phys_dim
+
+    def one_site_solver(self, site: int, tol: float = 1e-8, **kwargs) -> Tuple[float, np.ndarray]:
+        v0 = self.mps[site].data.reshape(-1, 1)
+        if v0.size < 200:
+            return eigh(self._env.one_site_full_matrix(site))
+        return eigshmv(
+            LinearOperator((v0.size, v0.size), matvec=partial(self._env.one_site_matvec, site=site)),
+            v0=v0, tol=tol, **kwargs
+        )
+
+    def two_site_solver(self, site: int, tol: float = 1e-8, **kwargs):
+        return NotImplemented
+
+    def modified_density_matrix(self, site: int, alpha: float = 0):
+        return NotImplemented
+
+    def sweep(self, direction: Direction = Direction.rightward, tol: float = 1e-8, **kwargs) -> float:
         """
 
         Args:
-            iterator:
+            direction:
             tol:
+            **kwargs:
 
         Returns:
 
         """
-        direction = 1 if iterator[0] < iterator[-1] else -1
-        for site in iterator:
-            E, theta = self._unit_solver(site, tol)
-            logging.info(f"Sweeping to site [{site+1}/{self.N}], E/N = {E/self.N}")
-            if direction == 1:
-                theta = theta.reshape(self.d * self.mps_shape(site)[0], -1)
-            elif direction == -1:
-                theta = theta.reshape(-1, self.d * self.mps_shape(site)[2])
-            u, s, vt = svd(theta, chi=self.mps_shape(site)[1+direction])
-            if direction == 1:
-                self._mps.tensors[site] = u.reshape(self.mps_shape(site))
-                residual = Node(np.dot(np.diagflat(s), vt))
-                M = Node(self._mps.get_tensor(site+1))
-                residual[1] ^ M[0]
-                self._mps.tensors[site+1] = (residual @ M).tensor
-                self._update_left_env(site+1)
-            elif direction == -1:
-                self._mps.tensors[site] = vt.reshape(self.mps_shape(site))
-                residual = Node(np.dot(u, np.diagflat(s)))
-                M = Node(self._mps.get_tensor(site-1))
-                M[2] ^ residual[0]
-                self._mps.tensors[site-1] = (M @ residual).tensor
-                self._update_right_env(site-1)
-        return E
+        iter_sites = range(self.n_sites - 1) if direction == Direction.rightward \
+            else range(self.n_sites - 1, 0, -1)
+        energy = None
+        for site in iter_sites:
+            energy, psi = self.one_site_solver(site, tol, **kwargs)
+            logger.info(f"Sweeping to site [{site + 1}/{self.n_sites}], E0/N = {energy / self.n_sites}")
+            self._env.update_mps(site, data=psi.reshape(self.mps[site].shape))
+            self._env.split_tensor(site, direction=direction)
+            self._env.update(site, direction=direction)
+        return energy
 
-    def update(self, tol: float = 1e-7, max_sweep: int = 100):
+    def run(self, tol: float = 1e-7, max_sweep: int = 100, **kwargs) -> List[float]:
         """
 
         Args:
             tol:
             max_sweep:
+            **kwargs:
 
         Returns:
 
         """
-        logging.info(f"Set up tol = {tol}, up to maximally {max_sweep} sweeps")
-        clock = [time.process_time()]
+        clock, energies = [time.process_time()], []
+        logger.info(f"Set tolerance = {tol}, up to maximally {max_sweep} sweeps.")
         for n_sweep in count(start=1):
-            logging.info(f"In sweep epoch [{n_sweep}/{max_sweep}]")
-            El = self.sweep(range(self.N-1))
-            Er = self.sweep(range(self.N-1, 0, -1))
-            clock.append(time.process_time()-clock[-1])
-            dE = (El - Er)/self.N
-            if abs(dE) < tol:
+            logger.info(f"In sweep epoch [{n_sweep}/{max_sweep}]")
+            rightward_energy = self.sweep(Direction.rightward, tol=tol, **kwargs)
+            leftward_energy = self.sweep(Direction.leftward, tol=tol, **kwargs)
+            energy_gradient = (leftward_energy - rightward_energy) / self.n_sites
+            energies.extend([rightward_energy, leftward_energy])
+            clock.append(time.process_time())
+            if abs(energy_gradient) < tol:
+                logger.info(f"Reaching set tolerance {tol}.")
                 break
             elif n_sweep == max_sweep:
                 # @TODO: dump mps to file and raise error
-                logging.warning(f"Maximum number of sweeps {max_sweep} reached, "
-                                f"yet dE/N = {dE} > tol = {tol}")
+                logger.warning(f"Maximum number of sweeps {max_sweep} reached, "
+                               f"yet dE/N = {energy_gradient} > tol = {tol}.")
                 break
-            elif abs(dE) > tol and dE < 0:
-                raise ValueError(f"Fail on lowering energy, got dE/N = {dE}")
-        logging.info(f"{n_sweep} loops, best of 3: {np.mean(np.sort(clock)[:3])} sec per loop")
+            elif abs(energy_gradient) > tol and energy_gradient < 0:
+                logger.warning(f"Fail on lowering energy in this sweep, "
+                               f"got dE/N = {energy_gradient}, skip and proceed.")
+        elapsed_time = np.mean(np.sort(np.diff(clock))[:3])
+        logger.info(f"{n_sweep} sweeps, best of 3 - {timedelta(seconds=elapsed_time)} per sweep.")
+        return energies
 
 
-class Projector:
+class ShiftInvertDMRG(FiniteDMRG):
 
-    def __init__(self):
-        NotImplemented
+    def __init__(self, mpo: MatrixProductOperator,
+                 bond_dim: int,
+                 offset: float,
+                 block_size: int = 1,
+                 mps: MatrixProductState = None):
+        """
+
+        Args:
+            mpo:
+            bond_dim:
+            offset:
+            block_size:
+            mps:
+        """
+        super(ShiftInvertDMRG, self).__init__(mpo, bond_dim=bond_dim, block_size=block_size, mps=mps)
+        self._env2 = Environment(mpo=mpo.square(), mps=self.mps)
+        self._offset = offset
+
+    def one_site_solver(self, site: int, tol: float = 1e-8, **kwargs) -> Tuple[float, np.ndarray]:
+        v0 = self.mps[site].data.reshape(-1, 1)
+        if v0.size < 200:
+            return eigh(
+                self._env.one_site_full_matrix(site),
+                b=self._env2.one_site_full_matrix(site),
+                backend='scipy'
+            )
+        return eigshmv(
+            LinearOperator((v0.size, v0.size), matvec=partial(self._env.one_site_matvec, site=site)),
+            M=LinearOperator((v0.size, v0.size), matvec=partial(self._env2.one_site_matvec, site=site)),
+            v0=v0, tol=tol, **kwargs
+        )
+
+    def sweep(self, direction: Direction = Direction.rightward, tol: float = 1e-8, **kwargs) -> float:
+        iter_sites = range(self.n_sites - 1) if direction == Direction.rightward \
+            else range(self.n_sites - 1, 0, -1)
+        energy = None
+        for site in iter_sites:
+            energy, psi = self.one_site_solver(site, tol, **kwargs)
+            logger.info(f"Sweeping to site [{site + 1}/{self.n_sites}], "
+                        f"E0/N = {(1 / energy + self._offset) / self.n_sites}")
+            self._env.update_mps(site, data=psi.reshape(self.mps[site].shape))
+            self._env.split_tensor(site, direction=direction)
+            self._env.update(site, direction=direction)
+            self._env2.update_mps(site, data=psi.reshape(self.mps[site].shape))
+            self._env2.split_tensor(site, direction=direction)
+            self._env2.update(site, direction=direction)
+        return energy
+
+    def run(self, tol: float = 1e-7, max_sweep: int = 100, **kwargs) -> List[float]:
+        energies = super(ShiftInvertDMRG, self).run(tol, max_sweep, **kwargs)
+        return [(1 / energy + self._offset) for energy in energies]
