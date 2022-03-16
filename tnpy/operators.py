@@ -1,10 +1,7 @@
 import numpy as np
 import quimb.tensor as qtn
-from tensornetwork import Node
 from collections import namedtuple
 from itertools import groupby
-from typing import Callable, List
-import warnings
 
 
 class SpinOperators:
@@ -49,6 +46,19 @@ class MatrixProductOperator(qtn.MatrixProductOperator):
 class FullHamiltonian:
 
     def __init__(self, mpo: MatrixProductOperator):
+        """
+        Construct the Hamiltonian from matrix product operator (MPO).
+
+        Args:
+            mpo:
+
+        Examples:
+            The matrix element of Hamiltonian can be accessed
+            through the property :attr:`~FullHamiltonian.matrix`.
+
+                ham = FullHamiltonian(mpo).matrix
+
+        """
         self._n_sites = mpo.nsites
         self._phys_dim = mpo.phys_dim(0)
 
