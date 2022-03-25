@@ -44,6 +44,10 @@ class RandomHeisenberg(ModelBase):
     def offset(self) -> float:
         return self._offset
 
+    @offset.setter
+    def offset(self, offset: float):
+        self._offset = offset
+
     @property
     def trial_id(self) -> int:
         return self._trial_id
@@ -53,7 +57,7 @@ class RandomHeisenberg(ModelBase):
     def _elem(self, site: int) -> np.ndarray:
         Sp, Sm, Sz, I2, O2 = SpinOperators()
 
-        alpha = self.penalty * (0.25 + self.s_target ** 2 / self.n) + self.offset
+        alpha = self.penalty * (0.25 + self.s_target ** 2 / self.n) - self.offset / self.n
         beta = self._random_sequence[site] - 2.0 * self.penalty * self.s_target
 
         return np.array(
