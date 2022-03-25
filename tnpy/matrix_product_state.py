@@ -208,7 +208,7 @@ class MatrixProductState(qtn.MatrixProductState):
         else:
             raise KeyError("MatrixProductState only supplies left or right direction.")
 
-    def enlarge_bond_dim(self):
+    def enlarge_bond_dim(self, new_bond_dim: int, method: str):
         return NotImplemented
 
 
@@ -339,12 +339,16 @@ class Environment:
 
     def split_tensor(self, site: int, direction: Direction):
         self._mps.split_tensor(site, direction)
+        self._conj_mps[site].modify(data=self._mps[site].data)
         if direction == direction.leftward:
-            self._conj_mps[site].modify(data=self._mps[site].data)
             self._conj_mps[site - 1].modify(data=self._mps[site - 1].data)
         elif direction == direction.rightward:
-            self._conj_mps[site].modify(data=self._mps[site].data)
             self._conj_mps[site + 1].modify(data=self._mps[site + 1].data)
+
+    def variance(self) -> float:
+        net1 = self._mps & self.mpo.square() & self._conj_mps
+        net2 = self._mps & self.mpo & self._conj_mps
+        return net1.contract() - net2.contract() ** 2
 
     def one_site_full_matrix(self, site: int) -> np.ndarray:
         """
@@ -401,3 +405,14 @@ class Environment:
                 output_inds = [self.left[site].inds[-1], self.mpo[site].inds[-1], self.right[site].inds[-1]]
             return tn.contract(output_inds=output_inds).data.reshape(-1, 1)
         return LinearOperator((self.mps[site].size, self.mps[site].size), matvec=matvec)
+
+
+class MatrixProductStateMeasurements:
+
+    def __init__(self, mps: MatrixProductState):
+        self._mps = mps
+
+    def expectation_value(self, mpo: MatrixProductOperator = None) -> float:
+        net = self._mps.conj(mangle_inner=True) & self._mps if mpo is None \
+            else self._mps.conj(mangle_inner=True, mangle_outer=True) & mpo & self._mps
+        return net.contract()
