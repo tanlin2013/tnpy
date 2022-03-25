@@ -5,11 +5,10 @@ from tnpy.finite_tdvp import FiniteTDVP
 
 if __name__ == "__main__":
 
-    N = 60
-    chi = 20
+    n = 60
+    bond_dim = 20
 
-    model = Thirring(N, g=1.7, ma=5.0, lamda=100.0, s_target=0)
-    ftdvp = FiniteTDVP(mpo=model.mpo, chi=chi, init_method='random')
+    model = Thirring(n, delta=1.7, ma=5.0, penalty=100.0, s_target=0)
+    ftdvp = FiniteTDVP(mpo=model.mpo, chi=bond_dim, init_method='random')
     ftdvp._init_norms()
-    print(ftdvp.bond_dimensions)
-    ftdvp.sweep(np.arange(N-1), (0, 0.05))
+    ftdvp.sweep(np.arange(n - 1), (0, 0.05))
