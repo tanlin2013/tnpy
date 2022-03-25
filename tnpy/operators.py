@@ -47,7 +47,7 @@ class FullHamiltonian:
 
     def __init__(self, mpo: MatrixProductOperator):
         """
-        Construct the Hamiltonian from matrix product operator (MPO).
+        Construct the Hamiltonian from :class:`~MatrixProductOperator` (MPO).
 
         Args:
             mpo:
