@@ -1,19 +1,43 @@
 import numpy as np
 import quimb.tensor as qtn
-from collections import namedtuple
+from dataclasses import dataclass, InitVar, field, astuple
 from itertools import groupby
 
 
+@dataclass
 class SpinOperators:
+    """
+    Constructor of spin operators.
 
-    def __new__(cls, spin: float = 0.5) -> namedtuple:
-        super(SpinOperators, cls).__init__(spin)
-        SOp = namedtuple('SpinOperators', ['Sp', 'Sm', 'Sz', 'I2', 'O2'])
-        return SOp(Sp=spin * np.array([[0, 2], [0, 0]], dtype=float),
-                   Sm=spin * np.array([[0, 0], [2, 0]], dtype=float),
-                   Sz=spin * np.array([[1, 0], [0, -1]], dtype=float),
-                   I2=np.identity(2, dtype=float),
-                   O2=np.zeros((2, 2), dtype=float))
+    Attributes:
+        Sp: Creation operator, 2 x 2 matrix.
+        Sm: Annihilation operator, 2 x 2 matrix.
+        Sz: Spin operator on z direction.
+        I2: 2 x 2 identity matrix.
+        O2: 2 x 2 zero matrix.
+
+    Examples:
+            Sp, Sm, Sz, I2, O2 = SpinOperators(spin=0.5)
+
+    Warnings:
+        Unpacking ordering is important, and variable-unaware.
+    """
+    spin: InitVar[float] = field(default=0.5)
+    Sp: np.ndarray = field(init=False)
+    Sm: np.ndarray = field(init=False)
+    Sz: np.ndarray = field(init=False)
+    I2: np.ndarray = field(init=False)
+    O2: np.ndarray = field(init=False)
+
+    def __post_init__(self, spin: float):
+        self.Sp = spin * np.array([[0, 2], [0, 0]], dtype=float)
+        self.Sm = spin * np.array([[0, 0], [2, 0]], dtype=float)
+        self.Sz = spin * np.array([[1, 0], [0, -1]], dtype=float)
+        self.I2 = np.identity(2, dtype=float)
+        self.O2 = np.zeros((2, 2), dtype=float)
+
+    def __iter__(self):
+        return iter(astuple(self))
 
 
 class MatrixProductOperator(qtn.MatrixProductOperator):
