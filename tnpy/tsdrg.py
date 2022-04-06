@@ -310,7 +310,7 @@ class TreeTensorNetworkSDRG:
 
         def __post_init__(self):
             for site in range(self.tsdrg.n_sites - 1):
-                evals, evecs = self.tsdrg.eigen_solver(self.tsdrg.block_hamiltonian(site))
+                evals, evecs = self.tsdrg.block_eigen_solver(site)
                 self.evecs.append(evecs)
                 self.gap.append(self.tsdrg.truncation_gap(evals))
                 self.tsdrg._evals = evals if self.tsdrg.n_sites == 2 else None
@@ -328,7 +328,7 @@ class TreeTensorNetworkSDRG:
             self.gap.pop(max_gapped_bond)
             self.evecs.pop(max_gapped_bond)
             for bond in self.neighbouring_bonds(max_gapped_bond):
-                evals, evecs = self.tsdrg.eigen_solver(self.tsdrg.block_hamiltonian(bond))
+                evals, evecs = self.tsdrg.block_eigen_solver(bond)
                 self.gap[bond] = self.tsdrg.truncation_gap(evals)
                 self.evecs[bond] = evecs
                 self.tsdrg._evals = evals
@@ -380,8 +380,8 @@ class TreeTensorNetworkSDRG:
     def evals(self) -> np.ndarray:
         return self._evals
 
-    def eigen_solver(self, matrix: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
-        # TODO: perhaps consider iterative solver?
+    def block_eigen_solver(self, locus: int) -> Tuple[np.ndarray, np.ndarray]:
+        matrix = self.block_hamiltonian(locus)
         evals, evecs = np.linalg.eigh(matrix)
         if matrix.shape[0] > self.chi:
             evals = evals[:self.chi]
