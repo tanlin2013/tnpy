@@ -61,6 +61,13 @@ class MatrixProductOperator(qtn.MatrixProductOperator):
         return self._phys_dim
 
     def square(self) -> qtn.MatrixProductOperator:
+        """
+        Compute the square of :class:`~MatrixProductOperator` (MPO),
+        which equivalently merges two MPO layers into one.
+
+        Returns:
+            squared_mpo:
+        """
         first_layer = self.reindex(
             {f'b{site}': f'dummy{site}' for site in range(self.nsites)}
         )
