@@ -50,9 +50,9 @@ class FiniteDMRG:
 
             The optimized matrix product state can then be retrieved with :attr:`~FiniteDMRG.mps`.
         """
-        self._n_sites = mpo.nsites
+        self._n_sites = mpo.n_sites
         self._bond_dim = bond_dim
-        self._phys_dim = mpo.phys_dim(0)
+        self._phys_dim = mpo.phys_dim
         self._block_size = block_size
         self._exact_solver_dim = exact_solver_dim
         mps = MatrixProductState.random(

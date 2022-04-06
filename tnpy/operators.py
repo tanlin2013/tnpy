@@ -44,6 +44,21 @@ class MatrixProductOperator(qtn.MatrixProductOperator):
 
     def __init__(self, *args, **kwargs):
         super(MatrixProductOperator, self).__init__(*args, **kwargs)
+        self._n_sites = self.nsites
+        self._phys_dim = super(MatrixProductOperator, self).phys_dim(0)
+
+        def all_equal(iterable):
+            g = groupby(iterable)
+            return next(g, True) and not next(g, False)
+        assert all_equal([super(MatrixProductOperator, self).phys_dim(site) for site in range(self.n_sites)])
+
+    @property
+    def n_sites(self) -> int:
+        return self._n_sites
+
+    @property
+    def phys_dim(self) -> int:
+        return self._phys_dim
 
     def square(self) -> qtn.MatrixProductOperator:
         first_layer = self.reindex(
@@ -83,13 +98,8 @@ class FullHamiltonian:
                 ham = FullHamiltonian(mpo).matrix
 
         """
-        self._n_sites = mpo.nsites
-        self._phys_dim = mpo.phys_dim(0)
-
-        def all_equal(iterable):
-            g = groupby(iterable)
-            return next(g, True) and not next(g, False)
-        assert all_equal([mpo.phys_dim(site) for site in range(self.n_sites)])
+        self._n_sites = mpo.n_sites
+        self._phys_dim = mpo.phys_dim
 
         if self.phys_dim ** self.n_sites > 2 ** 12:
             raise ResourceWarning(f"Requesting more than {self.n_sites} sites with physical dim {self.phys_dim}.")
