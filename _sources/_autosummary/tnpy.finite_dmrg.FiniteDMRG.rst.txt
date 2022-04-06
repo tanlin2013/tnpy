@@ -14,13 +14,12 @@
    .. autosummary::
    
       ~FiniteDMRG.__init__
-      ~FiniteDMRG.close
-      ~FiniteDMRG.generate_bond_dimensions
-      ~FiniteDMRG.load_mps
-      ~FiniteDMRG.mps_shape
-      ~FiniteDMRG.save_mps
+      ~FiniteDMRG.modified_density_matrix
+      ~FiniteDMRG.one_site_solver
+      ~FiniteDMRG.run
       ~FiniteDMRG.sweep
-      ~FiniteDMRG.update
+      ~FiniteDMRG.two_site_solver
+      ~FiniteDMRG.variance
    
    
 
@@ -30,9 +29,10 @@
 
    .. autosummary::
    
-      ~FiniteDMRG.N
-      ~FiniteDMRG.bond_dimensions
-      ~FiniteDMRG.dtype
+      ~FiniteDMRG.bond_dim
+      ~FiniteDMRG.measurements
       ~FiniteDMRG.mps
+      ~FiniteDMRG.n_sites
+      ~FiniteDMRG.phys_dim
    
    

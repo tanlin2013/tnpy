@@ -19,4 +19,15 @@
 
    
    
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~SpinOperators.spin
+      ~SpinOperators.Sp
+      ~SpinOperators.Sm
+      ~SpinOperators.Sz
+      ~SpinOperators.I2
+      ~SpinOperators.O2
+   
    

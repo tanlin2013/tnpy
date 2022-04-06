@@ -13,6 +13,7 @@
 
    .. autosummary::
    
+      eigh
       eigshmv
       qr
       svd
