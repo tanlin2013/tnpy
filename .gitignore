@@ -12,3 +12,5 @@
 
 *.gv
 *.gv.png
+*.npz
+*.hdf5
