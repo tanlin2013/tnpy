@@ -285,15 +285,15 @@ class Environment:
 
         """
         if site == 1:
-            net = self._mps[site - 1] & \
+            tn = self._mps[site - 1] & \
                   self._mpo[site - 1] & \
                   self._conj_mps[site - 1]
         else:
-            net = self._left[site - 1] & \
+            tn = self._left[site - 1] & \
                   self._mps[site - 1] & \
                   self._mpo[site - 1] & \
                   self._conj_mps[site - 1]
-        self._left[site] = net.contract()
+        self._left[site] = tn.contract()
 
     def update_right(self, site: int):
         """
@@ -306,15 +306,15 @@ class Environment:
 
         """
         if site == self.n_sites - 2:
-            net = self._mps[site + 1] & \
+            tn = self._mps[site + 1] & \
                   self._mpo[site + 1] & \
                   self._conj_mps[site + 1]
         else:
-            net = self._right[site + 1] & \
+            tn = self._right[site + 1] & \
                   self._mps[site + 1] & \
                   self._mpo[site + 1] & \
                   self._conj_mps[site + 1]
-        self._right[site] = net.contract()
+        self._right[site] = tn.contract()
 
     def update(self, site: int, direction: Direction):
         """
@@ -346,9 +346,9 @@ class Environment:
             self._conj_mps[site + 1].modify(data=self._mps[site + 1].data)
 
     def variance(self) -> float:
-        net1 = self._mps & self.mpo.square() & self._conj_mps
-        net2 = self._mps & self.mpo & self._conj_mps
-        return net1.contract() - net2.contract() ** 2
+        tn1 = self._mps & self.mpo.square() & self._conj_mps
+        tn2 = self._mps & self.mpo & self._conj_mps
+        return tn1.contract() - tn2.contract() ** 2
 
     def one_site_full_matrix(self, site: int) -> np.ndarray:
         """
@@ -413,6 +413,6 @@ class MatrixProductStateMeasurements:
         self._mps = mps
 
     def expectation_value(self, mpo: MatrixProductOperator = None) -> float:
-        net = self._mps.conj(mangle_inner=True) & self._mps if mpo is None \
+        tn = self._mps.conj(mangle_inner=True) & self._mps if mpo is None \
             else self._mps.conj(mangle_inner=True, mangle_outer=True) & mpo & self._mps
-        return net.contract()
+        return tn.contract()
