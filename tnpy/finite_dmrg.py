@@ -103,25 +103,31 @@ class FiniteDMRG:
     def two_site_solver(self, site: int, tol: float = 1e-8, **kwargs):
         return NotImplemented
 
-    def modified_density_matrix(self, site: int, alpha: float = 0):
+    def perturb_wave_function(self, site: int, alpha: float = 1e-5):
         """
+        Perturb the local tensor of wave function by an amount of ``alpha``.
         For the single-site DMRG :func:`~FiniteDMRG.one_site_solver`,
-        the modified density matrix can be used against trapping in local minimum.
+        the modified density matrix can be used against trapping in local minimums.
+        This is an in-place operation.
 
         Args:
             site:
-            alpha: The small parameter.
-
-        Returns:
-            modified_dm:
+            alpha: The small parameter for perturbation.
 
         References:
             `S. R. White,
             Density matrix renormalization group algorithms with a single center site,
             Phys. Rev. B 72, 180403 (2005).
             <https://journals.aps.org/prb/abstract/10.1103/PhysRevB.72.180403>`
+            `U. Schollwoeck,
+            The density-matrix renormalization group in the age of matrix product states,
+            arXiv:1008.3477 (2011).
+            <https://arxiv.org/abs/1008.3477>`
         """
-        return NotImplemented
+        # TODO: dynamically adjust alpha
+        psi = self.mps[site].data.flatten()
+        psi += alpha * self._env.one_site_matvec(site).matvec(psi)
+        self._env.update_mps(site, data=psi.reshape(self.mps[site].shape))
 
     def sweep(self, direction: Direction = Direction.rightward, tol: float = 1e-8, **kwargs) -> float:
         """
@@ -142,6 +148,7 @@ class FiniteDMRG:
             energy, psi = self.one_site_solver(site, tol, **kwargs)
             logger.info(f"Sweeping to site [{site + 1}/{self.n_sites}], E0 = {energy}")
             self._env.update_mps(site, data=psi.reshape(self.mps[site].shape))
+            self.perturb_wave_function(site)
             self._env.split_tensor(site, direction=direction)
             self._env.update(site, direction=direction)
         return energy
@@ -312,6 +319,7 @@ class ShiftInvertDMRG(FiniteDMRG):
             logger.info(f"Sweeping to site [{site + 1}/{self.n_sites}], "
                         f"E0 = {self.restore_energy(energy)}")
             self._env.update_mps(site, data=psi.reshape(self.mps[site].shape))
+            self.perturb_wave_function(site)
             self._env.split_tensor(site, direction=direction)
             self._env.update(site, direction=direction)
             self._env2.update_mps(site, data=self.mps[site].data)
