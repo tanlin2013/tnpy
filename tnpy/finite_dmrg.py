@@ -3,6 +3,7 @@ import numpy as np
 from quimb.tensor import rand_uuid
 from datetime import timedelta
 from itertools import cycle
+from functools import partial
 from tnpy import logger
 from tnpy.linalg import eigh, eigshmv
 from tnpy.matrix_product_state import (
@@ -16,12 +17,12 @@ from typing import Tuple, List
 from enum import Enum
 
 
-class StoppingCriterion(Enum):
+class Metric(Enum):
     """
-    Enumeration for the stopping criterion of sweeping procedure.
+    Enumeration for which value the stopping criterion will examine in sweeping procedure.
     """
-    by_energy = 1
-    by_variance = 2
+    energy = 1
+    variance = 2
 
 
 class FiniteDMRG:
@@ -38,7 +39,7 @@ class FiniteDMRG:
             mpo: Matrix product operator.
             bond_dim: Bond dimensions.
             block_size: Block size of each local update.
-            mps: (Optional) Initial guess of matrix product state.
+            mps: (Optional) Initial guess of :class:`~MatrixProductState`.
             exact_solver_dim: A switch point at which the exact eigensolver should be used
                 below certain matrix size.
 
@@ -48,7 +49,7 @@ class FiniteDMRG:
                 fdmrg = FiniteDMRG(mpo, bond_dim=20)
                 fdmrg.run(tol=1e-8)
 
-            The optimized matrix product state can then be retrieved with :attr:`~FiniteDMRG.mps`.
+            The optimized :class:`~MatrixProductState` can then be retrieved from :attr:`~FiniteDMRG.mps`.
         """
         self._n_sites = mpo.n_sites
         self._bond_dim = bond_dim
@@ -153,45 +154,39 @@ class FiniteDMRG:
             self._env.update(site, direction=direction)
         return energy
 
-    def _converged(self, stopping_criterion: StoppingCriterion,
-                   tol: float, n_sweep: int, max_sweep: int) -> bool:
+    def _converged(self, n_sweep: int, tol: float, max_sweep: int, metric: Metric) -> bool:
         """
         Helper function for checking the convergence.
 
         Args:
-            stopping_criterion:
-            tol:
             n_sweep:
+            tol:
             max_sweep:
+            metric:
 
         Returns:
 
         """
-        def rule(criteria: float, label: str) -> bool:
-            logger.info(f"and lowers {label} by {criteria:e}.")
-            if abs(criteria) < tol:
+        def stopping_criterion(gradient: float) -> bool:
+            logger.info(f"Metric {metric.name} is lowered by {gradient:e} in this sweep.")
+            if abs(gradient) < tol:
                 logger.info(f"Reaching set tolerance {tol}, stop sweeping.")
                 return True
             elif n_sweep == max_sweep:
                 # @TODO: dump mps to file and raise error
                 logger.warning(f"Maximum number of sweeps {max_sweep} is reached, "
-                               f"yet {label} = {criteria:e} is still greater than tol = {tol}.")
-            elif abs(criteria) > tol and criteria < 0:
+                               f"yet {metric.name} gradient = {gradient:e} is still greater than tol = {tol}.")
+            elif abs(gradient) > tol and gradient < 0:
+                # TODO: this is not the case for shift-invert method
                 logger.warning(f"Might be trapped in local minimum in this sweep, "
-                               f"got {label} = {criteria:e}, skip and proceed.")
+                               f"got {metric.name} gradient = {gradient:e}, skip and proceed.")
             return False
 
-        if stopping_criterion == StoppingCriterion.by_energy:
-            energy_gradient = self._energies[-2] - self._energies[-1]
-            return rule(energy_gradient, label='dE')
-        elif stopping_criterion == StoppingCriterion.by_variance:
-            self._variances.append(self._env.variance())
-            variance_gradient = self._variances[-2] - self._variances[-1]
-            return rule(variance_gradient, label='dVar')
-        return False
+        return stopping_criterion(np.diff(self._variances[-2:])[0]) if metric == Metric.variance \
+            else stopping_criterion(np.diff(self._energies[-2:])[0])
 
-    def run(self, tol: float = 1e-7, max_sweep: int = 100,
-            stopping_criterion: StoppingCriterion = StoppingCriterion.by_energy, **kwargs) -> List[float]:
+    def run(self, tol: float = 1e-8, max_sweep: int = 100,
+            metric: Metric = Metric.energy, **kwargs) -> List[float]:
         """
         By calling this method, :class:`~FiniteDMRG` will start the sweeping procedure
         until the given tolerance is reached or touching the maximally allowed number of sweeps.
@@ -199,21 +194,24 @@ class FiniteDMRG:
         Args:
             tol: Required precision to the variationally optimized energy.
             max_sweep: Maximum number of sweeps.
-            stopping_criterion: By which value to examine the convergence.
+            metric: By which value to examine the convergence.
             **kwargs: Keyword arguments to primme eigensolver.
 
         Returns:
-            energies: A record of the energies computed on each sweep.
+            energies: A record of energies computed on each sweep.
         """
         clock = [time.process_time()]
-        logger.info(f"Set tolerance = {tol}, up to maximally {max_sweep} sweeps.")
+        converged = partial(self._converged, tol=tol, max_sweep=max_sweep, metric=metric)
+        logger.info(f"Set tolerance = {tol} to metric {metric.name},"
+                    f" up to maximally {max_sweep} sweeps.")
         for n_sweep, direction in zip(range(1, max_sweep + 1), cycle([Direction.rightward, Direction.leftward])):
             logger.info(f"<==== In sweep epoch [{n_sweep}/{max_sweep}] ====>")
             energy = self.sweep(direction, tol=tol, **kwargs)
             clock.append(time.process_time())
             self._energies.append(energy)
-            logger.info(f"This sweep takes {timedelta(seconds=np.diff(clock[-2:])[0])},")
-            if self._converged(stopping_criterion, tol, n_sweep, max_sweep):
+            self._variances.append(self._env.variance())
+            logger.info(f"Last sweep took {timedelta(seconds=np.diff(clock[-2:])[0])}.")
+            if converged(n_sweep):
                 break
         elapsed_time = np.mean(np.sort(np.diff(clock))[:3])
         logger.info(f"Summary - {n_sweep} sweeps, "
@@ -271,7 +269,7 @@ class ShiftInvertDMRG(FiniteDMRG):
 
     def _restore_mps(self):
         def gen_array(site: int) -> np.ndarray:
-            net = self._env.mpo[site] & conj_mps[site]
+            tn = self._env.mpo[site] & conj_mps[site]
             virtual_inds = self._env.mpo[site].inds[:-2]
             phys_ind = self._env.mpo[site].inds[-2]
             if site == 0:
@@ -290,7 +288,7 @@ class ShiftInvertDMRG(FiniteDMRG):
                     phys_ind: [phys_ind],
                     rand_uuid(): [conj_mps[site].inds[2], virtual_inds[1]],
                 }
-            return net.contract().fuse(fuse_map).data
+            return tn.contract().fuse(fuse_map).data
         conj_mps = self.mps.conj(mangle_outer=True)
         self._restored_mps = MatrixProductState(
             [gen_array(site) for site in range(self.n_sites)], shape='lpr'
@@ -331,8 +329,8 @@ class ShiftInvertDMRG(FiniteDMRG):
         return energy
 
     def run(self, tol: float = 1e-7, max_sweep: int = 100,
-            stopping_criterion: StoppingCriterion = StoppingCriterion.by_energy, **kwargs) -> List[float]:
-        energies = super(ShiftInvertDMRG, self).run(tol, max_sweep, stopping_criterion, **kwargs)
+            metric: Metric = Metric.energy, **kwargs) -> List[float]:
+        energies = super(ShiftInvertDMRG, self).run(tol, max_sweep, metric, **kwargs)
         self._restore_mps()
         return [self.restore_energy(energy) for energy in energies]
 
@@ -344,7 +342,7 @@ class ShiftInvertDMRG(FiniteDMRG):
 
     @property
     def variance(self) -> float:
-        net = self.restored_mps & \
+        tn = self.restored_mps & \
               self._env.mpo.square() & \
               self.restored_mps.conj(mangle_inner=True, mangle_outer=True)
-        return net.contract() - self._energies[-1] ** 2 - self._offset ** 2
+        return tn.contract() - self._energies[-1] ** 2 - self._offset ** 2
