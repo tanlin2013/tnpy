@@ -1,6 +1,7 @@
 import re
 import numpy as np
 import quimb.tensor as qtn
+import scipy.linalg as spl
 from dataclasses import dataclass, field
 from functools import wraps
 from itertools import count, islice
@@ -618,3 +619,29 @@ class TreeTensorNetworkMeasurements:
 
     def two_point_function(self):
         NotImplemented
+
+
+class ShiftInvertTreeTensorNetworkSDRG(TreeTensorNetworkSDRG):
+
+    def __init__(self, *args, **kwargs):
+        super(ShiftInvertTreeTensorNetworkSDRG, self).__init__(*args, **kwargs)
+
+    def block_eigen_solver(self, locus: int) -> Tuple[np.ndarray, np.ndarray]:
+        matrix = self.block_hamiltonian(locus)
+        evals, evecs = spl.eigh(matrix, b=matrix @ matrix)
+        if matrix.shape[0] > self.chi:
+            logger.info(f'Truncating evecs with shape {evecs.shape} to ({evecs.shape[0]}, {self.chi}).')
+            d = self.chi // 2
+            evals = np.hstack((evals[:d], evals[-d:]))
+            evecs = np.hstack((evecs[:, :d], evecs[:, -d:]))
+        idx = np.argsort(np.reciprocal(evals))
+        evals = np.reciprocal(evals)[idx]
+        evecs = matrix @ evecs[:, idx]
+        # res = np.array([
+        #     np.linalg.norm(matrix @ evecs[:, i] - evals[i] * evecs[:, i])
+        #     for i in range(len(evals))
+        # ])
+        # logger.info(f"evals {evals}")
+        # logger.info(f"rho {np.array([evecs.T[i, :] @ matrix @ evecs[:, i] for i in range(len(evals))])}")
+        # logger.info(f"residual {res}")
+        return evals, evecs
