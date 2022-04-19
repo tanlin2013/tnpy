@@ -12,6 +12,24 @@ jobs:
     container:
       image: docker://tanlin2013/tnpy:latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+
+      - name: Install pytest
+        run: pip install -r requirements_dev.txt
+
       - name: Unit Test
-        run: python -m unittest discover -s tests -p 'test_*.py'
+        run: pytest --cov=tnpy tests
+
+  flake8-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+
+      - name: Install flake8
+        run: pip install flake8
+
+      - name: run linter
+        run: flake8 tnpy
