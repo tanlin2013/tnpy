@@ -113,52 +113,56 @@ class MatrixProductState(qtn.MatrixProductState):
             }, inplace=True)
         return mps
 
-    def save(self, filename: str, extension: str = 'npz'):
+    def save(self, filename: str):
         """
         Save the underlying tensors of this :class:`~MatrixProductState`
-        with the order of indices ``'lpr'`` into a file.
+        in the order of indices ``'lpr'`` into file.
+        Only accepts suffix ``'.hdf5'`` or ``'.npz'`` as file extension.
 
         Args:
-            filename:
-            extension: ``'hdf5'`` or ``'npz'``.
+            filename: Absolute path to file in local disk.
 
         Returns:
 
         """
+        # @TODO: solve ordering issue
         tensor_datasets = {self.site_tag(site): self[site].data for site in range(self.nsites)}
-        filepath = Path(f"{filename}.{extension}")
-        if extension == 'hdf5':
-            with h5py.File(filepath, 'w') as f:
+        filepath = Path(filename)
+        extension = filepath.suffix
+        if extension == '.hdf5':
+            with h5py.File(str(filepath), 'w') as f:
                 for tag, array in tensor_datasets.items():
                     f.create_dataset(tag, data=array)
                 f.close()
-        elif extension == 'npz':
-            np.savez(filepath, **tensor_datasets)
+        elif extension == '.npz':
+            np.savez(str(filepath), **tensor_datasets)
         else:
-            raise KeyError(f"File extension {extension} is not supported.")
+            raise ValueError(f"File extension {extension} is not supported.")
 
     @classmethod
-    def load(cls, filename: str, extension: str = 'npz') -> 'MatrixProductState':
+    def load(cls, filename: str) -> MatrixProductState:
         """
         Initialize the underlying tensors of :class:`~MatrixProductState` from a file.
         Tensors in the file should take the order of indices ``'lpr'``.
+        Only accepts suffix ``'.hdf5'`` or ``'.npz'`` as file extension.
 
         Args:
-            filename:
-            extension: ``'hdf5'`` or ``'npz'``.
+            filename: Absolute path to file in local disk.
 
         Returns:
             mps:
         """
-        filepath = Path(f"{filename}.{extension}")
-        if extension == 'hdf5':
-            f = h5py.File(filepath, 'r')
+        # @TODO: solve ordering issue
+        filepath = Path(filename)
+        extension = filepath.suffix
+        if extension == '.hdf5':
+            f = h5py.File(str(filepath), 'r')
             return cls([array[()] for array in f.values()])
-        elif extension == 'npz':
-            f = np.load(filepath)
+        elif extension == '.npz':
+            f = np.load(str(filepath))
             return cls([array for array in f.values()])
         else:
-            raise KeyError(f"File extension {extension} is not supported.")
+            raise ValueError(f"File extension {extension} is not supported.")
 
     @classmethod
     def random(cls, n: int, bond_dim: int, phys_dim: int, **kwargs) -> 'MatrixProductState':
