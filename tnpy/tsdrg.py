@@ -1,11 +1,17 @@
+from __future__ import annotations
+
 import re
-import numpy as np
-import quimb.tensor as qtn
-import scipy.linalg as spl
 from dataclasses import dataclass, field
 from functools import wraps
 from itertools import count, islice
-from typing import Union, List, Dict, Iterator, Callable, Sequence, Tuple
+from typing import (
+    Union, List, Dict,
+    Iterator, Callable, Sequence, Tuple
+)
+
+import numpy as np
+import scipy.linalg as spl
+import quimb.tensor as qtn
 from graphviz import Digraph
 from tnpy import logger
 from tnpy.operators import MatrixProductOperator

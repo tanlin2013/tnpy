@@ -1,15 +1,18 @@
+from __future__ import annotations
+
 import re
+from enum import Enum
+from pathlib import Path
+from typing import Dict
+
 import h5py
 import numpy as np
 import quimb.tensor as qtn
 from tensornetwork import Node
-from pathlib import Path
 from tqdm import tqdm
-from enum import Enum
 from tnpy import logger
 from tnpy.linalg import svd, LinearOperator
 from tnpy.operators import MatrixProductOperator
-from typing import Dict
 
 
 class Direction(Enum):

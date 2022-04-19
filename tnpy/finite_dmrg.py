@@ -1,20 +1,21 @@
 import time
-import numpy as np
-from quimb.tensor import rand_uuid
+from enum import Enum
 from datetime import timedelta
 from itertools import cycle
 from functools import partial
+from typing import Tuple, List
+
+import numpy as np
+from quimb.tensor import rand_uuid
 from tnpy import logger
 from tnpy.linalg import eigh, eigshmv
+from tnpy.operators import MatrixProductOperator
 from tnpy.matrix_product_state import (
     MatrixProductState,
     Environment,
     Direction,
     MatrixProductStateMeasurements
 )
-from tnpy.operators import MatrixProductOperator
-from typing import Tuple, List
-from enum import Enum
 
 
 class Metric(Enum):
