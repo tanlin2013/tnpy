@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.10
 MAINTAINER "TaoLin" <tanlin2013@gmail.com>
 
 ARG WORKDIR=/home/tnpy
