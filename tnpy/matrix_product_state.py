@@ -109,7 +109,7 @@ class MatrixProductState(qtn.MatrixProductState):
             mps.reindex({ind: qtn.rand_uuid() for ind in mps.inner_inds()}, inplace=True)
         if mangle_outer:
             mps.reindex({
-                ind: re.sub(r'^k([0-9]+)', r'b\1', ind) for ind in mps.outer_inds()
+                ind: re.sub(r'^k(\d+)', r'b\1', ind) for ind in mps.outer_inds()
             }, inplace=True)
         return mps
 
