@@ -1,6 +1,6 @@
 import logging
-import yaml
 from pathlib import Path
+import yaml
 
 
 # -- Load configurations from yaml file ----------------------
