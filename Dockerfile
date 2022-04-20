@@ -15,13 +15,8 @@ RUN apt-get -y clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Install required python packages and tnpy
-#RUN pip install --upgrade pip && \
-#    pip install -r requirements.txt && \
-#    python setup.py install && \
-#    rm requirements.txt requirements_dev.txt setup.py && \
-#    rm -rf build dist tnpy tnpy.egg-info
-RUN curl -sSL https://install.python-poetry.org | POETRY_VERSION=1.2.0b1 python3 - && \
+RUN curl -sSL https://install.python-poetry.org | python3 - && \
     poetry config virtualenvs.create false --local && \
-    poetry install --without test,lint,docs -vvv
+    poetry install --no-dev
 
 ENTRYPOINT /bin/bash

@@ -24,7 +24,7 @@ jobs:
         run: |
           apt update
           apt install -y pandoc
-          poetry install --with docs
+          poetry install
           make -C docs html
 
       - name: Deploy
