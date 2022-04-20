@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>🚀 Algorithm &#8212; tnpy 0.0.9 documentation</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet" />
-  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,33 +20,47 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area", "displayMath": [["$$", "$$"]]}})</script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Model Base" href="model_base.html" />
     <link rel="prev" title="tnpy.tsdrg.TensorTree" href="_autosummary/tnpy.tsdrg.TensorTree.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -53,9 +69,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
       
@@ -68,7 +85,7 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <p class="caption" role="heading">
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Algorithms
  </span>
@@ -119,7 +136,7 @@
   </ul>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Built-in Models
  </span>
@@ -211,7 +228,7 @@
   </ul>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Helper class
  </span>
@@ -252,7 +269,7 @@
   </ul>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   API Reference
  </span>
@@ -278,12 +295,17 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
-</div>
-
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
 </div>
 
 
@@ -291,57 +313,119 @@
 
 
           
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
     
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
-            
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-            <!-- Source interaction buttons -->
+    <div class="header-article row sticky-top noprint">
+        
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/tanlin2013/tnpy"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/tanlin2013/tnpy/issues/new?title=Issue%20on%20page%20%2Fnb_tsdrg.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/tanlin2013/tnpy/edit/master/docs/nb_tsdrg.ipynb"><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/tanlin2013/tnpy"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/tanlin2013/tnpy/issues/new?title=Issue%20on%20page%20%2Fnb_tsdrg.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/tanlin2013/tnpy/edit/master/docs/nb_tsdrg.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
     </div>
 </div>
 
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-            <!-- Launch buttons -->
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
    🚀 Algorithm
@@ -395,13 +479,82 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>🚀 Algorithm</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   🚀 Algorithm
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#Preparation">
+     Preparation
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#Main-part:-growing-the-tree">
+     Main part: growing the tree
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#🚀-Data-Structure">
+   🚀 Data Structure
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#🚀-Measurements">
+   🚀 Measurements
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#Correlation-function">
+     Correlation function
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#Depth-first-Search-(DFS)-&amp;-Common-Ancestor">
+       Depth-first Search (DFS) &amp; Common Ancestor
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#Entanglement-entropy">
+     Entanglement entropy
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#🚀-References">
+   🚀 References
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
               <div>
                 
   
@@ -614,7 +767,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt a.copybtn {
+.prompt .copybtn {
     display: none;
 }
 
@@ -652,10 +805,10 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<div class="section" id="🚀-Algorithm">
-<h1>🚀 Algorithm<a class="headerlink" href="#🚀-Algorithm" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="Preparation">
-<h2>Preparation<a class="headerlink" href="#Preparation" title="Permalink to this headline">¶</a></h2>
+<section id="🚀-Algorithm">
+<h1>🚀 Algorithm<a class="headerlink" href="#🚀-Algorithm" title="Permalink to this headline">#</a></h1>
+<section id="Preparation">
+<h2>Preparation<a class="headerlink" href="#Preparation" title="Permalink to this headline">#</a></h2>
 <ol class="arabic simple">
 <li><p>Decompose Hamiltonian (of an 1D system) into MPO form.</p></li>
 <li><p>Calculate the 2-site Hamiltonian for each nearest-neighbor <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(i+1\)</span>.</p></li>
@@ -694,10 +847,10 @@ I
     E_{\chi+1} - E_{\chi} \,\,\,\,\,when \,\,\chi &lt; k - 1,
 \end{cases}\end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(k\)</span> is the total number of eigenvectors.</p>
-</div>
-<div class="section" id="Main-part:-growing-the-tree">
-<h2>Main part: growing the tree<a class="headerlink" href="#Main-part:-growing-the-tree" title="Permalink to this headline">¶</a></h2>
-<div><p><img alt="61f0f1b9f7bb4afab06b963f42177f65" class="no-scaled-link" src="_images/tsdrg1.png" style="width: 300px;" />   <img alt="88904d054b4145f4a1f856d04712b710" class="no-scaled-link" src="_images/tsdrg2.png" style="width: 300px;" /></p>
+</section>
+<section id="Main-part:-growing-the-tree">
+<h2>Main part: growing the tree<a class="headerlink" href="#Main-part:-growing-the-tree" title="Permalink to this headline">#</a></h2>
+<div><p><img alt="90cd034ad128464b92d0bb79887ddd3f" class="no-scaled-link" src="_images/tsdrg1.png" style="width: 300px;" />   <img alt="2c74ca5b51bb4fed91acfb2d02fa4e5c" class="no-scaled-link" src="_images/tsdrg2.png" style="width: 300px;" /></p>
 </div><ol class="arabic simple">
 <li><p>Merge the 2-site block with largest energy gap. This can be performed by constructing the isometric tensor <span class="math notranslate nohighlight">\(V\)</span> (the triangular tensor in the figure) to be <span class="math notranslate nohighlight">\(min(\chi, k)\)</span> eigenvectors of the 2-site Hamiltonian. By contracting <span class="math notranslate nohighlight">\(V^{\dagger}\)</span> and <span class="math notranslate nohighlight">\(V\)</span> with 2 MPO tensors, one gets the updated MPO.</p></li>
 <li><p>Compute the energy spectrum and the energy gap accordingly for affected block with its neighbors.</p></li>
@@ -706,10 +859,10 @@ I
 <blockquote>
 <div><p>Note: The isometric tensor at each step should be saved for later usage.</p>
 </div></blockquote>
-</div>
-</div>
-<div class="section" id="🚀-Data-Structure">
-<h1>🚀 Data Structure<a class="headerlink" href="#🚀-Data-Structure" title="Permalink to this headline">¶</a></h1>
+</section>
+</section>
+<section id="🚀-Data-Structure">
+<h1>🚀 Data Structure<a class="headerlink" href="#🚀-Data-Structure" title="Permalink to this headline">#</a></h1>
 <p>The problem considered here essentially forms a random binary tree. Though the construction of this tree is bottom-up, the data structure takes the same as in the standard top-down approach. Here we take Python for implementation</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
@@ -729,17 +882,16 @@ I
 <li><p><strong>left:</strong> The child tree node on the left.</p></li>
 <li><p><strong>right:</strong> The child tree node on the right.</p></li>
 </ul>
-</div>
-<div class="section" id="🚀-Measurements">
-<h1>🚀 Measurements<a class="headerlink" href="#🚀-Measurements" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="🚀-Measurements">
+<h1>🚀 Measurements<a class="headerlink" href="#🚀-Measurements" title="Permalink to this headline">#</a></h1>
 <p>We consider 3 physical measurements, energy spectrum near the ground state, correlation function and entanglement entropy. For latter two, one needs to consider the problem of lowest common ancestor (LCA) in graph theory and computer science.</p>
 <p>We may compare the tSDRG result with exact diagonalization (ED)</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>from tnpy.model import RandomHeisenberg
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from tnpy.model import RandomHeisenberg
 from tnpy.exact_diagonalization import ExactDiagonalization as ED
 
 model = RandomHeisenberg(N=6, h=3.0)
@@ -772,8 +924,7 @@ print(ed.evals)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>from tnpy.tsdrg import TSDRG
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from tnpy.tsdrg import TSDRG
 
 tsdrg = TSDRG(model.mpo, chi=4)
 tsdrg.run()
@@ -799,8 +950,7 @@ tsdrg.run()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>tsdrg = TSDRG(model.mpo, chi=64)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tsdrg = TSDRG(model.mpo, chi=64)
 tsdrg.run()
 </pre></div>
 </div>
@@ -829,76 +979,70 @@ tsdrg.run()
   3.59608887  4.2094474   4.42301798  5.18876342]
 </pre></div></div>
 </div>
-<div class="section" id="Correlation-function">
-<h2>Correlation function<a class="headerlink" href="#Correlation-function" title="Permalink to this headline">¶</a></h2>
-<div><p><img alt="ad7a5409d2bf484ba27ddbcea16e08eb" class="no-scaled-link" src="_images/tsdrg3.png" style="width: 800px;" /></p>
-</div><div class="section" id="Depth-first-Search-(DFS)-&amp;-Common-Ancestor">
-<h3>Depth-first Search (DFS) &amp; Common Ancestor<a class="headerlink" href="#Depth-first-Search-(DFS)-&-Common-Ancestor" title="Permalink to this headline">¶</a></h3>
-</div>
-</div>
-<div class="section" id="Entanglement-entropy">
-<h2>Entanglement entropy<a class="headerlink" href="#Entanglement-entropy" title="Permalink to this headline">¶</a></h2>
-</div>
-</div>
-<div class="section" id="🚀-References">
-<h1>🚀 References<a class="headerlink" href="#🚀-References" title="Permalink to this headline">¶</a></h1>
+<section id="Correlation-function">
+<h2>Correlation function<a class="headerlink" href="#Correlation-function" title="Permalink to this headline">#</a></h2>
+<div><p><img alt="f20471376e7e45a382bdbbbebbb9ff67" class="no-scaled-link" src="_images/tsdrg3.png" style="width: 800px;" /></p>
+</div><section id="Depth-first-Search-(DFS)-&amp;-Common-Ancestor">
+<h3>Depth-first Search (DFS) &amp; Common Ancestor<a class="headerlink" href="#Depth-first-Search-(DFS)-&-Common-Ancestor" title="Permalink to this headline">#</a></h3>
+</section>
+</section>
+<section id="Entanglement-entropy">
+<h2>Entanglement entropy<a class="headerlink" href="#Entanglement-entropy" title="Permalink to this headline">#</a></h2>
+</section>
+</section>
+<section id="🚀-References">
+<h1>🚀 References<a class="headerlink" href="#🚀-References" title="Permalink to this headline">#</a></h1>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.96.064427">Griffiths singularities in the random quantum Ising antiferromagnet: A tree tensor network renormalization group study</a></p></li>
 <li><p><a class="reference external" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.89.214203">Self-assembling tensor networks and holography in disordered spin chains</a></p></li>
 </ol>
-</div>
+</section>
 
 
               </div>
               
-        
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="_autosummary/tnpy.tsdrg.TensorTree.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">tnpy.tsdrg.TensorTree</p>
-            </div>
-        </a>
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="_autosummary/tnpy.tsdrg.TensorTree.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">tnpy.tsdrg.TensorTree</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="model_base.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Model Base</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="model_base.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Model Base</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
-        
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Tan Tao-Lin<br/>
-        
-            &copy; Copyright 2021, Tan Tao-Lin.<br/>
-      </p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Tan Tao-Lin<br/>
+  
+      &copy; Copyright 2021, Tan Tao-Lin.<br/>
+</p>
+        </footer>
     </div>
-  </footer>
-</main>
+    
+</div>
 
 
       </div>
     </div>
   
-  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
 
-  
+
   </body>
 </html>

@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>tnpy.finite_dmrg.FiniteDMRG &#8212; tnpy 0.0.9 documentation</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,31 +20,45 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Finite Time-dependent Variational Principle (fTDVP)" href="../finite_tdvp.html" />
     <link rel="prev" title="Finite Density Matrix Renormalization Group (fDMRG)" href="../finite_dmrg.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -51,9 +67,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
       
       
@@ -66,7 +83,7 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <p class="caption" role="heading">
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Algorithms
  </span>
@@ -117,7 +134,7 @@
   </ul>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Built-in Models
  </span>
@@ -209,7 +226,7 @@
   </ul>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Helper class
  </span>
@@ -250,7 +267,7 @@
   </ul>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   API Reference
  </span>
@@ -276,12 +293,17 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
-</div>
-
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
 </div>
 
 
@@ -289,65 +311,126 @@
 
 
           
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
     
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
-            
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/tanlin2013/tnpy"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/tanlin2013/tnpy/issues/new?title=Issue%20on%20page%20%2F_autosummary/tnpy.finite_dmrg.FiniteDMRG.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/tanlin2013/tnpy/edit/master/docs/_autosummary/tnpy.finite_dmrg.FiniteDMRG.rst"><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-            <!-- Launch buttons -->
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
-            
-        </div>
-    </div>
-</div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    <div class="header-article row sticky-top noprint">
         
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/tanlin2013/tnpy"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/tanlin2013/tnpy/issues/new?title=Issue%20on%20page%20%2F_autosummary/tnpy.finite_dmrg.FiniteDMRG.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/tanlin2013/tnpy/edit/master/docs/_autosummary/tnpy.finite_dmrg.FiniteDMRG.rst"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>tnpy.finite_dmrg.FiniteDMRG</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="section" id="tnpy-finite-dmrg-finitedmrg">
-<h1>tnpy.finite_dmrg.FiniteDMRG<a class="headerlink" href="#tnpy-finite-dmrg-finitedmrg" title="Permalink to this headline">¶</a></h1>
+  <section id="tnpy-finite-dmrg-finitedmrg">
+<h1>tnpy.finite_dmrg.FiniteDMRG<a class="headerlink" href="#tnpy-finite-dmrg-finitedmrg" title="Permalink to this headline">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="tnpy.finite_dmrg.FiniteDMRG">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tnpy.finite_dmrg.</span></span><span class="sig-name descname"><span class="pre">FiniteDMRG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../tnpy.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">bond_dim</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mps</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">tnpy.matrix_product_state.MatrixProductState</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact_solver_dim</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/finite_dmrg.html#FiniteDMRG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.finite_dmrg.</span></span><span class="sig-name descname"><span class="pre">FiniteDMRG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../tnpy.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">bond_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">tnpy.matrix_product_state.MatrixProductState</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact_solver_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/finite_dmrg.html#FiniteDMRG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG" title="Permalink to this definition">#</a></dt>
 <dd><p>The Density Matrix Renormalization Group (DMRG) algorithm of a finite size system.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -355,7 +438,7 @@
 <li><p><strong>mpo</strong> – Matrix product operator.</p></li>
 <li><p><strong>bond_dim</strong> – Bond dimensions.</p></li>
 <li><p><strong>block_size</strong> – Block size of each local update.</p></li>
-<li><p><strong>mps</strong> – (Optional) Initial guess of matrix product state.</p></li>
+<li><p><strong>mps</strong> – (Optional) Initial guess of <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code>.</p></li>
 <li><p><strong>exact_solver_dim</strong> – A switch point at which the exact eigensolver should be used
 below certain matrix size.</p></li>
 </ul>
@@ -367,10 +450,10 @@ below certain matrix size.</p></li>
 <div><p>fdmrg = FiniteDMRG(mpo, bond_dim=20)
 fdmrg.run(tol=1e-8)</p>
 </div></blockquote>
-<p>The optimized matrix product state can then be retrieved with <a class="reference internal" href="../tnpy.html#tnpy.finite_dmrg.FiniteDMRG.mps" title="tnpy.finite_dmrg.FiniteDMRG.mps"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mps</span></code></a>.</p>
+<p>The optimized <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code> can then be retrieved from <a class="reference internal" href="../tnpy.html#tnpy.finite_dmrg.FiniteDMRG.mps" title="tnpy.finite_dmrg.FiniteDMRG.mps"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mps</span></code></a>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.finite_dmrg.FiniteDMRG.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../tnpy.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">bond_dim</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mps</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">tnpy.matrix_product_state.MatrixProductState</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact_solver_dim</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/finite_dmrg.html#FiniteDMRG.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../tnpy.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">bond_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">tnpy.matrix_product_state.MatrixProductState</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact_solver_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/finite_dmrg.html#FiniteDMRG.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.__init__" title="Permalink to this definition">#</a></dt>
 <dd><p>The Density Matrix Renormalization Group (DMRG) algorithm of a finite size system.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -378,7 +461,7 @@ fdmrg.run(tol=1e-8)</p>
 <li><p><strong>mpo</strong> – Matrix product operator.</p></li>
 <li><p><strong>bond_dim</strong> – Bond dimensions.</p></li>
 <li><p><strong>block_size</strong> – Block size of each local update.</p></li>
-<li><p><strong>mps</strong> – (Optional) Initial guess of matrix product state.</p></li>
+<li><p><strong>mps</strong> – (Optional) Initial guess of <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code>.</p></li>
 <li><p><strong>exact_solver_dim</strong> – A switch point at which the exact eigensolver should be used
 below certain matrix size.</p></li>
 </ul>
@@ -390,11 +473,11 @@ below certain matrix size.</p></li>
 <div><p>fdmrg = FiniteDMRG(mpo, bond_dim=20)
 fdmrg.run(tol=1e-8)</p>
 </div></blockquote>
-<p>The optimized matrix product state can then be retrieved with <a class="reference internal" href="../tnpy.html#tnpy.finite_dmrg.FiniteDMRG.mps" title="tnpy.finite_dmrg.FiniteDMRG.mps"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mps</span></code></a>.</p>
+<p>The optimized <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code> can then be retrieved from <a class="reference internal" href="../tnpy.html#tnpy.finite_dmrg.FiniteDMRG.mps" title="tnpy.finite_dmrg.FiniteDMRG.mps"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mps</span></code></a>.</p>
 </dd></dl>
 
 <p class="rubric">Methods</p>
-<table class="longtable table autosummary">
+<table class="autosummary longtable table autosummary">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -403,17 +486,17 @@ fdmrg.run(tol=1e-8)</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.__init__" title="tnpy.finite_dmrg.FiniteDMRG.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(mpo, bond_dim[, block_size, mps, ...])</p></td>
 <td><p>The Density Matrix Renormalization Group (DMRG) algorithm of a finite size system.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../tnpy.html#tnpy.finite_dmrg.FiniteDMRG.modified_density_matrix" title="tnpy.finite_dmrg.FiniteDMRG.modified_density_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">modified_density_matrix</span></code></a>(site[, alpha])</p></td>
-<td><p>For the single-site DMRG <a class="reference internal" href="../tnpy.html#tnpy.finite_dmrg.FiniteDMRG.one_site_solver" title="tnpy.finite_dmrg.FiniteDMRG.one_site_solver"><code class="xref py py-func docutils literal notranslate"><span class="pre">one_site_solver()</span></code></a>, the modified density matrix can be used against trapping in local minimum.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../tnpy.html#tnpy.finite_dmrg.FiniteDMRG.one_site_solver" title="tnpy.finite_dmrg.FiniteDMRG.one_site_solver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">one_site_solver</span></code></a>(site[, tol])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../tnpy.html#tnpy.finite_dmrg.FiniteDMRG.one_site_solver" title="tnpy.finite_dmrg.FiniteDMRG.one_site_solver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">one_site_solver</span></code></a>(site[, tol])</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">param site</dt>
 <dd class="field-odd"><p></p></dd>
 </dl>
 </p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../tnpy.html#tnpy.finite_dmrg.FiniteDMRG.run" title="tnpy.finite_dmrg.FiniteDMRG.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a>([tol, max_sweep, stopping_criterion])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../tnpy.html#tnpy.finite_dmrg.FiniteDMRG.perturb_wave_function" title="tnpy.finite_dmrg.FiniteDMRG.perturb_wave_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">perturb_wave_function</span></code></a>(site[, alpha])</p></td>
+<td><p>Perturb the local tensor of wave function by an amount of <code class="docutils literal notranslate"><span class="pre">alpha</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../tnpy.html#tnpy.finite_dmrg.FiniteDMRG.run" title="tnpy.finite_dmrg.FiniteDMRG.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a>([tol, max_sweep, metric])</p></td>
 <td><p>By calling this method, <a class="reference internal" href="../tnpy.html#tnpy.finite_dmrg.FiniteDMRG" title="tnpy.finite_dmrg.FiniteDMRG"><code class="xref py py-class docutils literal notranslate"><span class="pre">FiniteDMRG</span></code></a> will start the sweeping procedure until the given tolerance is reached or touching the maximally allowed number of sweeps.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="../tnpy.html#tnpy.finite_dmrg.FiniteDMRG.sweep" title="tnpy.finite_dmrg.FiniteDMRG.sweep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sweep</span></code></a>([direction, tol])</p></td>
@@ -428,7 +511,7 @@ fdmrg.run(tol=1e-8)</p>
 </tbody>
 </table>
 <p class="rubric">Attributes</p>
-<table class="longtable table autosummary">
+<table class="autosummary longtable table autosummary">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -453,59 +536,53 @@ fdmrg.run(tol=1e-8)</p>
 </table>
 </dd></dl>
 
-</div>
+</section>
 
 
               </div>
               
-        
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="../finite_dmrg.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Finite Density Matrix Renormalization Group (fDMRG)</p>
-            </div>
-        </a>
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../finite_dmrg.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Finite Density Matrix Renormalization Group (fDMRG)</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../finite_tdvp.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Finite Time-dependent Variational Principle (fTDVP)</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="../finite_tdvp.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Finite Time-dependent Variational Principle (fTDVP)</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
-        
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Tan Tao-Lin<br/>
-        
-            &copy; Copyright 2021, Tan Tao-Lin.<br/>
-      </p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Tan Tao-Lin<br/>
+  
+      &copy; Copyright 2021, Tan Tao-Lin.<br/>
+</p>
+        </footer>
     </div>
-  </footer>
-</main>
+    
+</div>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
 
-  
+
   </body>
 </html>

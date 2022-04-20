@@ -14,8 +14,8 @@
    .. autosummary::
    
       ~FiniteDMRG.__init__
-      ~FiniteDMRG.modified_density_matrix
       ~FiniteDMRG.one_site_solver
+      ~FiniteDMRG.perturb_wave_function
       ~FiniteDMRG.run
       ~FiniteDMRG.sweep
       ~FiniteDMRG.two_site_solver
