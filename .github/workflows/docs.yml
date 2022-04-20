@@ -24,6 +24,7 @@ jobs:
         run: |
           apt update
           apt install -y pandoc
+          poetry config virtualenvs.create false --local
           poetry install
           make -C docs html
 
