@@ -19,7 +19,7 @@ from tnpy.operators import MatrixProductOperator
 
 class Node(qtn.Tensor):
 
-    def __init__(self, node_id: int, left: 'Node' = None, right: 'Node' = None,
+    def __init__(self, node_id: int, left: Node = None, right: Node = None,
                  *args, **kwargs):
         """
         The node of binary tree, while data structure is inherited from :class:`~quimb.Tensor`.
@@ -50,11 +50,11 @@ class Node(qtn.Tensor):
         return self._node_id
 
     @property
-    def left(self) -> 'Node':
+    def left(self) -> Node:
         return self._left
 
     @property
-    def right(self) -> 'Node':
+    def right(self) -> Node:
         return self._right
 
     @property
@@ -311,7 +311,7 @@ class TreeTensorNetworkSDRG:
         """
         Helper class for caching the energy gap in :class:`~TreeTensorNetworkSDRG` algorithm.
         """
-        tsdrg: 'TreeTensorNetworkSDRG'
+        tsdrg: TreeTensorNetworkSDRG
         evecs: List[np.ndarray] = field(default_factory=list)
         gap: List[float] = field(default_factory=list)
 
@@ -478,7 +478,7 @@ class TreeTensorNetworkSDRG:
             self._gap_cache.update(max_gapped_bond)
 
     @property
-    def measurements(self) -> 'TreeTensorNetworkMeasurements':
+    def measurements(self) -> TreeTensorNetworkMeasurements:
         if not len(self._fused_mpo_cache) == 1:
             raise RuntimeError("tSDRG algorithm hasn't been executed yet.")
         return TreeTensorNetworkMeasurements(self._tree)

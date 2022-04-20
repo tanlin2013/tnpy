@@ -91,9 +91,9 @@ class MatrixProductState(qtn.MatrixProductState):
             inds = [inds[s] for s in shape if s in inds]
             self[i].transpose_(*inds)
 
-    def conj(self, mangle_inner: bool = False, mangle_outer: bool = False) -> 'MatrixProductState':
+    def conj(self, mangle_inner: bool = False, mangle_outer: bool = False) -> MatrixProductState:
         """
-        Create a conjugated copy of this :class:`~MatrixProductState`.
+        Create a conjugated copy of this :class:`~MatrixProductState` instance.
 
         Args:
             mangle_inner: Whether to rename the inner indices,
@@ -165,7 +165,7 @@ class MatrixProductState(qtn.MatrixProductState):
             raise ValueError(f"File extension {extension} is not supported.")
 
     @classmethod
-    def random(cls, n: int, bond_dim: int, phys_dim: int, **kwargs) -> 'MatrixProductState':
+    def random(cls, n: int, bond_dim: int, phys_dim: int, **kwargs) -> MatrixProductState:
         """
         Create a randomly initialized :class:`~MatrixProductState`.
 
