@@ -195,3 +195,6 @@ cython_debug/
 # File extenson used by graphviz
 *.gv
 *.gv.png
+
+# Poetry
+poetry.lock
