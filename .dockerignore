@@ -184,6 +184,9 @@ tests/
 LICENSE
 makefile
 
+# Poetry
+poetry.lock
+
 # Docker itself
 Dockerfile
 .dockerignore
