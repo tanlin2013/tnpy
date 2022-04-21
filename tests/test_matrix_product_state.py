@@ -96,7 +96,7 @@ class TestMatrixProductState:
     @pytest.mark.parametrize("site", [2, 3, 4, 6])
     def test_split_tensor(self, site, mps):
         two_site_mps = mps[site] @ mps[site + 1]
-        mps.split_tensor(site, direction=Direction.rightward)
+        mps.split_tensor(site, direction=Direction.RIGHTWARD)
         np.testing.assert_allclose(
             two_site_mps.data,
             (mps[site] @ mps[site + 1]).data,

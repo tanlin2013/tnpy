@@ -20,8 +20,8 @@ class Direction(Enum):
     """
     Enumeration for specifying the direction (leftward or rightward).
     """
-    rightward = 1
-    leftward = -1
+    RIGHTWARD = 1
+    LEFTWARD = -1
 
 
 class MatrixProductState(qtn.MatrixProductState):
@@ -208,7 +208,7 @@ class MatrixProductState(qtn.MatrixProductState):
         Returns:
 
         """
-        if direction == direction.rightward:
+        if direction == direction.RIGHTWARD:
             psi = self[site].data if site == 0 else \
                 self[site].data.reshape(self.phys_dim * self[site].shape[0], -1)
             u, s, vt = svd(psi, cutoff=self[site].shape[-1])
@@ -217,7 +217,7 @@ class MatrixProductState(qtn.MatrixProductState):
             neighbour = Node(self[site + 1].data)
             residual[1] ^ neighbour[0]
             self[site + 1].modify(data=(residual @ neighbour).tensor)
-        elif direction == direction.leftward:
+        elif direction == direction.LEFTWARD:
             psi = self[site].data if site == self.n_sites - 1 else \
                 self[site].data.reshape(-1, self.phys_dim * self[site].shape[2])
             u, s, vt = svd(psi, cutoff=self[site].shape[0])
@@ -360,9 +360,9 @@ class Environment:
         Returns:
 
         """
-        if direction == Direction.rightward:
+        if direction == Direction.RIGHTWARD:
             self.update_left(site + 1)
-        elif direction == Direction.leftward:
+        elif direction == Direction.LEFTWARD:
             self.update_right(site - 1)
 
     def update_mps(self, site: int, data: np.ndarray):
@@ -372,9 +372,9 @@ class Environment:
     def split_tensor(self, site: int, direction: Direction):
         self._mps.split_tensor(site, direction)
         self._conj_mps[site].modify(data=self._mps[site].data)
-        if direction == direction.leftward:
+        if direction == direction.LEFTWARD:
             self._conj_mps[site - 1].modify(data=self._mps[site - 1].data)
-        elif direction == direction.rightward:
+        elif direction == direction.RIGHTWARD:
             self._conj_mps[site + 1].modify(data=self._mps[site + 1].data)
 
     def variance(self) -> float:

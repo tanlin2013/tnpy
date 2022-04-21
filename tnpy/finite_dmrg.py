@@ -24,8 +24,8 @@ class Metric(Enum):
     Enumeration for which value the stopping criterion will examine in
     sweeping procedure.
     """
-    energy = 1
-    variance = 2
+    ENERGY = 1
+    VARIANCE = 2
 
 
 class FiniteDMRG:
@@ -136,7 +136,7 @@ class FiniteDMRG:
         psi += alpha * self._env.one_site_matvec(site).matvec(psi)
         self._env.update_mps(site, data=psi.reshape(self.mps[site].shape))
 
-    def sweep(self, direction: Direction = Direction.rightward,
+    def sweep(self, direction: Direction = Direction.RIGHTWARD,
               tol: float = 1e-8, **kwargs) -> float:
         """
         Perform a single sweep on the given ``direction``.
@@ -151,7 +151,7 @@ class FiniteDMRG:
             energy: Variationally optimized energy after this sweep.
         """
         iter_sites = range(self.n_sites - 1) \
-            if direction == Direction.rightward \
+            if direction == Direction.RIGHTWARD \
             else range(self.n_sites - 1, 0, -1)
         energy = None
         for site in iter_sites:
@@ -204,11 +204,11 @@ class FiniteDMRG:
             return False
 
         return stopping_criterion(np.diff(self._variances[-2:])[0]) \
-            if metric == Metric.variance \
+            if metric == Metric.VARIANCE \
             else stopping_criterion(np.diff(self._energies[-2:])[0])
 
     def run(self, tol: float = 1e-8, max_sweep: int = 100,
-            metric: Metric = Metric.energy, **kwargs) -> List[float]:
+            metric: Metric = Metric.ENERGY, **kwargs) -> List[float]:
         """
         By calling this method, :class:`~FiniteDMRG` will start the sweeping
         procedure until the given tolerance is reached or touching the
@@ -230,7 +230,7 @@ class FiniteDMRG:
                     f" up to maximally {max_sweep} sweeps.")
         for n_sweep, direction in zip(
                 range(1, max_sweep + 1),
-                cycle([Direction.rightward, Direction.leftward])
+                cycle([Direction.RIGHTWARD, Direction.LEFTWARD])
         ):
             logger.info(f"<==== In sweep epoch [{n_sweep}/{max_sweep}] ====>")
             energy = self.sweep(direction, tol=tol, **kwargs)
@@ -341,10 +341,10 @@ class ShiftInvertDMRG(FiniteDMRG):
             v0=v0, tol=tol, **kwargs
         )
 
-    def sweep(self, direction: Direction = Direction.rightward,
+    def sweep(self, direction: Direction = Direction.RIGHTWARD,
               tol: float = 1e-8, **kwargs) -> float:
         iter_sites = range(self.n_sites - 1) \
-            if direction == Direction.rightward \
+            if direction == Direction.RIGHTWARD \
             else range(self.n_sites - 1, 0, -1)
         energy = None
         for site in iter_sites:
@@ -356,15 +356,15 @@ class ShiftInvertDMRG(FiniteDMRG):
             self._env.split_tensor(site, direction=direction)
             self._env.update(site, direction=direction)
             self._env2.update_mps(site, data=self.mps[site].data)
-            if direction == Direction.leftward:
+            if direction == Direction.LEFTWARD:
                 self._env2.update_mps(site - 1, data=self.mps[site - 1].data)
-            elif direction == Direction.rightward:
+            elif direction == Direction.RIGHTWARD:
                 self._env2.update_mps(site + 1, data=self.mps[site + 1].data)
             self._env2.update(site, direction=direction)
         return energy
 
     def run(self, tol: float = 1e-7, max_sweep: int = 100,
-            metric: Metric = Metric.energy, **kwargs) -> List[float]:
+            metric: Metric = Metric.ENERGY, **kwargs) -> List[float]:
         energies = super(ShiftInvertDMRG, self).run(
             tol, max_sweep, metric, **kwargs
         )
