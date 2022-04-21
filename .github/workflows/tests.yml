@@ -37,5 +37,17 @@ jobs:
       - name: Run linter
         run: flake8 tnpy
 
+  static-type:
+    runs-on: ubuntu-latest
+    container:
+      image: docker://tanlin2013/tnpy:latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install linter
+        run: |
+          poetry config virtualenvs.create false --local
+          poetry install
+
       - name: Static type check
         run: mypy tnpy
