@@ -11,7 +11,8 @@ This project is a python implementation of Tensor Network,
 a numerical approach to quantum many-body systems.
   
 
-**tnpy** is built on top of [quimb](https://github.com/jcmgray/quimb) for tensor contractions, 
+**tnpy** is built on top of [quimb](https://github.com/jcmgray/quimb), 
+along with [TensorNetwork](https://github.com/google/TensorNetwork) for tensor contractions, 
 with optimized support for various backend engines (TensorFlow, JAX, PyTorch, and Numpy). 
 For eigen-solver we adopt [primme](https://github.com/primme/primme),
 an iterative multi-method solver with preconditioning.
@@ -30,7 +31,8 @@ Requirments
 See `requirements.txt` for more details.
 But these two are essential building blocks.
 
-  * [quimb](https://github.com/jcmgray/quimb)
+  * [jcmgray/quimb](https://github.com/jcmgray/quimb)
+  * [google/Tensornetwork](https://github.com/google/TensorNetwork)
   * [primme/primme](https://github.com/primme/primme)
 
 Regarding any installation problems with Primme,
