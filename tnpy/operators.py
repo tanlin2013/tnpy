@@ -1,7 +1,10 @@
+from __future__ import annotations
+
+from itertools import groupby
+from dataclasses import dataclass, InitVar, field, astuple
+
 import numpy as np
 import quimb.tensor as qtn
-from dataclasses import dataclass, InitVar, field, astuple
-from itertools import groupby
 
 
 @dataclass
@@ -43,14 +46,16 @@ class SpinOperators:
 class MatrixProductOperator(qtn.MatrixProductOperator):
 
     def __init__(self, *args, **kwargs):
-        super(MatrixProductOperator, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self._n_sites = self.nsites
-        self._phys_dim = super(MatrixProductOperator, self).phys_dim(0)
+        self._phys_dim = super().phys_dim(0)
 
         def all_equal(iterable):
             g = groupby(iterable)
             return next(g, True) and not next(g, False)
-        assert all_equal([super(MatrixProductOperator, self).phys_dim(site) for site in range(self.n_sites)])
+        assert all_equal(
+            [super(MatrixProductOperator, self).phys_dim(site) for site in range(self.n_sites)]
+        )
 
     @property
     def n_sites(self) -> int:
@@ -60,7 +65,7 @@ class MatrixProductOperator(qtn.MatrixProductOperator):
     def phys_dim(self) -> int:
         return self._phys_dim
 
-    def square(self) -> qtn.MatrixProductOperator:
+    def square(self) -> MatrixProductOperator:
         """
         Compute the square of :class:`~MatrixProductOperator` (MPO),
         which equivalently merges two MPO layers into one.
@@ -75,18 +80,25 @@ class MatrixProductOperator(qtn.MatrixProductOperator):
             {f'k{site}': f'dummy{site}' for site in range(self.nsites)}
         )
         second_layer.reindex(
-            {ind: qtn.rand_uuid() for ind in second_layer.inner_inds()}, inplace=True
+            {ind: qtn.rand_uuid() for ind in second_layer.inner_inds()},
+            inplace=True
         )
 
         def _fuse_bilayer(site: int) -> qtn.Tensor:
             bilayer_mpo = first_layer[site] @ second_layer[site]
             if site == 0 or site == self.nsites - 1:
-                return bilayer_mpo.fuse({qtn.rand_uuid(): [bilayer_mpo.inds[0], bilayer_mpo.inds[2]]})
+                return bilayer_mpo.fuse(
+                    {qtn.rand_uuid(): [
+                        bilayer_mpo.inds[0], bilayer_mpo.inds[2]
+                    ]}
+                )
             return bilayer_mpo.fuse(
                 {qtn.rand_uuid(): [bilayer_mpo.inds[0], bilayer_mpo.inds[3]],
                  qtn.rand_uuid(): [bilayer_mpo.inds[1], bilayer_mpo.inds[4]]}
             )
-        return qtn.MatrixProductOperator([_fuse_bilayer(site).data for site in range(self.nsites)])
+        return MatrixProductOperator(
+            [_fuse_bilayer(site).data for site in range(self.nsites)]
+        )
 
 
 class FullHamiltonian:
@@ -109,7 +121,10 @@ class FullHamiltonian:
         self._phys_dim = mpo.phys_dim
 
         if self.phys_dim ** self.n_sites > 2 ** 12:
-            raise ResourceWarning(f"Requesting more than {self.n_sites} sites with physical dim {self.phys_dim}.")
+            raise ResourceWarning(
+                f"Requesting more than {self.n_sites} sites "
+                f"with physical dim {self.phys_dim}."
+            )
 
         self._matrix = mpo.contract().fuse(
             {'0': [f'k{site}' for site in range(self.n_sites)],
