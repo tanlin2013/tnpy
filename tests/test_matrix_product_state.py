@@ -3,6 +3,7 @@ from contextlib import nullcontext as does_not_raise
 
 import pytest
 import numpy as np
+
 from tnpy.model import RandomHeisenberg
 from tnpy.matrix_product_state import (
     Direction,
@@ -14,7 +15,9 @@ from tnpy.matrix_product_state import (
 class Helper:
 
     @staticmethod
-    def compressed_bond_dims(n: int, bond_dim: int, phys_dim: int) -> np.ndarray:
+    def compressed_bond_dims(
+            n: int, bond_dim: int, phys_dim: int
+    ) -> np.ndarray:
         if n % 2 == 0:
             chi = [min(phys_dim ** i, bond_dim) for i in range(1, n // 2)]
             chi += [int(min(phys_dim ** (n / 2), bond_dim))] + chi[::-1]
@@ -30,8 +33,12 @@ class TestMatrixProductState:
     @pytest.mark.parametrize("bond_dim", [2, 4, 6])
     @pytest.mark.parametrize("phys_dim", [2, 4])
     def test_shape(self, n, bond_dim, phys_dim):
-        mps = MatrixProductState.random(n=n, bond_dim=bond_dim, phys_dim=phys_dim)
-        chi = Helper.compressed_bond_dims(n=n, bond_dim=bond_dim, phys_dim=phys_dim)
+        mps = MatrixProductState.random(
+            n=n, bond_dim=bond_dim, phys_dim=phys_dim
+        )
+        chi = Helper.compressed_bond_dims(
+            n=n, bond_dim=bond_dim, phys_dim=phys_dim
+        )
         assert (chi <= phys_dim ** (n // 2)).all()
         for site, tensor in enumerate(mps):
             if site == 0:
@@ -55,7 +62,7 @@ class TestMatrixProductState:
 
     def test_conj(self, mps):
         conj_mps = mps.conj(mangle_inner=True, mangle_outer=False)
-        assert np.allclose(mps @ conj_mps, 1, atol=1e-12)
+        np.testing.assert_allclose(mps @ conj_mps, 1, atol=1e-12)
         conj_mps = mps.conj(mangle_inner=True, mangle_outer=True)
         assert len((mps @ conj_mps).inds) == 2 * mps.n_sites
 
@@ -90,7 +97,7 @@ class TestMatrixProductState:
     def test_split_tensor(self, site, mps):
         two_site_mps = mps[site] @ mps[site + 1]
         mps.split_tensor(site, direction=Direction.rightward)
-        assert np.allclose(
+        np.testing.assert_allclose(
             two_site_mps.data,
             (mps[site] @ mps[site + 1]).data,
             atol=1e-12
@@ -104,7 +111,10 @@ class TestEnvironment:
     @pytest.fixture(scope='class')
     def env(self):
         model = RandomHeisenberg(n=6, h=0, penalty=100.0)
-        return Environment(model.mpo, MatrixProductState.random(n=6, bond_dim=16, phys_dim=2))
+        return Environment(
+            model.mpo,
+            MatrixProductState.random(n=model.n, bond_dim=16, phys_dim=2)
+        )
 
     def test_left(self):
         print(self.env.mps)

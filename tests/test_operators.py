@@ -1,12 +1,13 @@
-from unittest import TestCase
+import pytest
 import numpy as np
+
 from tnpy.operators import SpinOperators, FullHamiltonian
 from tnpy.model import XXZ, RandomHeisenberg
 
 
-class TestSpinOperators(TestCase):
+class TestSpinOperators:
 
-    def test_SOp(self):
+    def test_spin_half_ops(self):
         spin_half_ops = SpinOperators()
         np.testing.assert_array_equal(
             np.array(
@@ -24,55 +25,52 @@ class TestSpinOperators(TestCase):
         )
 
 
-class TestMatrixProductOperator(TestCase):
+class TestMatrixProductOperator:
 
-    def test_square(self):
-        bilayer_mpo = RandomHeisenberg(n=4, h=0).mpo.square()
-        self.assertCountEqual(
-            (25, 2, 2),
-            bilayer_mpo[0].shape
-        )
-        self.assertCountEqual(
-            (25, 25, 2, 2),
-            bilayer_mpo[1].shape
-        )
-        self.assertCountEqual(
-            (25, 25, 2, 2),
-            bilayer_mpo[2].shape
-        )
-        self.assertCountEqual(
-            (25, 2, 2),
-            bilayer_mpo[3].shape
+    @pytest.mark.parametrize("model", [
+        RandomHeisenberg(n=4, h=0),
+        RandomHeisenberg(n=4, h=0.5)
+    ])
+    def test_square(self, model):
+        bilayer_mpo = model.mpo.square()
+        assert bilayer_mpo[0].shape == (25, 2, 2)
+        assert bilayer_mpo[1].shape == (25, 25, 2, 2)
+        assert bilayer_mpo[2].shape == (25, 25, 2, 2)
+        assert bilayer_mpo[3].shape == (25, 2, 2)
+        ham = FullHamiltonian(model.mpo).matrix
+        np.testing.assert_allclose(
+            ham @ ham,
+            FullHamiltonian(bilayer_mpo).matrix,
+            atol=1e-12
         )
 
-
-class TestFullHamiltonian(TestCase):
-
-    def __init__(self, *args, **kwargs):
-        super(TestFullHamiltonian, self).__init__(*args, **kwargs)
-        self.ham1 = FullHamiltonian(RandomHeisenberg(n=2, h=0).mpo)
-        self.ham2 = FullHamiltonian(RandomHeisenberg(n=3, h=0).mpo)
-        self.ham3 = FullHamiltonian(XXZ(n=2, delta=0.5).mpo)
-        self.ham4 = FullHamiltonian(XXZ(n=3, delta=0.5).mpo)
-
-    def test_n_sites(self):
-        self.assertEqual(2, self.ham1.n_sites)
-        self.assertEqual(3, self.ham2.n_sites)
-        self.assertEqual(2, self.ham3.n_sites)
-        self.assertEqual(3, self.ham4.n_sites)
-
-    def test_matrix(self):
+    @pytest.mark.parametrize("n", [2, 4, 6])
+    @pytest.mark.parametrize("h", [0, 0.5, 1])
+    def test_multiply_scalar(self, n, h):
+        mpo = RandomHeisenberg(n=n, h=h).mpo
         np.testing.assert_array_equal(
-            np.array(
+            -1 * FullHamiltonian(mpo).matrix,
+            FullHamiltonian(-1 * mpo).matrix
+        )
+
+
+class TestFullHamiltonian:
+
+    @pytest.fixture(scope='class', params=[
+        {
+            "n": 2,
+            "ham": FullHamiltonian(RandomHeisenberg(n=2, h=0).mpo),
+            "data": np.array(
                 [[0.25, 0, 0, 0],
                  [0, -0.25, 0.5, 0],
                  [0, 0.5, -0.25, 0],
                  [0, 0, 0, 0.25]]
-            ),
-            self.ham1.matrix
-        )
-        np.testing.assert_array_equal(
-            np.array(
+            )
+        },
+        {
+            "n": 3,
+            "ham": FullHamiltonian(RandomHeisenberg(n=3, h=0).mpo),
+            "data": np.array(
                 [[0.5, 0, 0, 0, 0, 0, 0, 0],
                  [0, 0, 0.5, 0, 0, 0, 0, 0],
                  [0, 0.5, -0.5, 0, 0.5, 0, 0, 0],
@@ -81,20 +79,22 @@ class TestFullHamiltonian(TestCase):
                  [0, 0, 0, 0.5, 0, -0.5, 0.5, 0],
                  [0, 0, 0, 0, 0, 0.5, 0, 0],
                  [0, 0, 0, 0, 0, 0, 0, 0.5]]
-            ),
-            self.ham2.matrix
-        )
-        np.testing.assert_array_equal(
-            np.array(
+            )
+        },
+        {
+            "n": 2,
+            "ham": FullHamiltonian(XXZ(n=2, delta=0.5).mpo),
+            "data": np.array(
                 [[-0.125, 0, 0, 0],
                  [0, 0.125, -0.5, 0],
                  [0, -0.5, 0.125, 0],
                  [0, 0, 0, -0.125]]
-            ),
-            self.ham3.matrix
-        )
-        np.testing.assert_array_equal(
-            np.array(
+            )
+        },
+        {
+            "n": 3,
+            "ham": FullHamiltonian(XXZ(n=3, delta=0.5).mpo),
+            "data": np.array(
                 [[-0.25, 0, 0, 0, 0, 0, 0, 0],
                  [0, 0, -0.5, 0, 0, 0, 0, 0],
                  [0, -0.5, 0.25, 0, -0.5, 0, 0, 0],
@@ -103,6 +103,17 @@ class TestFullHamiltonian(TestCase):
                  [0, 0, 0, -0.5, 0, 0.25, -0.5, 0],
                  [0, 0, 0, 0, 0, -0.5, 0, 0],
                  [0, 0, 0, 0, 0, 0, 0, -0.25]]
-            ),
-            self.ham4.matrix
+            )
+        }
+    ])
+    def model(self, request):
+        return request.param
+
+    def test_n_sites(self, model):
+        assert model["ham"].n_sites == model["n"]
+
+    def test_matrix(self, model):
+        np.testing.assert_array_equal(
+            model["ham"].matrix,
+            model["data"]
         )
