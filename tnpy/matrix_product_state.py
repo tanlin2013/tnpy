@@ -10,6 +10,7 @@ import numpy as np
 import quimb.tensor as qtn
 from tensornetwork import Node
 from tqdm import tqdm
+
 from tnpy import logger
 from tnpy.linalg import svd, LinearOperator
 from tnpy.operators import MatrixProductOperator
@@ -35,10 +36,11 @@ class MatrixProductState(qtn.MatrixProductState):
 
         Note:
             This class inherits directly from :class:`qtn.MatrixProductState`,
-            with some added features. But, note that the underlying tensors are in the shape 'lpr',
+            with some added features.
+            But, note that the underlying tensors are in the shape 'lpr',
             which differs from the parent class :class:`qtn.MatrixProductState`.
         """
-        super(MatrixProductState, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.permute_arrays('lpr')
 
     @property
@@ -63,7 +65,8 @@ class MatrixProductState(qtn.MatrixProductState):
         Returns:
 
         Notes:
-            The actual bond dimensions can be smaller than this one at the boundaries.
+            The actual bond dimensions can be smaller
+            than this one at the boundaries.
         """
         return self.max_bond()
 
@@ -79,8 +82,8 @@ class MatrixProductState(qtn.MatrixProductState):
         consistently. This is an inplace operation.
 
         Args:
-            shape: A permutation of ``'lrp'`` specifying the desired order of the
-                left, right, and physical indices respectively.
+            shape: A permutation of ``'lrp'`` specifying the desired order of
+                the left, right, and physical indices respectively.
         """
         for i in self.sites:
             inds = {'p': self.site_ind(i)}
@@ -91,22 +94,28 @@ class MatrixProductState(qtn.MatrixProductState):
             inds = [inds[s] for s in shape if s in inds]
             self[i].transpose_(*inds)
 
-    def conj(self, mangle_inner: bool = False, mangle_outer: bool = False) -> MatrixProductState:
+    def conj(self,
+             mangle_inner: bool = False, mangle_outer: bool = False
+             ) -> MatrixProductState:
         """
         Create a conjugated copy of this :class:`~MatrixProductState` instance.
 
         Args:
             mangle_inner: Whether to rename the inner indices,
-                so that there will no conflict with the original one when contracting the network.
+                so that there will be no conflict with the original one
+                when contracting the network.
             mangle_outer: Whether to rename the outer indices,
-                so that there will no conflict with the original one when contracting the network.
+                so that there will be no conflict with the original one
+                when contracting the network.
 
         Returns:
             conj_mps:
         """
-        mps = super(MatrixProductState, self).conj()
+        mps = super().conj()
         if mangle_inner:
-            mps.reindex({ind: qtn.rand_uuid() for ind in mps.inner_inds()}, inplace=True)
+            mps.reindex({
+                ind: qtn.rand_uuid() for ind in mps.inner_inds()
+            }, inplace=True)
         if mangle_outer:
             mps.reindex({
                 ind: re.sub(r'^k(\d+)', r'b\1', ind) for ind in mps.outer_inds()
@@ -126,7 +135,9 @@ class MatrixProductState(qtn.MatrixProductState):
 
         """
         # @TODO: solve ordering issue
-        tensor_datasets = {self.site_tag(site): self[site].data for site in range(self.nsites)}
+        tensor_datasets = {
+            self.site_tag(site): self[site].data for site in range(self.nsites)
+        }
         filepath = Path(filename)
         extension = filepath.suffix
         if extension == '.hdf5':
@@ -142,9 +153,10 @@ class MatrixProductState(qtn.MatrixProductState):
     @classmethod
     def load(cls, filename: str) -> MatrixProductState:
         """
-        Initialize the underlying tensors of :class:`~MatrixProductState` from a file.
-        Tensors in the file should take the order of indices ``'lpr'``.
-        Only accepts suffix ``'.hdf5'`` or ``'.npz'`` as file extension.
+        Initialize the underlying tensors of :class:`~MatrixProductState`
+        from a file. Tensors in the file should take the order of indices
+        ``'lpr'``. Only accepts suffix ``'.hdf5'`` or ``'.npz'`` as
+        file extension.
 
         Args:
             filename: Absolute path to file in local disk.
@@ -165,7 +177,9 @@ class MatrixProductState(qtn.MatrixProductState):
             raise ValueError(f"File extension {extension} is not supported.")
 
     @classmethod
-    def random(cls, n: int, bond_dim: int, phys_dim: int, **kwargs) -> MatrixProductState:
+    def random(cls,
+               n: int, bond_dim: int, phys_dim: int, **kwargs
+               ) -> MatrixProductState:
         """
         Create a randomly initialized :class:`~MatrixProductState`.
 
@@ -184,8 +198,8 @@ class MatrixProductState(qtn.MatrixProductState):
     def split_tensor(self, site: int, direction: Direction):
         """
         Split the tensor at given ``site`` into two tensors,
-        and multiply the one on left or right ``direction`` into its neighbouring tensor.
-        This is an inplace operation.
+        and multiply the one on left or right ``direction`` into its
+        neighbouring tensor. This is an inplace operation.
 
         Args:
             site:
@@ -195,8 +209,8 @@ class MatrixProductState(qtn.MatrixProductState):
 
         """
         if direction == direction.rightward:
-            psi = self[site].data if site == 0 \
-                else self[site].data.reshape(self.phys_dim * self[site].shape[0], -1)
+            psi = self[site].data if site == 0 else \
+                self[site].data.reshape(self.phys_dim * self[site].shape[0], -1)
             u, s, vt = svd(psi, cutoff=self[site].shape[-1])
             self[site].modify(data=u.reshape(self[site].shape))
             residual = Node(np.diagflat(s) @ vt)
@@ -204,8 +218,8 @@ class MatrixProductState(qtn.MatrixProductState):
             residual[1] ^ neighbour[0]
             self[site + 1].modify(data=(residual @ neighbour).tensor)
         elif direction == direction.leftward:
-            psi = self[site].data if site == self.n_sites - 1 \
-                else self[site].data.reshape(-1, self.phys_dim * self[site].shape[2])
+            psi = self[site].data if site == self.n_sites - 1 else \
+                self[site].data.reshape(-1, self.phys_dim * self[site].shape[2])
             u, s, vt = svd(psi, cutoff=self[site].shape[0])
             self[site].modify(data=vt.reshape(self[site].shape))
             residual = Node(u @ np.diagflat(s))
@@ -213,7 +227,9 @@ class MatrixProductState(qtn.MatrixProductState):
             neighbour[-1] ^ residual[0]
             self[site - 1].modify(data=(neighbour @ residual).tensor)
         else:
-            raise KeyError("MatrixProductState only supplies left or right direction.")
+            raise KeyError(
+                "MatrixProductState only supplies left or right direction."
+            )
 
     def enlarge_bond_dim(self, new_bond_dim: int, method: str):
         return NotImplemented
@@ -223,7 +239,8 @@ class Environment:
 
     def __init__(self, mpo: MatrixProductOperator, mps: MatrixProductState):
         """
-        The effective environment for :class:`~MatrixProductState`-based algorithms.
+        The effective environment for :class:`~MatrixProductState`-based
+        algorithms.
 
         Args:
             mpo: Input :class:`~MatrixProductOperator`.
@@ -234,9 +251,15 @@ class Environment:
         self._conj_mps = mps.conj(mangle_inner=True, mangle_outer=True)
         self._n_sites = mpo.nsites
         self._left, self._right = {}, {}
-        for site in tqdm(range(1, self.n_sites), desc="Initializing left environments"):
+        for site in tqdm(
+                range(1, self.n_sites),
+                desc="Initializing left environments"
+        ):
             self.update_left(site)
-        for site in tqdm(range(self.n_sites - 2, -1, -1), desc="Initializing right environments"):
+        for site in tqdm(
+                range(self.n_sites - 2, -1, -1),
+                desc="Initializing right environments"
+        ):
             self.update_right(site)
 
     def close(self):
@@ -264,7 +287,8 @@ class Environment:
     @property
     def left(self) -> Dict[int, qtn.Tensor]:
         """
-        Get a dictionary where left environments are stored on the respective site.
+        Get a dictionary where left environments are stored on the respective
+        site.
 
         Returns:
 
@@ -274,7 +298,8 @@ class Environment:
     @property
     def right(self) -> Dict[int, qtn.Tensor]:
         """
-        Get a dictionary where right environments are stored on the respective site.
+        Get a dictionary where right environments are stored on the respective
+        site.
 
         Returns:
 
@@ -325,8 +350,8 @@ class Environment:
 
     def update(self, site: int, direction: Direction):
         """
-        Alias to :func:`~Environment.update_left` or :func:`~Environment.update_right`
-        depending on the given ``direction``.
+        Alias to :func:`~Environment.update_left` or
+        :func:`~Environment.update_right` depending on the given ``direction``.
 
         Args:
             site:
@@ -383,15 +408,23 @@ class Environment:
         else:
             tn = self.left[site] & self.right[site] & self.mpo[site]
             fuse_map = {
-                'k': [self.left[site].inds[0], self.mpo[site].inds[-2], self.right[site].inds[0]],
-                'b': [self.left[site].inds[-1], self.mpo[site].inds[-1], self.right[site].inds[-1]]
+                'k': [
+                    self.left[site].inds[0],
+                    self.mpo[site].inds[-2],
+                    self.right[site].inds[0]
+                ],
+                'b': [
+                    self.left[site].inds[-1],
+                    self.mpo[site].inds[-1],
+                    self.right[site].inds[-1]
+                ]
             }
         return tn.contract().fuse(fuse_map).data
 
     def one_site_matvec(self, site: int) -> LinearOperator:
         """
-        Construct the effective linear operator (matrix-vector product) for variational solver,
-        with one site remained un-contracted.
+        Construct the effective linear operator (matrix-vector product) for
+        variational solver, with one site remained un-contracted.
 
         Args:
             site:
@@ -400,18 +433,32 @@ class Environment:
 
         """
         def matvec(x: np.ndarray) -> np.ndarray:
-            vec = qtn.Tensor(x.reshape(self.mps[site].shape), inds=self.mps[site].inds)
+            vec = qtn.Tensor(x.reshape(self.mps[site].shape),
+                             inds=self.mps[site].inds)
             if site == 0:
                 tn = self.right[site] & self.mpo[site] & vec
-                output_inds = [self.mpo[site].inds[-1], self.right[site].inds[-1]]
+                output_inds = [
+                    self.mpo[site].inds[-1],
+                    self.right[site].inds[-1]
+                ]
             elif site == self.n_sites - 1:
                 tn = self.left[site] & self.mpo[site] & vec
-                output_inds = [self.left[site].inds[-1], self.mpo[site].inds[-1]]
+                output_inds = [
+                    self.left[site].inds[-1],
+                    self.mpo[site].inds[-1]
+                ]
             else:
                 tn = self.left[site] & self.right[site] & self.mpo[site] & vec
-                output_inds = [self.left[site].inds[-1], self.mpo[site].inds[-1], self.right[site].inds[-1]]
+                output_inds = [
+                    self.left[site].inds[-1],
+                    self.mpo[site].inds[-1],
+                    self.right[site].inds[-1]
+                ]
             return tn.contract(output_inds=output_inds).data.reshape(-1, 1)
-        return LinearOperator((self.mps[site].size, self.mps[site].size), matvec=matvec)
+        return LinearOperator(
+            shape=(self.mps[site].size, self.mps[site].size),
+            matvec=matvec
+        )
 
 
 class MatrixProductStateMeasurements:
@@ -420,6 +467,8 @@ class MatrixProductStateMeasurements:
         self._mps = mps
 
     def expectation_value(self, mpo: MatrixProductOperator = None) -> float:
-        tn = self._mps.conj(mangle_inner=True) & self._mps if mpo is None \
-            else self._mps.conj(mangle_inner=True, mangle_outer=True) & mpo & self._mps
+        tn = self._mps.conj(mangle_inner=True) & self._mps if mpo is None else \
+            self._mps.conj(
+                mangle_inner=True, mangle_outer=True
+            ) & mpo & self._mps
         return tn.contract()
