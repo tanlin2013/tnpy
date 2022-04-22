@@ -284,17 +284,6 @@ class ShiftInvertDMRG(FiniteDMRG):
         self._offset = offset
         self._restored_mps = None
 
-    def restore_energy(self, energy: float) -> float:
-        """
-
-        Args:
-            energy:
-
-        Returns:
-
-        """
-        return 1 / energy + self._offset
-
     @property
     def restored_mps(self) -> MatrixProductState:
         return self._restored_mps
@@ -350,7 +339,7 @@ class ShiftInvertDMRG(FiniteDMRG):
         for site in iter_sites:
             energy, psi = self.one_site_solver(site, tol, **kwargs)
             logger.info(f"Sweeping to site [{site + 1}/{self.n_sites}], "
-                        f"E0 = {self.restore_energy(energy)}")
+                        f"E0 = {1 / energy + self._offset}")
             self._env.update_mps(site, data=psi.reshape(self.mps[site].shape))
             self.perturb_wave_function(site)
             self._env.split_tensor(site, direction=direction)
@@ -369,7 +358,7 @@ class ShiftInvertDMRG(FiniteDMRG):
             tol, max_sweep, metric, **kwargs
         )
         self._restore_mps()
-        return [self.restore_energy(energy) for energy in energies]
+        return np.reciprocal(energies) + self._offset
 
     @property
     def measurements(self) -> MatrixProductStateMeasurements:
