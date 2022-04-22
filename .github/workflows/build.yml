@@ -31,5 +31,5 @@ jobs:
         with:
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/tnpy:${{ steps.date.outputs.date }}, \
+            ${{ secrets.DOCKERHUB_USERNAME }}/tnpy:${{ steps.date.outputs.date }}
             ${{ secrets.DOCKERHUB_USERNAME }}/tnpy:latest
