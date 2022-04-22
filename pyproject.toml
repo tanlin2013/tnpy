@@ -6,7 +6,7 @@ authors = ["taolin <tanlin2013@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "~3.10"
-pyyaml = "^6.0"
+toml = "^0.10.2"
 tqdm = "^4.63.0"
 numpy = "1.21.6"
 scipy = "1.8.0"

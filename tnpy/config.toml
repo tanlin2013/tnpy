@@ -1,0 +1,10 @@
+[MatrixProductOperator]
+phys_dim_on_bond = 0
+
+[FullHamiltonian]
+max_resource_dim = 4096
+
+[FiniteDMRG]
+exact_solver_dim = 200
+best_n_sweeps = 3
+max_sweep_dump_mps = true
