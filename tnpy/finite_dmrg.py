@@ -276,7 +276,7 @@ class ShiftInvertDMRG(FiniteDMRG):
             mps:
             exact_solver_dim:
         """
-        super(ShiftInvertDMRG, self).__init__(
+        super().__init__(
             mpo, bond_dim=bond_dim, block_size=block_size,
             mps=mps, exact_solver_dim=exact_solver_dim
         )
@@ -365,7 +365,7 @@ class ShiftInvertDMRG(FiniteDMRG):
 
     def run(self, tol: float = 1e-7, max_sweep: int = 100,
             metric: Metric = Metric.ENERGY, **kwargs) -> List[float]:
-        energies = super(ShiftInvertDMRG, self).run(
+        energies = super().run(
             tol, max_sweep, metric, **kwargs
         )
         self._restore_mps()
