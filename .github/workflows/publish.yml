@@ -40,6 +40,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
   publish:
+    needs: build-image-package
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/${{ github.repository }}:latest
