@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>tnpy package &#8212; tnpy 0.0.9 documentation</title>
+    <title>tnpy package &#8212; tnpy 0.1.0 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -75,7 +75,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">tnpy 0.0.9 documentation</h1>
+      <h1 class="site-logo" id="site-title">tnpy 0.1.0 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -574,7 +574,8 @@ title="Edit this page"
 <dt class="sig sig-object py" id="tnpy.finite_dmrg.FiniteDMRG">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.finite_dmrg.</span></span><span class="sig-name descname"><span class="pre">FiniteDMRG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">bond_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">tnpy.matrix_product_state.MatrixProductState</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact_solver_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/finite_dmrg.html#FiniteDMRG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>The Density Matrix Renormalization Group (DMRG) algorithm of a finite size system.</p>
+<p>The Density Matrix Renormalization Group (DMRG) algorithm of a
+finite size system.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -582,8 +583,8 @@ title="Edit this page"
 <li><p><strong>bond_dim</strong> – Bond dimensions.</p></li>
 <li><p><strong>block_size</strong> – Block size of each local update.</p></li>
 <li><p><strong>mps</strong> – (Optional) Initial guess of <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code>.</p></li>
-<li><p><strong>exact_solver_dim</strong> – A switch point at which the exact eigensolver should be used
-below certain matrix size.</p></li>
+<li><p><strong>exact_solver_dim</strong> – A switch point at which the exact eigensolver
+should be used below certain matrix size.</p></li>
 </ul>
 </dd>
 </dl>
@@ -593,7 +594,8 @@ below certain matrix size.</p></li>
 <div><p>fdmrg = FiniteDMRG(mpo, bond_dim=20)
 fdmrg.run(tol=1e-8)</p>
 </div></blockquote>
-<p>The optimized <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code> can then be retrieved from <a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.mps" title="tnpy.finite_dmrg.FiniteDMRG.mps"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mps</span></code></a>.</p>
+<p>The optimized <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code> can then be retrieved
+from <a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.mps" title="tnpy.finite_dmrg.FiniteDMRG.mps"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mps</span></code></a>.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.finite_dmrg.FiniteDMRG.bond_dim">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bond_dim</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.bond_dim" title="Permalink to this definition">#</a></dt>
@@ -634,8 +636,8 @@ fdmrg.run(tol=1e-8)</p>
 <span class="sig-name descname"><span class="pre">perturb_wave_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-05</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/finite_dmrg.html#FiniteDMRG.perturb_wave_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.perturb_wave_function" title="Permalink to this definition">#</a></dt>
 <dd><p>Perturb the local tensor of wave function by an amount of <code class="docutils literal notranslate"><span class="pre">alpha</span></code>.
 For the single-site DMRG <a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.one_site_solver" title="tnpy.finite_dmrg.FiniteDMRG.one_site_solver"><code class="xref py py-func docutils literal notranslate"><span class="pre">one_site_solver()</span></code></a>,
-the modified density matrix can be used against trapping in local minimums.
-This is an in-place operation.</p>
+the modified density matrix can be used against trapping in local
+minimums. This is an in-place operation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -646,11 +648,11 @@ This is an in-place operation.</p>
 </dl>
 <p class="rubric">References</p>
 <p><a class="reference external" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.72.180403">S. R. White,
-Density matrix renormalization group algorithms with a single center site,
-Phys. Rev. B 72, 180403 (2005).</a>
+Density matrix renormalization group algorithms with a single
+center site, Phys. Rev. B 72, 180403 (2005).</a>
 <a class="reference external" href="https://arxiv.org/abs/1008.3477">U. Schollwoeck,
-The density-matrix renormalization group in the age of matrix product states,
-arXiv:1008.3477 (2011).</a></p>
+The density-matrix renormalization group in the age of matrix
+product states, arXiv:1008.3477 (2011).</a></p>
 </dd></dl>
 
 <dl class="py property">
@@ -660,9 +662,10 @@ arXiv:1008.3477 (2011).</a></p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.finite_dmrg.FiniteDMRG.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_sweep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tnpy.finite_dmrg.Metric" title="tnpy.finite_dmrg.Metric"><span class="pre">tnpy.finite_dmrg.Metric</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Metric.energy</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tnpy/finite_dmrg.html#FiniteDMRG.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.run" title="Permalink to this definition">#</a></dt>
-<dd><p>By calling this method, <a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG" title="tnpy.finite_dmrg.FiniteDMRG"><code class="xref py py-class docutils literal notranslate"><span class="pre">FiniteDMRG</span></code></a> will start the sweeping procedure
-until the given tolerance is reached or touching the maximally allowed number of sweeps.</p>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_sweep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tnpy.finite_dmrg.Metric" title="tnpy.finite_dmrg.Metric"><span class="pre">tnpy.finite_dmrg.Metric</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Metric.ENERGY</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tnpy/finite_dmrg.html#FiniteDMRG.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.run" title="Permalink to this definition">#</a></dt>
+<dd><p>By calling this method, <a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG" title="tnpy.finite_dmrg.FiniteDMRG"><code class="xref py py-class docutils literal notranslate"><span class="pre">FiniteDMRG</span></code></a> will start the sweeping
+procedure until the given tolerance is reached or touching the
+maximally allowed number of sweeps.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -683,12 +686,13 @@ until the given tolerance is reached or touching the maximally allowed number of
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.finite_dmrg.FiniteDMRG.sweep">
-<span class="sig-name descname"><span class="pre">sweep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tnpy.matrix_product_state.Direction</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Direction.rightward</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/tnpy/finite_dmrg.html#FiniteDMRG.sweep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.sweep" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">sweep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tnpy.matrix_product_state.Direction</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Direction.RIGHTWARD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/tnpy/finite_dmrg.html#FiniteDMRG.sweep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.sweep" title="Permalink to this definition">#</a></dt>
 <dd><p>Perform a single sweep on the given <code class="docutils literal notranslate"><span class="pre">direction</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>direction</strong> – The left or right direction on which the sweep to perform.</p></li>
+<li><p><strong>direction</strong> – The left or right direction on which the sweep to
+perform.</p></li>
 <li><p><strong>tol</strong> – Tolerance to the eigensolver.</p></li>
 <li><p><strong>**kwargs</strong> – Keyword arguments to primme eigensolver.</p></li>
 </ul>
@@ -718,15 +722,16 @@ until the given tolerance is reached or touching the maximally allowed number of
 <dt class="sig sig-object py" id="tnpy.finite_dmrg.Metric">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.finite_dmrg.</span></span><span class="sig-name descname"><span class="pre">Metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/finite_dmrg.html#Metric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.Metric" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
-<p>Enumeration for which value the stopping criterion will examine in sweeping procedure.</p>
+<p>Enumeration for which value the stopping criterion will examine in
+sweeping procedure.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="tnpy.finite_dmrg.Metric.energy">
-<span class="sig-name descname"><span class="pre">energy</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#tnpy.finite_dmrg.Metric.energy" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="tnpy.finite_dmrg.Metric.ENERGY">
+<span class="sig-name descname"><span class="pre">ENERGY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#tnpy.finite_dmrg.Metric.ENERGY" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="tnpy.finite_dmrg.Metric.variance">
-<span class="sig-name descname"><span class="pre">variance</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#tnpy.finite_dmrg.Metric.variance" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="tnpy.finite_dmrg.Metric.VARIANCE">
+<span class="sig-name descname"><span class="pre">VARIANCE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#tnpy.finite_dmrg.Metric.VARIANCE" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -735,7 +740,8 @@ until the given tolerance is reached or touching the maximally allowed number of
 <dt class="sig sig-object py" id="tnpy.finite_dmrg.ShiftInvertDMRG">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.finite_dmrg.</span></span><span class="sig-name descname"><span class="pre">ShiftInvertDMRG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">bond_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">tnpy.matrix_product_state.MatrixProductState</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact_solver_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/finite_dmrg.html#ShiftInvertDMRG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.ShiftInvertDMRG" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG" title="tnpy.finite_dmrg.FiniteDMRG"><code class="xref py py-class docutils literal notranslate"><span class="pre">tnpy.finite_dmrg.FiniteDMRG</span></code></a></p>
-<p>The DMRG algorithm for optimizing the shift-invert spectrum of a finite size system.</p>
+<p>The DMRG algorithm for optimizing the shift-invert spectrum of
+a finite size system.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -786,9 +792,10 @@ until the given tolerance is reached or touching the maximally allowed number of
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.finite_dmrg.ShiftInvertDMRG.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-07</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_sweep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tnpy.finite_dmrg.Metric" title="tnpy.finite_dmrg.Metric"><span class="pre">tnpy.finite_dmrg.Metric</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Metric.energy</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tnpy/finite_dmrg.html#ShiftInvertDMRG.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.ShiftInvertDMRG.run" title="Permalink to this definition">#</a></dt>
-<dd><p>By calling this method, <a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG" title="tnpy.finite_dmrg.FiniteDMRG"><code class="xref py py-class docutils literal notranslate"><span class="pre">FiniteDMRG</span></code></a> will start the sweeping procedure
-until the given tolerance is reached or touching the maximally allowed number of sweeps.</p>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-07</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_sweep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tnpy.finite_dmrg.Metric" title="tnpy.finite_dmrg.Metric"><span class="pre">tnpy.finite_dmrg.Metric</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Metric.ENERGY</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tnpy/finite_dmrg.html#ShiftInvertDMRG.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.ShiftInvertDMRG.run" title="Permalink to this definition">#</a></dt>
+<dd><p>By calling this method, <a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG" title="tnpy.finite_dmrg.FiniteDMRG"><code class="xref py py-class docutils literal notranslate"><span class="pre">FiniteDMRG</span></code></a> will start the sweeping
+procedure until the given tolerance is reached or touching the
+maximally allowed number of sweeps.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -809,12 +816,13 @@ until the given tolerance is reached or touching the maximally allowed number of
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.finite_dmrg.ShiftInvertDMRG.sweep">
-<span class="sig-name descname"><span class="pre">sweep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tnpy.matrix_product_state.Direction</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Direction.rightward</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/tnpy/finite_dmrg.html#ShiftInvertDMRG.sweep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.ShiftInvertDMRG.sweep" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">sweep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tnpy.matrix_product_state.Direction</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Direction.RIGHTWARD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/tnpy/finite_dmrg.html#ShiftInvertDMRG.sweep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.ShiftInvertDMRG.sweep" title="Permalink to this definition">#</a></dt>
 <dd><p>Perform a single sweep on the given <code class="docutils literal notranslate"><span class="pre">direction</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>direction</strong> – The left or right direction on which the sweep to perform.</p></li>
+<li><p><strong>direction</strong> – The left or right direction on which the sweep to
+perform.</p></li>
 <li><p><strong>tol</strong> – Tolerance to the eigensolver.</p></li>
 <li><p><strong>**kwargs</strong> – Keyword arguments to primme eigensolver.</p></li>
 </ul>
@@ -955,7 +963,7 @@ through the property <a class="reference internal" href="#tnpy.operators.FullHam
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.operators.MatrixProductOperator.square">
-<span class="sig-name descname"><span class="pre">square</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">quimb.tensor.tensor_1d.MatrixProductOperator</span></span></span><a class="reference internal" href="_modules/tnpy/operators.html#MatrixProductOperator.square"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.operators.MatrixProductOperator.square" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">square</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a></span></span><a class="reference internal" href="_modules/tnpy/operators.html#MatrixProductOperator.square"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.operators.MatrixProductOperator.square" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute the square of <a class="reference internal" href="#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductOperator</span></code></a> (MPO),
 which equivalently merges two MPO layers into one.</p>
 <dl class="field-list simple">
@@ -969,7 +977,7 @@ which equivalently merges two MPO layers into one.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="tnpy.operators.SpinOperators">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.operators.</span></span><span class="sig-name descname"><span class="pre">SpinOperators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dataclasses.InitVar</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/operators.html#SpinOperators"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.operators.SpinOperators" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.operators.</span></span><span class="sig-name descname"><span class="pre">SpinOperators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">InitVar</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/operators.html#SpinOperators"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.operators.SpinOperators" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Constructor of spin operators.</p>
 <dl class="py attribute">
@@ -978,7 +986,7 @@ which equivalently merges two MPO layers into one.</p>
 <dd><p>Creation operator, 2 x 2 matrix.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
+<dd class="field-odd"><p>np.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -989,7 +997,7 @@ which equivalently merges two MPO layers into one.</p>
 <dd><p>Annihilation operator, 2 x 2 matrix.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
+<dd class="field-odd"><p>np.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1000,7 +1008,7 @@ which equivalently merges two MPO layers into one.</p>
 <dd><p>Spin operator on z direction.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
+<dd class="field-odd"><p>np.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1011,7 +1019,7 @@ which equivalently merges two MPO layers into one.</p>
 <dd><p>2 x 2 identity matrix.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
+<dd class="field-odd"><p>np.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1022,7 +1030,7 @@ which equivalently merges two MPO layers into one.</p>
 <dd><p>2 x 2 zero matrix.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
+<dd class="field-odd"><p>np.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1035,32 +1043,32 @@ which equivalently merges two MPO layers into one.</p>
 </div>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id0">
-<span class="sig-name descname"><span class="pre">I2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#id0" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">I2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">np.ndarray</span></em><a class="headerlink" href="#id0" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id1">
-<span class="sig-name descname"><span class="pre">O2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#id1" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">O2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">np.ndarray</span></em><a class="headerlink" href="#id1" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id2">
-<span class="sig-name descname"><span class="pre">Sm</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#id2" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">Sm</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">np.ndarray</span></em><a class="headerlink" href="#id2" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id3">
-<span class="sig-name descname"><span class="pre">Sp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#id3" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">Sp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">np.ndarray</span></em><a class="headerlink" href="#id3" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id4">
-<span class="sig-name descname"><span class="pre">Sz</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#id4" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">Sz</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">np.ndarray</span></em><a class="headerlink" href="#id4" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="tnpy.operators.SpinOperators.spin">
-<span class="sig-name descname"><span class="pre">spin</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dataclasses.InitVar</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.5</span></em><a class="headerlink" href="#tnpy.operators.SpinOperators.spin" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">spin</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">InitVar</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.5</span></em><a class="headerlink" href="#tnpy.operators.SpinOperators.spin" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1072,7 +1080,8 @@ which equivalently merges two MPO layers into one.</p>
 <dt class="sig sig-object py" id="tnpy.tsdrg.Node">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.tsdrg.</span></span><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tnpy.tsdrg.Node" title="tnpy.tsdrg.Node"><span class="pre">tnpy.tsdrg.Node</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tnpy.tsdrg.Node" title="tnpy.tsdrg.Node"><span class="pre">tnpy.tsdrg.Node</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#Node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.Node" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">quimb.tensor.tensor_core.Tensor</span></code></p>
-<p>The node of binary tree, while data structure is inherited from <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>.</p>
+<p>The node of binary tree, while data structure is inherited from
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1110,7 +1119,8 @@ which equivalently merges two MPO layers into one.</p>
 <dt class="sig sig-object py" id="tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.tsdrg.</span></span><span class="sig-name descname"><span class="pre">ShiftInvertTreeTensorNetworkSDRG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#ShiftInvertTreeTensorNetworkSDRG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG" title="tnpy.tsdrg.TreeTensorNetworkSDRG"><code class="xref py py-class docutils literal notranslate"><span class="pre">tnpy.tsdrg.TreeTensorNetworkSDRG</span></code></a></p>
-<p>The tree tensor network version of strong disorder renormalization group algorithm.</p>
+<p>The tree tensor network version of strong disorder renormalization
+group algorithm.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1120,7 +1130,8 @@ which equivalently merges two MPO layers into one.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<p>The tSDRG algorithm can be launched by calling <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.run" title="tnpy.tsdrg.TreeTensorNetworkSDRG.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> method.</p>
+<p>The tSDRG algorithm can be launched by calling
+<a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.run" title="tnpy.tsdrg.TreeTensorNetworkSDRG.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> method.</p>
 <blockquote>
 <div><p>tsdrg = TreeTensorNetworkSDRG(mpo, chi=32)
 tsdrg.run()</p>
@@ -1128,8 +1139,9 @@ tsdrg.run()</p>
 <p>After executing <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.run" title="tnpy.tsdrg.TreeTensorNetworkSDRG.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a>,
 one can access the binary tensor tree <a class="reference internal" href="#tnpy.tsdrg.TensorTree" title="tnpy.tsdrg.TensorTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">TensorTree</span></code></a>
 through the attribute <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.tree" title="tnpy.tsdrg.TreeTensorNetworkSDRG.tree"><code class="xref py py-attr docutils literal notranslate"><span class="pre">tree</span></code></a>.
-For measurements, please refer to <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.measurements" title="tnpy.tsdrg.TreeTensorNetworkSDRG.measurements"><code class="xref py py-attr docutils literal notranslate"><span class="pre">measurements</span></code></a>
-or <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements" title="tnpy.tsdrg.TreeTensorNetworkMeasurements"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeTensorNetworkMeasurements</span></code></a>.</p>
+For measurements, please refer to
+<a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.measurements" title="tnpy.tsdrg.TreeTensorNetworkSDRG.measurements"><code class="xref py py-attr docutils literal notranslate"><span class="pre">measurements</span></code></a> or
+<a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements" title="tnpy.tsdrg.TreeTensorNetworkMeasurements"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeTensorNetworkMeasurements</span></code></a>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG.block_eigen_solver">
 <span class="sig-name descname"><span class="pre">block_eigen_solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#ShiftInvertTreeTensorNetworkSDRG.block_eigen_solver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG.block_eigen_solver" title="Permalink to this definition">#</a></dt>
@@ -1171,14 +1183,16 @@ or <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.check_root">
 <span class="sig-name descname"><span class="pre">check_root</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.check_root"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.check_root" title="Permalink to this definition">#</a></dt>
-<dd><p>Accessory decorator for checking the existence of root in <a class="reference internal" href="#tnpy.tsdrg.TensorTree" title="tnpy.tsdrg.TensorTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">TensorTree</span></code></a>.</p>
+<dd><p>Accessory decorator for checking the existence of root in
+<a class="reference internal" href="#tnpy.tsdrg.TensorTree" title="tnpy.tsdrg.TensorTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">TensorTree</span></code></a>.</p>
 <p>Returns:</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.common_ancestor">
 <span class="sig-name descname"><span class="pre">common_ancestor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_id2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowest</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TensorTree.common_ancestor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.common_ancestor" title="Permalink to this definition">#</a></dt>
-<dd><p>Find all common ancestor of two given nodes in the order starting from the root.</p>
+<dd><p>Find all common ancestor of two given nodes in the order starting from
+the root.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1305,14 +1319,16 @@ or <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements
 <p>Returns:</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Warning will be raised if any off-diagonal element is larger than <code class="docutils literal notranslate"><span class="pre">tol</span></code>.</p>
+<p>Warning will be raised if any off-diagonal element is larger
+than <code class="docutils literal notranslate"><span class="pre">tol</span></code>.</p>
 </div>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkMeasurements.loop_simplify">
 <span class="sig-name descname"><span class="pre">loop_simplify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">quimb.tensor.tensor_core.TensorNetwork</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">quimb.tensor.tensor_core.TensorNetwork</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mpo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">quimb.tensor.tensor_core.Tensor</span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TreeTensorNetworkMeasurements.loop_simplify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.loop_simplify" title="Permalink to this definition">#</a></dt>
-<dd><p>Simplify every closed loop within the network <code class="docutils literal notranslate"><span class="pre">bra</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">mpo</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">ket</span></code>.</p>
+<dd><p>Simplify every closed loop within the network
+<code class="docutils literal notranslate"><span class="pre">bra</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">mpo</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">ket</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1377,7 +1393,8 @@ or <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements
 <dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.tsdrg.</span></span><span class="sig-name descname"><span class="pre">TreeTensorNetworkSDRG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TreeTensorNetworkSDRG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>The tree tensor network version of strong disorder renormalization group algorithm.</p>
+<p>The tree tensor network version of strong disorder renormalization
+group algorithm.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1387,7 +1404,8 @@ or <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<p>The tSDRG algorithm can be launched by calling <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.run" title="tnpy.tsdrg.TreeTensorNetworkSDRG.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> method.</p>
+<p>The tSDRG algorithm can be launched by calling
+<a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.run" title="tnpy.tsdrg.TreeTensorNetworkSDRG.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> method.</p>
 <blockquote>
 <div><p>tsdrg = TreeTensorNetworkSDRG(mpo, chi=32)
 tsdrg.run()</p>
@@ -1395,13 +1413,15 @@ tsdrg.run()</p>
 <p>After executing <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.run" title="tnpy.tsdrg.TreeTensorNetworkSDRG.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a>,
 one can access the binary tensor tree <a class="reference internal" href="#tnpy.tsdrg.TensorTree" title="tnpy.tsdrg.TensorTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">TensorTree</span></code></a>
 through the attribute <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.tree" title="tnpy.tsdrg.TreeTensorNetworkSDRG.tree"><code class="xref py py-attr docutils literal notranslate"><span class="pre">tree</span></code></a>.
-For measurements, please refer to <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.measurements" title="tnpy.tsdrg.TreeTensorNetworkSDRG.measurements"><code class="xref py py-attr docutils literal notranslate"><span class="pre">measurements</span></code></a>
-or <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements" title="tnpy.tsdrg.TreeTensorNetworkMeasurements"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeTensorNetworkMeasurements</span></code></a>.</p>
+For measurements, please refer to
+<a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.measurements" title="tnpy.tsdrg.TreeTensorNetworkSDRG.measurements"><code class="xref py py-attr docutils literal notranslate"><span class="pre">measurements</span></code></a> or
+<a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements" title="tnpy.tsdrg.TreeTensorNetworkMeasurements"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeTensorNetworkMeasurements</span></code></a>.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GapCache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tsdrg:</span> <span class="pre">tnpy.tsdrg.TreeTensorNetworkSDRG</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">evecs:</span> <span class="pre">typing.List[numpy.ndarray]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap:</span> <span class="pre">typing.List[float]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#TreeTensorNetworkSDRG.GapCache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Helper class for caching the energy gap in <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG" title="tnpy.tsdrg.TreeTensorNetworkSDRG"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeTensorNetworkSDRG</span></code></a> algorithm.</p>
+<p>Helper class for caching the energy gap in
+<a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG" title="tnpy.tsdrg.TreeTensorNetworkSDRG"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeTensorNetworkSDRG</span></code></a> algorithm.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.evecs">
 <span class="sig-name descname"><span class="pre">evecs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.evecs" title="Permalink to this definition">#</a></dt>

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tnpy.operators &#8212; tnpy 0.0.9 documentation</title>
+    <title>tnpy.operators &#8212; tnpy 0.1.0 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -72,7 +72,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">tnpy 0.0.9 documentation</h1>
+      <h1 class="site-logo" id="site-title">tnpy 0.1.0 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -407,10 +407,13 @@ title="Open an issue"
               <div>
                 
   <h1>Source code for tnpy.operators</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">quimb.tensor</span> <span class="k">as</span> <span class="nn">qtn</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">InitVar</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">astuple</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">groupby</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">InitVar</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">astuple</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">quimb.tensor</span> <span class="k">as</span> <span class="nn">qtn</span>
 
 
 <div class="viewcode-block" id="SpinOperators"><a class="viewcode-back" href="../../tnpy.html#tnpy.operators.SpinOperators">[docs]</a><span class="nd">@dataclass</span>
@@ -452,14 +455,16 @@ title="Open an issue"
 <div class="viewcode-block" id="MatrixProductOperator"><a class="viewcode-back" href="../../tnpy.html#tnpy.operators.MatrixProductOperator">[docs]</a><span class="k">class</span> <span class="nc">MatrixProductOperator</span><span class="p">(</span><span class="n">qtn</span><span class="o">.</span><span class="n">MatrixProductOperator</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">MatrixProductOperator</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n_sites</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nsites</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_phys_dim</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">MatrixProductOperator</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">phys_dim</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_phys_dim</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">phys_dim</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">all_equal</span><span class="p">(</span><span class="n">iterable</span><span class="p">):</span>
             <span class="n">g</span> <span class="o">=</span> <span class="n">groupby</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>
             <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">all_equal</span><span class="p">([</span><span class="nb">super</span><span class="p">(</span><span class="n">MatrixProductOperator</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">phys_dim</span><span class="p">(</span><span class="n">site</span><span class="p">)</span> <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span><span class="p">)])</span>
+        <span class="k">assert</span> <span class="n">all_equal</span><span class="p">(</span>
+            <span class="p">[</span><span class="nb">super</span><span class="p">(</span><span class="n">MatrixProductOperator</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">phys_dim</span><span class="p">(</span><span class="n">site</span><span class="p">)</span> <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span><span class="p">)]</span>
+        <span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">n_sites</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
@@ -469,7 +474,7 @@ title="Open an issue"
     <span class="k">def</span> <span class="nf">phys_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_phys_dim</span>
 
-<div class="viewcode-block" id="MatrixProductOperator.square"><a class="viewcode-back" href="../../tnpy.html#tnpy.operators.MatrixProductOperator.square">[docs]</a>    <span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">qtn</span><span class="o">.</span><span class="n">MatrixProductOperator</span><span class="p">:</span>
+<div class="viewcode-block" id="MatrixProductOperator.square"><a class="viewcode-back" href="../../tnpy.html#tnpy.operators.MatrixProductOperator.square">[docs]</a>    <span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatrixProductOperator</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the square of :class:`~MatrixProductOperator` (MPO),</span>
 <span class="sd">        which equivalently merges two MPO layers into one.</span>
@@ -484,18 +489,25 @@ title="Open an issue"
             <span class="p">{</span><span class="sa">f</span><span class="s1">&#39;k</span><span class="si">{</span><span class="n">site</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;dummy</span><span class="si">{</span><span class="n">site</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nsites</span><span class="p">)}</span>
         <span class="p">)</span>
         <span class="n">second_layer</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span>
-            <span class="p">{</span><span class="n">ind</span><span class="p">:</span> <span class="n">qtn</span><span class="o">.</span><span class="n">rand_uuid</span><span class="p">()</span> <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">second_layer</span><span class="o">.</span><span class="n">inner_inds</span><span class="p">()},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">{</span><span class="n">ind</span><span class="p">:</span> <span class="n">qtn</span><span class="o">.</span><span class="n">rand_uuid</span><span class="p">()</span> <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">second_layer</span><span class="o">.</span><span class="n">inner_inds</span><span class="p">()},</span>
+            <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">_fuse_bilayer</span><span class="p">(</span><span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">qtn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
             <span class="n">bilayer_mpo</span> <span class="o">=</span> <span class="n">first_layer</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">@</span> <span class="n">second_layer</span><span class="p">[</span><span class="n">site</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">site</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">site</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">nsites</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">bilayer_mpo</span><span class="o">.</span><span class="n">fuse</span><span class="p">({</span><span class="n">qtn</span><span class="o">.</span><span class="n">rand_uuid</span><span class="p">():</span> <span class="p">[</span><span class="n">bilayer_mpo</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bilayer_mpo</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">2</span><span class="p">]]})</span>
+                <span class="k">return</span> <span class="n">bilayer_mpo</span><span class="o">.</span><span class="n">fuse</span><span class="p">(</span>
+                    <span class="p">{</span><span class="n">qtn</span><span class="o">.</span><span class="n">rand_uuid</span><span class="p">():</span> <span class="p">[</span>
+                        <span class="n">bilayer_mpo</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bilayer_mpo</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                    <span class="p">]}</span>
+                <span class="p">)</span>
             <span class="k">return</span> <span class="n">bilayer_mpo</span><span class="o">.</span><span class="n">fuse</span><span class="p">(</span>
                 <span class="p">{</span><span class="n">qtn</span><span class="o">.</span><span class="n">rand_uuid</span><span class="p">():</span> <span class="p">[</span><span class="n">bilayer_mpo</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bilayer_mpo</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">3</span><span class="p">]],</span>
                  <span class="n">qtn</span><span class="o">.</span><span class="n">rand_uuid</span><span class="p">():</span> <span class="p">[</span><span class="n">bilayer_mpo</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">bilayer_mpo</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">4</span><span class="p">]]}</span>
             <span class="p">)</span>
-        <span class="k">return</span> <span class="n">qtn</span><span class="o">.</span><span class="n">MatrixProductOperator</span><span class="p">([</span><span class="n">_fuse_bilayer</span><span class="p">(</span><span class="n">site</span><span class="p">)</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nsites</span><span class="p">)])</span></div></div>
+        <span class="k">return</span> <span class="n">MatrixProductOperator</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">_fuse_bilayer</span><span class="p">(</span><span class="n">site</span><span class="p">)</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nsites</span><span class="p">)]</span>
+        <span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="FullHamiltonian"><a class="viewcode-back" href="../../tnpy.html#tnpy.operators.FullHamiltonian">[docs]</a><span class="k">class</span> <span class="nc">FullHamiltonian</span><span class="p">:</span>
@@ -518,7 +530,10 @@ title="Open an issue"
         <span class="bp">self</span><span class="o">.</span><span class="n">_phys_dim</span> <span class="o">=</span> <span class="n">mpo</span><span class="o">.</span><span class="n">phys_dim</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">phys_dim</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="o">**</span> <span class="mi">12</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ResourceWarning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Requesting more than </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span><span class="si">}</span><span class="s2"> sites with physical dim </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">phys_dim</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ResourceWarning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Requesting more than </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span><span class="si">}</span><span class="s2"> sites &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;with physical dim </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">phys_dim</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="n">mpo</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span><span class="o">.</span><span class="n">fuse</span><span class="p">(</span>
             <span class="p">{</span><span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;k</span><span class="si">{</span><span class="n">site</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span><span class="p">)],</span>
