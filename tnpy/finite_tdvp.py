@@ -1,9 +1,12 @@
-import logging
-from tensornetwork import Node
-from scipy.integrate import solve_ivp
-from tnpy.finite_algorithm_base import FiniteAlgorithmBase
-from tnpy.linalg import qr
 from enum import Enum
+
+from scipy.integrate import solve_ivp
+from tensornetwork import Node
+
+from tnpy import logger
+from tnpy.linalg import qr
+from tnpy.matrix_product_state import Environment
+from tnpy.operators import MatrixProductOperator
 
 
 class Evolve(Enum):
@@ -11,12 +14,10 @@ class Evolve(Enum):
     BACKWARD = -1
 
 
-class FiniteTDVP(FiniteAlgorithmBase):
+class FiniteTDVP:
 
     def __init__(self, mpo, chi, init_method):
-        logging.basicConfig(format='%(asctime)s [%(filename)s] %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-        logging.root.setLevel(level=logging.INFO)
-        super(FiniteTDVP, self).__init__(mpo, chi, init_method)
+        NotImplemented
         self.center_matrices = {}
 
     def _unit_solver(self, proceed, t_span, site):
@@ -85,7 +86,7 @@ class FiniteTDVP(FiniteAlgorithmBase):
                 theta = theta.reshape(self.d * self.mps_shape(site)[0], -1)
             elif direction == -1:
                 theta = theta.reshape(-1, self.d * self.mps_shape(site)[2])
-            q, r = qr(theta, chi=self.mps_shape(site)[1+direction])
+            q, r = qr(theta, cutoff=self.mps_shape(site)[1 + direction])
             if direction == 1:
                 self._mps.nodes[site] = Node(q.reshape(self.mps_shape(site)))
                 self.center_matrices[site] = Node(r)
@@ -102,7 +103,7 @@ class FiniteTDVP(FiniteAlgorithmBase):
                 self._update_right_env(site-1)
                 self._update_right_norm(site-1)
                 if site > 0:
-                    C = Node(self._unit_solver(Evolve.BACKWARD, t_span, site-1).reshape(q.shape))
+                    C = Node(self._unit_solver(Evolve.BACKWARD, t_span, site - 1).reshape(q.shape))
                     Mp = self._mps.nodes[site-1]
                     Mp[2] ^ C[0]
             # @TODO: measure something here to check the status of mps
