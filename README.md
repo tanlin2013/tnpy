@@ -28,7 +28,7 @@ For others, please expect edge cases.
 
 Requirments
 -----------
-See `requirements.txt` for more details.
+See `pyproject.toml` for more details.
 But these two are essential building blocks.
 
   * [jcmgray/quimb](https://github.com/jcmgray/quimb)
@@ -51,8 +51,13 @@ Installation
    * using pip:
      
      ```
+     pip install tnpy
+     ```
+     for the latest release, or
+     ```
      pip install git+https://github.com/tanlin2013/tnpy@main
      ```
+      for the development version.
    
 Documentation
 -------------
