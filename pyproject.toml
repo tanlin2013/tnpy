@@ -1,8 +1,12 @@
 [tool.poetry]
 name = "tnpy"
 version = "0.1.0"
-description = ""
+description = "Tensor Network algorithms implemented in python."
 authors = ["taolin <tanlin2013@gmail.com>"]
+homepage = "https://github.com/tanlin2013/tnpy"
+documentation = "https://tanlin2013.github.io/tnpy/"
+readme = "README.md"
+keywords = ["tensornetwork", "quantum-mechanics", "quantum-algorithms"]
 
 [tool.poetry.dependencies]
 python = "~3.10"
