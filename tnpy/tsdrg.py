@@ -206,7 +206,8 @@ class TensorTree:
         if conj:
             conj_net = net.reindex({
                 f'{self.Syntax.node}{self._root_id}{self.Syntax.level_idx}':
-                    f'{self.Syntax.conj_node}{self._root_id}{self.Syntax.level_idx}'
+                    f'{self.Syntax.conj_node}{self._root_id}'
+                    f'{self.Syntax.level_idx}'
             })
             conj_net = conj_net.retag(
                 {tag: tag.replace(self.Syntax.node, self.Syntax.conj_node)
@@ -651,14 +652,16 @@ class TreeTensorNetworkMeasurements:
         node_ids = self.tree.find_path(to_site)
         ket = self.tree.tensor_network(node_ids).reindex(on_min_ket_surface)
         ket.isel(
-            {f'{TensorTree.Syntax.node}{self.tree.root_id}{TensorTree.Syntax.level_idx}': level_idx},
+            {f'{TensorTree.Syntax.node}{self.tree.root_id}'
+             f'{TensorTree.Syntax.level_idx}': level_idx},
             inplace=True
         )
         bra = self.tree.tensor_network(
             node_ids, conj=True, mangle_outer=False
         ).reindex(on_min_bra_surface)
         bra.isel(
-            {f'{TensorTree.Syntax.conj_node}{self.tree.root_id}{TensorTree.Syntax.level_idx}': level_idx},
+            {f'{TensorTree.Syntax.conj_node}{self.tree.root_id}'
+             f'{TensorTree.Syntax.level_idx}': level_idx},
             inplace=True
         )
         net = (ket & bra).contract(
@@ -722,6 +725,8 @@ class ShiftInvertTreeTensorNetworkSDRG(TreeTensorNetworkSDRG):
         #     for i in range(len(evals))
         # ])
         # logger.info(f"evals {evals}")
-        # logger.info(f"rho {np.array([evecs.T[i, :] @ matrix @ evecs[:, i] for i in range(len(evals))])}")
+        # logger.info(
+        #     f"rho {np.array([evecs.T[i, :] @ matrix @ evecs[:, i] for i in range(len(evals))])}"
+        # )
         # logger.info(f"residual {res}")
         return evals, evecs

@@ -54,7 +54,10 @@ class MatrixProductOperator(qtn.MatrixProductOperator):
             g = groupby(iterable)
             return next(g, True) and not next(g, False)
         assert all_equal(
-            [super(MatrixProductOperator, self).phys_dim(site) for site in range(self.n_sites)]
+            [
+                super(MatrixProductOperator, self).phys_dim(site)
+                for site in range(self.n_sites)
+            ]
         )
 
     @property
