@@ -1,9 +1,11 @@
 # tnpy
 
+[![PyPI version](https://badge.fury.io/py/tnpy.svg)](https://badge.fury.io/py/tnpy)
+![license](https://img.shields.io/github/license/tanlin2013/tnpy?style=plastic)
+
 ![build](https://github.com/tanlin2013/tnpy/actions/workflows/build.yml/badge.svg)
 ![tests](https://github.com/tanlin2013/tnpy/actions/workflows/tests.yml/badge.svg)
 ![docs](https://github.com/tanlin2013/tnpy/actions/workflows/docs.yml/badge.svg)
-![license](https://img.shields.io/github/license/tanlin2013/tnpy?style=plastic)
 
 [Documentation](https://tanlin2013.github.io/tnpy/) |
 
