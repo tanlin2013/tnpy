@@ -1,6 +1,6 @@
-import numpy as np
 from functools import wraps
 from typing import Callable
+import numpy as np
 
 
 def boundary_vectors(row: int, col: int) -> Callable:
@@ -13,7 +13,9 @@ def boundary_vectors(row: int, col: int) -> Callable:
             elif site == self.n - 1:
                 tensor = tensor[:, col, :, :]
             return tensor
+
         return wrapper
+
     return decorator
 
 
@@ -26,5 +28,7 @@ def minors_if_no_penalty(row: int, col: int) -> Callable:
                 return np.delete(np.delete(mat, row, axis=0), col, axis=1)
             else:
                 return mat
+
         return wrapper
+
     return decorator

@@ -1,13 +1,21 @@
 import numpy as np
+
 from tnpy.model import ModelBase
 from tnpy.operators import SpinOperators
 from .utils import boundary_vectors, minors_if_no_penalty
 
 
 class DimerXXZ(ModelBase):
-
-    def __init__(self, n: int, J: float, delta: float, h: float,
-                 penalty: float = 0, s_target: int = 0, trial_id: int = None):
+    def __init__(
+        self,
+        n: int,
+        J: float,
+        delta: float,
+        h: float,
+        penalty: float = 0,
+        s_target: int = 0,
+        trial_id: int = None,
+    ):
         """
         Args:
             n: System size.
@@ -18,7 +26,7 @@ class DimerXXZ(ModelBase):
             s_target: The targeting total Sz charge sector.
             trial_id: ID of the current disorder trial.
         """
-        super(DimerXXZ, self).__init__(n)
+        super().__init__(n)
         self.J = J
         self.delta = delta
         self.h = h
@@ -36,11 +44,20 @@ class DimerXXZ(ModelBase):
         beta = np.random.uniform(-self.h, self.h) - 2.0 * self.penalty * self.s_target
 
         return np.array(
-            [[I2, 0.5 * rand_J * Sp, 0.5 * rand_J * Sm, 2.0 * self.penalty * Sz, Sz, alpha * I2 + beta * Sz],
-             [O2, O2, O2, O2, O2, Sm],
-             [O2, O2, O2, O2, O2, Sp],
-             [O2, O2, O2, I2, O2, Sz],
-             [O2, O2, O2, O2, O2, Sz],
-             [O2, O2, O2, O2, O2, I2]],
-            dtype=float
+            [
+                [
+                    I2,
+                    0.5 * rand_J * Sp,
+                    0.5 * rand_J * Sm,
+                    2.0 * self.penalty * Sz,
+                    Sz,
+                    alpha * I2 + beta * Sz,
+                ],
+                [O2, O2, O2, O2, O2, Sm],
+                [O2, O2, O2, O2, O2, Sp],
+                [O2, O2, O2, I2, O2, Sz],
+                [O2, O2, O2, O2, O2, Sz],
+                [O2, O2, O2, O2, O2, I2],
+            ],
+            dtype=float,
         )

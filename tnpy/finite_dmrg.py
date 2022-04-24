@@ -15,7 +15,7 @@ from tnpy.matrix_product_state import (
     MatrixProductState,
     Environment,
     Direction,
-    MatrixProductStateMeasurements
+    MatrixProductStateMeasurements,
 )
 
 
@@ -24,17 +24,20 @@ class Metric(Enum):
     Enumeration for which value the stopping criterion will examine in
     sweeping procedure.
     """
+
     ENERGY = 1
     VARIANCE = 2
 
 
 class FiniteDMRG:
-
-    def __init__(self, mpo: MatrixProductOperator,
-                 bond_dim: int,
-                 block_size: int = 1,
-                 mps: MatrixProductState = None,
-                 exact_solver_dim: int = 200):
+    def __init__(
+        self,
+        mpo: MatrixProductOperator,
+        bond_dim: int,
+        block_size: int = 1,
+        mps: MatrixProductState = None,
+        exact_solver_dim: int = 200,
+    ):
         """
         The Density Matrix Renormalization Group (DMRG) algorithm of a
         finite size system.
@@ -61,9 +64,13 @@ class FiniteDMRG:
         self._phys_dim = mpo.phys_dim
         self._block_size = block_size
         self._exact_solver_dim = exact_solver_dim
-        mps = MatrixProductState.random(
-            n=self.n_sites, bond_dim=self.bond_dim, phys_dim=self.phys_dim
-        ) if mps is None else mps
+        mps = (
+            MatrixProductState.random(
+                n=self.n_sites, bond_dim=self.bond_dim, phys_dim=self.phys_dim
+            )
+            if mps is None
+            else mps
+        )
         self._env = Environment(mpo=mpo, mps=mps)
         self._energies = [np.nan]
         self._variances = [np.nan]
@@ -87,8 +94,9 @@ class FiniteDMRG:
     def variance(self) -> float:
         return self._env.variance()
 
-    def one_site_solver(self, site: int, tol: float = 1e-8,
-                        **kwargs) -> Tuple[float, np.ndarray]:
+    def one_site_solver(
+        self, site: int, tol: float = 1e-8, **kwargs
+    ) -> Tuple[float, np.ndarray]:
         """
 
         Args:
@@ -102,10 +110,7 @@ class FiniteDMRG:
         v0 = self.mps[site].data.reshape(-1, 1)
         if v0.size < self._exact_solver_dim:
             return eigh(self._env.one_site_full_matrix(site))
-        return eigshmv(
-            self._env.one_site_matvec(site),
-            v0=v0, tol=tol, **kwargs
-        )
+        return eigshmv(self._env.one_site_matvec(site), v0=v0, tol=tol, **kwargs)
 
     def two_site_solver(self, site: int, tol: float = 1e-8, **kwargs):
         return NotImplemented
@@ -136,8 +141,9 @@ class FiniteDMRG:
         psi += alpha * self._env.one_site_matvec(site).matvec(psi)
         self._env.update_mps(site, data=psi.reshape(self.mps[site].shape))
 
-    def sweep(self, direction: Direction = Direction.RIGHTWARD,
-              tol: float = 1e-8, **kwargs) -> float:
+    def sweep(
+        self, direction: Direction = Direction.RIGHTWARD, tol: float = 1e-8, **kwargs
+    ) -> float:
         """
         Perform a single sweep on the given ``direction``.
 
@@ -150,23 +156,24 @@ class FiniteDMRG:
         Returns:
             energy: Variationally optimized energy after this sweep.
         """
-        iter_sites = range(self.n_sites - 1) \
-            if direction == Direction.RIGHTWARD \
+        iter_sites = (
+            range(self.n_sites - 1)
+            if direction == Direction.RIGHTWARD
             else range(self.n_sites - 1, 0, -1)
+        )
         energy = None
         for site in iter_sites:
             energy, psi = self.one_site_solver(site, tol, **kwargs)
-            logger.info(
-                f"Sweeping to site [{site + 1}/{self.n_sites}], E0 = {energy}"
-            )
+            logger.info(f"Sweeping to site [{site + 1}/{self.n_sites}], E0 = {energy}")
             self._env.update_mps(site, data=psi.reshape(self.mps[site].shape))
             self.perturb_wave_function(site)
             self._env.split_tensor(site, direction=direction)
             self._env.update(site, direction=direction)
         return energy
 
-    def _converged(self, n_sweep: int, tol: float, max_sweep: int,
-                   metric: Metric) -> bool:
+    def _converged(
+        self, n_sweep: int, tol: float, max_sweep: int, metric: Metric
+    ) -> bool:
         """
         Helper function for checking the convergence.
 
@@ -179,10 +186,10 @@ class FiniteDMRG:
         Returns:
 
         """
+
         def stopping_criterion(gradient: float) -> bool:
             logger.info(
-                f"Metric {metric.name} is lowered by {gradient:e} "
-                f"in this sweep."
+                f"Metric {metric.name} is lowered by {gradient:e} " f"in this sweep."
             )
             if abs(gradient) < tol:
                 logger.info(f"Reaching set tolerance {tol}, stop sweeping.")
@@ -203,12 +210,19 @@ class FiniteDMRG:
                 )
             return False
 
-        return stopping_criterion(np.diff(self._variances[-2:])[0]) \
-            if metric == Metric.VARIANCE \
+        return (
+            stopping_criterion(np.diff(self._variances[-2:])[0])
+            if metric == Metric.VARIANCE
             else stopping_criterion(np.diff(self._energies[-2:])[0])
+        )
 
-    def run(self, tol: float = 1e-8, max_sweep: int = 100,
-            metric: Metric = Metric.ENERGY, **kwargs) -> List[float]:
+    def run(
+        self,
+        tol: float = 1e-8,
+        max_sweep: int = 100,
+        metric: Metric = Metric.ENERGY,
+        **kwargs,
+    ) -> List[float]:
         """
         By calling this method, :class:`~FiniteDMRG` will start the sweeping
         procedure until the given tolerance is reached or touching the
@@ -224,22 +238,22 @@ class FiniteDMRG:
             energies: A record of energies computed on each sweep.
         """
         clock = [time.process_time()]
-        converged = partial(self._converged, tol=tol,
-                            max_sweep=max_sweep, metric=metric)
-        logger.info(f"Set tolerance = {tol} to metric {metric.name},"
-                    f" up to maximally {max_sweep} sweeps.")
+        converged = partial(
+            self._converged, tol=tol, max_sweep=max_sweep, metric=metric
+        )
+        logger.info(
+            f"Set tolerance = {tol} to metric {metric.name},"
+            f" up to maximally {max_sweep} sweeps."
+        )
         for n_sweep, direction in zip(
-                range(1, max_sweep + 1),
-                cycle([Direction.RIGHTWARD, Direction.LEFTWARD])
+            range(1, max_sweep + 1), cycle([Direction.RIGHTWARD, Direction.LEFTWARD])
         ):
             logger.info(f"<==== In sweep epoch [{n_sweep}/{max_sweep}] ====>")
             energy = self.sweep(direction, tol=tol, **kwargs)
             clock.append(time.process_time())
             self._energies.append(energy)
             self._variances.append(self._env.variance())
-            logger.info(
-                f"Last sweep took {timedelta(seconds=np.diff(clock[-2:])[0])}."
-            )
+            logger.info(f"Last sweep took {timedelta(seconds=np.diff(clock[-2:])[0])}.")
             if converged(n_sweep):
                 break
         elapsed_time = np.mean(np.sort(np.diff(clock))[:3])
@@ -257,13 +271,15 @@ class FiniteDMRG:
 
 
 class ShiftInvertDMRG(FiniteDMRG):
-
-    def __init__(self, mpo: MatrixProductOperator,
-                 bond_dim: int,
-                 offset: float = 0,
-                 block_size: int = 1,
-                 mps: MatrixProductState = None,
-                 exact_solver_dim: int = 200):
+    def __init__(
+        self,
+        mpo: MatrixProductOperator,
+        bond_dim: int,
+        offset: float = 0,
+        block_size: int = 1,
+        mps: MatrixProductState = None,
+        exact_solver_dim: int = 200,
+    ):
         """
         The DMRG algorithm for optimizing the shift-invert spectrum of
         a finite size system.
@@ -277,8 +293,11 @@ class ShiftInvertDMRG(FiniteDMRG):
             exact_solver_dim:
         """
         super().__init__(
-            mpo, bond_dim=bond_dim, block_size=block_size,
-            mps=mps, exact_solver_dim=exact_solver_dim
+            mpo,
+            bond_dim=bond_dim,
+            block_size=block_size,
+            mps=mps,
+            exact_solver_dim=exact_solver_dim,
         )
         self._env2 = Environment(mpo=mpo.square(), mps=self.mps)
         self._offset = offset
@@ -296,12 +315,12 @@ class ShiftInvertDMRG(FiniteDMRG):
             if site == 0:
                 fuse_map = {
                     rand_uuid(): [conj_mps[site].inds[1], virtual_inds[0]],
-                    phys_ind: [phys_ind]
+                    phys_ind: [phys_ind],
                 }
             elif site == self.n_sites - 1:
                 fuse_map = {
                     phys_ind: [phys_ind],
-                    rand_uuid(): [conj_mps[site].inds[0], virtual_inds[0]]
+                    rand_uuid(): [conj_mps[site].inds[0], virtual_inds[0]],
                 }
             else:
                 fuse_map = {
@@ -310,36 +329,45 @@ class ShiftInvertDMRG(FiniteDMRG):
                     rand_uuid(): [conj_mps[site].inds[2], virtual_inds[1]],
                 }
             return tn.contract().fuse(fuse_map).data
+
         conj_mps = self.mps.conj(mangle_outer=True)
         self._restored_mps = MatrixProductState(
-            [gen_array(site) for site in range(self.n_sites)], shape='lpr'
+            [gen_array(site) for site in range(self.n_sites)], shape="lpr"
         )
 
-    def one_site_solver(self, site: int, tol: float = 1e-8,
-                        **kwargs) -> Tuple[float, np.ndarray]:
+    def one_site_solver(
+        self, site: int, tol: float = 1e-8, **kwargs
+    ) -> Tuple[float, np.ndarray]:
         v0 = self.mps[site].data.reshape(-1, 1)
         if v0.size < self._exact_solver_dim:
             return eigh(
                 self._env.one_site_full_matrix(site),
                 b=self._env2.one_site_full_matrix(site),
-                backend='scipy'
+                backend="scipy",
             )
         return eigshmv(
             self._env.one_site_matvec(site),
             M=self._env2.one_site_matvec(site),
-            v0=v0, tol=tol, **kwargs
+            v0=v0,
+            tol=tol,
+            **kwargs,
         )
 
-    def sweep(self, direction: Direction = Direction.RIGHTWARD,
-              tol: float = 1e-8, **kwargs) -> float:
-        iter_sites = range(self.n_sites - 1) \
-            if direction == Direction.RIGHTWARD \
+    def sweep(
+        self, direction: Direction = Direction.RIGHTWARD, tol: float = 1e-8, **kwargs
+    ) -> float:
+        iter_sites = (
+            range(self.n_sites - 1)
+            if direction == Direction.RIGHTWARD
             else range(self.n_sites - 1, 0, -1)
+        )
         energy = None
         for site in iter_sites:
             energy, psi = self.one_site_solver(site, tol, **kwargs)
-            logger.info(f"Sweeping to site [{site + 1}/{self.n_sites}], "
-                        f"E0 = {1 / energy + self._offset}")
+            logger.info(
+                f"Sweeping to site [{site + 1}/{self.n_sites}], "
+                f"E0 = {1 / energy + self._offset}"
+            )
             self._env.update_mps(site, data=psi.reshape(self.mps[site].shape))
             self.perturb_wave_function(site)
             self._env.split_tensor(site, direction=direction)
@@ -352,11 +380,14 @@ class ShiftInvertDMRG(FiniteDMRG):
             self._env2.update(site, direction=direction)
         return energy
 
-    def run(self, tol: float = 1e-7, max_sweep: int = 100,
-            metric: Metric = Metric.ENERGY, **kwargs) -> List[float]:
-        energies = super().run(
-            tol, max_sweep, metric, **kwargs
-        )
+    def run(
+        self,
+        tol: float = 1e-7,
+        max_sweep: int = 100,
+        metric: Metric = Metric.ENERGY,
+        **kwargs,
+    ) -> List[float]:
+        energies = super().run(tol, max_sweep, metric, **kwargs)
         self._restore_mps()
         return np.reciprocal(energies) + self._offset
 
@@ -368,7 +399,9 @@ class ShiftInvertDMRG(FiniteDMRG):
 
     @property
     def variance(self) -> float:
-        tn = self.restored_mps & \
-              self._env.mpo.square() & \
-              self.restored_mps.conj(mangle_inner=True, mangle_outer=True)
+        tn = (
+            self.restored_mps
+            & self._env.mpo.square()
+            & self.restored_mps.conj(mangle_inner=True, mangle_outer=True)
+        )
         return tn.contract() - self._energies[-1] ** 2 - self._offset ** 2

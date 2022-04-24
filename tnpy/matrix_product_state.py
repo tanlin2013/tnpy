@@ -20,12 +20,12 @@ class Direction(Enum):
     """
     Enumeration for specifying the direction (leftward or rightward).
     """
+
     RIGHTWARD = 1
     LEFTWARD = -1
 
 
 class MatrixProductState(qtn.MatrixProductState):
-
     def __init__(self, *args, **kwargs):
         """
         Matrix product state (MPS) for a finite size system.
@@ -41,7 +41,7 @@ class MatrixProductState(qtn.MatrixProductState):
             which differs from the parent class :class:`qtn.MatrixProductState`.
         """
         super().__init__(*args, **kwargs)
-        self.permute_arrays('lpr')
+        self.permute_arrays("lpr")
 
     @property
     def n_sites(self) -> int:
@@ -71,10 +71,10 @@ class MatrixProductState(qtn.MatrixProductState):
         return self.max_bond()
 
     def __getitem__(self, site: int) -> qtn.Tensor:
-        tensor, = self.select_tensors(self.site_tag(site))
+        (tensor,) = self.select_tensors(self.site_tag(site))
         return tensor
 
-    def permute_arrays(self, shape: str = 'lrp'):
+    def permute_arrays(self, shape: str = "lrp"):
         """
         Permute the indices of each tensor in this MPS to match ``shape``.
         This doesn't change how the overall object interacts with other tensor
@@ -86,17 +86,17 @@ class MatrixProductState(qtn.MatrixProductState):
                 the left, right, and physical indices respectively.
         """
         for i in self.sites:
-            inds = {'p': self.site_ind(i)}
+            inds = {"p": self.site_ind(i)}
             if self.cyclic or i > 0:
-                inds['l'] = self.bond(i, (i - 1) % self.n_sites)
+                inds["l"] = self.bond(i, (i - 1) % self.n_sites)
             if self.cyclic or i < self.n_sites - 1:
-                inds['r'] = self.bond(i, (i + 1) % self.n_sites)
+                inds["r"] = self.bond(i, (i + 1) % self.n_sites)
             inds = [inds[s] for s in shape if s in inds]
             self[i].transpose_(*inds)
 
-    def conj(self,
-             mangle_inner: bool = False, mangle_outer: bool = False
-             ) -> MatrixProductState:
+    def conj(
+        self, mangle_inner: bool = False, mangle_outer: bool = False
+    ) -> MatrixProductState:
         """
         Create a conjugated copy of this :class:`~MatrixProductState` instance.
 
@@ -113,13 +113,14 @@ class MatrixProductState(qtn.MatrixProductState):
         """
         mps = super().conj()
         if mangle_inner:
-            mps.reindex({
-                ind: qtn.rand_uuid() for ind in mps.inner_inds()
-            }, inplace=True)
+            mps.reindex(
+                {ind: qtn.rand_uuid() for ind in mps.inner_inds()}, inplace=True
+            )
         if mangle_outer:
-            mps.reindex({
-                ind: re.sub(r'^k(\d+)', r'b\1', ind) for ind in mps.outer_inds()
-            }, inplace=True)
+            mps.reindex(
+                {ind: re.sub(r"^k(\d+)", r"b\1", ind) for ind in mps.outer_inds()},
+                inplace=True,
+            )
         return mps
 
     def save(self, filename: str):
@@ -140,12 +141,12 @@ class MatrixProductState(qtn.MatrixProductState):
         }
         filepath = Path(filename)
         extension = filepath.suffix
-        if extension == '.hdf5':
-            with h5py.File(str(filepath), 'w') as f:
+        if extension == ".hdf5":
+            with h5py.File(str(filepath), "w") as f:
                 for tag, array in tensor_datasets.items():
                     f.create_dataset(tag, data=array)
                 f.close()
-        elif extension == '.npz':
+        elif extension == ".npz":
             np.savez(str(filepath), **tensor_datasets)
         else:
             raise ValueError(f"File extension {extension} is not supported.")
@@ -167,19 +168,19 @@ class MatrixProductState(qtn.MatrixProductState):
         # @TODO: solve ordering issue
         filepath = Path(filename)
         extension = filepath.suffix
-        if extension == '.hdf5':
-            f = h5py.File(str(filepath), 'r')
+        if extension == ".hdf5":
+            f = h5py.File(str(filepath), "r")
             return cls([array[()] for array in f.values()])
-        elif extension == '.npz':
+        elif extension == ".npz":
             f = np.load(str(filepath))
-            return cls([array for array in f.values()])
+            return cls(list(f.values()))
         else:
             raise ValueError(f"File extension {extension} is not supported.")
 
     @classmethod
-    def random(cls,
-               n: int, bond_dim: int, phys_dim: int, **kwargs
-               ) -> MatrixProductState:
+    def random(
+        cls, n: int, bond_dim: int, phys_dim: int, **kwargs
+    ) -> MatrixProductState:
         """
         Create a randomly initialized :class:`~MatrixProductState`.
 
@@ -209,8 +210,11 @@ class MatrixProductState(qtn.MatrixProductState):
 
         """
         if direction == direction.RIGHTWARD:
-            psi = self[site].data if site == 0 else \
-                self[site].data.reshape(self.phys_dim * self[site].shape[0], -1)
+            psi = (
+                self[site].data
+                if site == 0
+                else self[site].data.reshape(self.phys_dim * self[site].shape[0], -1)
+            )
             u, s, vt = svd(psi, cutoff=self[site].shape[-1])
             self[site].modify(data=u.reshape(self[site].shape))
             residual = Node(np.diagflat(s) @ vt)
@@ -218,8 +222,11 @@ class MatrixProductState(qtn.MatrixProductState):
             residual[1] ^ neighbour[0]
             self[site + 1].modify(data=(residual @ neighbour).tensor)
         elif direction == direction.LEFTWARD:
-            psi = self[site].data if site == self.n_sites - 1 else \
-                self[site].data.reshape(-1, self.phys_dim * self[site].shape[2])
+            psi = (
+                self[site].data
+                if site == self.n_sites - 1
+                else self[site].data.reshape(-1, self.phys_dim * self[site].shape[2])
+            )
             u, s, vt = svd(psi, cutoff=self[site].shape[0])
             self[site].modify(data=vt.reshape(self[site].shape))
             residual = Node(u @ np.diagflat(s))
@@ -227,16 +234,13 @@ class MatrixProductState(qtn.MatrixProductState):
             neighbour[-1] ^ residual[0]
             self[site - 1].modify(data=(neighbour @ residual).tensor)
         else:
-            raise KeyError(
-                "MatrixProductState only supplies left or right direction."
-            )
+            raise KeyError("MatrixProductState only supplies left or right direction.")
 
     def enlarge_bond_dim(self, new_bond_dim: int, method: str):
         return NotImplemented
 
 
 class Environment:
-
     def __init__(self, mpo: MatrixProductOperator, mps: MatrixProductState):
         """
         The effective environment for :class:`~MatrixProductState`-based
@@ -251,14 +255,10 @@ class Environment:
         self._conj_mps = mps.conj(mangle_inner=True, mangle_outer=True)
         self._n_sites = mpo.nsites
         self._left, self._right = {}, {}
-        for site in tqdm(
-                range(1, self.n_sites),
-                desc="Initializing left environments"
-        ):
+        for site in tqdm(range(1, self.n_sites), desc="Initializing left environments"):
             self.update_left(site)
         for site in tqdm(
-                range(self.n_sites - 2, -1, -1),
-                desc="Initializing right environments"
+            range(self.n_sites - 2, -1, -1), desc="Initializing right environments"
         ):
             self.update_right(site)
 
@@ -317,14 +317,14 @@ class Environment:
 
         """
         if site == 1:
-            tn = self._mps[site - 1] & \
-                  self._mpo[site - 1] & \
-                  self._conj_mps[site - 1]
+            tn = self._mps[site - 1] & self._mpo[site - 1] & self._conj_mps[site - 1]
         else:
-            tn = self._left[site - 1] & \
-                  self._mps[site - 1] & \
-                  self._mpo[site - 1] & \
-                  self._conj_mps[site - 1]
+            tn = (
+                self._left[site - 1]
+                & self._mps[site - 1]
+                & self._mpo[site - 1]
+                & self._conj_mps[site - 1]
+            )
         self._left[site] = tn.contract()
 
     def update_right(self, site: int):
@@ -338,14 +338,14 @@ class Environment:
 
         """
         if site == self.n_sites - 2:
-            tn = self._mps[site + 1] & \
-                  self._mpo[site + 1] & \
-                  self._conj_mps[site + 1]
+            tn = self._mps[site + 1] & self._mpo[site + 1] & self._conj_mps[site + 1]
         else:
-            tn = self._right[site + 1] & \
-                  self._mps[site + 1] & \
-                  self._mpo[site + 1] & \
-                  self._conj_mps[site + 1]
+            tn = (
+                self._right[site + 1]
+                & self._mps[site + 1]
+                & self._mpo[site + 1]
+                & self._conj_mps[site + 1]
+            )
         self._right[site] = tn.contract()
 
     def update(self, site: int, direction: Direction):
@@ -396,28 +396,28 @@ class Environment:
         if site == 0:
             tn = self.right[site] & self.mpo[site]
             fuse_map = {
-                'k': [self.mpo[site].inds[-2], self.right[site].inds[0]],
-                'b': [self.mpo[site].inds[-1], self.right[site].inds[-1]]
+                "k": [self.mpo[site].inds[-2], self.right[site].inds[0]],
+                "b": [self.mpo[site].inds[-1], self.right[site].inds[-1]],
             }
         elif site == self.n_sites - 1:
             tn = self.left[site] & self.mpo[site]
             fuse_map = {
-                'k': [self.left[site].inds[0], self.mpo[site].inds[-2]],
-                'b': [self.left[site].inds[-1], self.mpo[site].inds[-1]]
+                "k": [self.left[site].inds[0], self.mpo[site].inds[-2]],
+                "b": [self.left[site].inds[-1], self.mpo[site].inds[-1]],
             }
         else:
             tn = self.left[site] & self.right[site] & self.mpo[site]
             fuse_map = {
-                'k': [
+                "k": [
                     self.left[site].inds[0],
                     self.mpo[site].inds[-2],
-                    self.right[site].inds[0]
+                    self.right[site].inds[0],
                 ],
-                'b': [
+                "b": [
                     self.left[site].inds[-1],
                     self.mpo[site].inds[-1],
-                    self.right[site].inds[-1]
-                ]
+                    self.right[site].inds[-1],
+                ],
             }
         return tn.contract().fuse(fuse_map).data
 
@@ -432,43 +432,37 @@ class Environment:
         Returns:
 
         """
+
         def matvec(x: np.ndarray) -> np.ndarray:
-            vec = qtn.Tensor(x.reshape(self.mps[site].shape),
-                             inds=self.mps[site].inds)
+            vec = qtn.Tensor(x.reshape(self.mps[site].shape), inds=self.mps[site].inds)
             if site == 0:
                 tn = self.right[site] & self.mpo[site] & vec
-                output_inds = [
-                    self.mpo[site].inds[-1],
-                    self.right[site].inds[-1]
-                ]
+                output_inds = [self.mpo[site].inds[-1], self.right[site].inds[-1]]
             elif site == self.n_sites - 1:
                 tn = self.left[site] & self.mpo[site] & vec
-                output_inds = [
-                    self.left[site].inds[-1],
-                    self.mpo[site].inds[-1]
-                ]
+                output_inds = [self.left[site].inds[-1], self.mpo[site].inds[-1]]
             else:
                 tn = self.left[site] & self.right[site] & self.mpo[site] & vec
                 output_inds = [
                     self.left[site].inds[-1],
                     self.mpo[site].inds[-1],
-                    self.right[site].inds[-1]
+                    self.right[site].inds[-1],
                 ]
             return tn.contract(output_inds=output_inds).data.reshape(-1, 1)
+
         return LinearOperator(
-            shape=(self.mps[site].size, self.mps[site].size),
-            matvec=matvec
+            shape=(self.mps[site].size, self.mps[site].size), matvec=matvec
         )
 
 
 class MatrixProductStateMeasurements:
-
     def __init__(self, mps: MatrixProductState):
         self._mps = mps
 
     def expectation_value(self, mpo: MatrixProductOperator = None) -> float:
-        tn = self._mps.conj(mangle_inner=True) & self._mps if mpo is None else \
-            self._mps.conj(
-                mangle_inner=True, mangle_outer=True
-            ) & mpo & self._mps
+        tn = (
+            self._mps.conj(mangle_inner=True) & self._mps
+            if mpo is None
+            else self._mps.conj(mangle_inner=True, mangle_outer=True) & mpo & self._mps
+        )
         return tn.contract()

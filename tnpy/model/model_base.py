@@ -4,7 +4,6 @@ from tnpy.operators import MatrixProductOperator
 
 
 class ModelBase(abc.ABC):
-
     def __init__(self, n: int):
         """
 
@@ -29,6 +28,4 @@ class ModelBase(abc.ABC):
         Returns:
             mpo:
         """
-        return MatrixProductOperator(
-            [self._elem(site) for site in range(self.n)]
-        )
+        return MatrixProductOperator([self._elem(site) for site in range(self.n)])
