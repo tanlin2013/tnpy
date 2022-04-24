@@ -35,7 +35,7 @@ jobs:
           poetry install
 
       - name: Run linter
-        run: flake8 tnpy
+        run: flake8 --max-line-length=88 tnpy
 
   static-type:
     runs-on: ubuntu-latest
