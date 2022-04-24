@@ -9,7 +9,7 @@ readme = "README.md"
 keywords = ["tensornetwork", "quantum-mechanics", "quantum-algorithms"]
 
 [tool.poetry.dependencies]
-python = "~3.10"
+python = ">=3.9, <3.11"
 toml = "^0.10.2"
 tqdm = "^4.63.0"
 numpy = "1.21.6"
