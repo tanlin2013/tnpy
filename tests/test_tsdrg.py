@@ -82,26 +82,20 @@ class TestTensorTree:
         net = tree.tensor_network(conj=True, mangle_outer=False)
         # net.graph()
 
-    @pytest.mark.parametrize(
-        "graph",
-        ['digraph {\n\thead [style=invis]\n\thead -> 6 [arrowhead=inv headport=n]\n\t6 [rank=max shape=triangle '
-        'style=rounded]\n\t5 [shape=triangle style=rounded]\n\t6 -> 5 [arrowhead=inv constraint=true headport=n '
-        'minlen=2 splines=ortho tailport=_]\n\t5 -> 0 [arrowhead=inv constraint=true headport=n minlen=2 '
-        'splines=ortho tailport=_]\n\t4 [shape=triangle style=rounded]\n\t5 -> 4 [arrowhead=inv constraint=true '
-        'headport=n minlen=2 splines=ortho tailport=_]\n\t4 -> 1 [arrowhead=inv constraint=true headport=n '
-        'minlen=2 splines=ortho tailport=_]\n\t4 -> 2 [arrowhead=inv constraint=true headport=n minlen=2 '
-        'splines=ortho tailport=_]\n\t6 -> 3 [arrowhead=inv constraint=true headport=n minlen=2 splines=ortho '
-        'tailport=_]\n\tsubgraph cluster_0 {\n\t\tstyle=invis\n\t\t0 [rank=sink shape=box style=rounded]\n\t\t0 '
-        '-> 1 [arrowhead=none constraint=true minlen=0 splines=ortho]\n\t\t1 [rank=sink shape=box '
-        'style=rounded]\n\t\t1 -> 2 [arrowhead=none constraint=true minlen=0 splines=ortho]\n\t\t2 [rank=sink '
-        'shape=box style=rounded]\n\t\t2 -> 3 [arrowhead=none constraint=true minlen=0 splines=ortho]\n\t\t3 ['
-        'rank=sink shape=box style=rounded]\n\t}\n}\n']
-    )
-    def test_plot(self, tree, graph):
-        g = tree.plot()
-        assert str(g) == graph
+    def test_plot(self, tree):
+        graph = tree.plot()
+        assert "head -> 6" in str(graph)
+        assert "5 -> 0" in str(graph)
+        assert "5 -> 4" in str(graph)
+        assert "4 -> 1" in str(graph)
+        assert "4 -> 2" in str(graph)
+        assert "6 -> 3" in str(graph)
+        assert "subgraph cluster_0" in str(graph)
+        assert "0 -> 1" in str(graph)
+        assert "1 -> 2" in str(graph)
+        assert "2 -> 3" in str(graph)
         # @Note: Method Digraph.render() doesn't work in command-line environment
-        # g.render(format='png', view=True)
+        # graph.render(format="png", view=True)
 
 
 class TestTreeTensorNetworkSDRG:
