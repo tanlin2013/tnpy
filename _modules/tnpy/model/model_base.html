@@ -425,7 +425,6 @@ title="Open an issue"
 
 
 <div class="viewcode-block" id="ModelBase"><a class="viewcode-back" href="../../../tnpy.model.html#tnpy.model.ModelBase">[docs]</a><span class="k">class</span> <span class="nc">ModelBase</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
-
 <div class="viewcode-block" id="ModelBase.__init__"><a class="viewcode-back" href="../../../_autosummary/tnpy.model.ModelBase.html#tnpy.model.ModelBase.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
@@ -450,9 +449,7 @@ title="Open an issue"
 <span class="sd">        Returns:</span>
 <span class="sd">            mpo:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">MatrixProductOperator</span><span class="p">(</span>
-            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_elem</span><span class="p">(</span><span class="n">site</span><span class="p">)</span> <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)]</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">MatrixProductOperator</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_elem</span><span class="p">(</span><span class="n">site</span><span class="p">)</span> <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)])</span></div>
 </pre></div>
 
               </div>

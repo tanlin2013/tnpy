@@ -436,7 +436,7 @@ title="Open an issue"
     <span class="n">MatrixProductState</span><span class="p">,</span>
     <span class="n">Environment</span><span class="p">,</span>
     <span class="n">Direction</span><span class="p">,</span>
-    <span class="n">MatrixProductStateMeasurements</span>
+    <span class="n">MatrixProductStateMeasurements</span><span class="p">,</span>
 <span class="p">)</span>
 
 
@@ -445,17 +445,20 @@ title="Open an issue"
 <span class="sd">    Enumeration for which value the stopping criterion will examine in</span>
 <span class="sd">    sweeping procedure.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">ENERGY</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">VARIANCE</span> <span class="o">=</span> <span class="mi">2</span></div>
 
 
 <div class="viewcode-block" id="FiniteDMRG"><a class="viewcode-back" href="../../tnpy.html#tnpy.finite_dmrg.FiniteDMRG">[docs]</a><span class="k">class</span> <span class="nc">FiniteDMRG</span><span class="p">:</span>
-
-<div class="viewcode-block" id="FiniteDMRG.__init__"><a class="viewcode-back" href="../../_autosummary/tnpy.finite_dmrg.FiniteDMRG.html#tnpy.finite_dmrg.FiniteDMRG.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mpo</span><span class="p">:</span> <span class="n">MatrixProductOperator</span><span class="p">,</span>
-                 <span class="n">bond_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-                 <span class="n">block_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-                 <span class="n">mps</span><span class="p">:</span> <span class="n">MatrixProductState</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">exact_solver_dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">):</span>
+<div class="viewcode-block" id="FiniteDMRG.__init__"><a class="viewcode-back" href="../../_autosummary/tnpy.finite_dmrg.FiniteDMRG.html#tnpy.finite_dmrg.FiniteDMRG.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">mpo</span><span class="p">:</span> <span class="n">MatrixProductOperator</span><span class="p">,</span>
+        <span class="n">bond_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">block_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">mps</span><span class="p">:</span> <span class="n">MatrixProductState</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">exact_solver_dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The Density Matrix Renormalization Group (DMRG) algorithm of a</span>
 <span class="sd">        finite size system.</span>
@@ -482,9 +485,13 @@ title="Open an issue"
         <span class="bp">self</span><span class="o">.</span><span class="n">_phys_dim</span> <span class="o">=</span> <span class="n">mpo</span><span class="o">.</span><span class="n">phys_dim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_block_size</span> <span class="o">=</span> <span class="n">block_size</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_exact_solver_dim</span> <span class="o">=</span> <span class="n">exact_solver_dim</span>
-        <span class="n">mps</span> <span class="o">=</span> <span class="n">MatrixProductState</span><span class="o">.</span><span class="n">random</span><span class="p">(</span>
-            <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span><span class="p">,</span> <span class="n">bond_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bond_dim</span><span class="p">,</span> <span class="n">phys_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">phys_dim</span>
-        <span class="p">)</span> <span class="k">if</span> <span class="n">mps</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">mps</span>
+        <span class="n">mps</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">MatrixProductState</span><span class="o">.</span><span class="n">random</span><span class="p">(</span>
+                <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span><span class="p">,</span> <span class="n">bond_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bond_dim</span><span class="p">,</span> <span class="n">phys_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">phys_dim</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">mps</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="n">mps</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span><span class="n">mpo</span><span class="o">=</span><span class="n">mpo</span><span class="p">,</span> <span class="n">mps</span><span class="o">=</span><span class="n">mps</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_energies</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_variances</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]</span></div>
@@ -508,8 +515,9 @@ title="Open an issue"
 <div class="viewcode-block" id="FiniteDMRG.variance"><a class="viewcode-back" href="../../tnpy.html#tnpy.finite_dmrg.FiniteDMRG.variance">[docs]</a>    <span class="k">def</span> <span class="nf">variance</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="o">.</span><span class="n">variance</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="FiniteDMRG.one_site_solver"><a class="viewcode-back" href="../../tnpy.html#tnpy.finite_dmrg.FiniteDMRG.one_site_solver">[docs]</a>    <span class="k">def</span> <span class="nf">one_site_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
-                        <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<div class="viewcode-block" id="FiniteDMRG.one_site_solver"><a class="viewcode-back" href="../../tnpy.html#tnpy.finite_dmrg.FiniteDMRG.one_site_solver">[docs]</a>    <span class="k">def</span> <span class="nf">one_site_solver</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Args:</span>
@@ -523,10 +531,7 @@ title="Open an issue"
         <span class="n">v0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">v0</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exact_solver_dim</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">eigh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="o">.</span><span class="n">one_site_full_matrix</span><span class="p">(</span><span class="n">site</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">eigshmv</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="o">.</span><span class="n">one_site_matvec</span><span class="p">(</span><span class="n">site</span><span class="p">),</span>
-            <span class="n">v0</span><span class="o">=</span><span class="n">v0</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">eigshmv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="o">.</span><span class="n">one_site_matvec</span><span class="p">(</span><span class="n">site</span><span class="p">),</span> <span class="n">v0</span><span class="o">=</span><span class="n">v0</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="FiniteDMRG.two_site_solver"><a class="viewcode-back" href="../../tnpy.html#tnpy.finite_dmrg.FiniteDMRG.two_site_solver">[docs]</a>    <span class="k">def</span> <span class="nf">two_site_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">NotImplemented</span></div>
@@ -557,8 +562,9 @@ title="Open an issue"
         <span class="n">psi</span> <span class="o">+=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="o">.</span><span class="n">one_site_matvec</span><span class="p">(</span><span class="n">site</span><span class="p">)</span><span class="o">.</span><span class="n">matvec</span><span class="p">(</span><span class="n">psi</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="o">.</span><span class="n">update_mps</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">psi</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="FiniteDMRG.sweep"><a class="viewcode-back" href="../../tnpy.html#tnpy.finite_dmrg.FiniteDMRG.sweep">[docs]</a>    <span class="k">def</span> <span class="nf">sweep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span> <span class="o">=</span> <span class="n">Direction</span><span class="o">.</span><span class="n">RIGHTWARD</span><span class="p">,</span>
-              <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="FiniteDMRG.sweep"><a class="viewcode-back" href="../../tnpy.html#tnpy.finite_dmrg.FiniteDMRG.sweep">[docs]</a>    <span class="k">def</span> <span class="nf">sweep</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span> <span class="o">=</span> <span class="n">Direction</span><span class="o">.</span><span class="n">RIGHTWARD</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform a single sweep on the given ``direction``.</span>
 
@@ -571,23 +577,24 @@ title="Open an issue"
 <span class="sd">        Returns:</span>
 <span class="sd">            energy: Variationally optimized energy after this sweep.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">iter_sites</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> \
-            <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">Direction</span><span class="o">.</span><span class="n">RIGHTWARD</span> \
+        <span class="n">iter_sites</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">Direction</span><span class="o">.</span><span class="n">RIGHTWARD</span>
             <span class="k">else</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span>
         <span class="n">energy</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">iter_sites</span><span class="p">:</span>
             <span class="n">energy</span><span class="p">,</span> <span class="n">psi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">one_site_solver</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Sweeping to site [</span><span class="si">{</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span><span class="si">}</span><span class="s2">], E0 = </span><span class="si">{</span><span class="n">energy</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sweeping to site [</span><span class="si">{</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span><span class="si">}</span><span class="s2">], E0 = </span><span class="si">{</span><span class="n">energy</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="o">.</span><span class="n">update_mps</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">psi</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">perturb_wave_function</span><span class="p">(</span><span class="n">site</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="o">.</span><span class="n">split_tensor</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">direction</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">direction</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">energy</span></div>
 
-    <span class="k">def</span> <span class="nf">_converged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_sweep</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">max_sweep</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-                   <span class="n">metric</span><span class="p">:</span> <span class="n">Metric</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_converged</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">n_sweep</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">max_sweep</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">metric</span><span class="p">:</span> <span class="n">Metric</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Helper function for checking the convergence.</span>
 
@@ -600,10 +607,10 @@ title="Open an issue"
 <span class="sd">        Returns:</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="k">def</span> <span class="nf">stopping_criterion</span><span class="p">(</span><span class="n">gradient</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Metric </span><span class="si">{</span><span class="n">metric</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> is lowered by </span><span class="si">{</span><span class="n">gradient</span><span class="si">:</span><span class="s2">e</span><span class="si">}</span><span class="s2"> &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;in this sweep.&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Metric </span><span class="si">{</span><span class="n">metric</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> is lowered by </span><span class="si">{</span><span class="n">gradient</span><span class="si">:</span><span class="s2">e</span><span class="si">}</span><span class="s2"> &quot;</span> <span class="sa">f</span><span class="s2">&quot;in this sweep.&quot;</span>
             <span class="p">)</span>
             <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">gradient</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reaching set tolerance </span><span class="si">{</span><span class="n">tol</span><span class="si">}</span><span class="s2">, stop sweeping.&quot;</span><span class="p">)</span>
@@ -624,12 +631,19 @@ title="Open an issue"
                 <span class="p">)</span>
             <span class="k">return</span> <span class="kc">False</span>
 
-        <span class="k">return</span> <span class="n">stopping_criterion</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_variances</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:])[</span><span class="mi">0</span><span class="p">])</span> \
-            <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="n">Metric</span><span class="o">.</span><span class="n">VARIANCE</span> \
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">stopping_criterion</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_variances</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:])[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="n">Metric</span><span class="o">.</span><span class="n">VARIANCE</span>
             <span class="k">else</span> <span class="n">stopping_criterion</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_energies</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:])[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="p">)</span>
 
-<div class="viewcode-block" id="FiniteDMRG.run"><a class="viewcode-back" href="../../tnpy.html#tnpy.finite_dmrg.FiniteDMRG.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span> <span class="n">max_sweep</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
-            <span class="n">metric</span><span class="p">:</span> <span class="n">Metric</span> <span class="o">=</span> <span class="n">Metric</span><span class="o">.</span><span class="n">ENERGY</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<div class="viewcode-block" id="FiniteDMRG.run"><a class="viewcode-back" href="../../tnpy.html#tnpy.finite_dmrg.FiniteDMRG.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
+        <span class="n">max_sweep</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="n">metric</span><span class="p">:</span> <span class="n">Metric</span> <span class="o">=</span> <span class="n">Metric</span><span class="o">.</span><span class="n">ENERGY</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        By calling this method, :class:`~FiniteDMRG` will start the sweeping</span>
 <span class="sd">        procedure until the given tolerance is reached or touching the</span>
@@ -645,22 +659,22 @@ title="Open an issue"
 <span class="sd">            energies: A record of energies computed on each sweep.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">clock</span> <span class="o">=</span> <span class="p">[</span><span class="n">time</span><span class="o">.</span><span class="n">process_time</span><span class="p">()]</span>
-        <span class="n">converged</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_converged</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span>
-                            <span class="n">max_sweep</span><span class="o">=</span><span class="n">max_sweep</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Set tolerance = </span><span class="si">{</span><span class="n">tol</span><span class="si">}</span><span class="s2"> to metric </span><span class="si">{</span><span class="n">metric</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">,&quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot; up to maximally </span><span class="si">{</span><span class="n">max_sweep</span><span class="si">}</span><span class="s2"> sweeps.&quot;</span><span class="p">)</span>
+        <span class="n">converged</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_converged</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span> <span class="n">max_sweep</span><span class="o">=</span><span class="n">max_sweep</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">metric</span>
+        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Set tolerance = </span><span class="si">{</span><span class="n">tol</span><span class="si">}</span><span class="s2"> to metric </span><span class="si">{</span><span class="n">metric</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">,&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot; up to maximally </span><span class="si">{</span><span class="n">max_sweep</span><span class="si">}</span><span class="s2"> sweeps.&quot;</span>
+        <span class="p">)</span>
         <span class="k">for</span> <span class="n">n_sweep</span><span class="p">,</span> <span class="n">direction</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
-                <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_sweep</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
-                <span class="n">cycle</span><span class="p">([</span><span class="n">Direction</span><span class="o">.</span><span class="n">RIGHTWARD</span><span class="p">,</span> <span class="n">Direction</span><span class="o">.</span><span class="n">LEFTWARD</span><span class="p">])</span>
+            <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_sweep</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">cycle</span><span class="p">([</span><span class="n">Direction</span><span class="o">.</span><span class="n">RIGHTWARD</span><span class="p">,</span> <span class="n">Direction</span><span class="o">.</span><span class="n">LEFTWARD</span><span class="p">])</span>
         <span class="p">):</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&lt;==== In sweep epoch [</span><span class="si">{</span><span class="n">n_sweep</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">max_sweep</span><span class="si">}</span><span class="s2">] ====&gt;&quot;</span><span class="p">)</span>
             <span class="n">energy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sweep</span><span class="p">(</span><span class="n">direction</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="n">clock</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">process_time</span><span class="p">())</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_energies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">energy</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_variances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="o">.</span><span class="n">variance</span><span class="p">())</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Last sweep took </span><span class="si">{</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">clock</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:])[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2">.&quot;</span>
-            <span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Last sweep took </span><span class="si">{</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">clock</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:])[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">converged</span><span class="p">(</span><span class="n">n_sweep</span><span class="p">):</span>
                 <span class="k">break</span>
         <span class="n">elapsed_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">clock</span><span class="p">))[:</span><span class="mi">3</span><span class="p">])</span>
@@ -678,13 +692,15 @@ title="Open an issue"
 
 
 <div class="viewcode-block" id="ShiftInvertDMRG"><a class="viewcode-back" href="../../tnpy.html#tnpy.finite_dmrg.ShiftInvertDMRG">[docs]</a><span class="k">class</span> <span class="nc">ShiftInvertDMRG</span><span class="p">(</span><span class="n">FiniteDMRG</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mpo</span><span class="p">:</span> <span class="n">MatrixProductOperator</span><span class="p">,</span>
-                 <span class="n">bond_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-                 <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-                 <span class="n">block_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-                 <span class="n">mps</span><span class="p">:</span> <span class="n">MatrixProductState</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">exact_solver_dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">mpo</span><span class="p">:</span> <span class="n">MatrixProductOperator</span><span class="p">,</span>
+        <span class="n">bond_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">block_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">mps</span><span class="p">:</span> <span class="n">MatrixProductState</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">exact_solver_dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The DMRG algorithm for optimizing the shift-invert spectrum of</span>
 <span class="sd">        a finite size system.</span>
@@ -698,8 +714,11 @@ title="Open an issue"
 <span class="sd">            exact_solver_dim:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">mpo</span><span class="p">,</span> <span class="n">bond_dim</span><span class="o">=</span><span class="n">bond_dim</span><span class="p">,</span> <span class="n">block_size</span><span class="o">=</span><span class="n">block_size</span><span class="p">,</span>
-            <span class="n">mps</span><span class="o">=</span><span class="n">mps</span><span class="p">,</span> <span class="n">exact_solver_dim</span><span class="o">=</span><span class="n">exact_solver_dim</span>
+            <span class="n">mpo</span><span class="p">,</span>
+            <span class="n">bond_dim</span><span class="o">=</span><span class="n">bond_dim</span><span class="p">,</span>
+            <span class="n">block_size</span><span class="o">=</span><span class="n">block_size</span><span class="p">,</span>
+            <span class="n">mps</span><span class="o">=</span><span class="n">mps</span><span class="p">,</span>
+            <span class="n">exact_solver_dim</span><span class="o">=</span><span class="n">exact_solver_dim</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_env2</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span><span class="n">mpo</span><span class="o">=</span><span class="n">mpo</span><span class="o">.</span><span class="n">square</span><span class="p">(),</span> <span class="n">mps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mps</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_offset</span> <span class="o">=</span> <span class="n">offset</span>
@@ -717,12 +736,12 @@ title="Open an issue"
             <span class="k">if</span> <span class="n">site</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">fuse_map</span> <span class="o">=</span> <span class="p">{</span>
                     <span class="n">rand_uuid</span><span class="p">():</span> <span class="p">[</span><span class="n">conj_mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">virtual_inds</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
-                    <span class="n">phys_ind</span><span class="p">:</span> <span class="p">[</span><span class="n">phys_ind</span><span class="p">]</span>
+                    <span class="n">phys_ind</span><span class="p">:</span> <span class="p">[</span><span class="n">phys_ind</span><span class="p">],</span>
                 <span class="p">}</span>
             <span class="k">elif</span> <span class="n">site</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">fuse_map</span> <span class="o">=</span> <span class="p">{</span>
                     <span class="n">phys_ind</span><span class="p">:</span> <span class="p">[</span><span class="n">phys_ind</span><span class="p">],</span>
-                    <span class="n">rand_uuid</span><span class="p">():</span> <span class="p">[</span><span class="n">conj_mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">virtual_inds</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+                    <span class="n">rand_uuid</span><span class="p">():</span> <span class="p">[</span><span class="n">conj_mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">virtual_inds</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
                 <span class="p">}</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">fuse_map</span> <span class="o">=</span> <span class="p">{</span>
@@ -731,36 +750,45 @@ title="Open an issue"
                     <span class="n">rand_uuid</span><span class="p">():</span> <span class="p">[</span><span class="n">conj_mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">virtual_inds</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
                 <span class="p">}</span>
             <span class="k">return</span> <span class="n">tn</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span><span class="o">.</span><span class="n">fuse</span><span class="p">(</span><span class="n">fuse_map</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
+
         <span class="n">conj_mps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mps</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">mangle_outer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_restored_mps</span> <span class="o">=</span> <span class="n">MatrixProductState</span><span class="p">(</span>
-            <span class="p">[</span><span class="n">gen_array</span><span class="p">(</span><span class="n">site</span><span class="p">)</span> <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span><span class="p">)],</span> <span class="n">shape</span><span class="o">=</span><span class="s1">&#39;lpr&#39;</span>
+            <span class="p">[</span><span class="n">gen_array</span><span class="p">(</span><span class="n">site</span><span class="p">)</span> <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span><span class="p">)],</span> <span class="n">shape</span><span class="o">=</span><span class="s2">&quot;lpr&quot;</span>
         <span class="p">)</span>
 
-<div class="viewcode-block" id="ShiftInvertDMRG.one_site_solver"><a class="viewcode-back" href="../../tnpy.html#tnpy.finite_dmrg.ShiftInvertDMRG.one_site_solver">[docs]</a>    <span class="k">def</span> <span class="nf">one_site_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
-                        <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<div class="viewcode-block" id="ShiftInvertDMRG.one_site_solver"><a class="viewcode-back" href="../../tnpy.html#tnpy.finite_dmrg.ShiftInvertDMRG.one_site_solver">[docs]</a>    <span class="k">def</span> <span class="nf">one_site_solver</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
         <span class="n">v0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">v0</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exact_solver_dim</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">eigh</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="o">.</span><span class="n">one_site_full_matrix</span><span class="p">(</span><span class="n">site</span><span class="p">),</span>
                 <span class="n">b</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_env2</span><span class="o">.</span><span class="n">one_site_full_matrix</span><span class="p">(</span><span class="n">site</span><span class="p">),</span>
-                <span class="n">backend</span><span class="o">=</span><span class="s1">&#39;scipy&#39;</span>
+                <span class="n">backend</span><span class="o">=</span><span class="s2">&quot;scipy&quot;</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">eigshmv</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="o">.</span><span class="n">one_site_matvec</span><span class="p">(</span><span class="n">site</span><span class="p">),</span>
             <span class="n">M</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_env2</span><span class="o">.</span><span class="n">one_site_matvec</span><span class="p">(</span><span class="n">site</span><span class="p">),</span>
-            <span class="n">v0</span><span class="o">=</span><span class="n">v0</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+            <span class="n">v0</span><span class="o">=</span><span class="n">v0</span><span class="p">,</span>
+            <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ShiftInvertDMRG.sweep"><a class="viewcode-back" href="../../tnpy.html#tnpy.finite_dmrg.ShiftInvertDMRG.sweep">[docs]</a>    <span class="k">def</span> <span class="nf">sweep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span> <span class="o">=</span> <span class="n">Direction</span><span class="o">.</span><span class="n">RIGHTWARD</span><span class="p">,</span>
-              <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="n">iter_sites</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> \
-            <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">Direction</span><span class="o">.</span><span class="n">RIGHTWARD</span> \
+<div class="viewcode-block" id="ShiftInvertDMRG.sweep"><a class="viewcode-back" href="../../tnpy.html#tnpy.finite_dmrg.ShiftInvertDMRG.sweep">[docs]</a>    <span class="k">def</span> <span class="nf">sweep</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span> <span class="o">=</span> <span class="n">Direction</span><span class="o">.</span><span class="n">RIGHTWARD</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="n">iter_sites</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">Direction</span><span class="o">.</span><span class="n">RIGHTWARD</span>
             <span class="k">else</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span>
         <span class="n">energy</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">iter_sites</span><span class="p">:</span>
             <span class="n">energy</span><span class="p">,</span> <span class="n">psi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">one_site_solver</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sweeping to site [</span><span class="si">{</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span><span class="si">}</span><span class="s2">], &quot;</span>
-                        <span class="sa">f</span><span class="s2">&quot;E0 = </span><span class="si">{</span><span class="mi">1</span> <span class="o">/</span> <span class="n">energy</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_offset</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Sweeping to site [</span><span class="si">{</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span><span class="si">}</span><span class="s2">], &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;E0 = </span><span class="si">{</span><span class="mi">1</span> <span class="o">/</span> <span class="n">energy</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_offset</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="o">.</span><span class="n">update_mps</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">psi</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">perturb_wave_function</span><span class="p">(</span><span class="n">site</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="o">.</span><span class="n">split_tensor</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">direction</span><span class="p">)</span>
@@ -773,11 +801,14 @@ title="Open an issue"
             <span class="bp">self</span><span class="o">.</span><span class="n">_env2</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">direction</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">energy</span></div>
 
-<div class="viewcode-block" id="ShiftInvertDMRG.run"><a class="viewcode-back" href="../../tnpy.html#tnpy.finite_dmrg.ShiftInvertDMRG.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-7</span><span class="p">,</span> <span class="n">max_sweep</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
-            <span class="n">metric</span><span class="p">:</span> <span class="n">Metric</span> <span class="o">=</span> <span class="n">Metric</span><span class="o">.</span><span class="n">ENERGY</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
-        <span class="n">energies</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-            <span class="n">tol</span><span class="p">,</span> <span class="n">max_sweep</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-        <span class="p">)</span>
+<div class="viewcode-block" id="ShiftInvertDMRG.run"><a class="viewcode-back" href="../../tnpy.html#tnpy.finite_dmrg.ShiftInvertDMRG.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-7</span><span class="p">,</span>
+        <span class="n">max_sweep</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="n">metric</span><span class="p">:</span> <span class="n">Metric</span> <span class="o">=</span> <span class="n">Metric</span><span class="o">.</span><span class="n">ENERGY</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+        <span class="n">energies</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">tol</span><span class="p">,</span> <span class="n">max_sweep</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_restore_mps</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">reciprocal</span><span class="p">(</span><span class="n">energies</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_offset</span></div>
 
@@ -789,9 +820,11 @@ title="Open an issue"
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">variance</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="n">tn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">restored_mps</span> <span class="o">&amp;</span> \
-              <span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">square</span><span class="p">()</span> <span class="o">&amp;</span> \
-              <span class="bp">self</span><span class="o">.</span><span class="n">restored_mps</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">mangle_inner</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mangle_outer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">tn</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">restored_mps</span>
+            <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">square</span><span class="p">()</span>
+            <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">restored_mps</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">mangle_inner</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mangle_outer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">tn</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_energies</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_offset</span> <span class="o">**</span> <span class="mi">2</span></div>
 </pre></div>
 
