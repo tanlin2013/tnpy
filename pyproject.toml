@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tnpy"
-version = "0.1.0"
+version = "0.1.1a0"
 description = "Tensor Network algorithms implemented in python."
 authors = ["taolin <tanlin2013@gmail.com>"]
 homepage = "https://github.com/tanlin2013/tnpy"
