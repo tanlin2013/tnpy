@@ -3,7 +3,7 @@ import numpy as np
 from tnpy.operators import MatrixProductOperator
 
 
-class ModelBase(abc.ABC):
+class Model1D(abc.ABC):
     def __init__(self, n: int):
         """
 
