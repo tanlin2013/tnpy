@@ -1,11 +1,11 @@
 import numpy as np
 
-from tnpy.model import ModelBase
 from tnpy.operators import SpinOperators
-from .utils import boundary_vectors
+from tnpy.model.model_1d import Model1D
+from tnpy.model.utils import boundary_vectors
 
 
-class XXZ(ModelBase):
+class XXZ(Model1D):
     def __init__(self, n: int, delta: float):
         """
 

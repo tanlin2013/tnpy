@@ -1,11 +1,11 @@
 import numpy as np
 
-from tnpy.model import ModelBase
 from tnpy.operators import SpinOperators
-from .utils import boundary_vectors
+from tnpy.model.model_1d import Model1D
+from tnpy.model.utils import boundary_vectors
 
 
-class TotalSz(ModelBase):
+class TotalSz(Model1D):
     def __init__(self, n: int):
         super().__init__(n)
 
