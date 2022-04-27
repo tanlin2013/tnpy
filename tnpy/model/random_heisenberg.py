@@ -1,11 +1,11 @@
 import numpy as np
 
-from tnpy.model import ModelBase
 from tnpy.operators import SpinOperators
-from .utils import boundary_vectors, minors_if_no_penalty
+from tnpy.model.model_1d import Model1D
+from tnpy.model.utils import boundary_vectors, minors_if_no_penalty
 
 
-class RandomHeisenberg(ModelBase):
+class RandomHeisenberg(Model1D):
     def __init__(
         self,
         n: int,
