@@ -5,19 +5,12 @@ import pytest
 import numpy as np
 
 from tnpy.model import RandomHeisenberg
-from tnpy.matrix_product_state import (
-    Direction,
-    MatrixProductState,
-    Environment
-)
+from tnpy.matrix_product_state import Direction, MatrixProductState, Environment
 
 
 class Helper:
-
     @staticmethod
-    def compressed_bond_dims(
-            n: int, bond_dim: int, phys_dim: int
-    ) -> np.ndarray:
+    def compressed_bond_dims(n: int, bond_dim: int, phys_dim: int) -> np.ndarray:
         if n % 2 == 0:
             chi = [min(phys_dim ** i, bond_dim) for i in range(1, n // 2)]
             chi += [int(min(phys_dim ** (n / 2), bond_dim))] + chi[::-1]
@@ -28,17 +21,12 @@ class Helper:
 
 
 class TestMatrixProductState:
-
     @pytest.mark.parametrize("n", [6, 8])
     @pytest.mark.parametrize("bond_dim", [2, 4, 6])
     @pytest.mark.parametrize("phys_dim", [2, 4])
     def test_shape(self, n, bond_dim, phys_dim):
-        mps = MatrixProductState.random(
-            n=n, bond_dim=bond_dim, phys_dim=phys_dim
-        )
-        chi = Helper.compressed_bond_dims(
-            n=n, bond_dim=bond_dim, phys_dim=phys_dim
-        )
+        mps = MatrixProductState.random(n=n, bond_dim=bond_dim, phys_dim=phys_dim)
+        chi = Helper.compressed_bond_dims(n=n, bond_dim=bond_dim, phys_dim=phys_dim)
         assert (chi <= phys_dim ** (n // 2)).all()
         for site, tensor in enumerate(mps):
             if site == 0:
@@ -48,7 +36,7 @@ class TestMatrixProductState:
             else:
                 assert tensor.shape == (chi[site - 1], phys_dim, chi[site])
 
-    @pytest.fixture(scope='class')
+    @pytest.fixture(scope="class")
     def mps(self) -> MatrixProductState:
         return MatrixProductState.random(n=8, bond_dim=10, phys_dim=2)
 
@@ -69,10 +57,10 @@ class TestMatrixProductState:
     @pytest.mark.parametrize(
         "filename, expectation",
         [
-            ('test.npz', does_not_raise()),
-            ('test.hdf5', does_not_raise()),
-            ('test.txt', pytest.raises(ValueError))
-        ]
+            ("test.npz", does_not_raise()),
+            ("test.hdf5", does_not_raise()),
+            ("test.txt", pytest.raises(ValueError)),
+        ],
     )
     def test_save(self, filename, expectation, mps):
         with expectation:
@@ -82,15 +70,14 @@ class TestMatrixProductState:
     @pytest.mark.parametrize(
         "filename, expectation",
         [
-            ('test.npz', does_not_raise()),
-            ('test.hdf5', does_not_raise()),
-            ('test.txt', pytest.raises(ValueError))
-        ]
+            ("test.npz", does_not_raise()),
+            ("test.hdf5", does_not_raise()),
+            ("test.txt", pytest.raises(ValueError)),
+        ],
     )
     def test_load(self, filename, expectation):
         with expectation:
             mps = MatrixProductState.load(filename)
-            print(mps)
             assert False
 
     @pytest.mark.parametrize("site", [2, 3, 4, 6])
@@ -98,30 +85,26 @@ class TestMatrixProductState:
         two_site_mps = mps[site] @ mps[site + 1]
         mps.split_tensor(site, direction=Direction.RIGHTWARD)
         np.testing.assert_allclose(
-            two_site_mps.data,
-            (mps[site] @ mps[site + 1]).data,
-            atol=1e-12
+            two_site_mps.data, (mps[site] @ mps[site + 1]).data, atol=1e-12
         )
-        assert mps[site].tags == {f'I{site}'}
-        assert mps[site + 1].tags == {f'I{site + 1}'}
+        assert mps[site].tags == {f"I{site}"}
+        assert mps[site + 1].tags == {f"I{site + 1}"}
 
 
 class TestEnvironment:
-
-    @pytest.fixture(scope='class')
+    @pytest.fixture(scope="class")
     def env(self):
         model = RandomHeisenberg(n=6, h=0, penalty=100.0)
         return Environment(
-            model.mpo,
-            MatrixProductState.random(n=model.n, bond_dim=16, phys_dim=2)
+            model.mpo, MatrixProductState.random(n=model.n, bond_dim=16, phys_dim=2)
         )
 
-    def test_left(self):
-        print(self.env.mps)
-        print(self.env.mpo)
-        print(self.env._conj_mps)
-        print(self.env.left)
-        print(self.env.right)
+    def test_left(self, env):
+        print(env.mps)
+        print(env.mpo)
+        print(env._conj_mps)
+        print(env.left)
+        print(env.right)
 
     def test_right(self):
         pass
