@@ -748,6 +748,32 @@ class TreeTensorNetworkMeasurements:
         NotImplemented
 
 
+class HighEnergyTreeTensorNetworkSDRG(TreeTensorNetworkSDRG):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def block_eigen_solver(self, locus: int) -> Tuple[np.ndarray, np.ndarray]:
+        matrix = self.block_hamiltonian(locus)
+        evals, evecs = np.linalg.eigh(matrix)
+        if matrix.shape[0] > self.chi:
+            evals = evals[-self.chi:]
+            evecs = evecs[:, -self.chi:]
+        return evals, evecs
+
+    def truncation_gap(self, evals: np.ndarray) -> float:
+        """
+        Return the gap upon :attr:`~TreeTensorNetworkSDRG.chi` highest eigenvalues kept.
+
+        Args:
+            evals: The eigenvalues (energy spectrum).
+
+        Returns:
+            gap: The truncation gap, evals[-chi] - evals[-chi-1].
+        """
+        gaps = np.diff(evals)
+        return gaps[-self.chi] if gaps.size > self.chi else gaps[0]
+
+
 class ShiftInvertTreeTensorNetworkSDRG(TreeTensorNetworkSDRG):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
