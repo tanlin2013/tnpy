@@ -772,6 +772,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
 div.rendered_html table {
   border: none;
   border-collapse: collapse;
@@ -780,10 +781,14 @@ div.rendered_html table {
   font-size: 12px;
   table-layout: fixed;
 }
+.jp-RenderedHTMLCommon thead,
 div.rendered_html thead {
   border-bottom: 1px solid black;
   vertical-align: bottom;
 }
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
 div.rendered_html tr,
 div.rendered_html th,
 div.rendered_html td {
@@ -795,12 +800,15 @@ div.rendered_html td {
   max-width: none;
   border: none;
 }
+.jp-RenderedHTMLCommon th,
 div.rendered_html th {
   font-weight: bold;
 }
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
 div.rendered_html tbody tr:nth-child(odd) {
   background: #f5f5f5;
 }
+.jp-RenderedHTMLCommon tbody tr:hover,
 div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
@@ -850,7 +858,7 @@ I
 </section>
 <section id="Main-part:-growing-the-tree">
 <h2>Main part: growing the tree<a class="headerlink" href="#Main-part:-growing-the-tree" title="Permalink to this headline">#</a></h2>
-<div><p><img alt="5d072dcc85774333af6435922f135009" class="no-scaled-link" src="_images/tsdrg1.png" style="width: 300px;" />   <img alt="574cddde2d5542fdbb6994d1dd14a1f4" class="no-scaled-link" src="_images/tsdrg2.png" style="width: 300px;" /></p>
+<div><p><img alt="30e00ffd7fa543ec81693abfebbf599c" class="no-scaled-link" src="_images/tsdrg1.png" style="width: 300px;" />   <img alt="bda2408f0a924db889064228ddd74671" class="no-scaled-link" src="_images/tsdrg2.png" style="width: 300px;" /></p>
 </div><ol class="arabic simple">
 <li><p>Merge the 2-site block with largest energy gap. This can be performed by constructing the isometric tensor <span class="math notranslate nohighlight">\(V\)</span> (the triangular tensor in the figure) to be <span class="math notranslate nohighlight">\(min(\chi, k)\)</span> eigenvectors of the 2-site Hamiltonian. By contracting <span class="math notranslate nohighlight">\(V^{\dagger}\)</span> and <span class="math notranslate nohighlight">\(V\)</span> with 2 MPO tensors, one gets the updated MPO.</p></li>
 <li><p>Compute the energy spectrum and the energy gap accordingly for affected block with its neighbors.</p></li>
@@ -981,7 +989,7 @@ tsdrg.run()
 </div>
 <section id="Correlation-function">
 <h2>Correlation function<a class="headerlink" href="#Correlation-function" title="Permalink to this headline">#</a></h2>
-<div><p><img alt="47024d0476994a89942ebb56da6cefcb" class="no-scaled-link" src="_images/tsdrg3.png" style="width: 800px;" /></p>
+<div><p><img alt="67136084fa5e4e39aad6233b03a4ed6d" class="no-scaled-link" src="_images/tsdrg3.png" style="width: 800px;" /></p>
 </div><section id="Depth-first-Search-(DFS)-&amp;-Common-Ancestor">
 <h3>Depth-first Search (DFS) &amp; Common Ancestor<a class="headerlink" href="#Depth-first-Search-(DFS)-&-Common-Ancestor" title="Permalink to this headline">#</a></h3>
 </section>

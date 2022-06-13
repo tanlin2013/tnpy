@@ -1099,6 +1099,57 @@ which equivalently merges two MPO layers into one.</p>
 <section id="module-tnpy.tsdrg">
 <span id="tnpy-tsdrg-module"></span><h2>tnpy.tsdrg module<a class="headerlink" href="#module-tnpy.tsdrg" title="Permalink to this headline">#</a></h2>
 <dl class="py class">
+<dt class="sig sig-object py" id="tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.tsdrg.</span></span><span class="sig-name descname"><span class="pre">HighEnergyTreeTensorNetworkSDRG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#HighEnergyTreeTensorNetworkSDRG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG" title="tnpy.tsdrg.TreeTensorNetworkSDRG"><code class="xref py py-class docutils literal notranslate"><span class="pre">tnpy.tsdrg.TreeTensorNetworkSDRG</span></code></a></p>
+<p>The tree tensor network version of strong disorder renormalization
+group algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mpo</strong> – The matrix product operator.</p></li>
+<li><p><strong>chi</strong> – The truncation dimensions.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>The tSDRG algorithm can be launched by calling
+<a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.run" title="tnpy.tsdrg.TreeTensorNetworkSDRG.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> method.</p>
+<blockquote>
+<div><p>tsdrg = TreeTensorNetworkSDRG(mpo, chi=32)
+tsdrg.run()</p>
+</div></blockquote>
+<p>After executing <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.run" title="tnpy.tsdrg.TreeTensorNetworkSDRG.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a>,
+one can access the binary tensor tree <a class="reference internal" href="#tnpy.tsdrg.TensorTree" title="tnpy.tsdrg.TensorTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">TensorTree</span></code></a>
+through the attribute <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.tree" title="tnpy.tsdrg.TreeTensorNetworkSDRG.tree"><code class="xref py py-attr docutils literal notranslate"><span class="pre">tree</span></code></a>.
+For measurements, please refer to
+<a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.measurements" title="tnpy.tsdrg.TreeTensorNetworkSDRG.measurements"><code class="xref py py-attr docutils literal notranslate"><span class="pre">measurements</span></code></a> or
+<a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements" title="tnpy.tsdrg.TreeTensorNetworkMeasurements"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeTensorNetworkMeasurements</span></code></a>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.block_eigen_solver">
+<span class="sig-name descname"><span class="pre">block_eigen_solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#HighEnergyTreeTensorNetworkSDRG.block_eigen_solver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.block_eigen_solver" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.truncation_gap">
+<span class="sig-name descname"><span class="pre">truncation_gap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">evals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/tnpy/tsdrg.html#HighEnergyTreeTensorNetworkSDRG.truncation_gap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.truncation_gap" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the gap upon <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.chi" title="tnpy.tsdrg.TreeTensorNetworkSDRG.chi"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chi</span></code></a> highest eigenvalues kept.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>evals</strong> – The eigenvalues (energy spectrum).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The truncation gap, evals[-chi] - evals[-chi-1].</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>gap</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="tnpy.tsdrg.Node">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.tsdrg.</span></span><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tnpy.tsdrg.Node" title="tnpy.tsdrg.Node"><span class="pre">tnpy.tsdrg.Node</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tnpy.tsdrg.Node" title="tnpy.tsdrg.Node"><span class="pre">tnpy.tsdrg.Node</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/tsdrg.html#Node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.Node" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">quimb.tensor.tensor_core.Tensor</span></code></p>

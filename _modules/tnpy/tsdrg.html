@@ -642,7 +642,7 @@ title="Open an issue"
             <span class="k">if</span> <span class="n">mangle_outer</span><span class="p">:</span>
                 <span class="n">conj_net</span> <span class="o">=</span> <span class="n">conj_net</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span>
                     <span class="p">{</span>
-                        <span class="n">ind</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^k([0-9]+)&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;b\1&quot;</span><span class="p">,</span> <span class="n">ind</span><span class="p">)</span>
+                        <span class="n">ind</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^k(\d+)&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;b\1&quot;</span><span class="p">,</span> <span class="n">ind</span><span class="p">)</span>
                         <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">conj_net</span>
                         <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">inds</span>
                         <span class="k">if</span> <span class="n">ind</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
@@ -1155,6 +1155,32 @@ title="Open an issue"
 
 <div class="viewcode-block" id="TreeTensorNetworkMeasurements.two_point_function"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.TreeTensorNetworkMeasurements.two_point_function">[docs]</a>    <span class="k">def</span> <span class="nf">two_point_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">NotImplemented</span></div></div>
+
+
+<div class="viewcode-block" id="HighEnergyTreeTensorNetworkSDRG"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG">[docs]</a><span class="k">class</span> <span class="nc">HighEnergyTreeTensorNetworkSDRG</span><span class="p">(</span><span class="n">TreeTensorNetworkSDRG</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="HighEnergyTreeTensorNetworkSDRG.block_eigen_solver"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.block_eigen_solver">[docs]</a>    <span class="k">def</span> <span class="nf">block_eigen_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locus</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="n">matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_hamiltonian</span><span class="p">(</span><span class="n">locus</span><span class="p">)</span>
+        <span class="n">evals</span><span class="p">,</span> <span class="n">evecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">chi</span><span class="p">:</span>
+            <span class="n">evals</span> <span class="o">=</span> <span class="n">evals</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">chi</span><span class="p">:]</span>
+            <span class="n">evecs</span> <span class="o">=</span> <span class="n">evecs</span><span class="p">[:,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">chi</span><span class="p">:]</span>
+        <span class="k">return</span> <span class="n">evals</span><span class="p">,</span> <span class="n">evecs</span></div>
+
+<div class="viewcode-block" id="HighEnergyTreeTensorNetworkSDRG.truncation_gap"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.truncation_gap">[docs]</a>    <span class="k">def</span> <span class="nf">truncation_gap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">evals</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the gap upon :attr:`~TreeTensorNetworkSDRG.chi` highest eigenvalues kept.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            evals: The eigenvalues (energy spectrum).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            gap: The truncation gap, evals[-chi] - evals[-chi-1].</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">gaps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">evals</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">gaps</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">chi</span><span class="p">]</span> <span class="k">if</span> <span class="n">gaps</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">chi</span> <span class="k">else</span> <span class="n">gaps</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div></div>
 
 
 <div class="viewcode-block" id="ShiftInvertTreeTensorNetworkSDRG"><a class="viewcode-back" href="../../tnpy.html#tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG">[docs]</a><span class="k">class</span> <span class="nc">ShiftInvertTreeTensorNetworkSDRG</span><span class="p">(</span><span class="n">TreeTensorNetworkSDRG</span><span class="p">):</span>
