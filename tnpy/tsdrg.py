@@ -233,7 +233,7 @@ class TensorTree:
             if mangle_outer:
                 conj_net = conj_net.reindex(
                     {
-                        ind: re.sub(r"^k([0-9]+)", r"b\1", ind)
+                        ind: re.sub(r"^k(\d+)", r"b\1", ind)
                         for node in conj_net
                         for ind in node.inds
                         if ind.startswith("k")
