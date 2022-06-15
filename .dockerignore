@@ -183,6 +183,7 @@ docs/
 tests/
 LICENSE
 makefile
+.pre-commit-config.yml
 
 # Poetry
 poetry.lock
