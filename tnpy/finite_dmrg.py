@@ -404,4 +404,4 @@ class ShiftInvertDMRG(FiniteDMRG):
             & self._env.mpo.square()
             & self.restored_mps.conj(mangle_inner=True, mangle_outer=True)
         )
-        return tn.contract() - self._energies[-1] ** 2 - self._offset ** 2
+        return tn.contract() - self._energies[-1] ** 2 - self._offset**2

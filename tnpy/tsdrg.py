@@ -156,18 +156,22 @@ class TensorTree:
             ),
             tags=f"{self.Syntax.node}{new_id}",
         )
+        # fmt: off
         self[left_id].reindex(
             {
-                f"{self.Syntax.node}{left_id}{self.Syntax.level_idx}": f"{self.Syntax.node}{new_id}-{self.Syntax.node}{left_id}"
+                f"{self.Syntax.node}{left_id}{self.Syntax.level_idx}":
+                    f"{self.Syntax.node}{new_id}-{self.Syntax.node}{left_id}"
             },
             inplace=True,
         )
         self[right_id].reindex(
             {
-                f"{self.Syntax.node}{right_id}{self.Syntax.level_idx}": f"{self.Syntax.node}{new_id}-{self.Syntax.node}{right_id}"
+                f"{self.Syntax.node}{right_id}{self.Syntax.level_idx}":
+                    f"{self.Syntax.node}{new_id}-{self.Syntax.node}{right_id}"
             },
             inplace=True,
         )
+        # fmt: on
         self._horizon[self._horizon.index(left_id)] = new_id
         self._horizon.remove(right_id)
         if self.n_nodes == 2 * self.n_leaves - 1:
@@ -218,11 +222,14 @@ class TensorTree:
         )
         net = qtn.TensorNetwork(nodes)
         if conj:
+            # fmt: off
             conj_net = net.reindex(
                 {
-                    f"{self.Syntax.node}{self._root_id}{self.Syntax.level_idx}": f"{self.Syntax.conj_node}{self._root_id}{self.Syntax.level_idx}"
+                    f"{self.Syntax.node}{self._root_id}{self.Syntax.level_idx}":
+                        f"{self.Syntax.conj_node}{self._root_id}{self.Syntax.level_idx}"
                 }
             )
+            # fmt: on
             conj_net = conj_net.retag(
                 {
                     tag: tag.replace(self.Syntax.node, self.Syntax.conj_node)
@@ -756,8 +763,8 @@ class HighEnergyTreeTensorNetworkSDRG(TreeTensorNetworkSDRG):
         matrix = self.block_hamiltonian(locus)
         evals, evecs = np.linalg.eigh(matrix)
         if matrix.shape[0] > self.chi:
-            evals = evals[-self.chi:]
-            evecs = evecs[:, -self.chi:]
+            evals = evals[-self.chi :]
+            evecs = evecs[:, -self.chi :]
         return evals, evecs
 
     def truncation_gap(self, evals: np.ndarray) -> float:
@@ -797,8 +804,9 @@ class ShiftInvertTreeTensorNetworkSDRG(TreeTensorNetworkSDRG):
         #     for i in range(len(evals))
         # ])
         # logger.info(f"evals {evals}")
-        # logger.info(
-        #     f"rho {np.array([evecs.T[i, :] @ matrix @ evecs[:, i] for i in range(len(evals))])}"
+        # rho = np.array(
+        #     [evecs.T[i, :] @ matrix @ evecs[:, i] for i in range(len(evals))]
         # )
+        # logger.info(f"rho {rho}")
         # logger.info(f"residual {res}")
         return evals, evecs
