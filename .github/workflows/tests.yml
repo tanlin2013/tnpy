@@ -35,7 +35,11 @@ jobs:
           poetry install
 
       - name: Run linter
-        run: flake8 --max-line-length=88 --ignore=E203,W503 tnpy
+        run: |
+          flake8 \
+          --max-line-length=88 \
+          --ignore=E203,W503 \
+          tnpy
 
   static-type:
     runs-on: ubuntu-latest
@@ -50,4 +54,9 @@ jobs:
           poetry install
 
       - name: Static type check
-        run: mypy --ignore-missing-imports tnpy
+        run: |
+          mypy \
+          --install-types \
+          --non-interactive \
+          --ignore-missing-imports \
+          tnpy
