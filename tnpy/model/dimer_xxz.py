@@ -14,7 +14,7 @@ class DimerXXZ(Model1D):
         h: float,
         penalty: float = 0,
         s_target: int = 0,
-        trial_id: int = None,
+        trial_id: str = None,
     ):
         """
         Args:
@@ -40,7 +40,7 @@ class DimerXXZ(Model1D):
         Sp, Sm, Sz, I2, O2 = SpinOperators(spin=1)
 
         rand_J = (1 + self.delta * (-1) ** site) * np.random.uniform() ** self.J
-        alpha = self.penalty * (0.25 + self.s_target ** 2 / self.n)
+        alpha = self.penalty * (0.25 + self.s_target**2 / self.n)
         beta = np.random.uniform(-self.h, self.h) - 2.0 * self.penalty * self.s_target
 
         return np.array(

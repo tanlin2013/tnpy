@@ -13,7 +13,7 @@ class RandomHeisenberg(Model1D):
         penalty: float = 0,
         s_target: int = 0,
         offset: float = 0,
-        trial_id: int = None,
+        trial_id: str = None,
         seed: int = None,
     ):
         """
@@ -57,7 +57,7 @@ class RandomHeisenberg(Model1D):
         self._offset = offset
 
     @property
-    def trial_id(self) -> int:
+    def trial_id(self) -> str:
         return self._trial_id
 
     @boundary_vectors(row=0, col=-1)
@@ -66,7 +66,7 @@ class RandomHeisenberg(Model1D):
         Sp, Sm, Sz, I2, O2 = SpinOperators()
 
         alpha = (
-            self.penalty * (0.25 + self.s_target ** 2 / self.n) - self.offset / self.n
+            self.penalty * (0.25 + self.s_target**2 / self.n) - self.offset / self.n
         )
         beta = self._random_sequence[site] - 2.0 * self.penalty * self.s_target
 
