@@ -43,6 +43,10 @@ class TestExactDiagonalization:
 
 
 class TestShiftInvertExactDiagonalization:
+    @pytest.fixture(scope="class", params=[0.1, 0.2, 0.4])
+    def offset(self, request):
+        return request.param
+
     @pytest.fixture(scope="class")
     def model(self):
         return RandomHeisenberg(n=8, h=0.5, penalty=0, s_target=0, seed=2021)
@@ -54,10 +58,6 @@ class TestShiftInvertExactDiagonalization:
     @pytest.fixture(scope="class")
     def eigen_solver(self, ham):
         return np.linalg.eigh(ham)
-
-    @pytest.fixture(scope="class")
-    def offset(self):
-        return 0.1
 
     @pytest.fixture(scope="class")
     def shift_inverted_model(self, model, offset):
@@ -97,8 +97,10 @@ class TestShiftInvertExactDiagonalization:
         _, evecs = eigen_solver
         restored_evals, restored_evecs = shift_invert_eigen_solver
         idx = np.argsort(restored_evals)
-        np.testing.assert_allclose(restored_evecs[:, idx], evecs, atol=1e-12)
-        # TODO: this will fail, but why?
+        # Note: This will fail, because they can differ up to a global phase (+1 or -1)
+        assert not np.allclose(restored_evecs[:, idx], evecs, atol=1e-12)
+        fidelity = np.square(np.diag(restored_evecs[:, idx].T @ evecs))
+        np.testing.assert_allclose(fidelity, np.ones(2**8), atol=1e-12)
 
     def test_residual(self, ham, shift_invert_eigen_solver):
         restored_evals, restored_evecs = shift_invert_eigen_solver
