@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Install pytest
-        run: | 
+        run: |
           poetry config virtualenvs.create false --local
           poetry install
 
@@ -35,7 +35,7 @@ jobs:
           poetry install
 
       - name: Run linter
-        run: flake8 --max-line-length=88 tnpy
+        run: flake8 --max-line-length=88 --ignore=E203,W503 tnpy
 
   static-type:
     runs-on: ubuntu-latest
@@ -50,4 +50,4 @@ jobs:
           poetry install
 
       - name: Static type check
-        run: mypy tnpy
+        run: mypy --ignore-missing-imports tnpy
