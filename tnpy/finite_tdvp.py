@@ -1,3 +1,4 @@
+# flake8: noqa
 from enum import Enum
 
 from scipy.integrate import solve_ivp
@@ -15,13 +16,11 @@ class Evolve(Enum):
 
 
 class FiniteTDVP:
-
     def __init__(self, mpo, chi, init_method):
         NotImplemented
         self.center_matrices = {}
 
     def _unit_solver(self, proceed, t_span, site):
-
         def forward(t, y):
             M = Node(y.reshape(self.mps_shape(site)))
             W = self.mpo[site]
@@ -33,7 +32,7 @@ class FiniteTDVP:
                 M[1] ^ W[1]
                 Renv[2] ^ Rnorm[0]
                 result = M @ W @ Renv @ Rnorm
-            elif site == self.N-1:
+            elif site == self.N - 1:
                 Lenv = self.left_envs[site]
                 Lnorm = self.left_norms[site]
                 Lenv[0] ^ M[0]
@@ -58,8 +57,8 @@ class FiniteTDVP:
 
         def backward(t, y):
             C = Node(y.reshape(self.center_matrices[site].tensor.shape))
-            Lenv = self.left_envs[site+1]
-            Lnorm = self.left_norms[site+1]
+            Lenv = self.left_envs[site + 1]
+            Lnorm = self.left_norms[site + 1]
             Renv = self.right_envs[site]
             Rnorm = self.right_norms[site]
             Lenv[0] ^ C[0]
@@ -90,26 +89,34 @@ class FiniteTDVP:
             if direction == 1:
                 self._mps.nodes[site] = Node(q.reshape(self.mps_shape(site)))
                 self.center_matrices[site] = Node(r)
-                self._update_left_env(site+1)
-                self._update_left_norm(site+1)
-                if site < self.N-1:
-                    C = Node(self._unit_solver(Evolve.BACKWARD, t_span, site).reshape(r.shape))
-                    Mp = self._mps.nodes[site+1]
+                self._update_left_env(site + 1)
+                self._update_left_norm(site + 1)
+                if site < self.N - 1:
+                    C = Node(
+                        self._unit_solver(Evolve.BACKWARD, t_span, site).reshape(
+                            r.shape
+                        )
+                    )
+                    Mp = self._mps.nodes[site + 1]
                     C[1] ^ Mp[0]
-                    self._mps.nodes[site+1] = C @ Mp
+                    self._mps.nodes[site + 1] = C @ Mp
             elif direction == -1:
                 self._mps.nodes[site] = Node(r.reshape(self.mps_shape(site)))
-                self.center_matrices[site-1] = Node(q)
-                self._update_right_env(site-1)
-                self._update_right_norm(site-1)
+                self.center_matrices[site - 1] = Node(q)
+                self._update_right_env(site - 1)
+                self._update_right_norm(site - 1)
                 if site > 0:
-                    C = Node(self._unit_solver(Evolve.BACKWARD, t_span, site - 1).reshape(q.shape))
-                    Mp = self._mps.nodes[site-1]
+                    C = Node(
+                        self._unit_solver(Evolve.BACKWARD, t_span, site - 1).reshape(
+                            q.shape
+                        )
+                    )
+                    Mp = self._mps.nodes[site - 1]
                     Mp[2] ^ C[0]
             # @TODO: measure something here to check the status of mps
             print(site)
-            print(self._mps.check_orthonormality('l', self.N-1))
-            print(self._mps.check_orthonormality('r', 0))
+            print(self._mps.check_orthonormality("l", self.N - 1))
+            print(self._mps.check_orthonormality("r", 0))
             print(self._mps.check_canonical())
             # logging.info("Sweeping to site [{}/{}], norm = ".format(site+1, self.N))
         return
