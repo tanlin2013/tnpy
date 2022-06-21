@@ -21,9 +21,12 @@ tensornetwork = "0.4.6"
 autoray = ">=0.2, <0.4"
 quimb = "1.3.0"
 mkl-devel = { version = "2022.0.3", optional = true }
+matplotlib = { version ="^3.5.2", optional = true }
+networkx = { version ="^2.8.4", optional = true }
 
 [tool.poetry.extras]
 mkl = ["mkl-devel"]  # (https://github.com/tanlin2013/tnpy/issues/5)
+drawing = ["matplotlib", "networkx"]
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.1"
