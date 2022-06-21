@@ -2,7 +2,7 @@ import pytest
 import numpy as np
 
 from tnpy.exact_diagonalization import ExactDiagonalization
-from tnpy.finite_dmrg import FiniteDMRG, ShiftInvertDMRG, Metric
+from tnpy.finite_dmrg import FiniteDMRG, ShiftInvertDMRG
 from tnpy.model import XXZ, RandomHeisenberg
 
 
@@ -17,16 +17,16 @@ class TestFiniteDMRG:
 
     @pytest.fixture(scope="class")
     def fdmrg(self, model):
-        return FiniteDMRG(model.mpo, bond_dim=2 ** 5)
+        return FiniteDMRG(model.mpo, bond_dim=2**5)
 
     def test_run(self, ed, fdmrg):
         np.testing.assert_allclose(ed.evals[0], fdmrg.run(tol=1e-8)[-1], atol=1e-8)
 
 
 class TestShiftInvertDMRG:
-    @pytest.fixture(scope="class")
-    def offset(self):
-        return 0.1
+    @pytest.fixture(scope="class", params=[0.1, 0.2])
+    def offset(self, request) -> float:
+        return request.param
 
     @pytest.fixture(scope="class")
     def model(self):
@@ -41,7 +41,7 @@ class TestShiftInvertDMRG:
         shifted_model = RandomHeisenberg(
             n=model.n, h=model.h, seed=model.seed, offset=offset
         )
-        return ShiftInvertDMRG(shifted_model.mpo, bond_dim=2 ** 3, offset=offset)
+        return ShiftInvertDMRG(shifted_model.mpo, bond_dim=2**4, offset=offset)
 
     @pytest.fixture(scope="class")
     def nearest_idx(self, ed, offset):
@@ -56,8 +56,7 @@ class TestShiftInvertDMRG:
         return ed.evecs[:, nearest_idx]
 
     def test_run(self, ed, sidmrg, nearest_eval):
-        print(ed.evals)
-        np.testing.assert_allclose(sidmrg.run(tol=1e-8)[-1], nearest_eval, atol=1e-8)
+        np.testing.assert_allclose(sidmrg.run(tol=1e-8)[-1], nearest_eval, atol=1e-6)
 
     def test_restored_mps(self, sidmrg, nearest_evec):
         sidmrg.run(tol=1e-8)
@@ -66,14 +65,12 @@ class TestShiftInvertDMRG:
             .fuse({"k": sidmrg.restored_mps.outer_inds()})
             .data
         )
-        res = restored_vec - nearest_evec
-        res[np.abs(res) < 1e-8] = 0
-        print(res)
-        if not np.allclose(restored_vec, nearest_evec, atol=1e-8):
-            np.testing.assert_allclose(-1 * restored_vec, nearest_evec, atol=1e-8)
+        # Note: They can differ up to a global phase (+1 or -1)
+        if not np.allclose(restored_vec, nearest_evec, atol=1e-6):
+            np.testing.assert_allclose(-1 * restored_vec, nearest_evec, atol=1e-6)
 
     def test_restore_energy(self, sidmrg, model):
         restored_energy = sidmrg.run(tol=1e-8)[-1]
         np.testing.assert_allclose(
-            restored_energy, sidmrg.measurements.expectation_value(model.mpo), atol=1e-8
+            restored_energy, sidmrg.measurements.expectation_value(model.mpo), atol=1e-6
         )
