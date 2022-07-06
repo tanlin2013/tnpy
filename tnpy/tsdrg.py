@@ -214,6 +214,21 @@ class TensorTree:
         mangle_outer: bool = True,
         with_leaves: bool = False,
     ) -> qtn.TensorNetwork:
+        r"""
+
+        Args:
+            node_ids: The id of nodes that will be selected from the tree.
+            conj: Take a conjugate on this network.
+                This will change the indices on physical bonds, as well as the internal
+                indices within the network. This will be an inplace operation.
+            mangle_outer: For conjugate network only. If False, the indices on physical
+                bonds will remain untouched. This can be useful for taking inner product
+                on the same state, i.e. :math:`\langle\psi|\psi\rangle`.
+            with_leaves: Whether the leaves, that is, the MPOs, should be taken
+                into account in this network.
+        Returns:
+
+        """
         node_ids = list(self._tree.keys()) if node_ids is None else node_ids
         nodes = (
             [self[node_id] for node_id in node_ids if not self[node_id].is_leaf]
