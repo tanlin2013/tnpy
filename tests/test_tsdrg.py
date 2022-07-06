@@ -2,10 +2,12 @@ import pytest
 import numpy as np
 
 from tnpy.model import RandomHeisenberg
+from tnpy.operators import SpinOperators
 from tnpy.exact_diagonalization import ExactDiagonalization
 from tnpy.tsdrg import (
     TensorTree,
     TreeTensorNetworkSDRG as tSDRG,
+    HighEnergyTreeTensorNetworkSDRG,
 )
 
 
@@ -79,7 +81,7 @@ class TestTensorTree:
         assert tree.common_ancestor(1, 3, lowest=True) == 6
 
     def test_tensor_network(self, tree):
-        net = tree.tensor_network(conj=True, mangle_outer=False)
+        net = tree.tensor_network(conj=True, mangle_outer=False)  # noqa: F841
         # net.graph()
 
     def test_plot(self, tree):
@@ -101,11 +103,11 @@ class TestTensorTree:
 class TestTreeTensorNetworkSDRG:
     @pytest.fixture(scope="class")
     def model(self):
-        return RandomHeisenberg(n=6, h=0.0, penalty=0, s_target=0)
+        return RandomHeisenberg(n=8, h=10.0, penalty=0, s_target=0)
 
     @pytest.fixture(scope="class")
     def tsdrg(self, model):
-        return tSDRG(model.mpo, chi=2 ** 6)
+        return tSDRG(model.mpo, chi=2**6)
 
     @pytest.fixture(scope="class")
     def ed(self, model):
@@ -151,6 +153,14 @@ class TestTreeTensorNetworkSDRG:
             atol=1e-12,
         )
 
+    def test_upside_down_spectrum(self, model, ed):
+        tsdrg = tSDRG(-1 * model.mpo, chi=2**4)
+        tsdrg.run()
+        np.testing.assert_allclose(ed.evals[-1], -1 * tsdrg.evals[0], atol=1e-12)
+        np.testing.assert_allclose(
+            ed.evals[-1], tsdrg.measurements.expectation_value(model.mpo)[0], atol=1e-12
+        )
+
 
 class TestTreeTensorNetworkMeasurements:
     @pytest.fixture(scope="class")
@@ -159,7 +169,7 @@ class TestTreeTensorNetworkMeasurements:
 
     @pytest.fixture(scope="class")
     def tsdrg(self, model):
-        tsdrg = tSDRG(model.mpo, chi=2 ** 8)
+        tsdrg = tSDRG(model.mpo, chi=2**8)
         tsdrg.run()
         return tsdrg
 
@@ -178,7 +188,7 @@ class TestTreeTensorNetworkMeasurements:
         )
 
     def test_expectation_value(self, model, ed):
-        spectral_folding_tsdrg = tSDRG(model.mpo.square(), chi=2 ** 8)
+        spectral_folding_tsdrg = tSDRG(model.mpo.square(), chi=2**8)
         spectral_folding_tsdrg.run()
         np.testing.assert_allclose(
             ed.evals,
@@ -192,7 +202,7 @@ class TestTreeTensorNetworkMeasurements:
         # print(site, surface)
 
     @pytest.mark.parametrize("site", list(range(8 - 1)))
-    @pytest.mark.parametrize("level_idx", list(range(2 ** 8))[:1])
+    @pytest.mark.parametrize("level_idx", list(range(2**8))[:1])
     def test_reduced_density_matrix(self, site, level_idx, ed, tsdrg):
         # TODO: With the absence of disorder, h = 0, these tests fail for level_idx > 0
         # self.tsdrg.tree.plot().render(format='png', view=True)
@@ -207,7 +217,7 @@ class TestTreeTensorNetworkMeasurements:
         )
 
     @pytest.mark.parametrize("site", list(range(8 - 1)))
-    @pytest.mark.parametrize("level_idx", list(range(2 ** 8))[:1])
+    @pytest.mark.parametrize("level_idx", list(range(2**8))[:1])
     def test_entanglement_entropy(self, site, level_idx, ed, tsdrg):
         np.testing.assert_allclose(
             ed.entanglement_entropy(site=site, level_idx=level_idx, nan_to_num=True),
@@ -216,3 +226,56 @@ class TestTreeTensorNetworkMeasurements:
             ),
             atol=1e-12,
         )
+
+    @pytest.mark.parametrize("site", list(range(8 - 1)))
+    @pytest.mark.parametrize("level_idx", [0])
+    def test_one_point_function(self, site, level_idx, ed, tsdrg):
+        Sp, Sm, Sz, I2, O2 = SpinOperators()
+        np.testing.assert_allclose(
+            ed.one_point_function(Sz, site, level_idx=level_idx),
+            tsdrg.measurements.one_point_function(Sz, site, level_idx=level_idx),
+            atol=1e-12,
+        )
+
+    @pytest.mark.parametrize("site1, site2", [(1, 3), (2, 6), (4, 3)])
+    @pytest.mark.parametrize("level_idx", [0])
+    def test_two_point_function(self, site1, site2, level_idx, ed, tsdrg):
+        Sp, Sm, Sz, I2, O2 = SpinOperators()
+        np.testing.assert_allclose(
+            ed.two_point_function(Sz, Sz, site1, site2, level_idx=level_idx),
+            tsdrg.measurements.two_point_function(
+                Sz, Sz, site1, site2, level_idx=level_idx
+            ),
+            atol=1e-12,
+        )
+
+    @pytest.mark.parametrize("site1, site2", [(1, 3), (2, 6)])
+    @pytest.mark.parametrize("level_idx", [0])
+    def test_connected_two_point_function(self, site1, site2, level_idx, ed, tsdrg):
+        Sp, Sm, Sz, I2, O2 = SpinOperators()
+        np.testing.assert_allclose(
+            ed.connected_two_point_function(Sz, Sz, site1, site2, level_idx=level_idx),
+            tsdrg.measurements.connected_two_point_function(
+                Sz, Sz, site1, site2, level_idx=level_idx
+            ),
+            atol=1e-12,
+        )
+
+
+class TestHighEnergyTreeTensorNetworkSDRG:
+    @pytest.fixture(scope="class")
+    def model(self):
+        return RandomHeisenberg(n=10, h=0.5, penalty=0, s_target=0)
+
+    @pytest.fixture(scope="class")
+    def tsdrg(self, model):
+        return HighEnergyTreeTensorNetworkSDRG(model.mpo, chi=2**4)
+
+    @pytest.fixture(scope="class")
+    def ed(self, model):
+        return ExactDiagonalization(model.mpo)
+
+    def test_run(self, ed, tsdrg):
+        print(ed.evals)
+        tsdrg.run()
+        np.testing.assert_allclose(ed.evals[-1], tsdrg.evals[-1], atol=1e-6)

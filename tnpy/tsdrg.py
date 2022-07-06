@@ -748,11 +748,88 @@ class TreeTensorNetworkMeasurements:
         entropy = -1 * rho @ np.log(rho)
         return np.nan_to_num(entropy) if nan_to_num else entropy
 
-    def one_point_function(self):
-        NotImplemented
+    def one_point_function(self, operator: np.ndarray, site: int, level_idx: int):
+        node_ids = self.tree.find_path(site)
+        ket = self.tree.tensor_network(node_ids)
+        ket.isel(
+            {
+                f"{TensorTree.Syntax.node}{self.tree.root_id}"
+                f"{TensorTree.Syntax.level_idx}": level_idx
+            },
+            inplace=True,
+        )
+        bra = self.tree.tensor_network(node_ids, conj=True, mangle_outer=False)
+        bra.isel(
+            {
+                f"{TensorTree.Syntax.conj_node}{self.tree.root_id}"
+                f"{TensorTree.Syntax.level_idx}": level_idx
+            },
+            inplace=True,
+        )
+        bra.reindex({f"k{site}": f"b{site}"}, inplace=True)
+        t = qtn.Tensor(operator, inds=(f"b{site}", f"k{site}"))
+        return (bra & t & ket).contract(all)
 
-    def two_point_function(self):
-        NotImplemented
+    def two_point_function(
+        self,
+        operator1: np.ndarray,
+        operator2: np.ndarray,
+        site1: int,
+        site2: int,
+        level_idx: int,
+    ):
+        assert site1 != site2
+        site1, site2 = sorted((site1, site2))
+        # TODO: operators aren't sorted accordingly
+        node_ids = list(set(self.tree.find_path(site1) + self.tree.find_path(site2)))
+        ket = self.tree.tensor_network(node_ids)
+        ket.isel(
+            {
+                f"{TensorTree.Syntax.node}{self.tree.root_id}"
+                f"{TensorTree.Syntax.level_idx}": level_idx
+            },
+            inplace=True,
+        )
+        bra = self.tree.tensor_network(node_ids, conj=True, mangle_outer=False)
+        bra.isel(
+            {
+                f"{TensorTree.Syntax.conj_node}{self.tree.root_id}"
+                f"{TensorTree.Syntax.level_idx}": level_idx
+            },
+            inplace=True,
+        )
+        bra.reindex({f"k{site1}": f"b{site1}", f"k{site2}": f"b{site2}"}, inplace=True)
+        t1 = qtn.Tensor(operator1, inds=(f"b{site1}", f"k{site1}"))
+        t2 = qtn.Tensor(operator2, inds=(f"b{site2}", f"k{site2}"))
+        return (bra & t1 & t2 & ket).contract(all)
+
+    def connected_two_point_function(
+        self,
+        operator1: np.ndarray,
+        operator2: np.ndarray,
+        site1: int,
+        site2: int,
+        level_idx: int,
+    ):
+        return self.two_point_function(
+            operator1, operator2, site1, site2, level_idx
+        ) - self.one_point_function(
+            operator1, site1, level_idx
+        ) * self.one_point_function(
+            operator2, site2, level_idx
+        )
+
+    def wave_func_coeff(self, level_idx: int):
+        return NotImplemented
+
+    def squared_moduli(self, level_idx: int):
+        return NotImplemented
+
+    def Kullback_Leibler_divergence(self):
+        return NotImplemented
+
+    def participation_entropy(self):
+        return NotImplemented
 
 
 class HighEnergyTreeTensorNetworkSDRG(TreeTensorNetworkSDRG):
