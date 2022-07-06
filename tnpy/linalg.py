@@ -1,4 +1,4 @@
-from typing import Tuple, Union
+from typing import Tuple
 
 import primme
 import numpy as np
@@ -41,7 +41,7 @@ def qr(matrix: np.ndarray, cutoff: int) -> Tuple[np.ndarray, np.ndarray]:
 
 def eigh(
     matrix: np.ndarray, k: int = 1, backend: str = "numpy", **kwargs
-) -> Tuple[Union[float, np.ndarray], np.ndarray]:
+) -> Tuple[float | np.ndarray, np.ndarray]:
     """
 
     Args:
@@ -68,7 +68,7 @@ def eigshmv(
     which: str = "SA",
     tol: float = 0,
     **kwargs
-) -> Tuple[Union[float, np.ndarray], np.ndarray]:
+) -> Tuple[float | np.ndarray, np.ndarray]:
     """
 
     Args:

@@ -57,7 +57,7 @@ class RandomHeisenberg(Model1D):
         self._offset = offset
 
     @property
-    def trial_id(self) -> str:
+    def trial_id(self) -> str | None:
         return self._trial_id
 
     @boundary_vectors(row=0, col=-1)
@@ -90,7 +90,7 @@ class RandomHeisenberg(Model1D):
         )
 
     @property
-    def seed(self) -> int:
+    def seed(self) -> int | None:
         return self._seed
 
     @seed.setter

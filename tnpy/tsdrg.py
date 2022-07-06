@@ -51,11 +51,11 @@ class Node(qtn.Tensor):
         return self._node_id
 
     @property
-    def left(self) -> Node:
+    def left(self) -> Node | None:
         return self._left
 
     @property
-    def right(self) -> Node:
+    def right(self) -> Node | None:
         return self._right
 
     @property
@@ -102,11 +102,11 @@ class TensorTree:
         )
 
     @property
-    def root_id(self) -> int:
+    def root_id(self) -> int | None:
         return self._root_id
 
     @property
-    def root(self) -> Node:
+    def root(self) -> Node | None:
         return self[self._root_id]
 
     @property
@@ -289,7 +289,7 @@ class TensorTree:
                 trial_path.pop()
             return False
 
-        path = []
+        path: List[int] = []
         if not find_node(self.root, path):
             raise KeyError("The given node_id is not found in tree.")
         return path if return_itself else path[:-1]
@@ -456,7 +456,7 @@ class TreeTensorNetworkSDRG:
         return self.mpo.nsites
 
     @property
-    def evals(self) -> np.ndarray:
+    def evals(self) -> np.ndarray | None:
         return self._evals
 
     def block_eigen_solver(self, locus: int) -> Tuple[np.ndarray, np.ndarray]:

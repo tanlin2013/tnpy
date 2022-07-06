@@ -143,7 +143,7 @@ class FiniteDMRG:
 
     def sweep(
         self, direction: Direction = Direction.RIGHTWARD, tol: float = 1e-8, **kwargs
-    ) -> float:
+    ) -> float | None:
         """
         Perform a single sweep on the given ``direction``.
 
@@ -304,7 +304,7 @@ class ShiftInvertDMRG(FiniteDMRG):
         self._restored_mps = None
 
     @property
-    def restored_mps(self) -> MatrixProductState:
+    def restored_mps(self) -> MatrixProductState | None:
         return self._restored_mps
 
     def _restore_mps(self):
@@ -355,7 +355,7 @@ class ShiftInvertDMRG(FiniteDMRG):
 
     def sweep(
         self, direction: Direction = Direction.RIGHTWARD, tol: float = 1e-8, **kwargs
-    ) -> float:
+    ) -> float | None:
         iter_sites = (
             range(self.n_sites - 1)
             if direction == Direction.RIGHTWARD
@@ -389,7 +389,7 @@ class ShiftInvertDMRG(FiniteDMRG):
     ) -> List[float]:
         energies = super().run(tol, max_sweep, metric, **kwargs)
         self._restore_mps()
-        return np.reciprocal(energies) + self._offset
+        return (np.reciprocal(energies) + self._offset).tolist()
 
     @property
     def measurements(self) -> MatrixProductStateMeasurements:
