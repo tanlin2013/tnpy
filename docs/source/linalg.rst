@@ -1,5 +1,5 @@
 Linear Algebra
-=========================================================
+==============
 
 .. autosummary::
     :toctree: _autosummary

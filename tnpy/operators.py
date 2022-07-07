@@ -9,8 +9,24 @@ import quimb.tensor as qtn
 
 @dataclass
 class SpinOperators:
-    """
+    r"""
     Constructor of spin operators.
+
+    .. math::
+
+        S^+ &= \frac{1}{2}\left( S^x + iS^y \right) \\
+            &= \frac{spin}{2} \times
+                \begin{pmatrix}
+                    0 & 1\\
+                    0 & 0
+                \end{pmatrix}
+
+        S^- &= \frac{1}{2}\left( S^x - iS^y \right) \\
+            &= \frac{spin}{2} \times
+                \begin{pmatrix}
+                    0 & 0\\
+                    1 & 0
+                \end{pmatrix}
 
     Attributes:
         Sp: Creation operator, 2 x 2 matrix.

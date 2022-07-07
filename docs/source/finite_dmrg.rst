@@ -5,3 +5,4 @@ Finite Density Matrix Renormalization Group (fDMRG)
     :toctree: _autosummary
 
     tnpy.finite_dmrg.FiniteDMRG
+    tnpy.finite_dmrg.ShiftInvertDMRG

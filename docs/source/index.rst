@@ -12,6 +12,7 @@ Welcome to tnpy's documentation!
    :maxdepth: 4
    :caption: Algorithms
 
+   exact_diagonalization
    finite_dmrg
    finite_tdvp
    tsdrg
@@ -20,24 +21,19 @@ Welcome to tnpy's documentation!
    :maxdepth: 4
    :caption: Built-in Models
 
-   model_base
-   xxz
-   dimer_xxz
-   random_heisenberg
-   thirring
+   model/model_1d
+   model/xxz
+   model/dimer_xxz
+   model/random_heisenberg
+   model/thirring
 
 .. toctree::
    :maxdepth: 4
    :caption: Helper class
 
+   matrix_product_state
    operators
    linalg
-
-.. toctree::
-   :maxdepth: 4
-   :caption: API Reference
-
-   tnpy
 
 Indices and tables
 ==================
