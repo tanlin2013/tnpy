@@ -705,11 +705,11 @@ class TreeTensorNetworkMeasurements:
         """
         if not 0 <= site < self.tree.n_leaves - 1:
             raise ValueError(
-                "Parameter `site` for bi-partition has to be within " "the system size."
+                "Parameter `site` for bi-partition has to be within the system size."
             )
         if not 0 <= level_idx < self.tree.root.shape[2]:
             raise ValueError(
-                "Parameter `level_idx` has to be lower than truncation " "dimension."
+                "Parameter `level_idx` has to be lower than truncation dimension."
             )
         min_side, on_min_ket_surface, on_min_bra_surface = self._min_surface(site)
         to_site = site + 1 if min_side == 0 else site
