@@ -25,6 +25,19 @@ class RandomHeisenberg(Model1D):
 
         with :math:`h_{i} \in [-h, h)` are sampled uniformly.
 
+        If the penalty strength :math:`\lambda \neq 0`,
+        a penalty term will be taken into account
+
+        .. math::
+            H \rightarrow H + \lambda \left(\sum_{n=0}^{N-1} S_n^z - S_{target}\right)^2
+
+        If the offset :math:`\epsilon \neq 0`,
+        the Hamiltonian will be shifted by an amount
+
+        .. math::
+
+            H \rightarrow H - \epsilon
+
         Args:
             n: System size.
             h: Disorder strength.
