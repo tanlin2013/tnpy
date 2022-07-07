@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Dimer XXZ model &#8212; tnpy 0.1.1a3 documentation</title>
+    <title>Matrix Product State (MPS) &#8212; tnpy 0.1.1a3 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -35,8 +35,8 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="tnpy.model.DimerXXZ" href="_autosummary/tnpy.model.DimerXXZ.html" />
-    <link rel="prev" title="tnpy.model.XXZ" href="_autosummary/tnpy.model.XXZ.html" />
+    <link rel="next" title="tnpy.matrix_product_state.Direction" href="_autosummary/tnpy.matrix_product_state.Direction.html" />
+    <link rel="prev" title="tnpy.model.Thirring" href="model/_autosummary/tnpy.model.Thirring.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -90,11 +90,28 @@
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="finite_dmrg.html">
-   Finite Density Matrix Renormalization Group (fDMRG)
+  <a class="reference internal" href="exact_diagonalization.html">
+   Exact Diagonalization (ED)
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="_autosummary/tnpy.exact_diagonalization.ExactDiagonalization.html">
+     tnpy.exact_diagonalization.ExactDiagonalization
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="finite_dmrg.html">
+   Finite Density Matrix Renormalization Group (fDMRG)
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -104,14 +121,19 @@
      tnpy.finite_dmrg.FiniteDMRG
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="_autosummary/tnpy.finite_dmrg.ShiftInvertDMRG.html">
+     tnpy.finite_dmrg.ShiftInvertDMRG
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="finite_tdvp.html">
    Finite Time-dependent Variational Principle (fTDVP)
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -127,8 +149,8 @@
   <a class="reference internal" href="tsdrg.html">
    Tree Tensor Strong-disorder Renormalization Group (tSDRG)
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -139,7 +161,22 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="nb_tsdrg.html">
+    <a class="reference internal" href="_autosummary/tnpy.tsdrg.TreeTensorNetworkMeasurements.html">
+     tnpy.tsdrg.TreeTensorNetworkMeasurements
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="_autosummary/tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.html">
+     tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="_autosummary/tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG.html">
+     tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="notebooks/nb_tsdrg.html">
      🚀 Algorithm
     </a>
    </li>
@@ -151,49 +188,27 @@
   Built-in Models
  </span>
 </p>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="model_base.html">
-   Model Base
-  </a>
- </li>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="xxz.html">
-   XXZ model
+  <a class="reference internal" href="model/model_1d.html">
+   Model 1D
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="_autosummary/tnpy.model.XXZ.html">
-     tnpy.model.XXZ
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 current active has-children">
-  <a class="current reference internal" href="#">
-   Dimer XXZ model
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
   <label for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="_autosummary/tnpy.model.DimerXXZ.html">
-     tnpy.model.DimerXXZ
+    <a class="reference internal" href="model/_autosummary/tnpy.model.Model1D.html">
+     tnpy.model.Model1D
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="random_heisenberg.html">
-   Random Heisenberg model
+  <a class="reference internal" href="model/xxz.html">
+   XXZ model
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
   <label for="toctree-checkbox-6">
@@ -202,15 +217,15 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="_autosummary/tnpy.model.RandomHeisenberg.html">
-     tnpy.model.RandomHeisenberg
+    <a class="reference internal" href="model/_autosummary/tnpy.model.XXZ.html">
+     tnpy.model.XXZ
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="thirring.html">
-   Thirring model
+  <a class="reference internal" href="model/dimer_xxz.html">
+   Dimer XXZ model
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
   <label for="toctree-checkbox-7">
@@ -219,7 +234,41 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="_autosummary/tnpy.model.Thirring.html">
+    <a class="reference internal" href="model/_autosummary/tnpy.model.DimerXXZ.html">
+     tnpy.model.DimerXXZ
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="model/random_heisenberg.html">
+   Random Heisenberg model
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="model/_autosummary/tnpy.model.RandomHeisenberg.html">
+     tnpy.model.RandomHeisenberg
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="model/thirring.html">
+   Thirring model
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="model/_autosummary/tnpy.model.Thirring.html">
      tnpy.model.Thirring
     </a>
    </li>
@@ -231,20 +280,62 @@
   Helper class
  </span>
 </p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="operators.html">
-   Matrix Product Operator (MPO) &amp; others
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="#">
+   Matrix Product State (MPS)
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-  <label for="toctree-checkbox-8">
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
    <i class="fas fa-chevron-down">
    </i>
   </label>
   <ul>
    <li class="toctree-l2">
+    <a class="reference internal" href="_autosummary/tnpy.matrix_product_state.Direction.html">
+     tnpy.matrix_product_state.Direction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="_autosummary/tnpy.matrix_product_state.MatrixProductState.html">
+     tnpy.matrix_product_state.MatrixProductState
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="_autosummary/tnpy.matrix_product_state.Environment.html">
+     tnpy.matrix_product_state.Environment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="_autosummary/tnpy.matrix_product_state.MatrixProductStateMeasurements.html">
+     tnpy.matrix_product_state.MatrixProductStateMeasurements
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="operators.html">
+   Matrix Product Operator (MPO) &amp; others
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="_autosummary/tnpy.operators.MatrixProductOperator.html">
+     tnpy.operators.MatrixProductOperator
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="_autosummary/tnpy.operators.SpinOperators.html">
      tnpy.operators.SpinOperators
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="_autosummary/tnpy.operators.FullHamiltonian.html">
+     tnpy.operators.FullHamiltonian
     </a>
    </li>
   </ul>
@@ -253,8 +344,8 @@
   <a class="reference internal" href="linalg.html">
    Linear Algebra
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-  <label for="toctree-checkbox-9">
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -262,30 +353,6 @@
    <li class="toctree-l2">
     <a class="reference internal" href="_autosummary/tnpy.linalg.html">
      tnpy.linalg
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  API Reference
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="tnpy.html">
-   tnpy package
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-  <label for="toctree-checkbox-10">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="tnpy.model.html">
-     tnpy.model package
     </a>
    </li>
   </ul>
@@ -366,7 +433,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/tanlin2013/tnpy/issues/new?title=Issue%20on%20page%20%2Fdimer_xxz.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/tanlin2013/tnpy/issues/new?title=Issue%20on%20page%20%2Fmatrix_product_state.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -383,7 +450,7 @@ title="Open an issue"
       </li>
       
       <li>
-        <a href="https://github.com/tanlin2013/tnpy/edit/master/docs/dimer_xxz.rst"
+        <a href="https://github.com/tanlin2013/tnpy/edit/master/docs/matrix_product_state.rst"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -414,7 +481,7 @@ title="Edit this page"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Dimer XXZ model</h1>
+                <h1>Matrix Product State (MPS)</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -426,21 +493,25 @@ title="Edit this page"
                 
               <div>
                 
-  <section id="dimer-xxz-model">
-<h1>Dimer XXZ model<a class="headerlink" href="#dimer-xxz-model" title="Permalink to this headline">#</a></h1>
+  <section id="matrix-product-state-mps">
+<h1>Matrix Product State (MPS)<a class="headerlink" href="#matrix-product-state-mps" title="Permalink to this headline">#</a></h1>
 <table class="autosummary longtable table autosummary">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="tnpy.model.html#tnpy.model.DimerXXZ" title="tnpy.model.DimerXXZ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tnpy.model.DimerXXZ</span></code></a>(n, J, delta, h[, ...])</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">param n</dt>
-<dd class="field-odd"><p>System size.</p>
-</dd>
-</dl>
-</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/tnpy.matrix_product_state.Direction.html#tnpy.matrix_product_state.Direction" title="tnpy.matrix_product_state.Direction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tnpy.matrix_product_state.Direction</span></code></a>(value)</p></td>
+<td><p>Enumeration for specifying the direction (leftward or rightward).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tnpy.matrix_product_state.MatrixProductState</span></code></a>(...)</p></td>
+<td><p>Matrix product state (MPS) for a finite size system.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/tnpy.matrix_product_state.Environment.html#tnpy.matrix_product_state.Environment" title="tnpy.matrix_product_state.Environment"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tnpy.matrix_product_state.Environment</span></code></a>(mpo, mps)</p></td>
+<td><p>The effective environment for <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code>-based algorithms.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/tnpy.matrix_product_state.MatrixProductStateMeasurements.html#tnpy.matrix_product_state.MatrixProductStateMeasurements" title="tnpy.matrix_product_state.MatrixProductStateMeasurements"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tnpy.matrix_product_state.MatrixProductStateMeasurements</span></code></a>(mps)</p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -454,17 +525,17 @@ title="Edit this page"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="_autosummary/tnpy.model.XXZ.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="model/_autosummary/tnpy.model.Thirring.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">tnpy.model.XXZ</p>
+            <p class="prev-next-title">tnpy.model.Thirring</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="_autosummary/tnpy.model.DimerXXZ.html" title="next page">
+    <a class='right-next' id="next-link" href="_autosummary/tnpy.matrix_product_state.Direction.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">tnpy.model.DimerXXZ</p>
+        <p class="prev-next-title">tnpy.matrix_product_state.Direction</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

@@ -37,8 +37,6 @@
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="tnpy.model package" href="tnpy.model.html" />
-    <link rel="prev" title="tnpy.linalg" href="_autosummary/tnpy.linalg.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -92,11 +90,28 @@
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="finite_dmrg.html">
-   Finite Density Matrix Renormalization Group (fDMRG)
+  <a class="reference internal" href="exact_diagonalization.html">
+   Exact Diagonalization (ED)
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="_autosummary/tnpy.exact_diagonalization.ExactDiagonalization.html">
+     tnpy.exact_diagonalization.ExactDiagonalization
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="finite_dmrg.html">
+   Finite Density Matrix Renormalization Group (fDMRG)
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -106,14 +121,19 @@
      tnpy.finite_dmrg.FiniteDMRG
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="_autosummary/tnpy.finite_dmrg.ShiftInvertDMRG.html">
+     tnpy.finite_dmrg.ShiftInvertDMRG
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="finite_tdvp.html">
    Finite Time-dependent Variational Principle (fTDVP)
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -129,8 +149,8 @@
   <a class="reference internal" href="tsdrg.html">
    Tree Tensor Strong-disorder Renormalization Group (tSDRG)
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -141,7 +161,22 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="nb_tsdrg.html">
+    <a class="reference internal" href="_autosummary/tnpy.tsdrg.TreeTensorNetworkMeasurements.html">
+     tnpy.tsdrg.TreeTensorNetworkMeasurements
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="_autosummary/tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.html">
+     tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="_autosummary/tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG.html">
+     tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="notebooks/nb_tsdrg.html">
      🚀 Algorithm
     </a>
    </li>
@@ -154,31 +189,9 @@
  </span>
 </p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="model_base.html">
-   Model Base
-  </a>
- </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="xxz.html">
-   XXZ model
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="_autosummary/tnpy.model.XXZ.html">
-     tnpy.model.XXZ
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="dimer_xxz.html">
-   Dimer XXZ model
+  <a class="reference internal" href="model/model_1d.html">
+   Model 1D
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
   <label for="toctree-checkbox-5">
@@ -187,15 +200,15 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="_autosummary/tnpy.model.DimerXXZ.html">
-     tnpy.model.DimerXXZ
+    <a class="reference internal" href="model/_autosummary/tnpy.model.Model1D.html">
+     tnpy.model.Model1D
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="random_heisenberg.html">
-   Random Heisenberg model
+  <a class="reference internal" href="model/xxz.html">
+   XXZ model
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
   <label for="toctree-checkbox-6">
@@ -204,15 +217,15 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="_autosummary/tnpy.model.RandomHeisenberg.html">
-     tnpy.model.RandomHeisenberg
+    <a class="reference internal" href="model/_autosummary/tnpy.model.XXZ.html">
+     tnpy.model.XXZ
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="thirring.html">
-   Thirring model
+  <a class="reference internal" href="model/dimer_xxz.html">
+   Dimer XXZ model
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
   <label for="toctree-checkbox-7">
@@ -221,7 +234,41 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="_autosummary/tnpy.model.Thirring.html">
+    <a class="reference internal" href="model/_autosummary/tnpy.model.DimerXXZ.html">
+     tnpy.model.DimerXXZ
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="model/random_heisenberg.html">
+   Random Heisenberg model
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="model/_autosummary/tnpy.model.RandomHeisenberg.html">
+     tnpy.model.RandomHeisenberg
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="model/thirring.html">
+   Thirring model
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="model/_autosummary/tnpy.model.Thirring.html">
      tnpy.model.Thirring
     </a>
    </li>
@@ -235,18 +282,60 @@
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="operators.html">
-   Matrix Product Operator (MPO) &amp; others
+  <a class="reference internal" href="matrix_product_state.html">
+   Matrix Product State (MPS)
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-  <label for="toctree-checkbox-8">
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
    <i class="fas fa-chevron-down">
    </i>
   </label>
   <ul>
    <li class="toctree-l2">
+    <a class="reference internal" href="_autosummary/tnpy.matrix_product_state.Direction.html">
+     tnpy.matrix_product_state.Direction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="_autosummary/tnpy.matrix_product_state.MatrixProductState.html">
+     tnpy.matrix_product_state.MatrixProductState
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="_autosummary/tnpy.matrix_product_state.Environment.html">
+     tnpy.matrix_product_state.Environment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="_autosummary/tnpy.matrix_product_state.MatrixProductStateMeasurements.html">
+     tnpy.matrix_product_state.MatrixProductStateMeasurements
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="operators.html">
+   Matrix Product Operator (MPO) &amp; others
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="_autosummary/tnpy.operators.MatrixProductOperator.html">
+     tnpy.operators.MatrixProductOperator
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="_autosummary/tnpy.operators.SpinOperators.html">
      tnpy.operators.SpinOperators
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="_autosummary/tnpy.operators.FullHamiltonian.html">
+     tnpy.operators.FullHamiltonian
     </a>
    </li>
   </ul>
@@ -255,8 +344,8 @@
   <a class="reference internal" href="linalg.html">
    Linear Algebra
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-  <label for="toctree-checkbox-9">
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -264,30 +353,6 @@
    <li class="toctree-l2">
     <a class="reference internal" href="_autosummary/tnpy.linalg.html">
      tnpy.linalg
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  API Reference
- </span>
-</p>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
-  <a class="current reference internal" href="#">
-   tnpy package
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-  <label for="toctree-checkbox-10">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="tnpy.model.html">
-     tnpy.model package
     </a>
    </li>
   </ul>
@@ -574,7 +639,7 @@ title="Edit this page"
 <span id="tnpy-finite-dmrg-module"></span><h2>tnpy.finite_dmrg module<a class="headerlink" href="#module-tnpy.finite_dmrg" title="Permalink to this headline">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="tnpy.finite_dmrg.FiniteDMRG">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.finite_dmrg.</span></span><span class="sig-name descname"><span class="pre">FiniteDMRG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">bond_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">tnpy.matrix_product_state.MatrixProductState</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact_solver_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/finite_dmrg.html#FiniteDMRG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.finite_dmrg.</span></span><span class="sig-name descname"><span class="pre">FiniteDMRG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">bond_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><span class="pre">tnpy.matrix_product_state.MatrixProductState</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact_solver_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/finite_dmrg.html#FiniteDMRG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The Density Matrix Renormalization Group (DMRG) algorithm of a
 finite size system.</p>
@@ -605,12 +670,12 @@ from <a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.mps" title
 
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.finite_dmrg.FiniteDMRG.measurements">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">measurements</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tnpy.matrix_product_state.MatrixProductStateMeasurements</span></em><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.measurements" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">measurements</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="_autosummary/tnpy.matrix_product_state.MatrixProductStateMeasurements.html#tnpy.matrix_product_state.MatrixProductStateMeasurements" title="tnpy.matrix_product_state.MatrixProductStateMeasurements"><span class="pre">tnpy.matrix_product_state.MatrixProductStateMeasurements</span></a></em><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.measurements" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.finite_dmrg.FiniteDMRG.mps">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tnpy.matrix_product_state.MatrixProductState</span></em><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.mps" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><span class="pre">tnpy.matrix_product_state.MatrixProductState</span></a></em><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.mps" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
@@ -688,7 +753,7 @@ maximally allowed number of sweeps.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.finite_dmrg.FiniteDMRG.sweep">
-<span class="sig-name descname"><span class="pre">sweep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tnpy.matrix_product_state.Direction</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Direction.RIGHTWARD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/tnpy/finite_dmrg.html#FiniteDMRG.sweep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.sweep" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">sweep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="_autosummary/tnpy.matrix_product_state.Direction.html#tnpy.matrix_product_state.Direction" title="tnpy.matrix_product_state.Direction"><span class="pre">tnpy.matrix_product_state.Direction</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Direction.RIGHTWARD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/tnpy/finite_dmrg.html#FiniteDMRG.sweep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.sweep" title="Permalink to this definition">#</a></dt>
 <dd><p>Perform a single sweep on the given <code class="docutils literal notranslate"><span class="pre">direction</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -740,7 +805,7 @@ sweeping procedure.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="tnpy.finite_dmrg.ShiftInvertDMRG">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.finite_dmrg.</span></span><span class="sig-name descname"><span class="pre">ShiftInvertDMRG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">bond_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">tnpy.matrix_product_state.MatrixProductState</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact_solver_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/finite_dmrg.html#ShiftInvertDMRG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.ShiftInvertDMRG" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.finite_dmrg.</span></span><span class="sig-name descname"><span class="pre">ShiftInvertDMRG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">bond_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><span class="pre">tnpy.matrix_product_state.MatrixProductState</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact_solver_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/finite_dmrg.html#ShiftInvertDMRG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.ShiftInvertDMRG" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG" title="tnpy.finite_dmrg.FiniteDMRG"><code class="xref py py-class docutils literal notranslate"><span class="pre">tnpy.finite_dmrg.FiniteDMRG</span></code></a></p>
 <p>The DMRG algorithm for optimizing the shift-invert spectrum of
 a finite size system.</p>
@@ -758,7 +823,7 @@ a finite size system.</p>
 </dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.finite_dmrg.ShiftInvertDMRG.measurements">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">measurements</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tnpy.matrix_product_state.MatrixProductStateMeasurements</span></em><a class="headerlink" href="#tnpy.finite_dmrg.ShiftInvertDMRG.measurements" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">measurements</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="_autosummary/tnpy.matrix_product_state.MatrixProductStateMeasurements.html#tnpy.matrix_product_state.MatrixProductStateMeasurements" title="tnpy.matrix_product_state.MatrixProductStateMeasurements"><span class="pre">tnpy.matrix_product_state.MatrixProductStateMeasurements</span></a></em><a class="headerlink" href="#tnpy.finite_dmrg.ShiftInvertDMRG.measurements" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -778,7 +843,7 @@ a finite size system.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.finite_dmrg.ShiftInvertDMRG.restored_mps">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">restored_mps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tnpy.matrix_product_state.MatrixProductState</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tnpy.finite_dmrg.ShiftInvertDMRG.restored_mps" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">restored_mps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><span class="pre">tnpy.matrix_product_state.MatrixProductState</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tnpy.finite_dmrg.ShiftInvertDMRG.restored_mps" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -807,7 +872,7 @@ maximally allowed number of sweeps.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.finite_dmrg.ShiftInvertDMRG.sweep">
-<span class="sig-name descname"><span class="pre">sweep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tnpy.matrix_product_state.Direction</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Direction.RIGHTWARD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/tnpy/finite_dmrg.html#ShiftInvertDMRG.sweep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.ShiftInvertDMRG.sweep" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">sweep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="_autosummary/tnpy.matrix_product_state.Direction.html#tnpy.matrix_product_state.Direction" title="tnpy.matrix_product_state.Direction"><span class="pre">tnpy.matrix_product_state.Direction</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Direction.RIGHTWARD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/tnpy/finite_dmrg.html#ShiftInvertDMRG.sweep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.ShiftInvertDMRG.sweep" title="Permalink to this definition">#</a></dt>
 <dd><p>Perform a single sweep on the given <code class="docutils literal notranslate"><span class="pre">direction</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1006,6 +1071,18 @@ which equivalently merges two MPO layers into one.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.operators.</span></span><span class="sig-name descname"><span class="pre">SpinOperators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">InitVar</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tnpy/operators.html#SpinOperators"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.operators.SpinOperators" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Constructor of spin operators.</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}S^+ &amp;= \frac{1}{2}\left( S^x + iS^y \right) \\
+    &amp;= \frac{spin}{2} \times
+        \begin{pmatrix}
+            0 &amp; 1\\
+            0 &amp; 0
+        \end{pmatrix}\end{split}\\\begin{split}S^- &amp;= \frac{1}{2}\left( S^x - iS^y \right) \\
+    &amp;= \frac{spin}{2} \times
+        \begin{pmatrix}
+            0 &amp; 0\\
+            1 &amp; 0
+        \end{pmatrix}\end{split}\end{aligned}\end{align} \]</div>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="tnpy.operators.SpinOperators.Sp">
 <span class="sig-name descname"><span class="pre">Sp</span></span><a class="headerlink" href="#tnpy.operators.SpinOperators.Sp" title="Permalink to this definition">#</a></dt>
@@ -1680,20 +1757,6 @@ For measurements, please refer to
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="_autosummary/tnpy.linalg.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">tnpy.linalg</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="tnpy.model.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">tnpy.model package</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
 </div>
             </footer>
         </div>

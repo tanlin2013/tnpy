@@ -1,0 +1,182 @@
+﻿tnpy.matrix\_product\_state.MatrixProductState
+==============================================
+
+.. currentmodule:: tnpy.matrix_product_state
+
+.. autoclass:: MatrixProductState
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~MatrixProductState.__init__
+      ~MatrixProductState.add
+      ~MatrixProductState.add_MPS
+      ~MatrixProductState.add_tag
+      ~MatrixProductState.add_tensor
+      ~MatrixProductState.add_tensor_network
+      ~MatrixProductState.align
+      ~MatrixProductState.align_
+      ~MatrixProductState.all_inds
+      ~MatrixProductState.antidiag_gauge
+      ~MatrixProductState.antidiag_gauge_
+      ~MatrixProductState.apply_to_arrays
+      ~MatrixProductState.as_cyclic
+      ~MatrixProductState.aslinearoperator
+      ~MatrixProductState.astype
+      ~MatrixProductState.astype_
+      ~MatrixProductState.bipartite_schmidt_state
+      ~MatrixProductState.bond
+      ~MatrixProductState.bond_size
+      ~MatrixProductState.bond_sizes
+      ~MatrixProductState.calc_current_orthog_center
+      ~MatrixProductState.calc_nsites
+      ~MatrixProductState.calc_sites
+      ~MatrixProductState.canonize
+      ~MatrixProductState.canonize_cyclic
+      ~MatrixProductState.column_reduce
+      ~MatrixProductState.column_reduce_
+      ~MatrixProductState.compress
+      ~MatrixProductState.compress_all
+      ~MatrixProductState.compress_between
+      ~MatrixProductState.compress_site
+      ~MatrixProductState.conj
+      ~MatrixProductState.conj_
+      ~MatrixProductState.contract
+      ~MatrixProductState.contract_cumulative
+      ~MatrixProductState.contract_structured
+      ~MatrixProductState.contract_tags
+      ~MatrixProductState.contraction_width
+      ~MatrixProductState.convert_to_zero
+      ~MatrixProductState.copy
+      ~MatrixProductState.correlation
+      ~MatrixProductState.count_canonized
+      ~MatrixProductState.cut_between
+      ~MatrixProductState.cut_bond
+      ~MatrixProductState.cut_iter
+      ~MatrixProductState.delete
+      ~MatrixProductState.diagonal_reduce
+      ~MatrixProductState.diagonal_reduce_
+      ~MatrixProductState.drop_tags
+      ~MatrixProductState.enlarge_bond_dim
+      ~MatrixProductState.entropy
+      ~MatrixProductState.expand_bond_dimension
+      ~MatrixProductState.expec
+      ~MatrixProductState.flip
+      ~MatrixProductState.flip_
+      ~MatrixProductState.from_TN
+      ~MatrixProductState.from_TN_setup
+      ~MatrixProductState.from_dense
+      ~MatrixProductState.full_simplify
+      ~MatrixProductState.full_simplify_
+      ~MatrixProductState.fuse_multibonds
+      ~MatrixProductState.fuse_multibonds_
+      ~MatrixProductState.gate
+      ~MatrixProductState.gate_
+      ~MatrixProductState.gate_split
+      ~MatrixProductState.gate_split_
+      ~MatrixProductState.gate_with_auto_swap
+      ~MatrixProductState.graph
+      ~MatrixProductState.ind_size
+      ~MatrixProductState.ind_sizes
+      ~MatrixProductState.inner_inds
+      ~MatrixProductState.insert_gauge
+      ~MatrixProductState.insert_operator
+      ~MatrixProductState.iscomplex
+      ~MatrixProductState.isel
+      ~MatrixProductState.isel_
+      ~MatrixProductState.isreal
+      ~MatrixProductState.left_canonize
+      ~MatrixProductState.left_canonize_site
+      ~MatrixProductState.left_compress
+      ~MatrixProductState.left_compress_site
+      ~MatrixProductState.load
+      ~MatrixProductState.logneg_subsys
+      ~MatrixProductState.magnetization
+      ~MatrixProductState.max_bond
+      ~MatrixProductState.multiply
+      ~MatrixProductState.multiply_
+      ~MatrixProductState.multiply_each
+      ~MatrixProductState.multiply_each_
+      ~MatrixProductState.new_bond
+      ~MatrixProductState.normalize
+      ~MatrixProductState.outer_dims_inds
+      ~MatrixProductState.outer_inds
+      ~MatrixProductState.partial_trace
+      ~MatrixProductState.partial_trace_compress
+      ~MatrixProductState.partition
+      ~MatrixProductState.partition_tensors
+      ~MatrixProductState.permute_arrays
+      ~MatrixProductState.ptr
+      ~MatrixProductState.random
+      ~MatrixProductState.randomize
+      ~MatrixProductState.randomize_
+      ~MatrixProductState.rank_simplify
+      ~MatrixProductState.rank_simplify_
+      ~MatrixProductState.regex_for_calc_sites_cached
+      ~MatrixProductState.reindex
+      ~MatrixProductState.reindex_
+      ~MatrixProductState.reindex_sites
+      ~MatrixProductState.replace_section_with_svd
+      ~MatrixProductState.replace_with_identity
+      ~MatrixProductState.replace_with_svd
+      ~MatrixProductState.retag
+      ~MatrixProductState.retag_
+      ~MatrixProductState.right_canonize
+      ~MatrixProductState.right_canonize_site
+      ~MatrixProductState.right_compress
+      ~MatrixProductState.right_compress_site
+      ~MatrixProductState.save
+      ~MatrixProductState.schmidt_gap
+      ~MatrixProductState.schmidt_values
+      ~MatrixProductState.select
+      ~MatrixProductState.select_neighbors
+      ~MatrixProductState.select_tensors
+      ~MatrixProductState.shift_orthogonality_center
+      ~MatrixProductState.show
+      ~MatrixProductState.singular_values
+      ~MatrixProductState.site_ind
+      ~MatrixProductState.site_tag
+      ~MatrixProductState.sites2tags
+      ~MatrixProductState.slice2sites
+      ~MatrixProductState.split_tensor
+      ~MatrixProductState.squeeze
+      ~MatrixProductState.squeeze_
+      ~MatrixProductState.swap_site_to
+      ~MatrixProductState.swap_sites_with_compress
+      ~MatrixProductState.tensors_sorted
+      ~MatrixProductState.to_dense
+      ~MatrixProductState.trace
+      ~MatrixProductState.unitize
+      ~MatrixProductState.unitize_
+      ~MatrixProductState.view_as
+      ~MatrixProductState.view_as_
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~MatrixProductState.H
+      ~MatrixProductState.bond_dim
+      ~MatrixProductState.dtype
+      ~MatrixProductState.n_sites
+      ~MatrixProductState.num_indices
+      ~MatrixProductState.num_tensors
+      ~MatrixProductState.phys_dim
+      ~MatrixProductState.shape
+      ~MatrixProductState.site_ind_id
+      ~MatrixProductState.site_inds
+      ~MatrixProductState.site_tag_id
+      ~MatrixProductState.site_tags
+      ~MatrixProductState.tags
+      ~MatrixProductState.tensors
+   
+   

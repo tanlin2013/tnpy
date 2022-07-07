@@ -1,0 +1,165 @@
+﻿tnpy.operators.MatrixProductOperator
+====================================
+
+.. currentmodule:: tnpy.operators
+
+.. autoclass:: MatrixProductOperator
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~MatrixProductOperator.__init__
+      ~MatrixProductOperator.add
+      ~MatrixProductOperator.add_MPO
+      ~MatrixProductOperator.add_tag
+      ~MatrixProductOperator.add_tensor
+      ~MatrixProductOperator.add_tensor_network
+      ~MatrixProductOperator.align
+      ~MatrixProductOperator.align_
+      ~MatrixProductOperator.all_inds
+      ~MatrixProductOperator.antidiag_gauge
+      ~MatrixProductOperator.antidiag_gauge_
+      ~MatrixProductOperator.apply
+      ~MatrixProductOperator.apply_to_arrays
+      ~MatrixProductOperator.as_cyclic
+      ~MatrixProductOperator.aslinearoperator
+      ~MatrixProductOperator.astype
+      ~MatrixProductOperator.astype_
+      ~MatrixProductOperator.bond
+      ~MatrixProductOperator.bond_size
+      ~MatrixProductOperator.bond_sizes
+      ~MatrixProductOperator.calc_current_orthog_center
+      ~MatrixProductOperator.calc_nsites
+      ~MatrixProductOperator.calc_sites
+      ~MatrixProductOperator.canonize
+      ~MatrixProductOperator.canonize_cyclic
+      ~MatrixProductOperator.column_reduce
+      ~MatrixProductOperator.column_reduce_
+      ~MatrixProductOperator.compress
+      ~MatrixProductOperator.compress_all
+      ~MatrixProductOperator.compress_between
+      ~MatrixProductOperator.compress_site
+      ~MatrixProductOperator.conj
+      ~MatrixProductOperator.conj_
+      ~MatrixProductOperator.contract
+      ~MatrixProductOperator.contract_cumulative
+      ~MatrixProductOperator.contract_structured
+      ~MatrixProductOperator.contract_tags
+      ~MatrixProductOperator.contraction_width
+      ~MatrixProductOperator.convert_to_zero
+      ~MatrixProductOperator.copy
+      ~MatrixProductOperator.count_canonized
+      ~MatrixProductOperator.cut_between
+      ~MatrixProductOperator.cut_bond
+      ~MatrixProductOperator.cut_iter
+      ~MatrixProductOperator.delete
+      ~MatrixProductOperator.diagonal_reduce
+      ~MatrixProductOperator.diagonal_reduce_
+      ~MatrixProductOperator.dot
+      ~MatrixProductOperator.drop_tags
+      ~MatrixProductOperator.expand_bond_dimension
+      ~MatrixProductOperator.flip
+      ~MatrixProductOperator.flip_
+      ~MatrixProductOperator.from_TN
+      ~MatrixProductOperator.from_TN_setup
+      ~MatrixProductOperator.full_simplify
+      ~MatrixProductOperator.full_simplify_
+      ~MatrixProductOperator.fuse_multibonds
+      ~MatrixProductOperator.fuse_multibonds_
+      ~MatrixProductOperator.graph
+      ~MatrixProductOperator.identity
+      ~MatrixProductOperator.ind_size
+      ~MatrixProductOperator.ind_sizes
+      ~MatrixProductOperator.inner_inds
+      ~MatrixProductOperator.insert_gauge
+      ~MatrixProductOperator.insert_operator
+      ~MatrixProductOperator.iscomplex
+      ~MatrixProductOperator.isel
+      ~MatrixProductOperator.isel_
+      ~MatrixProductOperator.isreal
+      ~MatrixProductOperator.left_canonize
+      ~MatrixProductOperator.left_canonize_site
+      ~MatrixProductOperator.left_compress
+      ~MatrixProductOperator.left_compress_site
+      ~MatrixProductOperator.lower_ind
+      ~MatrixProductOperator.max_bond
+      ~MatrixProductOperator.multiply
+      ~MatrixProductOperator.multiply_
+      ~MatrixProductOperator.multiply_each
+      ~MatrixProductOperator.multiply_each_
+      ~MatrixProductOperator.new_bond
+      ~MatrixProductOperator.outer_dims_inds
+      ~MatrixProductOperator.outer_inds
+      ~MatrixProductOperator.partial_transpose
+      ~MatrixProductOperator.partition
+      ~MatrixProductOperator.partition_tensors
+      ~MatrixProductOperator.rand_state
+      ~MatrixProductOperator.randomize
+      ~MatrixProductOperator.randomize_
+      ~MatrixProductOperator.rank_simplify
+      ~MatrixProductOperator.rank_simplify_
+      ~MatrixProductOperator.regex_for_calc_sites_cached
+      ~MatrixProductOperator.reindex
+      ~MatrixProductOperator.reindex_
+      ~MatrixProductOperator.reindex_lower_sites
+      ~MatrixProductOperator.reindex_upper_sites
+      ~MatrixProductOperator.replace_section_with_svd
+      ~MatrixProductOperator.replace_with_identity
+      ~MatrixProductOperator.replace_with_svd
+      ~MatrixProductOperator.retag
+      ~MatrixProductOperator.retag_
+      ~MatrixProductOperator.right_canonize
+      ~MatrixProductOperator.right_canonize_site
+      ~MatrixProductOperator.right_compress
+      ~MatrixProductOperator.right_compress_site
+      ~MatrixProductOperator.select
+      ~MatrixProductOperator.select_neighbors
+      ~MatrixProductOperator.select_tensors
+      ~MatrixProductOperator.shift_orthogonality_center
+      ~MatrixProductOperator.show
+      ~MatrixProductOperator.singular_values
+      ~MatrixProductOperator.site_tag
+      ~MatrixProductOperator.sites2tags
+      ~MatrixProductOperator.slice2sites
+      ~MatrixProductOperator.square
+      ~MatrixProductOperator.squeeze
+      ~MatrixProductOperator.squeeze_
+      ~MatrixProductOperator.tensors_sorted
+      ~MatrixProductOperator.to_dense
+      ~MatrixProductOperator.trace
+      ~MatrixProductOperator.unitize
+      ~MatrixProductOperator.unitize_
+      ~MatrixProductOperator.upper_ind
+      ~MatrixProductOperator.view_as
+      ~MatrixProductOperator.view_as_
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~MatrixProductOperator.H
+      ~MatrixProductOperator.dtype
+      ~MatrixProductOperator.lower_ind_id
+      ~MatrixProductOperator.lower_inds
+      ~MatrixProductOperator.n_sites
+      ~MatrixProductOperator.num_indices
+      ~MatrixProductOperator.num_tensors
+      ~MatrixProductOperator.phys_dim
+      ~MatrixProductOperator.shape
+      ~MatrixProductOperator.site_tag_id
+      ~MatrixProductOperator.site_tags
+      ~MatrixProductOperator.tags
+      ~MatrixProductOperator.tensors
+      ~MatrixProductOperator.upper_ind_id
+      ~MatrixProductOperator.upper_inds
+   
+   

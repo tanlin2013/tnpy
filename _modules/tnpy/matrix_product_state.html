@@ -1,0 +1,979 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tnpy.matrix_product_state &#8212; tnpy 0.1.1a3 documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">tnpy 0.1.1a3 documentation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Algorithms
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../exact_diagonalization.html">
+   Exact Diagonalization (ED)
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.exact_diagonalization.ExactDiagonalization.html">
+     tnpy.exact_diagonalization.ExactDiagonalization
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../finite_dmrg.html">
+   Finite Density Matrix Renormalization Group (fDMRG)
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.finite_dmrg.FiniteDMRG.html">
+     tnpy.finite_dmrg.FiniteDMRG
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.finite_dmrg.ShiftInvertDMRG.html">
+     tnpy.finite_dmrg.ShiftInvertDMRG
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../finite_tdvp.html">
+   Finite Time-dependent Variational Principle (fTDVP)
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.finite_tdvp.FiniteTDVP.html">
+     tnpy.finite_tdvp.FiniteTDVP
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../tsdrg.html">
+   Tree Tensor Strong-disorder Renormalization Group (tSDRG)
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.tsdrg.TensorTree.html">
+     tnpy.tsdrg.TensorTree
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.tsdrg.TreeTensorNetworkMeasurements.html">
+     tnpy.tsdrg.TreeTensorNetworkMeasurements
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.html">
+     tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG.html">
+     tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../notebooks/nb_tsdrg.html">
+     🚀 Algorithm
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Built-in Models
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../model/model_1d.html">
+   Model 1D
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../model/_autosummary/tnpy.model.Model1D.html">
+     tnpy.model.Model1D
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../model/xxz.html">
+   XXZ model
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../model/_autosummary/tnpy.model.XXZ.html">
+     tnpy.model.XXZ
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../model/dimer_xxz.html">
+   Dimer XXZ model
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../model/_autosummary/tnpy.model.DimerXXZ.html">
+     tnpy.model.DimerXXZ
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../model/random_heisenberg.html">
+   Random Heisenberg model
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../model/_autosummary/tnpy.model.RandomHeisenberg.html">
+     tnpy.model.RandomHeisenberg
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../model/thirring.html">
+   Thirring model
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../model/_autosummary/tnpy.model.Thirring.html">
+     tnpy.model.Thirring
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Helper class
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../matrix_product_state.html">
+   Matrix Product State (MPS)
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.matrix_product_state.Direction.html">
+     tnpy.matrix_product_state.Direction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html">
+     tnpy.matrix_product_state.MatrixProductState
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.matrix_product_state.Environment.html">
+     tnpy.matrix_product_state.Environment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductStateMeasurements.html">
+     tnpy.matrix_product_state.MatrixProductStateMeasurements
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../operators.html">
+   Matrix Product Operator (MPO) &amp; others
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html">
+     tnpy.operators.MatrixProductOperator
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.operators.SpinOperators.html">
+     tnpy.operators.SpinOperators
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.operators.FullHamiltonian.html">
+     tnpy.operators.FullHamiltonian
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../linalg.html">
+   Linear Algebra
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.linalg.html">
+     tnpy.linalg
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/tanlin2013/tnpy"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/tanlin2013/tnpy/issues/new?title=Issue%20on%20page%20%2F_modules/tnpy/matrix_product_state.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for tnpy.matrix_product_state</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
+
+<span class="kn">import</span> <span class="nn">h5py</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">quimb.tensor</span> <span class="k">as</span> <span class="nn">qtn</span>
+<span class="kn">from</span> <span class="nn">tensornetwork</span> <span class="kn">import</span> <span class="n">Node</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="kn">from</span> <span class="nn">tnpy</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">tnpy.linalg</span> <span class="kn">import</span> <span class="n">svd</span><span class="p">,</span> <span class="n">LinearOperator</span>
+<span class="kn">from</span> <span class="nn">tnpy.operators</span> <span class="kn">import</span> <span class="n">MatrixProductOperator</span>
+
+
+<div class="viewcode-block" id="Direction"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.Direction.html#tnpy.matrix_product_state.Direction">[docs]</a><span class="k">class</span> <span class="nc">Direction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Enumeration for specifying the direction (leftward or rightward).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">RIGHTWARD</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">LEFTWARD</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="MatrixProductState"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState">[docs]</a><span class="k">class</span> <span class="nc">MatrixProductState</span><span class="p">(</span><span class="n">qtn</span><span class="o">.</span><span class="n">MatrixProductState</span><span class="p">):</span>
+<div class="viewcode-block" id="MatrixProductState.__init__"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Matrix product state (MPS) for a finite size system.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            *args: Positional arguments for :class:`qtn.MatrixProductState`.</span>
+<span class="sd">            **kwargs: Keyword arguments for :class:`qtn.MatrixProductState`.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            This class inherits directly from :class:`qtn.MatrixProductState`,</span>
+<span class="sd">            with some added features.</span>
+<span class="sd">            But, note that the underlying tensors are in the shape &#39;lpr&#39;,</span>
+<span class="sd">            which differs from the parent class :class:`qtn.MatrixProductState`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">permute_arrays</span><span class="p">(</span><span class="s2">&quot;lpr&quot;</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">n_sites</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nsites</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">phys_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Physical dimensions of local state.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">bond_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The bond dimensions.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">            The actual bond dimensions can be smaller</span>
+<span class="sd">            than this one at the boundaries.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_bond</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">qtn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">tensor</span><span class="p">,)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">select_tensors</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">site_tag</span><span class="p">(</span><span class="n">site</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">tensor</span>
+
+    <span class="k">def</span> <span class="nf">permute_arrays</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;lrp&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Permute the indices of each tensor in this MPS to match ``shape``.</span>
+<span class="sd">        This doesn&#39;t change how the overall object interacts with other tensor</span>
+<span class="sd">        networks but may be useful for extracting the underlying arrays</span>
+<span class="sd">        consistently. This is an inplace operation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            shape: A permutation of ``&#39;lrp&#39;`` specifying the desired order of</span>
+<span class="sd">                the left, right, and physical indices respectively.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sites</span><span class="p">:</span>
+            <span class="n">inds</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;p&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_ind</span><span class="p">(</span><span class="n">i</span><span class="p">)}</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cyclic</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">inds</span><span class="p">[</span><span class="s2">&quot;l&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bond</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cyclic</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">inds</span><span class="p">[</span><span class="s2">&quot;r&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bond</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span><span class="p">)</span>
+            <span class="n">inds</span> <span class="o">=</span> <span class="p">[</span><span class="n">inds</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">shape</span> <span class="k">if</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">inds</span><span class="p">]</span>
+            <span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">transpose_</span><span class="p">(</span><span class="o">*</span><span class="n">inds</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">conj</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">mangle_inner</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">mangle_outer</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatrixProductState</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a conjugated copy of this :class:`~MatrixProductState` instance.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            mangle_inner: Whether to rename the inner indices,</span>
+<span class="sd">                so that there will be no conflict with the original one</span>
+<span class="sd">                when contracting the network.</span>
+<span class="sd">            mangle_outer: Whether to rename the outer indices,</span>
+<span class="sd">                so that there will be no conflict with the original one</span>
+<span class="sd">                when contracting the network.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            conj_mps:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">mps</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">mangle_inner</span><span class="p">:</span>
+            <span class="n">mps</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span>
+                <span class="p">{</span><span class="n">ind</span><span class="p">:</span> <span class="n">qtn</span><span class="o">.</span><span class="n">rand_uuid</span><span class="p">()</span> <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">mps</span><span class="o">.</span><span class="n">inner_inds</span><span class="p">()},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">mangle_outer</span><span class="p">:</span>
+            <span class="n">mps</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span>
+                <span class="p">{</span><span class="n">ind</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^k(\d+)&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;b\1&quot;</span><span class="p">,</span> <span class="n">ind</span><span class="p">)</span> <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">mps</span><span class="o">.</span><span class="n">outer_inds</span><span class="p">()},</span>
+                <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">mps</span>
+
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save the underlying tensors of this :class:`~MatrixProductState`</span>
+<span class="sd">        in the order of indices ``&#39;lpr&#39;`` into file.</span>
+<span class="sd">        Only accepts suffix ``&#39;.hdf5&#39;`` or ``&#39;.npz&#39;`` as file extension.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            filename: Absolute path to file in local disk.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># @TODO: solve ordering issue</span>
+        <span class="n">tensor_datasets</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">site_tag</span><span class="p">(</span><span class="n">site</span><span class="p">):</span> <span class="bp">self</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nsites</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="n">filepath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">extension</span> <span class="o">=</span> <span class="n">filepath</span><span class="o">.</span><span class="n">suffix</span>
+        <span class="k">if</span> <span class="n">extension</span> <span class="o">==</span> <span class="s2">&quot;.hdf5&quot;</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">filepath</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">array</span> <span class="ow">in</span> <span class="n">tensor_datasets</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">array</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">extension</span> <span class="o">==</span> <span class="s2">&quot;.npz&quot;</span><span class="p">:</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">savez</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">filepath</span><span class="p">),</span> <span class="o">**</span><span class="n">tensor_datasets</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File extension </span><span class="si">{</span><span class="n">extension</span><span class="si">}</span><span class="s2"> is not supported.&quot;</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatrixProductState</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the underlying tensors of :class:`~MatrixProductState`</span>
+<span class="sd">        from a file. Tensors in the file should take the order of indices</span>
+<span class="sd">        ``&#39;lpr&#39;``. Only accepts suffix ``&#39;.hdf5&#39;`` or ``&#39;.npz&#39;`` as</span>
+<span class="sd">        file extension.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            filename: Absolute path to file in local disk.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            mps:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># @TODO: solve ordering issue</span>
+        <span class="n">filepath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">extension</span> <span class="o">=</span> <span class="n">filepath</span><span class="o">.</span><span class="n">suffix</span>
+        <span class="k">if</span> <span class="n">extension</span> <span class="o">==</span> <span class="s2">&quot;.hdf5&quot;</span><span class="p">:</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">filepath</span><span class="p">),</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="p">([</span><span class="n">array</span><span class="p">[()]</span> <span class="k">for</span> <span class="n">array</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+        <span class="k">elif</span> <span class="n">extension</span> <span class="o">==</span> <span class="s2">&quot;.npz&quot;</span><span class="p">:</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File extension </span><span class="si">{</span><span class="n">extension</span><span class="si">}</span><span class="s2"> is not supported.&quot;</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">random</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">bond_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">phys_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatrixProductState</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a randomly initialized :class:`~MatrixProductState`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            n: The system size.</span>
+<span class="sd">            bond_dim: The bond dimensions.</span>
+<span class="sd">            phys_dim: Physical dimensions of local state.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rand_mps</span> <span class="o">=</span> <span class="n">qtn</span><span class="o">.</span><span class="n">MPS_rand_state</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">bond_dim</span><span class="o">=</span><span class="n">bond_dim</span><span class="p">,</span> <span class="n">phys_dim</span><span class="o">=</span><span class="n">phys_dim</span><span class="p">)</span>
+        <span class="n">rand_mps</span><span class="o">.</span><span class="n">compress</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">([</span><span class="n">tensor</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="n">rand_mps</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">split_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Split the tensor at given ``site`` into two tensors,</span>
+<span class="sd">        and multiply the one on left or right ``direction`` into its</span>
+<span class="sd">        neighbouring tensor. This is an inplace operation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            site:</span>
+<span class="sd">            direction:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">direction</span><span class="o">.</span><span class="n">RIGHTWARD</span><span class="p">:</span>
+            <span class="n">psi</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+                <span class="k">if</span> <span class="n">site</span> <span class="o">==</span> <span class="mi">0</span>
+                <span class="k">else</span> <span class="bp">self</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">phys_dim</span> <span class="o">*</span> <span class="bp">self</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">vt</span> <span class="o">=</span> <span class="n">svd</span><span class="p">(</span><span class="n">psi</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="bp">self</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="bp">self</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">modify</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+            <span class="n">residual</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diagflat</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">@</span> <span class="n">vt</span><span class="p">)</span>
+            <span class="n">neighbour</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">residual</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">neighbour</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">modify</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">(</span><span class="n">residual</span> <span class="o">@</span> <span class="n">neighbour</span><span class="p">)</span><span class="o">.</span><span class="n">tensor</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">direction</span><span class="o">.</span><span class="n">LEFTWARD</span><span class="p">:</span>
+            <span class="n">psi</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+                <span class="k">if</span> <span class="n">site</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="k">else</span> <span class="bp">self</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">phys_dim</span> <span class="o">*</span> <span class="bp">self</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="p">)</span>
+            <span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">vt</span> <span class="o">=</span> <span class="n">svd</span><span class="p">(</span><span class="n">psi</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="bp">self</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">modify</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">vt</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+            <span class="n">residual</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">u</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">diagflat</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+            <span class="n">neighbour</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">site</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">neighbour</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">residual</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="p">[</span><span class="n">site</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">modify</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">(</span><span class="n">neighbour</span> <span class="o">@</span> <span class="n">residual</span><span class="p">)</span><span class="o">.</span><span class="n">tensor</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;MatrixProductState only supplies left or right direction.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">enlarge_bond_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_bond_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">NotImplemented</span></div>
+
+
+<div class="viewcode-block" id="Environment"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.Environment.html#tnpy.matrix_product_state.Environment">[docs]</a><span class="k">class</span> <span class="nc">Environment</span><span class="p">:</span>
+<div class="viewcode-block" id="Environment.__init__"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.Environment.html#tnpy.matrix_product_state.Environment.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mpo</span><span class="p">:</span> <span class="n">MatrixProductOperator</span><span class="p">,</span> <span class="n">mps</span><span class="p">:</span> <span class="n">MatrixProductState</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The effective environment for :class:`~MatrixProductState`-based</span>
+<span class="sd">        algorithms.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            mpo: Input :class:`~MatrixProductOperator`.</span>
+<span class="sd">            mps: Input :class:`~MatrixProductState`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mpo</span> <span class="o">=</span> <span class="n">mpo</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span> <span class="o">=</span> <span class="n">mps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_conj_mps</span> <span class="o">=</span> <span class="n">mps</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">mangle_inner</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mangle_outer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n_sites</span> <span class="o">=</span> <span class="n">mpo</span><span class="o">.</span><span class="n">nsites</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_right</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span><span class="p">),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Initializing left environments&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_left</span><span class="p">(</span><span class="n">site</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span>
+            <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Initializing right environments&quot;</span>
+        <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_right</span><span class="p">(</span><span class="n">site</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete the underlying data of left and right environments.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Deleting left and right environments.&quot;</span><span class="p">)</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_right</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mpo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatrixProductOperator</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mpo</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mps</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatrixProductState</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">n_sites</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_sites</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">left</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">qtn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a dictionary where left environments are stored on the respective</span>
+<span class="sd">        site.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_left</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">right</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">qtn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a dictionary where right environments are stored on the respective</span>
+<span class="sd">        site.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_right</span>
+
+    <span class="k">def</span> <span class="nf">update_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the left environment at ``site``.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            site:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">site</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">tn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="p">[</span><span class="n">site</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mpo</span><span class="p">[</span><span class="n">site</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conj_mps</span><span class="p">[</span><span class="n">site</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tn</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_left</span><span class="p">[</span><span class="n">site</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="p">[</span><span class="n">site</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mpo</span><span class="p">[</span><span class="n">site</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conj_mps</span><span class="p">[</span><span class="n">site</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_left</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">=</span> <span class="n">tn</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">update_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the right environment at ``site``.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            site:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">site</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span> <span class="o">-</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">tn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mpo</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conj_mps</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tn</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_right</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mpo</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conj_mps</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_right</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">=</span> <span class="n">tn</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Alias to :func:`~Environment.update_left` or</span>
+<span class="sd">        :func:`~Environment.update_right` depending on the given ``direction``.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            site:</span>
+<span class="sd">            direction:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">Direction</span><span class="o">.</span><span class="n">RIGHTWARD</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_left</span><span class="p">(</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">Direction</span><span class="o">.</span><span class="n">LEFTWARD</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_right</span><span class="p">(</span><span class="n">site</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">update_mps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">modify</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_conj_mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">modify</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">split_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="o">.</span><span class="n">split_tensor</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">direction</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_conj_mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">modify</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">direction</span><span class="o">.</span><span class="n">LEFTWARD</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_conj_mps</span><span class="p">[</span><span class="n">site</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">modify</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="p">[</span><span class="n">site</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">direction</span><span class="o">.</span><span class="n">RIGHTWARD</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_conj_mps</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">modify</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">variance</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="n">tn1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">square</span><span class="p">()</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conj_mps</span>
+        <span class="n">tn2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conj_mps</span>
+        <span class="k">return</span> <span class="n">tn1</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span> <span class="o">-</span> <span class="n">tn2</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span> <span class="o">**</span> <span class="mi">2</span>
+
+    <span class="k">def</span> <span class="nf">one_site_full_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct the effective matrix for variational solver,</span>
+<span class="sd">        with one site remained un-contracted.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            site:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">site</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">tn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">[</span><span class="n">site</span><span class="p">]</span>
+            <span class="n">fuse_map</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;k&quot;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+                <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
+            <span class="p">}</span>
+        <span class="k">elif</span> <span class="n">site</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">tn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">[</span><span class="n">site</span><span class="p">]</span>
+            <span class="n">fuse_map</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;k&quot;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]],</span>
+                <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
+            <span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">[</span><span class="n">site</span><span class="p">]</span>
+            <span class="n">fuse_map</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;k&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="p">],</span>
+                <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                <span class="p">],</span>
+            <span class="p">}</span>
+        <span class="k">return</span> <span class="n">tn</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span><span class="o">.</span><span class="n">fuse</span><span class="p">(</span><span class="n">fuse_map</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
+
+    <span class="k">def</span> <span class="nf">one_site_matvec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LinearOperator</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct the effective linear operator (matrix-vector product) for</span>
+<span class="sd">        variational solver, with one site remained un-contracted.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            site:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">matvec</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+            <span class="n">vec</span> <span class="o">=</span> <span class="n">qtn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="n">inds</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">site</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">tn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">vec</span>
+                <span class="n">output_inds</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+            <span class="k">elif</span> <span class="n">site</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">tn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">vec</span>
+                <span class="n">output_inds</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">vec</span>
+                <span class="n">output_inds</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                <span class="p">]</span>
+            <span class="k">return</span> <span class="n">tn</span><span class="o">.</span><span class="n">contract</span><span class="p">(</span><span class="n">output_inds</span><span class="o">=</span><span class="n">output_inds</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">LinearOperator</span><span class="p">(</span>
+            <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">),</span> <span class="n">matvec</span><span class="o">=</span><span class="n">matvec</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MatrixProductStateMeasurements"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductStateMeasurements.html#tnpy.matrix_product_state.MatrixProductStateMeasurements">[docs]</a><span class="k">class</span> <span class="nc">MatrixProductStateMeasurements</span><span class="p">:</span>
+<div class="viewcode-block" id="MatrixProductStateMeasurements.__init__"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductStateMeasurements.html#tnpy.matrix_product_state.MatrixProductStateMeasurements.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mps</span><span class="p">:</span> <span class="n">MatrixProductState</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span> <span class="o">=</span> <span class="n">mps</span></div>
+
+    <span class="k">def</span> <span class="nf">expectation_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mpo</span><span class="p">:</span> <span class="n">MatrixProductOperator</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="n">tn</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">mangle_inner</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span>
+            <span class="k">if</span> <span class="n">mpo</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">mangle_inner</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mangle_outer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">mpo</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">tn</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span></div>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Tan Tao-Lin<br/>
+  
+      &copy; Copyright 2021, Tan Tao-Lin.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
