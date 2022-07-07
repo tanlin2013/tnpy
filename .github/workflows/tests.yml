@@ -59,4 +59,5 @@ jobs:
           --install-types \
           --non-interactive \
           --ignore-missing-imports \
+          --no-strict-optional \
           tnpy
