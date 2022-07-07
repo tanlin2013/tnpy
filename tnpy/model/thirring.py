@@ -9,7 +9,22 @@ class Thirring(Model1D):
     def __init__(
         self, n: int, delta: float, ma: float, penalty: float, s_target: int
     ) -> None:
-        """
+        r"""
+        The Hamiltonian
+
+        .. math::
+
+            H = -\frac{1}{2} \sum_{n=0}^{N-1}(S_n^+ S_{n+1}^- + S_{n+1}^+ S_n^-)
+                + \tilde{m}_0 a \sum_{n=0}^{N-1} (-1)^n \left(S_n^z + \frac{1}{2}\right)
+                + \Delta(g) \sum_{n=0}^{N-1} \left(S_n^z + \frac{1}{2}\right)
+                                            \left(S_{n+1}^z + \frac{1}{2}\right)
+
+        If the penalty strength :math:`\lambda \neq 0`,
+        a penalty term will be taken into account
+
+        .. math::
+            H \rightarrow H + \lambda \left(\sum_{n=0}^{N-1} S_n^z - S_{target}\right)^2
+
 
         Args:
             n: System size.
@@ -32,7 +47,7 @@ class Thirring(Model1D):
         beta = (
             self.delta + ((-1.0) ** site * self.ma) - 2.0 * self.penalty * self.s_target
         )
-        gamma = self.penalty * (0.25 + self.s_target ** 2 / self.n) + 0.25 * self.delta
+        gamma = self.penalty * (0.25 + self.s_target**2 / self.n) + 0.25 * self.delta
 
         return np.array(
             [
