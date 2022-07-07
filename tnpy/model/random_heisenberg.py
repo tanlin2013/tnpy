@@ -16,7 +16,15 @@ class RandomHeisenberg(Model1D):
         trial_id: str = None,
         seed: int = None,
     ):
-        """
+        r"""
+        The Hamiltonian
+
+        .. math::
+
+            H = \sum_{i=0}^{N-1} \mathbf{S}_i\cdot\mathbf{S}_{i+1} + h_i S_i^z
+
+        with :math:`h_{i} \in [-h, h)` are sampled uniformly.
+
         Args:
             n: System size.
             h: Disorder strength.
