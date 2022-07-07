@@ -12,16 +12,17 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../..'))
-sys.path.insert(0, os.path.abspath('../../tnpy'))
-from tnpy import __version__
+
+sys.path.insert(0, os.path.abspath("../.."))
+sys.path.insert(0, os.path.abspath("../../tnpy"))
+from tnpy import __version__  # noqa: E402
 
 
 # -- Project information -----------------------------------------------------
 
-project = 'tnpy'
-copyright = '2021, Tan Tao-Lin'
-author = 'Tan Tao-Lin'
+project = "tnpy"
+copyright = "2021, Tan Tao-Lin"
+author = "Tan Tao-Lin"
 
 # The short X.Y version
 version = __version__
@@ -34,20 +35,20 @@ release = __version__
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.autosummary',
-    'sphinx.ext.napoleon',
-    'nbsphinx',
-    'sphinx.ext.mathjax',
-    'sphinx.ext.intersphinx',
-    'sphinx.ext.doctest',
-    'sphinx.ext.todo',
-    'sphinx.ext.coverage',
-    'sphinx.ext.ifconfig',
-    'sphinx.ext.viewcode',
-    'sphinx.ext.githubpages',
-    'sphinx.ext.inheritance_diagram',
-    'm2r2',
+    "sphinx.ext.autodoc",
+    "sphinx.ext.autosummary",
+    "sphinx.ext.napoleon",
+    "nbsphinx",
+    "sphinx.ext.mathjax",
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.doctest",
+    "sphinx.ext.todo",
+    "sphinx.ext.coverage",
+    "sphinx.ext.ifconfig",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.githubpages",
+    "sphinx.ext.inheritance_diagram",
+    "m2r2",
 ]
 
 # Turn on sphinx.ext.autosummary
@@ -55,28 +56,30 @@ autosummary_generate = True
 
 # Looks for objects in external projects
 intersphinx_mapping = {
-    'tensornetwork': ('https://tensornetwork.readthedocs.io/en/latest/', None),
+    "tensornetwork": ("https://tensornetwork.readthedocs.io/en/latest/", None),
 }
 
 # Mathjax
-mathjax_path = 'https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
+mathjax_path = (
+    "https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+)
 mathjax2_config = {
-    'tex2jax': {
-        'inlineMath': [['$', '$'],  ['\\(', '\\)']],
-        'displayMath': [["$$", "$$"]],
-        'processEscapes': True,
-        'ignoreClass': 'document',
-        'processClass': 'math|output_area',
+    "tex2jax": {
+        "inlineMath": [["$", "$"], ["\\(", "\\)"]],
+        "displayMath": [["$$", "$$"]],
+        "processEscapes": True,
+        "ignoreClass": "document",
+        "processClass": "math|output_area",
     }
 }
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
-source_suffix = ['.rst', '.md']
+source_suffix = [".rst", ".md"]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -84,7 +87,7 @@ source_suffix = ['.rst', '.md']
 exclude_patterns = []
 
 # Allowing docstring in both __init__ and right under class definition
-autoclass_content = 'both'
+autoclass_content = "both"
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -92,7 +95,7 @@ autoclass_content = 'both'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_book_theme'
+html_theme = "sphinx_book_theme"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -111,28 +114,25 @@ html_theme_options = {
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ["_static"]
 
 
 # -- Options for LaTeX output ---------------------------------------------
 
 latex_elements = {  # type: ignore
-# The paper size ('letterpaper' or 'a4paper').
-# 'papersize': 'letterpaper',
-
-# The font size ('10pt', '11pt' or '12pt').
-# 'pointsize': '10pt',
-
-# Additional stuff for the LaTeX preamble.
-#  'preamble': '',
+    # The paper size ('letterpaper' or 'a4paper').
+    # 'papersize': 'letterpaper',
+    # The font size ('10pt', '11pt' or '12pt').
+    # 'pointsize': '10pt',
+    # Additional stuff for the LaTeX preamble.
+    #  'preamble': '',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    ('index', 'tnpy.tex', 'tnpy Documentation',
-    'Tan Tao-Lin', 'manual'),
+    ("index", "tnpy.tex", "tnpy Documentation", "Tan Tao-Lin", "manual"),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -154,4 +154,3 @@ latex_documents = [
 
 # If false, no module index is generated.
 # latex_domain_indices = True
-
