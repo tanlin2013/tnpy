@@ -127,11 +127,12 @@ class FiniteDMRG:
             alpha: The small parameter for perturbation.
 
         References:
-            `S. R. White,
+            1. `S. R. White,
             Density matrix renormalization group algorithms with a single
             center site, Phys. Rev. B 72, 180403 (2005).
             <https://journals.aps.org/prb/abstract/10.1103/PhysRevB.72.180403>`_
-            `U. Schollwoeck,
+
+            2. `U. Schollwoeck,
             The density-matrix renormalization group in the age of matrix
             product states, arXiv:1008.3477 (2011).
             <https://arxiv.org/abs/1008.3477>`_
