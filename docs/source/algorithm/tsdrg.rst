@@ -12,7 +12,6 @@ Tree Tensor Strong-disorder Renormalization Group (tSDRG)
     tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG
 
 .. toctree::
-    :maxdepth: 2
-    :caption: Contents:
+    :maxdepth: 4
 
     notebooks/nb_tsdrg
