@@ -59,7 +59,7 @@ intersphinx_mapping = {
     "numpy": ("https://numpy.org/doc/stable/", None),
     "quimb": ("https://quimb.readthedocs.io/en/latest/", None),
     "tensornetwork": ("https://tensornetwork.readthedocs.io/en/latest/", None),
-    "primme": ("https://www.cs.wm.edu/~andreas/software/doc/readme.html", None),
+    # "primme": ("https://www.cs.wm.edu/~andreas/software/doc/readme.html", None),
 }
 
 # Mathjax
