@@ -34,11 +34,9 @@
     <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area", "displayMath": [["$$", "$$"]]}})</script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/node-main.min.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Matrix Product State (MPS)" href="../../matrix_product_state.html" />
-    <link rel="prev" title="Thirring model" href="../thirring.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -85,15 +83,10 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Algorithms
- </span>
-</p>
-<ul class="nav bd-sidenav">
+        <ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../exact_diagonalization.html">
-   Exact Diagonalization (ED)
+  <a class="reference internal" href="../../algorithm/exact_diagonalization.html">
+   1. Exact Diagonalization (ED)
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
@@ -102,15 +95,15 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../_autosummary/tnpy.exact_diagonalization.ExactDiagonalization.html">
-     tnpy.exact_diagonalization.ExactDiagonalization
+    <a class="reference internal" href="../../algorithm/_autosummary/tnpy.exact_diagonalization.ExactDiagonalization.html">
+     1.1. tnpy.exact_diagonalization.ExactDiagonalization
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../finite_dmrg.html">
-   Finite Density Matrix Renormalization Group (fDMRG)
+  <a class="reference internal" href="../../algorithm/finite_dmrg.html">
+   2. Finite Density Matrix Renormalization Group (fDMRG)
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
@@ -119,20 +112,20 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../_autosummary/tnpy.finite_dmrg.FiniteDMRG.html">
-     tnpy.finite_dmrg.FiniteDMRG
+    <a class="reference internal" href="../../algorithm/_autosummary/tnpy.finite_dmrg.FiniteDMRG.html">
+     2.1. tnpy.finite_dmrg.FiniteDMRG
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../_autosummary/tnpy.finite_dmrg.ShiftInvertDMRG.html">
-     tnpy.finite_dmrg.ShiftInvertDMRG
+    <a class="reference internal" href="../../algorithm/_autosummary/tnpy.finite_dmrg.ShiftInvertDMRG.html">
+     2.2. tnpy.finite_dmrg.ShiftInvertDMRG
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../finite_tdvp.html">
-   Finite Time-dependent Variational Principle (fTDVP)
+  <a class="reference internal" href="../../algorithm/finite_tdvp.html">
+   3. Finite Time-dependent Variational Principle (fTDVP)
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -141,15 +134,15 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../_autosummary/tnpy.finite_tdvp.FiniteTDVP.html">
-     tnpy.finite_tdvp.FiniteTDVP
+    <a class="reference internal" href="../../algorithm/_autosummary/tnpy.finite_tdvp.FiniteTDVP.html">
+     3.1. tnpy.finite_tdvp.FiniteTDVP
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../tsdrg.html">
-   Tree Tensor Strong-disorder Renormalization Group (tSDRG)
+  <a class="reference internal" href="../../algorithm/tsdrg.html">
+   4. Tree Tensor Strong-disorder Renormalization Group (tSDRG)
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
   <label for="toctree-checkbox-4">
@@ -158,203 +151,33 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../_autosummary/tnpy.tsdrg.TensorTree.html">
-     tnpy.tsdrg.TensorTree
+    <a class="reference internal" href="../../algorithm/_autosummary/tnpy.tsdrg.Node.html">
+     4.1.1. tnpy.tsdrg.Node
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../_autosummary/tnpy.tsdrg.TreeTensorNetworkMeasurements.html">
-     tnpy.tsdrg.TreeTensorNetworkMeasurements
+    <a class="reference internal" href="../../algorithm/_autosummary/tnpy.tsdrg.TensorTree.html">
+     4.1.2. tnpy.tsdrg.TensorTree
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../_autosummary/tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.html">
-     tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG
+    <a class="reference internal" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkSDRG.html">
+     4.1.3. tnpy.tsdrg.TreeTensorNetworkSDRG
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../_autosummary/tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG.html">
-     tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG
+    <a class="reference internal" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkMeasurements.html">
+     4.1.4. tnpy.tsdrg.TreeTensorNetworkMeasurements
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../notebooks/nb_tsdrg.html">
-     🚀 Algorithm
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Built-in Models
- </span>
-</p>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../model_1d.html">
-   Model 1D
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-  <label for="toctree-checkbox-5">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="tnpy.model.Model1D.html">
-     tnpy.model.Model1D
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../xxz.html">
-   XXZ model
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-  <label for="toctree-checkbox-6">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="tnpy.model.XXZ.html">
-     tnpy.model.XXZ
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../dimer_xxz.html">
-   Dimer XXZ model
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-  <label for="toctree-checkbox-7">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="tnpy.model.DimerXXZ.html">
-     tnpy.model.DimerXXZ
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../random_heisenberg.html">
-   Random Heisenberg model
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-  <label for="toctree-checkbox-8">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="tnpy.model.RandomHeisenberg.html">
-     tnpy.model.RandomHeisenberg
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="../thirring.html">
-   Thirring model
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-  <label for="toctree-checkbox-9">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     tnpy.model.Thirring
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Helper class
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../matrix_product_state.html">
-   Matrix Product State (MPS)
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-  <label for="toctree-checkbox-10">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../_autosummary/tnpy.matrix_product_state.Direction.html">
-     tnpy.matrix_product_state.Direction
+    <a class="reference internal" href="../../algorithm/_autosummary/tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.html">
+     4.1.5. tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html">
-     tnpy.matrix_product_state.MatrixProductState
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../_autosummary/tnpy.matrix_product_state.Environment.html">
-     tnpy.matrix_product_state.Environment
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductStateMeasurements.html">
-     tnpy.matrix_product_state.MatrixProductStateMeasurements
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../operators.html">
-   Matrix Product Operator (MPO) &amp; others
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
-  <label for="toctree-checkbox-11">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html">
-     tnpy.operators.MatrixProductOperator
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../_autosummary/tnpy.operators.SpinOperators.html">
-     tnpy.operators.SpinOperators
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../_autosummary/tnpy.operators.FullHamiltonian.html">
-     tnpy.operators.FullHamiltonian
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../linalg.html">
-   Linear Algebra
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
-  <label for="toctree-checkbox-12">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../_autosummary/tnpy.linalg.html">
-     tnpy.linalg
+    <a class="reference internal" href="../../algorithm/_autosummary/tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG.html">
+     4.1.6. tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG
     </a>
    </li>
   </ul>
@@ -586,20 +409,6 @@ a penalty term will be taken into account</p>
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../thirring.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Thirring model</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="../../matrix_product_state.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Matrix Product State (MPS)</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
 </div>
             </footer>
         </div>

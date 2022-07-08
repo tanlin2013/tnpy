@@ -4,15 +4,18 @@ The base class for generating an 1-dimensional model
 where its Hamiltonian can be expressed in
 Matrix Product Operator (MPO).
 
+API reference
+-------------
+
 .. autosummary::
     :toctree: _autosummary
 
     tnpy.model.Model1D
 
 Customize the model
-===================
+-------------------
 Apart from the built-in models,
-it's possible customize the model by implementing :function:`tnpy.model.Model1D._elem`,
+it's possible customize the model by implementing :func:`tnpy.model.Model1D._elem`,
 which accepts `site` (int) as input, and is expected to return a :class:`numpy.ndarray`.
 
 .. code-block::

@@ -1,0 +1,93 @@
+﻿tnpy.tsdrg.Node
+===============
+
+.. currentmodule:: tnpy.tsdrg
+
+.. autoclass:: Node
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Node.__init__
+      ~Node.add_owner
+      ~Node.add_tag
+      ~Node.almost_equals
+      ~Node.astype
+      ~Node.astype_
+      ~Node.bonds
+      ~Node.check_owners
+      ~Node.conj
+      ~Node.conj_
+      ~Node.contract
+      ~Node.copy
+      ~Node.direct_product
+      ~Node.drop_tags
+      ~Node.entropy
+      ~Node.expand_ind
+      ~Node.filter_bonds
+      ~Node.flip
+      ~Node.flip_
+      ~Node.fuse
+      ~Node.fuse_
+      ~Node.graph
+      ~Node.ind_size
+      ~Node.inner_inds
+      ~Node.iscomplex
+      ~Node.isel
+      ~Node.isel_
+      ~Node.isreal
+      ~Node.modify
+      ~Node.new_bond
+      ~Node.new_ind
+      ~Node.norm
+      ~Node.normalize
+      ~Node.normalize_
+      ~Node.randomize
+      ~Node.randomize_
+      ~Node.reindex
+      ~Node.reindex_
+      ~Node.remove_owner
+      ~Node.retag
+      ~Node.retag_
+      ~Node.shared_bond_size
+      ~Node.singular_values
+      ~Node.split
+      ~Node.squeeze
+      ~Node.squeeze_
+      ~Node.symmetrize
+      ~Node.to_dense
+      ~Node.transpose
+      ~Node.transpose_
+      ~Node.transpose_like
+      ~Node.transpose_like_
+      ~Node.unitize
+      ~Node.unitize_
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Node.H
+      ~Node.data
+      ~Node.dtype
+      ~Node.inds
+      ~Node.is_leaf
+      ~Node.left
+      ~Node.left_inds
+      ~Node.ndim
+      ~Node.node_id
+      ~Node.right
+      ~Node.shape
+      ~Node.size
+      ~Node.tags
+   
+   
