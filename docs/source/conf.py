@@ -62,17 +62,16 @@ intersphinx_mapping = {
     # "primme": ("https://www.cs.wm.edu/~andreas/software/doc/readme.html", None),
 }
 
-# Mathjax
-mathjax_path = "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/node-main.min.js"
-mathjax2_config = {
-    "tex2jax": {
-        "inlineMath": [["$", "$"], ["\\(", "\\)"]],
-        "displayMath": [["$$", "$$"]],
-        "processEscapes": True,
-        "ignoreClass": "document",
-        "processClass": "math|output_area",
-    }
-}
+# Mathjax  (default values seem to be satisfactory enough)
+# mathjax_path = "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/node-main.min.js"
+# mathjax2_config = {
+#     "tex": {
+#         "inlineMath": [["$", "$"], ["\\(", "\\)"]],
+#         "displayMath": [["$$", "$$"]],
+#         "processEscapes": True,
+#     },
+#     "options": {"ignoreHtmlClass": "document", "processHtmlClass": "math|output_area"}
+# }
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
