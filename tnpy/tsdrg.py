@@ -77,7 +77,7 @@ class TensorTree:
         Args:
             mpo:
         """
-        self._root_id = None
+        self._root_id: int | None = None
         self._tree = {
             site: Node(
                 node_id=site, data=tensor.data, inds=tensor.inds, tags=tensor.tags
@@ -106,7 +106,7 @@ class TensorTree:
         return self._root_id
 
     @property
-    def root(self) -> Node | None:
+    def root(self) -> Node:
         return self[self._root_id]
 
     @property
@@ -197,7 +197,7 @@ class TensorTree:
     @property
     @check_root
     def n_layers(self) -> int:
-        def max_depth(current_node: Node) -> int:
+        def max_depth(current_node: Node | None) -> int:
             if current_node is not None:
                 left_depth = max_depth(current_node.left)
                 right_depth = max_depth(current_node.right)
@@ -280,7 +280,7 @@ class TensorTree:
             If path is empty, raises KeyError for input ``node_id``.
         """
 
-        def find_node(current_node: Node, trial_path: List[int]) -> bool:
+        def find_node(current_node: Node | None, trial_path: List[int]) -> bool:
             """
             Find the node with depth-first search.
 
