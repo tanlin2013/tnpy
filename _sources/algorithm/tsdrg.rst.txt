@@ -1,9 +1,6 @@
 Tree Tensor Strong-disorder Renormalization Group (tSDRG)
 =========================================================
 
-API reference
--------------
-
 .. autosummary::
     :toctree: _autosummary
 
@@ -18,6 +15,6 @@ Tutorial
 --------
 
 .. toctree::
-    :maxdepth: 4
+    :maxdepth: 2
 
-    notebooks/tsdrg
+    ../notebooks/tsdrg
