@@ -31,7 +31,8 @@ For others, please expect edge cases.
 
 Requirements
 ------------
-Dependencies are listed in `pyproject.toml`,
+Dependencies are listed in
+[`pyproject.toml`](https://github.com/tanlin2013/tnpy/blob/main/pyproject.toml),
 and they are supposed to be installed together with **tnpy**.
 Here we just list the essential building blocks.
 
@@ -67,7 +68,9 @@ Installation
        ```
        pip install tnpy[mkl]
        ```
-     * For [quimb](https://github.com/jcmgray/quimb) drawing functionality
+     * For [quimb](https://github.com/jcmgray/quimb) drawing functionality.
+       This will install [matplotlib](https://matplotlib.org/)
+       and [networkx](https://networkx.org/)
        ```
        pip install tnpy[drawing]
        ```
