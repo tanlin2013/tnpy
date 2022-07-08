@@ -8,14 +8,23 @@ Welcome to tnpy's documentation!
 
 .. mdinclude:: ../../README.md
 
+Algorithms
+----------
+For the moment, we concern the one-dimensional algorithms only.
+These include,
+
 .. toctree::
    :numbered:
    :maxdepth: 2
 
-   exact_diagonalization
-   finite_dmrg
-   finite_tdvp
-   tsdrg
+   algorithm/exact_diagonalization
+   algorithm/finite_dmrg
+   algorithm/finite_tdvp
+   algorithm/tsdrg
+
+Built-in models
+---------------
+We provide the following built-in models in 1D.
 
 .. toctree::
    :numbered:
@@ -28,6 +37,9 @@ Welcome to tnpy's documentation!
    model/random_heisenberg
    model/thirring
 
+Operators and linear algebra
+----------------------------
+
 .. toctree::
    :numbered:
    :maxdepth: 2
@@ -38,7 +50,7 @@ Welcome to tnpy's documentation!
    linalg
 
 Indices and tables
-==================
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`
