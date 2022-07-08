@@ -9,8 +9,8 @@ Welcome to tnpy's documentation!
 .. mdinclude:: ../../README.md
 
 .. toctree::
-   :maxdepth: 4
-   :caption: Algorithms
+   :numbered:
+   :maxdepth: 2
 
    exact_diagonalization
    finite_dmrg
@@ -18,8 +18,9 @@ Welcome to tnpy's documentation!
    tsdrg
 
 .. toctree::
-   :maxdepth: 4
-   :caption: Built-in Models
+   :numbered:
+   :maxdepth: 2
+   :caption:
 
    model/model_1d
    model/xxz
@@ -28,8 +29,9 @@ Welcome to tnpy's documentation!
    model/thirring
 
 .. toctree::
-   :maxdepth: 4
-   :caption: Helper class
+   :numbered:
+   :maxdepth: 2
+   :caption:
 
    matrix_product_state
    operators
