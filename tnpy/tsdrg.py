@@ -979,6 +979,19 @@ class HighEnergyTreeTensorNetworkSDRG(TreeTensorNetworkSDRG):
         super().__init__(*args, **kwargs)
 
     def block_eigen_solver(self, locus: int) -> Tuple[np.ndarray, np.ndarray]:
+        """
+        Solve the 2-site Hamiltonian with :attr:`~TreeTensorNetworkSDRG.chi` highest
+        eigen-pairs.
+
+        Args:
+            locus: The site in coarse-grained system during the RG process.
+
+        Returns:
+            A tuple (``evals``, ``evecs``),
+            where ``evals`` are the highest
+            :attr:`~TreeTensorNetworkSDRG.chi` eigenvalues,
+            and ``evecs`` are the corresponding eigenvectors.
+        """
         matrix = self.block_hamiltonian(locus)
         evals, evecs = np.linalg.eigh(matrix)
         if matrix.shape[0] > self.chi:
