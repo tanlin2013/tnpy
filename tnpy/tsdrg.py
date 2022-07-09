@@ -650,7 +650,7 @@ class TreeTensorNetworkMeasurements:
         self._tree = tree
 
     @property
-    def tree(self):
+    def tree(self) -> TensorTree:
         return self._tree
 
     def loop_simplify(
