@@ -556,7 +556,10 @@ title="Open an issue"
 <span class="sd">        O2: 2 x 2 zero matrix.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">            Sp, Sm, Sz, I2, O2 = SpinOperators(spin=0.5)</span>
+<span class="sd">        &gt;&gt;&gt; Sp, Sm, Sz, I2, O2 = SpinOperators(spin=0.5)</span>
+<span class="sd">        &gt;&gt;&gt; print(Sp)</span>
+<span class="sd">        array([[0., 1.],</span>
+<span class="sd">               [0., 0.]])</span>
 
 <span class="sd">    Warnings:</span>
 <span class="sd">        Unpacking ordering is important, and variable-unaware.</span>
@@ -643,18 +646,21 @@ title="Open an issue"
 
 <div class="viewcode-block" id="FullHamiltonian"><a class="viewcode-back" href="../../_autosummary/tnpy.operators.FullHamiltonian.html#tnpy.operators.FullHamiltonian">[docs]</a><span class="k">class</span> <span class="nc">FullHamiltonian</span><span class="p">:</span>
 <div class="viewcode-block" id="FullHamiltonian.__init__"><a class="viewcode-back" href="../../_autosummary/tnpy.operators.FullHamiltonian.html#tnpy.operators.FullHamiltonian.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mpo</span><span class="p">:</span> <span class="n">MatrixProductOperator</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Construct the Hamiltonian from :class:`~MatrixProductOperator` (MPO).</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            mpo:</span>
+<span class="sd">            mpo: The matrix product operator.</span>
 
 <span class="sd">        Examples:</span>
 <span class="sd">            The matrix element of Hamiltonian can be accessed</span>
 <span class="sd">            through the property :attr:`~FullHamiltonian.matrix`.</span>
 
-<span class="sd">                ham = FullHamiltonian(mpo).matrix</span>
+<span class="sd">            &gt;&gt;&gt; ham = FullHamiltonian(mpo).matrix</span>
 
+<span class="sd">        Raises:</span>
+<span class="sd">            ResourceWarning: When the dimensions of matrix are larger</span>
+<span class="sd">                than :math:`4096 \times 4096`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n_sites</span> <span class="o">=</span> <span class="n">mpo</span><span class="o">.</span><span class="n">n_sites</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_phys_dim</span> <span class="o">=</span> <span class="n">mpo</span><span class="o">.</span><span class="n">phys_dim</span>

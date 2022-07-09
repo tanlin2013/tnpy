@@ -520,7 +520,7 @@ title="Open an issue"
   <h1>Source code for tnpy.model.total_sz</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">tnpy.operators</span> <span class="kn">import</span> <span class="n">SpinOperators</span>
+<span class="kn">from</span> <span class="nn">tnpy.operators</span> <span class="kn">import</span> <span class="n">SpinOperators</span><span class="p">,</span> <span class="n">MatrixProductOperator</span>
 <span class="kn">from</span> <span class="nn">tnpy.model.model_1d</span> <span class="kn">import</span> <span class="n">Model1D</span>
 <span class="kn">from</span> <span class="nn">tnpy.model.utils</span> <span class="kn">import</span> <span class="n">boundary_vectors</span>
 
@@ -540,7 +540,38 @@ title="Open an issue"
     <span class="nd">@boundary_vectors</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">_elem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="n">Sp</span><span class="p">,</span> <span class="n">Sm</span><span class="p">,</span> <span class="n">Sz</span><span class="p">,</span> <span class="n">I2</span><span class="p">,</span> <span class="n">O2</span> <span class="o">=</span> <span class="n">SpinOperators</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">I2</span><span class="p">,</span> <span class="n">Sz</span><span class="p">],</span> <span class="p">[</span><span class="n">O2</span><span class="p">,</span> <span class="n">I2</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">I2</span><span class="p">,</span> <span class="n">Sz</span><span class="p">],</span> <span class="p">[</span><span class="n">O2</span><span class="p">,</span> <span class="n">I2</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+    <span class="nd">@boundary_vectors</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_rest_elem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="n">Sp</span><span class="p">,</span> <span class="n">Sm</span><span class="p">,</span> <span class="n">Sz</span><span class="p">,</span> <span class="n">I2</span><span class="p">,</span> <span class="n">O2</span> <span class="o">=</span> <span class="n">SpinOperators</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">I2</span><span class="p">,</span> <span class="n">O2</span><span class="p">],</span> <span class="p">[</span><span class="n">O2</span><span class="p">,</span> <span class="n">I2</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TotalSz.subsystem_mpo"><a class="viewcode-back" href="../../../model/_autosummary/tnpy.model.TotalSz.html#tnpy.model.TotalSz.subsystem_mpo">[docs]</a>    <span class="k">def</span> <span class="nf">subsystem_mpo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">partition_site</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatrixProductOperator</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Count the total :math:`S^z` magnetization in subsystem A,</span>
+<span class="sd">        without the other part of system B.</span>
+<span class="sd">        This can be useful for later calculation on the fluctuation of magnetization.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            partition_site: The site to which the system is bipartite into A|B.</span>
+<span class="sd">                The site itself is included in part A.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        References:</span>
+<span class="sd">            1. `H. Francis Song, Stephan Rachel, and Karyn Le Hur,</span>
+<span class="sd">            General relation between entanglement and fluctuations in one dimension,</span>
+<span class="sd">            Phys. Rev. B 82, 012405 (2010).</span>
+<span class="sd">            &lt;https://journals.aps.org/prb/abstract/10.1103/PhysRevB.82.012405&gt;`_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">partition_site</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
+        <span class="k">return</span> <span class="n">MatrixProductOperator</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_elem</span><span class="p">(</span><span class="n">site</span><span class="p">)</span> <span class="k">if</span> <span class="n">site</span> <span class="o">&lt;=</span> <span class="n">partition_site</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rest_elem</span><span class="p">(</span><span class="n">site</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
+            <span class="p">]</span>
+        <span class="p">)</span></div></div>
 </pre></div>
 
               </div>

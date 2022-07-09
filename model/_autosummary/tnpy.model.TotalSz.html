@@ -574,6 +574,9 @@ title="Edit this page"
 <tr class="row-odd"><td><p><a class="reference internal" href="#id0" title="tnpy.model.TotalSz.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(n)</p></td>
 <td><p></p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.model.TotalSz.subsystem_mpo" title="tnpy.model.TotalSz.subsystem_mpo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">subsystem_mpo</span></code></a>(partition_site)</p></td>
+<td><p>Count the total <span class="math notranslate nohighlight">\(S^z\)</span> magnetization in subsystem A, without the other part of system B.</p></td>
+</tr>
 </tbody>
 </table>
 <p class="rubric">Attributes</p>
@@ -601,6 +604,28 @@ title="Edit this page"
 <dd class="field-odd"><p><strong>n</strong> (<em>int</em>) – System size.</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.model.TotalSz.subsystem_mpo">
+<span class="sig-name descname"><span class="pre">subsystem_mpo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partition_site</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/model/total_sz.html#TotalSz.subsystem_mpo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.TotalSz.subsystem_mpo" title="Permalink to this definition">#</a></dt>
+<dd><p>Count the total <span class="math notranslate nohighlight">\(S^z\)</span> magnetization in subsystem A,
+without the other part of system B.
+This can be useful for later calculation on the fluctuation of magnetization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>partition_site</strong> (<em>int</em>) – The site to which the system is bipartite into A|B.
+The site itself is included in part A.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator">tnpy.operators.MatrixProductOperator</a></p>
+</dd>
+</dl>
+<p>Returns:</p>
+<p class="rubric">References</p>
+<p>1. <a class="reference external" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.82.012405">H. Francis Song, Stephan Rachel, and Karyn Le Hur,
+General relation between entanglement and fluctuations in one dimension,
+Phys. Rev. B 82, 012405 (2010).</a></p>
 </dd></dl>
 
 </dd></dl>

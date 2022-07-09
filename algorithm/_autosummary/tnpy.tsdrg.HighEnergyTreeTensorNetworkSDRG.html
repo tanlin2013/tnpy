@@ -556,10 +556,10 @@ group algorithm.</p>
 <p class="rubric">Examples</p>
 <p>The tSDRG algorithm can be launched by calling
 <a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.run" title="tnpy.tsdrg.TreeTensorNetworkSDRG.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> method.</p>
-<blockquote>
-<div><p>tsdrg = TreeTensorNetworkSDRG(mpo, chi=32)
-tsdrg.run()</p>
-</div></blockquote>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tsdrg</span> <span class="o">=</span> <span class="n">TreeTensorNetworkSDRG</span><span class="p">(</span><span class="n">mpo</span><span class="p">,</span> <span class="n">chi</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tsdrg</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
 <p>After executing <a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.run" title="tnpy.tsdrg.TreeTensorNetworkSDRG.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a>,
 one can access the binary tensor tree <a class="reference internal" href="tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree" title="tnpy.tsdrg.TensorTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">TensorTree</span></code></a>
 through the attribute <a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.tree" title="tnpy.tsdrg.TreeTensorNetworkSDRG.tree"><code class="xref py py-attr docutils literal notranslate"><span class="pre">tree</span></code></a>.
@@ -582,10 +582,10 @@ group algorithm.</p>
 <p class="rubric">Examples</p>
 <p>The tSDRG algorithm can be launched by calling
 <a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.run" title="tnpy.tsdrg.TreeTensorNetworkSDRG.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> method.</p>
-<blockquote>
-<div><p>tsdrg = TreeTensorNetworkSDRG(mpo, chi=32)
-tsdrg.run()</p>
-</div></blockquote>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tsdrg</span> <span class="o">=</span> <span class="n">TreeTensorNetworkSDRG</span><span class="p">(</span><span class="n">mpo</span><span class="p">,</span> <span class="n">chi</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tsdrg</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
 <p>After executing <a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.run" title="tnpy.tsdrg.TreeTensorNetworkSDRG.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a>,
 one can access the binary tensor tree <a class="reference internal" href="tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree" title="tnpy.tsdrg.TensorTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">TensorTree</span></code></a>
 through the attribute <a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.tree" title="tnpy.tsdrg.TreeTensorNetworkSDRG.tree"><code class="xref py py-attr docutils literal notranslate"><span class="pre">tree</span></code></a>.
@@ -605,7 +605,7 @@ For measurements, please refer to
 <td><p>The tree tensor network version of strong disorder renormalization group algorithm.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.block_eigen_solver" title="tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.block_eigen_solver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">block_eigen_solver</span></code></a>(locus)</p></td>
-<td><p>Solve the 2-site Hamiltonian with <a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.chi" title="tnpy.tsdrg.TreeTensorNetworkSDRG.chi"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chi</span></code></a> lowest eigen-pairs.</p></td>
+<td><p>Solve the 2-site Hamiltonian with <a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.chi" title="tnpy.tsdrg.TreeTensorNetworkSDRG.chi"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chi</span></code></a> highest eigen-pairs.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">block_hamiltonian</span></code>(locus)</p></td>
 <td><p>Construct the 2-site Hamiltonian from coarse-graining MPO.</p></td>
@@ -664,10 +664,10 @@ group algorithm.</p>
 <p class="rubric">Examples</p>
 <p>The tSDRG algorithm can be launched by calling
 <a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.run" title="tnpy.tsdrg.TreeTensorNetworkSDRG.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> method.</p>
-<blockquote>
-<div><p>tsdrg = TreeTensorNetworkSDRG(mpo, chi=32)
-tsdrg.run()</p>
-</div></blockquote>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tsdrg</span> <span class="o">=</span> <span class="n">TreeTensorNetworkSDRG</span><span class="p">(</span><span class="n">mpo</span><span class="p">,</span> <span class="n">chi</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tsdrg</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
 <p>After executing <a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.run" title="tnpy.tsdrg.TreeTensorNetworkSDRG.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a>,
 one can access the binary tensor tree <a class="reference internal" href="tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree" title="tnpy.tsdrg.TensorTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">TensorTree</span></code></a>
 through the attribute <a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.tree" title="tnpy.tsdrg.TreeTensorNetworkSDRG.tree"><code class="xref py py-attr docutils literal notranslate"><span class="pre">tree</span></code></a>.
@@ -679,7 +679,7 @@ For measurements, please refer to
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.block_eigen_solver">
 <span class="sig-name descname"><span class="pre">block_eigen_solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locus</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#HighEnergyTreeTensorNetworkSDRG.block_eigen_solver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.block_eigen_solver" title="Permalink to this definition">#</a></dt>
-<dd><p>Solve the 2-site Hamiltonian with <a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.chi" title="tnpy.tsdrg.TreeTensorNetworkSDRG.chi"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chi</span></code></a> lowest
+<dd><p>Solve the 2-site Hamiltonian with <a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.chi" title="tnpy.tsdrg.TreeTensorNetworkSDRG.chi"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chi</span></code></a> highest
 eigen-pairs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -687,7 +687,7 @@ eigen-pairs.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A tuple (<code class="docutils literal notranslate"><span class="pre">evals</span></code>, <code class="docutils literal notranslate"><span class="pre">evecs</span></code>),
-where <code class="docutils literal notranslate"><span class="pre">evals</span></code> are the lowest
+where <code class="docutils literal notranslate"><span class="pre">evals</span></code> are the highest
 <a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.chi" title="tnpy.tsdrg.TreeTensorNetworkSDRG.chi"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chi</span></code></a> eigenvalues,
 and <code class="docutils literal notranslate"><span class="pre">evecs</span></code> are the corresponding eigenvectors.</p>
 </dd>

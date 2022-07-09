@@ -16,10 +16,11 @@
       ~ExactDiagonalization.__init__
       ~ExactDiagonalization.connected_two_point_function
       ~ExactDiagonalization.entanglement_entropy
-      ~ExactDiagonalization.kron_opts
+      ~ExactDiagonalization.kron_operators
       ~ExactDiagonalization.one_point_function
       ~ExactDiagonalization.reduced_density_matrix
       ~ExactDiagonalization.two_point_function
+      ~ExactDiagonalization.variance
    
    
 

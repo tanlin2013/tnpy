@@ -25,6 +25,7 @@
       ~TreeTensorNetworkMeasurements.sandwich
       ~TreeTensorNetworkMeasurements.squared_moduli
       ~TreeTensorNetworkMeasurements.two_point_function
+      ~TreeTensorNetworkMeasurements.variance
       ~TreeTensorNetworkMeasurements.wave_func_coeff
    
    

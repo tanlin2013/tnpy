@@ -33,6 +33,8 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="3. Linear Algebra" href="../linalg.html" />
@@ -546,30 +548,48 @@ title="Edit this page"
 <p>Construct the Hamiltonian from <a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductOperator</span></code></a> (MPO).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>mpo</strong> (<a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>MatrixProductOperator</em></a>) – </p>
+<dd class="field-odd"><p><strong>mpo</strong> (<a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>MatrixProductOperator</em></a>) – The matrix product operator.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <p>The matrix element of Hamiltonian can be accessed
 through the property <a class="reference internal" href="#tnpy.operators.FullHamiltonian.matrix" title="tnpy.operators.FullHamiltonian.matrix"><code class="xref py py-attr docutils literal notranslate"><span class="pre">matrix</span></code></a>.</p>
-<blockquote>
-<div><p>ham = FullHamiltonian(mpo).matrix</p>
-</div></blockquote>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ham</span> <span class="o">=</span> <span class="n">FullHamiltonian</span><span class="p">(</span><span class="n">mpo</span><span class="p">)</span><span class="o">.</span><span class="n">matrix</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>ResourceWarning</strong> – When the dimensions of matrix are larger
+    than <span class="math notranslate nohighlight">\(4096 \times 4096\)</span>.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>mpo</strong> (<a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>MatrixProductOperator</em></a>) – </p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.operators.FullHamiltonian.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/operators.html#FullHamiltonian.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.operators.FullHamiltonian.__init__" title="Permalink to this definition">#</a></dt>
 <dd><p>Construct the Hamiltonian from <a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductOperator</span></code></a> (MPO).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>mpo</strong> (<a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – </p>
+<dd class="field-odd"><p><strong>mpo</strong> (<a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – The matrix product operator.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <p>The matrix element of Hamiltonian can be accessed
 through the property <a class="reference internal" href="#tnpy.operators.FullHamiltonian.matrix" title="tnpy.operators.FullHamiltonian.matrix"><code class="xref py py-attr docutils literal notranslate"><span class="pre">matrix</span></code></a>.</p>
-<blockquote>
-<div><p>ham = FullHamiltonian(mpo).matrix</p>
-</div></blockquote>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ham</span> <span class="o">=</span> <span class="n">FullHamiltonian</span><span class="p">(</span><span class="n">mpo</span><span class="p">)</span><span class="o">.</span><span class="n">matrix</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>ResourceWarning</strong> – When the dimensions of matrix are larger
+    than <span class="math notranslate nohighlight">\(4096 \times 4096\)</span>.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>mpo</strong> (<a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – </p>
+</dd>
+</dl>
 </dd></dl>
 
 <p class="rubric">Methods</p>
@@ -608,15 +628,24 @@ through the property <a class="reference internal" href="#tnpy.operators.FullHam
 <dd><p>Construct the Hamiltonian from <a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductOperator</span></code></a> (MPO).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>mpo</strong> (<a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – </p>
+<dd class="field-odd"><p><strong>mpo</strong> (<a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – The matrix product operator.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <p>The matrix element of Hamiltonian can be accessed
 through the property <a class="reference internal" href="#tnpy.operators.FullHamiltonian.matrix" title="tnpy.operators.FullHamiltonian.matrix"><code class="xref py py-attr docutils literal notranslate"><span class="pre">matrix</span></code></a>.</p>
-<blockquote>
-<div><p>ham = FullHamiltonian(mpo).matrix</p>
-</div></blockquote>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ham</span> <span class="o">=</span> <span class="n">FullHamiltonian</span><span class="p">(</span><span class="n">mpo</span><span class="p">)</span><span class="o">.</span><span class="n">matrix</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>ResourceWarning</strong> – When the dimensions of matrix are larger
+    than <span class="math notranslate nohighlight">\(4096 \times 4096\)</span>.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>mpo</strong> (<a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – </p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">

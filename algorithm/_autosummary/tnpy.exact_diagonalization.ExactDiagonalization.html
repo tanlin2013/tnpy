@@ -33,6 +33,8 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="2. Finite Density Matrix Renormalization Group (fDMRG)" href="../finite_dmrg.html" />
@@ -543,33 +545,33 @@ title="Edit this page"
 <dt class="sig sig-object py" id="tnpy.exact_diagonalization.ExactDiagonalization">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.exact_diagonalization.</span></span><span class="sig-name descname"><span class="pre">ExactDiagonalization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/exact_diagonalization.html#ExactDiagonalization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.exact_diagonalization.ExactDiagonalization" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../../_autosummary/tnpy.operators.FullHamiltonian.html#tnpy.operators.FullHamiltonian" title="tnpy.operators.FullHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">tnpy.operators.FullHamiltonian</span></code></a></p>
-<p>Construct the Hamiltonian from <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductOperator</span></code> (MPO).</p>
+<p>Perform the numerically exact diagonalization on the matrix,
+which is constructed through the given Matrix Product Operator (MPO).
+Calculations are taken in prompt on the initialization of this class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>mpo</strong> (<a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – </p>
+<dd class="field-odd"><p><strong>mpo</strong> (<a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – The matrix product operator.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ResourceWarning</strong> – When the dimensions of Hamiltonian are larger</p>
 </dd>
 </dl>
-<p class="rubric">Examples</p>
-<p>The matrix element of Hamiltonian can be accessed
-through the property <code class="xref py py-attr docutils literal notranslate"><span class="pre">matrix</span></code>.</p>
-<blockquote>
-<div><p>ham = FullHamiltonian(mpo).matrix</p>
-</div></blockquote>
+<p>:raises than <span class="math notranslate nohighlight">\(4096    imes 4096\)</span>.:</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.exact_diagonalization.ExactDiagonalization.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/exact_diagonalization.html#ExactDiagonalization.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.exact_diagonalization.ExactDiagonalization.__init__" title="Permalink to this definition">#</a></dt>
-<dd><p>Construct the Hamiltonian from <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductOperator</span></code> (MPO).</p>
+<dd><p>Perform the numerically exact diagonalization on the matrix,
+which is constructed through the given Matrix Product Operator (MPO).
+Calculations are taken in prompt on the initialization of this class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>mpo</strong> (<a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – </p>
+<dd class="field-odd"><p><strong>mpo</strong> (<a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – The matrix product operator.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ResourceWarning</strong> – When the dimensions of Hamiltonian are larger</p>
 </dd>
 </dl>
-<p class="rubric">Examples</p>
-<p>The matrix element of Hamiltonian can be accessed
-through the property <code class="xref py py-attr docutils literal notranslate"><span class="pre">matrix</span></code>.</p>
-<blockquote>
-<div><p>ham = FullHamiltonian(mpo).matrix</p>
-</div></blockquote>
+<p>:raises than <span class="math notranslate nohighlight">\(4096    imes 4096\)</span>.:</p>
 </dd></dl>
 
 <p class="rubric">Methods</p>
@@ -580,7 +582,7 @@ through the property <code class="xref py py-attr docutils literal notranslate">
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#id0" title="tnpy.exact_diagonalization.ExactDiagonalization.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(mpo)</p></td>
-<td><p>Construct the Hamiltonian from <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductOperator</span></code> (MPO).</p></td>
+<td><p>Perform the numerically exact diagonalization on the matrix, which is constructed through the given Matrix Product Operator (MPO).</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#tnpy.exact_diagonalization.ExactDiagonalization.connected_two_point_function" title="tnpy.exact_diagonalization.ExactDiagonalization.connected_two_point_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connected_two_point_function</span></code></a>(operator1, ...)</p></td>
 <td><p></p></td>
@@ -588,8 +590,8 @@ through the property <code class="xref py py-attr docutils literal notranslate">
 <tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.exact_diagonalization.ExactDiagonalization.entanglement_entropy" title="tnpy.exact_diagonalization.ExactDiagonalization.entanglement_entropy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">entanglement_entropy</span></code></a>(site[, level_idx, ...])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.exact_diagonalization.ExactDiagonalization.kron_opts" title="tnpy.exact_diagonalization.ExactDiagonalization.kron_opts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kron_opts</span></code></a>(operators)</p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.exact_diagonalization.ExactDiagonalization.kron_operators" title="tnpy.exact_diagonalization.ExactDiagonalization.kron_operators"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kron_operators</span></code></a>(operators)</p></td>
+<td><p>Perform Kronecker product on the given sequence of operators.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.exact_diagonalization.ExactDiagonalization.one_point_function" title="tnpy.exact_diagonalization.ExactDiagonalization.one_point_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">one_point_function</span></code></a>(operator, site[, level_idx])</p></td>
 <td><p></p></td>
@@ -599,6 +601,9 @@ through the property <code class="xref py py-attr docutils literal notranslate">
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.exact_diagonalization.ExactDiagonalization.two_point_function" title="tnpy.exact_diagonalization.ExactDiagonalization.two_point_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">two_point_function</span></code></a>(operator1, operator2, ...)</p></td>
 <td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.exact_diagonalization.ExactDiagonalization.variance" title="tnpy.exact_diagonalization.ExactDiagonalization.variance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">variance</span></code></a>([operator, tol])</p></td>
+<td><p>Compute the variance on input operator.</p></td>
 </tr>
 </tbody>
 </table>
@@ -610,10 +615,10 @@ through the property <code class="xref py py-attr docutils literal notranslate">
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.exact_diagonalization.ExactDiagonalization.evals" title="tnpy.exact_diagonalization.ExactDiagonalization.evals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evals</span></code></a></p></td>
-<td><p></p></td>
+<td><p>Eigenvalues in ascending order.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#tnpy.exact_diagonalization.ExactDiagonalization.evecs" title="tnpy.exact_diagonalization.ExactDiagonalization.evecs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evecs</span></code></a></p></td>
-<td><p></p></td>
+<td><p>Eigenvectors in the order accordingly to <a class="reference internal" href="#tnpy.exact_diagonalization.ExactDiagonalization.evals" title="tnpy.exact_diagonalization.ExactDiagonalization.evals"><code class="xref py py-attr docutils literal notranslate"><span class="pre">evals</span></code></a>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">matrix</span></code></p></td>
 <td><p></p></td>
@@ -629,29 +634,39 @@ through the property <code class="xref py py-attr docutils literal notranslate">
 <dl class="py method">
 <dt class="sig sig-object py" id="id0">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/exact_diagonalization.html#ExactDiagonalization.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Permalink to this definition">#</a></dt>
-<dd><p>Construct the Hamiltonian from <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductOperator</span></code> (MPO).</p>
+<dd><p>Perform the numerically exact diagonalization on the matrix,
+which is constructed through the given Matrix Product Operator (MPO).
+Calculations are taken in prompt on the initialization of this class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>mpo</strong> (<a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – </p>
+<dd class="field-odd"><p><strong>mpo</strong> (<a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – The matrix product operator.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ResourceWarning</strong> – When the dimensions of Hamiltonian are larger</p>
 </dd>
 </dl>
-<p class="rubric">Examples</p>
-<p>The matrix element of Hamiltonian can be accessed
-through the property <code class="xref py py-attr docutils literal notranslate"><span class="pre">matrix</span></code>.</p>
-<blockquote>
-<div><p>ham = FullHamiltonian(mpo).matrix</p>
-</div></blockquote>
+<p>:raises than <span class="math notranslate nohighlight">\(4096    imes 4096\)</span>.:</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.exact_diagonalization.ExactDiagonalization.evals">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evals</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">numpy.ndarray</span></a></em><a class="headerlink" href="#tnpy.exact_diagonalization.ExactDiagonalization.evals" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Eigenvalues in ascending order.</p>
+<p>Returns:</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.exact_diagonalization.ExactDiagonalization.evecs">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evecs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">numpy.ndarray</span></a></em><a class="headerlink" href="#tnpy.exact_diagonalization.ExactDiagonalization.evecs" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Eigenvectors in the order accordingly to <a class="reference internal" href="#tnpy.exact_diagonalization.ExactDiagonalization.evals" title="tnpy.exact_diagonalization.ExactDiagonalization.evals"><code class="xref py py-attr docutils literal notranslate"><span class="pre">evals</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The eigenvectors,
+with the column <code class="docutils literal notranslate"><span class="pre">v[:,</span> <span class="pre">k]</span></code> is the eigenvector corresponding to
+the k-th eigenvalue <code class="docutils literal notranslate"><span class="pre">w[k]</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.exact_diagonalization.ExactDiagonalization.reduced_density_matrix">
@@ -687,14 +702,18 @@ through the property <code class="xref py py-attr docutils literal notranslate">
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="tnpy.exact_diagonalization.ExactDiagonalization.kron_opts">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">kron_opts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operators</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/exact_diagonalization.html#ExactDiagonalization.kron_opts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.exact_diagonalization.ExactDiagonalization.kron_opts" title="Permalink to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dt class="sig sig-object py" id="tnpy.exact_diagonalization.ExactDiagonalization.kron_operators">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">kron_operators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operators</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/exact_diagonalization.html#ExactDiagonalization.kron_operators"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.exact_diagonalization.ExactDiagonalization.kron_operators" title="Permalink to this definition">#</a></dt>
+<dd><p>Perform Kronecker product on the given sequence of operators.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>operators</strong> (<em>Sequence</em><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a><em>]</em>) – </p>
+<dd class="field-odd"><p><strong>operators</strong> (<em>Sequence</em><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a><em>]</em>) – A list of operators to take Kronecker product.</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)">numpy.ndarray</a></p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The resulting product operator.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)">numpy.ndarray</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -711,7 +730,7 @@ through the property <code class="xref py py-attr docutils literal notranslate">
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)">numpy.ndarray</a></p>
+<dd class="field-even"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -730,7 +749,7 @@ through the property <code class="xref py py-attr docutils literal notranslate">
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)">numpy.ndarray</a></p>
+<dd class="field-even"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -747,6 +766,32 @@ through the property <code class="xref py py-attr docutils literal notranslate">
 <li><p><strong>site2</strong> (<em>int</em>) – </p></li>
 <li><p><strong>level_idx</strong> (<em>int</em>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.exact_diagonalization.ExactDiagonalization.variance">
+<span class="sig-name descname"><span class="pre">variance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/exact_diagonalization.html#ExactDiagonalization.variance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.exact_diagonalization.ExactDiagonalization.variance" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the variance on input operator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a><em>]</em>) – Default None to the Hamailtonian itself.</p></li>
+<li><p><strong>tol</strong> (<em>float</em>) – The numerical tolerance.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The variance.</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>Warnings</strong> – If any off-diagonal element is larger than <code class="docutils literal notranslate"><span class="pre">tol</span></code>.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)">numpy.ndarray</a></p>
 </dd>
 </dl>
 </dd></dl>

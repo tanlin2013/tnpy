@@ -607,7 +607,10 @@ title="Edit this page"
 <tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.two_point_function" title="tnpy.tsdrg.TreeTensorNetworkMeasurements.two_point_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">two_point_function</span></code></a>(operator1, operator2, ...)</p></td>
 <td><p>Compute the correlation function <span class="math notranslate nohighlight">\(\langle \hat{O}_{i_1}^A \hat{O}_{i_2}^B \rangle\)</span> of 2 given local operators <span class="math notranslate nohighlight">\(\hat{O}_{i_1}^A\)</span> and <span class="math notranslate nohighlight">\(\hat{O}_{i_2}^B\)</span> on site <span class="math notranslate nohighlight">\(i_1\)</span> and <span class="math notranslate nohighlight">\(i_2\)</span>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.wave_func_coeff" title="tnpy.tsdrg.TreeTensorNetworkMeasurements.wave_func_coeff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wave_func_coeff</span></code></a>(level_idx)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.variance" title="tnpy.tsdrg.TreeTensorNetworkMeasurements.variance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">variance</span></code></a>(mpo)</p></td>
+<td><p>Compute the variance on given matrix product operator.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.wave_func_coeff" title="tnpy.tsdrg.TreeTensorNetworkMeasurements.wave_func_coeff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wave_func_coeff</span></code></a>(level_idx)</p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -753,6 +756,9 @@ of given local operator <span class="math notranslate nohighlight">\(\hat{O}_i\)
 <li><p><strong>level_idx</strong> (<em>int</em>) – </p></li>
 </ul>
 </dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
 </dl>
 <p>Returns:</p>
 </dd></dl>
@@ -775,6 +781,9 @@ on site <span class="math notranslate nohighlight">\(i_1\)</span> and <span clas
 <li><p><strong>level_idx</strong> (<em>int</em>) – </p></li>
 </ul>
 </dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
 </dl>
 <p>Returns:</p>
 </dd></dl>
@@ -792,8 +801,28 @@ on site <span class="math notranslate nohighlight">\(i_1\)</span> and <span clas
 <li><p><strong>level_idx</strong> (<em>int</em>) – </p></li>
 </ul>
 </dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
 </dl>
 <p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkMeasurements.variance">
+<span class="sig-name descname"><span class="pre">variance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkMeasurements.variance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.variance" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the variance on given matrix product operator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mpo</strong> (<a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – The matrix product operator.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The variance.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)">numpy.ndarray</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
