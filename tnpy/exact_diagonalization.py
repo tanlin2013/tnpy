@@ -1,6 +1,8 @@
-import numpy as np
-from tnpy.operators import MatrixProductOperator, FullHamiltonian
 from typing import Tuple, Sequence
+
+import numpy as np
+
+from tnpy.operators import MatrixProductOperator, FullHamiltonian
 
 
 class ExactDiagonalization(FullHamiltonian):
