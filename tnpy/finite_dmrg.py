@@ -155,7 +155,7 @@ class FiniteDMRG:
             **kwargs: Keyword arguments to primme eigensolver.
 
         Returns:
-            energy: Variationally optimized energy after this sweep.
+            Variationally optimized energy after this sweep.
         """
         iter_sites = (
             range(self.n_sites - 1)
@@ -236,7 +236,7 @@ class FiniteDMRG:
             **kwargs: Keyword arguments to primme eigensolver.
 
         Returns:
-            energies: A record of energies computed on each sweep.
+            A record of energies computed on each sweep.
         """
         clock = [time.process_time()]
         converged = partial(

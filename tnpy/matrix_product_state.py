@@ -31,14 +31,15 @@ class MatrixProductState(qtn.MatrixProductState):
         Matrix product state (MPS) for a finite size system.
 
         Args:
-            *args: Positional arguments for :class:`qtn.MatrixProductState`.
-            **kwargs: Keyword arguments for :class:`qtn.MatrixProductState`.
+            *args: Positional arguments for :class:`quimb.tensor.MatrixProductState`.
+            **kwargs: Keyword arguments for :class:`quimb.tensor.MatrixProductState`.
 
         Note:
-            This class inherits directly from :class:`qtn.MatrixProductState`,
+            This class inherits directly from :class:`quimb.tensor.MatrixProductState`,
             with some added features.
             But, note that the underlying tensors are in the shape 'lpr',
-            which differs from the parent class :class:`qtn.MatrixProductState`.
+            which differs from the parent class
+            :class:`quimb.tensor.MatrixProductState`.
         """
         super().__init__(*args, **kwargs)
         self.permute_arrays("lpr")

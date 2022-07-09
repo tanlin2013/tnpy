@@ -21,7 +21,7 @@ class Node(qtn.Tensor):
     ):
         """
         The node of binary tree, while data structure is inherited from
-        :class:`~quimb.Tensor`.
+        :class:`quimb.Tensor`.
 
         Args:
             node_id:
@@ -66,6 +66,15 @@ class Node(qtn.Tensor):
 class TensorTree:
     @dataclass
     class Syntax:
+        """
+        The name of indices follows a standardized syntax.
+
+        Examples:
+            * For open index: Node<node_id>LevelIdx<nth_idx>
+            * For connected index: Node<node1_id>-Node<node2_id>
+            * In the presence of conjugated node, replace `Node` with `ConjNode`
+        """
+
         node: str = "Node"
         conj_node: str = "ConjNode"
         level_idx: str = "LevelIdx"
@@ -75,7 +84,7 @@ class TensorTree:
         The bottom-up binary tree where each node contains a tensor.
 
         Args:
-            mpo:
+            mpo: The matrix product operator.
         """
         self._root_id: int | None = None
         self._tree = {
@@ -115,6 +124,15 @@ class TensorTree:
 
     @property
     def horizon(self) -> List[int]:
+        """
+        The horizon is a moving line to track the node ids in
+        the current renormalized system.
+        This can be useful during the bottom-up construction of the tree,
+        until there is only one node on the horizon, that is the root.
+
+        Returns:
+            The horizon.
+        """
         return self._horizon
 
     @property
@@ -123,7 +141,7 @@ class TensorTree:
         Total number of nodes in tree.
 
         Returns:
-            n_nodes:
+            Number of nodes, including leaves in tree.
         """
         return len(self._tree)
 
@@ -132,6 +150,19 @@ class TensorTree:
         return self._n_leaves
 
     def fuse(self, left_id: int, right_id: int, new_id: int, data: np.ndarray):
+        """
+        Fuse two nodes into one and assign the given data one it.
+        Meanwhile, the horizon is updated accordingly.
+
+        Args:
+            left_id: The ID of left node to be fused.
+            right_id: The ID of right node to be fused.
+            new_id: The ID of new node.
+            data: Data that will be assigned to the new node.
+
+        Returns:
+
+        """
         if self.root_id is not None:
             raise RuntimeError("Can't perform fuse on a grown tree.")
         left_ind = (
@@ -221,9 +252,10 @@ class TensorTree:
             conj: Take a conjugate on this network.
                 This will change the indices on physical bonds, as well as the internal
                 indices within the network. This will be an inplace operation.
-            mangle_outer: For conjugate network only. If False, the indices on physical
+            mangle_outer: For conjugate network only, namely when ``conj`` is True.
+                If this parameter is set to False, the indices on physical
                 bonds will remain untouched. This can be useful for taking inner product
-                on the same state, i.e. :math:`\langle\psi|\psi\rangle`.
+                on the state, i.e. :math:`\langle\psi|\psi\rangle`.
             with_leaves: Whether the leaves, that is, the MPOs, should be taken
                 into account in this network.
         Returns:
@@ -267,17 +299,17 @@ class TensorTree:
     @check_root
     def find_path(self, node_id: int, return_itself: bool = False) -> List[int]:
         """
-        Find the path to targeted node starting from the root.
+        Find the path from the root to the targeted node ``node_id``.
 
         Args:
-            node_id:
-            return_itself:
+            node_id: The id of node we are looking for.
+            return_itself: Should the target node be included in returning path.
 
         Returns:
-            path: ID of nodes to targeted node, including targeted node itself.
+            ID of nodes on the path from the root to the targeted node.
 
         Raises:
-            If path is empty, raises KeyError for input ``node_id``.
+            KeyError: If no path can be found to the given ``node_id``.
         """
 
         def find_node(current_node: Node | None, trial_path: List[int]) -> bool:
@@ -286,12 +318,10 @@ class TensorTree:
 
             Args:
                 current_node: Current node in iterative depth-first searching
-                trial_path: List for recording the trial path to the targeted
-                    leaf.
+                trial_path: List for recording the trial path to the targeted leaf.
 
             Returns:
-                found: Return True if the given ``node_id`` is found in tree,
-                    else False.
+                Return True if the given ``node_id`` is found in tree, else False.
             """
             if current_node is not None:
                 trial_path.append(current_node.node_id)
@@ -339,6 +369,16 @@ class TensorTree:
 
     @check_root
     def plot(self, view: bool = False) -> Digraph:
+        """
+        Plot the tree with :class:`graphviz.Digraph`.
+
+        Args:
+            view: View the plot in an interactive window.
+
+        Returns:
+            The Digraph object.
+        """
+
         def find_child(node: Node):
             for attr in ["left", "right"]:
                 if getattr(node, attr) is not None:
@@ -475,6 +515,19 @@ class TreeTensorNetworkSDRG:
         return self._evals
 
     def block_eigen_solver(self, locus: int) -> Tuple[np.ndarray, np.ndarray]:
+        """
+        Solve the 2-site Hamiltonian with :attr:`~TreeTensorNetworkSDRG.chi` lowest
+        eigen-pairs.
+
+        Args:
+            locus: The site in coarse-grained system during the RG process.
+
+        Returns:
+            A tuple (``evals``, ``evecs``),
+            where ``evals`` are the lowest
+            :attr:`~TreeTensorNetworkSDRG.chi` eigenvalues,
+            and ``evecs`` are the corresponding eigenvectors.
+        """
         matrix = self.block_hamiltonian(locus)
         evals, evecs = np.linalg.eigh(matrix)
         if matrix.shape[0] > self.chi:
@@ -490,7 +543,7 @@ class TreeTensorNetworkSDRG:
             evals: The eigenvalues (energy spectrum).
 
         Returns:
-            gap: The truncation gap, evals[chi+1] - evals[chi].
+            The truncation gap, evals[chi+1] - evals[chi].
         """
         gaps = np.diff(evals)
         return gaps[self.chi - 1] if gaps.size > self.chi else gaps[-1]
@@ -503,7 +556,7 @@ class TreeTensorNetworkSDRG:
             locus: The site in coarse-grained system during the RG process.
 
         Returns:
-            block_ham: The 2-site Hamiltonian.
+            The 2-site Hamiltonian.
         """
         mpo1, mpo2 = self._fused_mpo_cache[locus], self._fused_mpo_cache[locus + 1]
         if len(mpo1.inds) == 4:
@@ -526,7 +579,7 @@ class TreeTensorNetworkSDRG:
             evecs:
 
         Returns:
-            projector:
+            The projector.
         """
         mpo1, mpo2 = self._fused_mpo_cache[locus], self._fused_mpo_cache[locus + 1]
         projector = qtn.Tensor(
@@ -556,6 +609,12 @@ class TreeTensorNetworkSDRG:
         return projector.data
 
     def run(self):
+        """
+        Start the algorithm.
+
+        Returns:
+
+        """
         for step in count(start=1):
             max_gapped_bond = int(np.argmax(np.array(self._gap_cache.gap)))
             logger.info(
@@ -610,9 +669,10 @@ class TreeTensorNetworkMeasurements:
             mpo: (Optional) If not given, ``bra`` & ``ket`` will be computed.
 
         Returns:
-            tensor: The contracted tensor.
-        Notes:
+            The contracted tensor.
 
+        Notes:
+            :mod:`quimb` may provide other simplify methods based on greedy algorithm.
         """
         net = (bra & ket) if mpo is None else (bra & mpo & ket)
         if mpo is not None:
@@ -631,6 +691,8 @@ class TreeTensorNetworkMeasurements:
 
     def sandwich(self, mpo: MatrixProductOperator = None) -> qtn.Tensor:
         """
+        Take the sandwich on given ``mpo``.
+        If it is None, this computes the inner product of state.
 
         Args:
             mpo:
@@ -650,16 +712,17 @@ class TreeTensorNetworkMeasurements:
         self, mpo: MatrixProductOperator, tol: float = 1e-12
     ) -> np.ndarray:
         """
+        Compute the expectation value for given ``mpo``.
 
         Args:
-            mpo:
-            tol:
+            mpo: The matrix product operator.
+            tol: The numerical tolerance.
 
         Returns:
+            The expectation values.
 
-        Warnings:
-            Warning will be raised if any off-diagonal element is larger
-            than ``tol``.
+        Raises:
+            Warning: If any off-diagonal element is larger than ``tol``.
         """
         exp_val = self.sandwich(mpo).data
         if not np.allclose(
@@ -670,12 +733,18 @@ class TreeTensorNetworkMeasurements:
 
     def _min_surface(self, bipartite_site: int) -> Tuple[int, Dict, Dict]:
         """
+        Find the smaller side over bipartition,
+        and find the lowest common ancestor (LCA) between ``bipartite_site``
+        and the rest of sites on the smaller side.
 
         Args:
             bipartite_site:
 
         Returns:
-
+            A tuple (``min_side``, ``ket_inds_map``, ``bra_inds_map``),
+            where ``min_side`` is either 0 for the left side or 1 for the right.
+            ``ket_inds_map`` and ``bra_inds_map`` are each a dictionary of indices
+            that maps the original indices of LCA nodes into the physical bonds.
         """
         min_side = (
             0 if (bipartite_site + 1) / (self.tree.n_leaves - bipartite_site) < 1 else 1
@@ -695,6 +764,8 @@ class TreeTensorNetworkMeasurements:
 
     def reduced_density_matrix(self, site: int, level_idx: int) -> np.ndarray:
         """
+        Compute the reduced density matrix for the bipartite system with respect to
+        the cutting ``site``.
 
         Args:
             site:
@@ -750,6 +821,7 @@ class TreeTensorNetworkMeasurements:
         self, site: int, level_idx: int, nan_to_num: bool = False
     ) -> float:
         """
+        Compute the von Neumann entropy on the cutting ``site``.
 
         Args:
             site:
@@ -764,6 +836,18 @@ class TreeTensorNetworkMeasurements:
         return np.nan_to_num(entropy) if nan_to_num else entropy
 
     def one_point_function(self, operator: np.ndarray, site: int, level_idx: int):
+        r"""
+        Compute the expectation value :math:`\langle \hat{O}_i \rangle`
+        of given local operator :math:`\hat{O}_i` on site :math:`i`.
+
+        Args:
+            operator: The operator :math:`\hat{O}`.
+            site:
+            level_idx:
+
+        Returns:
+
+        """
         node_ids = self.tree.find_path(site)
         ket = self.tree.tensor_network(node_ids)
         ket.isel(
@@ -793,6 +877,23 @@ class TreeTensorNetworkMeasurements:
         site2: int,
         level_idx: int,
     ):
+        r"""
+        Compute the correlation function
+        :math:`\langle \hat{O}_{i_1}^A \hat{O}_{i_2}^B \rangle`
+        of 2 given local operators
+        :math:`\hat{O}_{i_1}^A` and :math:`\hat{O}_{i_2}^B`
+        on site :math:`i_1` and :math:`i_2`.
+
+        Args:
+            operator1: The first operator :math:`\hat{O}^A`.
+            operator2: The second operator :math:`\hat{O}^B`.
+            site1:
+            site2:
+            level_idx:
+
+        Returns:
+
+        """
         assert site1 != site2
         site1, site2 = sorted((site1, site2))
         # TODO: operators aren't sorted accordingly
@@ -826,6 +927,18 @@ class TreeTensorNetworkMeasurements:
         site2: int,
         level_idx: int,
     ):
+        """
+
+        Args:
+            operator1:
+            operator2:
+            site1:
+            site2:
+            level_idx:
+
+        Returns:
+
+        """
         return self.two_point_function(
             operator1, operator2, site1, site2, level_idx
         ) - self.one_point_function(
@@ -867,7 +980,7 @@ class HighEnergyTreeTensorNetworkSDRG(TreeTensorNetworkSDRG):
             evals: The eigenvalues (energy spectrum).
 
         Returns:
-            gap: The truncation gap, evals[-chi] - evals[-chi-1].
+            The truncation gap, evals[-chi] - evals[-chi-1].
         """
         gaps = np.diff(evals)
         return gaps[-self.chi] if gaps.size > self.chi else gaps[0]
