@@ -835,7 +835,9 @@ class TreeTensorNetworkMeasurements:
         entropy = -1 * rho @ np.log(rho)
         return np.nan_to_num(entropy) if nan_to_num else entropy
 
-    def one_point_function(self, operator: np.ndarray, site: int, level_idx: int):
+    def one_point_function(
+        self, operator: np.ndarray, site: int, level_idx: int
+    ) -> float:
         r"""
         Compute the expectation value :math:`\langle \hat{O}_i \rangle`
         of given local operator :math:`\hat{O}_i` on site :math:`i`.
@@ -876,7 +878,7 @@ class TreeTensorNetworkMeasurements:
         site1: int,
         site2: int,
         level_idx: int,
-    ):
+    ) -> float:
         r"""
         Compute the correlation function
         :math:`\langle \hat{O}_{i_1}^A \hat{O}_{i_2}^B \rangle`
@@ -926,7 +928,7 @@ class TreeTensorNetworkMeasurements:
         site1: int,
         site2: int,
         level_idx: int,
-    ):
+    ) -> float:
         """
 
         Args:

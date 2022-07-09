@@ -90,7 +90,7 @@ class ExactDiagonalization(FullHamiltonian):
 
     def one_point_function(
         self, operator: np.ndarray, site: int, level_idx: int = 0
-    ) -> np.ndarray:
+    ) -> float:
         assert operator.shape == (self.phys_dim, self.phys_dim)
         opt_mat = self.kron_operators(
             [
@@ -108,7 +108,7 @@ class ExactDiagonalization(FullHamiltonian):
         site1: int,
         site2: int,
         level_idx: int,
-    ) -> np.ndarray:
+    ) -> float:
         assert operator1.shape == (self.phys_dim, self.phys_dim)
         assert operator2.shape == (self.phys_dim, self.phys_dim)
         assert site1 != site2
@@ -132,7 +132,7 @@ class ExactDiagonalization(FullHamiltonian):
         site1: int,
         site2: int,
         level_idx: int,
-    ):
+    ) -> float:
         return self.two_point_function(
             operator1, operator2, site1, site2, level_idx
         ) - self.one_point_function(
