@@ -64,7 +64,7 @@ class Node(qtn.Tensor):
 
 
 class TensorTree:
-    @dataclass
+    @dataclass(frozen=True)
     class Syntax:
         """
         The name of indices follows a standardized syntax.
