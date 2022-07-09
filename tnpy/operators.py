@@ -126,11 +126,11 @@ class MatrixProductOperator(qtn.MatrixProductOperator):
 
 class FullHamiltonian:
     def __init__(self, mpo: MatrixProductOperator):
-        """
+        r"""
         Construct the Hamiltonian from :class:`~MatrixProductOperator` (MPO).
 
         Args:
-            mpo:
+            mpo: The matrix product operator.
 
         Examples:
             The matrix element of Hamiltonian can be accessed
@@ -138,6 +138,9 @@ class FullHamiltonian:
 
             >>> ham = FullHamiltonian(mpo).matrix
 
+        Raises:
+            ResourceWarning: When the dimensions of matrix are larger
+                than :math:`4096 \times 4096`.
         """
         self._n_sites = mpo.n_sites
         self._phys_dim = mpo.phys_dim
