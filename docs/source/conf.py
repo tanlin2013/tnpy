@@ -52,7 +52,19 @@ extensions = [
 ]
 
 # Turn on sphinx.ext.autosummary
-autosummary_generate = True
+autodoc_default_options = {
+    "members": True,
+    "member-order": "bysource",
+    "special-members": "__init__",
+    "undoc-members": True,
+    "exclude-members": "__weakref__",
+    "autosummary": True,
+    "show-inheritance": True,
+}
+autodoc_typehints = "description"
+# autosummary_generate = True
+# autosummary_imported_members = True
+# numpydoc_show_class_members = False
 
 # Looks for objects in external projects
 intersphinx_mapping = {
