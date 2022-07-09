@@ -57,6 +57,7 @@ autosummary_generate = True
 # Looks for objects in external projects
 intersphinx_mapping = {
     "numpy": ("https://numpy.org/doc/stable/", None),
+    "scipy": ("https://docs.scipy.org/doc/scipy/reference/", None),
     "quimb": ("https://quimb.readthedocs.io/en/latest/", None),
     "tensornetwork": ("https://tensornetwork.readthedocs.io/en/latest/", None),
     # "primme": ("https://www.cs.wm.edu/~andreas/software/doc/readme.html", None),
