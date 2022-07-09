@@ -36,7 +36,10 @@ class SpinOperators:
         O2: 2 x 2 zero matrix.
 
     Examples:
-            Sp, Sm, Sz, I2, O2 = SpinOperators(spin=0.5)
+        >>> Sp, Sm, Sz, I2, O2 = SpinOperators(spin=0.5)
+        >>> print(Sp)
+        array([[0., 1.],
+               [0., 0.]])
 
     Warnings:
         Unpacking ordering is important, and variable-unaware.
@@ -133,7 +136,7 @@ class FullHamiltonian:
             The matrix element of Hamiltonian can be accessed
             through the property :attr:`~FullHamiltonian.matrix`.
 
-                ham = FullHamiltonian(mpo).matrix
+            >>> ham = FullHamiltonian(mpo).matrix
 
         """
         self._n_sites = mpo.n_sites

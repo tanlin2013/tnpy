@@ -53,8 +53,8 @@ class FiniteDMRG:
         Examples:
             To start the algorithm, one can call :func:`~FiniteDMRG.run`,
 
-                fdmrg = FiniteDMRG(mpo, bond_dim=20)
-                fdmrg.run(tol=1e-8)
+            >>> fdmrg = FiniteDMRG(mpo, bond_dim=20)
+            >>> fdmrg.run(tol=1e-8)
 
             The optimized :class:`~MatrixProductState` can then be retrieved
             from :attr:`~FiniteDMRG.mps`.

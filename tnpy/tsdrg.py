@@ -477,8 +477,8 @@ class TreeTensorNetworkSDRG:
             The tSDRG algorithm can be launched by calling
             :func:`~TreeTensorNetworkSDRG.run` method.
 
-                tsdrg = TreeTensorNetworkSDRG(mpo, chi=32)
-                tsdrg.run()
+            >>> tsdrg = TreeTensorNetworkSDRG(mpo, chi=32)
+            >>> tsdrg.run()
 
             After executing :func:`~TreeTensorNetworkSDRG.run`,
             one can access the binary tensor tree :class:`~TensorTree`
