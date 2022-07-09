@@ -1,8 +1,8 @@
 import pytest
 import numpy as np
 
-from tnpy.model import RandomHeisenberg
-from tnpy.operators import SpinOperators
+from tnpy.model import RandomHeisenberg, TotalSz
+from tnpy.operators import SpinOperators, FullHamiltonian
 from tnpy.exact_diagonalization import ExactDiagonalization
 from tnpy.tsdrg import (
     TensorTree,
@@ -258,6 +258,25 @@ class TestTreeTensorNetworkMeasurements:
             tsdrg.measurements.connected_two_point_function(
                 Sz, Sz, site1, site2, level_idx=level_idx
             ),
+            atol=1e-12,
+        )
+
+    @pytest.mark.parametrize("partition_site", list(range(8)))
+    def test_variance(self, ed, tsdrg, partition_site):
+        np.testing.assert_allclose(
+            ed.variance(),
+            tsdrg.measurements.variance(tsdrg.mpo),
+            atol=1e-12,
+        )
+        np.testing.assert_allclose(
+            tsdrg.measurements.variance(tsdrg.mpo),
+            np.zeros(2**8),
+            atol=1e-12,
+        )
+        sz_a = TotalSz(n=8).subsystem_mpo(partition_site)
+        np.testing.assert_allclose(
+            ed.variance(FullHamiltonian(sz_a).matrix),
+            tsdrg.measurements.variance(sz_a),
             atol=1e-12,
         )
 

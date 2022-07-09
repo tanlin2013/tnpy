@@ -2,6 +2,7 @@ from typing import Tuple, Sequence
 
 import numpy as np
 
+from tnpy import logger
 from tnpy.operators import MatrixProductOperator, FullHamiltonian
 
 
@@ -140,3 +141,30 @@ class ExactDiagonalization(FullHamiltonian):
         ) * self.one_point_function(
             operator2, site2, level_idx
         )
+
+    def variance(self, operator: np.ndarray = None, tol: float = 1e-12) -> np.ndarray:
+        """
+        Compute the variance on input operator.
+
+        Args:
+            operator: Default None to the Hamailtonian itself.
+            tol: The numerical tolerance.
+
+        Returns:
+            The variance.
+
+        Raises:
+            Warnings: If any off-diagonal element is larger than ``tol``.
+        """
+        operator = self.matrix if operator is None else operator
+        var = (
+            self.evecs.T @ np.linalg.matrix_power(operator, 2) @ self.evecs
+            - (self.evecs.T @ operator @ self.evecs) ** 2
+        )
+        if not np.allclose(
+            np.zeros(var.shape),
+            var - np.diagflat(np.diag(var)),
+            atol=tol,
+        ):
+            logger.warning("Expectation value may contain large off-diagonal elements.")
+        return np.diag(var)

@@ -949,6 +949,18 @@ class TreeTensorNetworkMeasurements:
             operator2, site2, level_idx
         )
 
+    def variance(self, mpo: MatrixProductOperator) -> np.ndarray:
+        """
+        Compute the variance on given matrix product operator.
+
+        Args:
+            mpo: The matrix product operator.
+
+        Returns:
+            The variance.
+        """
+        return self.expectation_value(mpo.square()) - self.expectation_value(mpo) ** 2
+
     def wave_func_coeff(self, level_idx: int):
         return NotImplemented
 
