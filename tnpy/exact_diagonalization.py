@@ -73,7 +73,7 @@ class ExactDiagonalization(FullHamiltonian):
         return np.nan_to_num(entropy) if nan_to_num else entropy
 
     @staticmethod
-    def kron_opts(operators: Sequence[np.ndarray]) -> np.ndarray:
+    def kron_operators(operators: Sequence[np.ndarray]) -> np.ndarray:
         """
         Perform Kronecker product on the given sequence of operators.
 
@@ -92,7 +92,7 @@ class ExactDiagonalization(FullHamiltonian):
         self, operator: np.ndarray, site: int, level_idx: int = 0
     ) -> np.ndarray:
         assert operator.shape == (self.phys_dim, self.phys_dim)
-        opt_mat = self.kron_opts(
+        opt_mat = self.kron_operators(
             [
                 np.eye(self.phys_dim**site),
                 operator,
@@ -114,7 +114,7 @@ class ExactDiagonalization(FullHamiltonian):
         assert site1 != site2
         site1, site2 = sorted((site1, site2))
         # TODO: operators aren't sorted accordingly
-        opt_mat = self.kron_opts(
+        opt_mat = self.kron_operators(
             [
                 np.eye(self.phys_dim**site1),
                 operator1,
