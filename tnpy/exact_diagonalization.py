@@ -7,15 +7,41 @@ from tnpy.operators import MatrixProductOperator, FullHamiltonian
 
 class ExactDiagonalization(FullHamiltonian):
     def __init__(self, mpo: MatrixProductOperator):
+        """
+        Perform the numerically exact diagonalization on the matrix,
+        which is constructed through the given Matrix Product Operator (MPO).
+        Calculations are taken in prompt on the initialization of this class.
+
+        Args:
+            mpo: The matrix product operator.
+
+        Raises:
+            ResourceWarning: When the dimensions of Hamiltonian are larger
+            than :math:`4096 \times 4096`.
+        """
         super(ExactDiagonalization, self).__init__(mpo)
         self._evals, self._evecs = self._eigen_solver()
 
     @property
     def evals(self) -> np.ndarray:
+        """
+        Eigenvalues in ascending order.
+
+        Returns:
+
+        """
         return self._evals
 
     @property
     def evecs(self) -> np.ndarray:
+        """
+        Eigenvectors in the order accordingly to :attr:`~ExactDiagonalization.evals`.
+
+        Returns:
+            The eigenvectors,
+            with the column ``v[:, k]`` is the eigenvector corresponding to
+            the k-th eigenvalue ``w[k]``.
+        """
         return self._evecs
 
     def _eigen_solver(self) -> Tuple[np.ndarray, np.ndarray]:
@@ -48,6 +74,15 @@ class ExactDiagonalization(FullHamiltonian):
 
     @staticmethod
     def kron_opts(operators: Sequence[np.ndarray]) -> np.ndarray:
+        """
+        Perform Kronecker product on the given sequence of operators.
+
+        Args:
+            operators: A list of operators to take Kronecker product.
+
+        Returns:
+            The resulting product operator.
+        """
         opt = operators[0]
         for next_opt in operators[1:]:
             opt = np.kron(opt, next_opt)
