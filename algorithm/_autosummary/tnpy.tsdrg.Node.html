@@ -541,15 +541,16 @@ title="Edit this page"
 <h1><span class="section-number">4.1. </span>tnpy.tsdrg.Node<a class="headerlink" href="#tnpy-tsdrg-node" title="Permalink to this headline">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="tnpy.tsdrg.Node">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.tsdrg.</span></span><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tnpy.tsdrg.Node" title="tnpy.tsdrg.Node"><span class="pre">tnpy.tsdrg.Node</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tnpy.tsdrg.Node" title="tnpy.tsdrg.Node"><span class="pre">tnpy.tsdrg.Node</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#Node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.Node" title="Permalink to this definition">#</a></dt>
-<dd><p>The node of binary tree, while data structure is inherited from
-<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>.</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.tsdrg.</span></span><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#Node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.Node" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://quimb.readthedocs.io/en/latest/_autosummary/quimb.tensor.tensor_core.html#quimb.tensor.tensor_core.Tensor" title="(in quimb v1.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">quimb.tensor.tensor_core.Tensor</span></code></a></p>
+<p>The node of binary tree, while data structure is inherited from
+<code class="xref py py-class docutils literal notranslate"><span class="pre">quimb.Tensor</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node_id</strong> – </p></li>
-<li><p><strong>left</strong> – </p></li>
-<li><p><strong>right</strong> – </p></li>
+<li><p><strong>node_id</strong> (<em>int</em>) – </p></li>
+<li><p><strong>left</strong> (<a class="reference internal" href="#tnpy.tsdrg.Node" title="tnpy.tsdrg.Node"><em>Node</em></a>) – </p></li>
+<li><p><strong>right</strong> (<a class="reference internal" href="#tnpy.tsdrg.Node" title="tnpy.tsdrg.Node"><em>Node</em></a>) – </p></li>
 <li><p><strong>*args</strong> – </p></li>
 <li><p><strong>**kwargs</strong> – </p></li>
 </ul>
@@ -557,15 +558,15 @@ title="Edit this page"
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.tsdrg.Node.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tnpy.tsdrg.Node" title="tnpy.tsdrg.Node"><span class="pre">tnpy.tsdrg.Node</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tnpy.tsdrg.Node" title="tnpy.tsdrg.Node"><span class="pre">tnpy.tsdrg.Node</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#Node.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.Node.__init__" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#Node.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.Node.__init__" title="Permalink to this definition">#</a></dt>
 <dd><p>The node of binary tree, while data structure is inherited from
-<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>.</p>
+<code class="xref py py-class docutils literal notranslate"><span class="pre">quimb.Tensor</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node_id</strong> – </p></li>
-<li><p><strong>left</strong> – </p></li>
-<li><p><strong>right</strong> – </p></li>
+<li><p><strong>node_id</strong> (<em>int</em>) – </p></li>
+<li><p><strong>left</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#tnpy.tsdrg.Node" title="tnpy.tsdrg.Node"><em>tnpy.tsdrg.Node</em></a><em>]</em>) – </p></li>
+<li><p><strong>right</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#tnpy.tsdrg.Node" title="tnpy.tsdrg.Node"><em>tnpy.tsdrg.Node</em></a><em>]</em>) – </p></li>
 <li><p><strong>*args</strong> – </p></li>
 <li><p><strong>**kwargs</strong> – </p></li>
 </ul>
@@ -580,8 +581,8 @@ title="Edit this page"
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.Node.__init__" title="tnpy.tsdrg.Node.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(node_id[, left, right])</p></td>
-<td><p>The node of binary tree, while data structure is inherited from <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id0" title="tnpy.tsdrg.Node.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(node_id[, left, right])</p></td>
+<td><p>The node of binary tree, while data structure is inherited from <code class="xref py py-class docutils literal notranslate"><span class="pre">quimb.Tensor</span></code>.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_owner</span></code>(tn, tid)</p></td>
 <td><p>Add <code class="docutils literal notranslate"><span class="pre">tn</span></code> as owner of this Tensor - it's tag and ind maps will be updated whenever this tensor is retagged or reindexed.</p></td>
@@ -763,10 +764,10 @@ title="Edit this page"
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">inds</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_leaf</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.Node.is_leaf" title="tnpy.tsdrg.Node.is_leaf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_leaf</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">left</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.Node.left" title="tnpy.tsdrg.Node.left"><code class="xref py py-obj docutils literal notranslate"><span class="pre">left</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">left_inds</span></code></p></td>
@@ -775,10 +776,10 @@ title="Edit this page"
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndim</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">node_id</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.Node.node_id" title="tnpy.tsdrg.Node.node_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">node_id</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">right</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.Node.right" title="tnpy.tsdrg.Node.right"><code class="xref py py-obj docutils literal notranslate"><span class="pre">right</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">shape</span></code></p></td>
@@ -792,6 +793,44 @@ title="Edit this page"
 </tr>
 </tbody>
 </table>
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#Node.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Permalink to this definition">#</a></dt>
+<dd><p>The node of binary tree, while data structure is inherited from
+<code class="xref py py-class docutils literal notranslate"><span class="pre">quimb.Tensor</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node_id</strong> (<em>int</em>) – </p></li>
+<li><p><strong>left</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#tnpy.tsdrg.Node" title="tnpy.tsdrg.Node"><em>tnpy.tsdrg.Node</em></a><em>]</em>) – </p></li>
+<li><p><strong>right</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#tnpy.tsdrg.Node" title="tnpy.tsdrg.Node"><em>tnpy.tsdrg.Node</em></a><em>]</em>) – </p></li>
+<li><p><strong>*args</strong> – </p></li>
+<li><p><strong>**kwargs</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.Node.node_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">node_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tnpy.tsdrg.Node.node_id" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.Node.left">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">left</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#tnpy.tsdrg.Node" title="tnpy.tsdrg.Node"><span class="pre">tnpy.tsdrg.Node</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tnpy.tsdrg.Node.left" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.Node.right">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">right</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#tnpy.tsdrg.Node" title="tnpy.tsdrg.Node"><span class="pre">tnpy.tsdrg.Node</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tnpy.tsdrg.Node.right" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.Node.is_leaf">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_leaf</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#tnpy.tsdrg.Node.is_leaf" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>

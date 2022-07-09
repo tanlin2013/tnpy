@@ -543,8 +543,9 @@ title="Edit this page"
 <h1><span class="section-number">2.2. </span>tnpy.operators.SpinOperators<a class="headerlink" href="#tnpy-operators-spinoperators" title="Permalink to this headline">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="tnpy.operators.SpinOperators">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.operators.</span></span><span class="sig-name descname"><span class="pre">SpinOperators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">InitVar</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/operators.html#SpinOperators"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.operators.SpinOperators" title="Permalink to this definition">#</a></dt>
-<dd><p>Constructor of spin operators.</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.operators.</span></span><span class="sig-name descname"><span class="pre">SpinOperators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/operators.html#SpinOperators"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.operators.SpinOperators" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Constructor of spin operators.</p>
 <div class="math notranslate nohighlight">
 \[ \begin{align}\begin{aligned}\begin{split}S^+ &amp;= \frac{1}{2}\left( S^x + iS^y \right) \\
     &amp;= \frac{spin}{2} \times
@@ -557,6 +558,14 @@ title="Edit this page"
             0 &amp; 0\\
             1 &amp; 0
         \end{pmatrix}\end{split}\end{aligned}\end{align} \]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>spin</strong> (<em>InitVar</em><em>[</em><em>float</em><em>]</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="tnpy.operators.SpinOperators.Sp">
 <span class="sig-name descname"><span class="pre">Sp</span></span><a class="headerlink" href="#tnpy.operators.SpinOperators.Sp" title="Permalink to this definition">#</a></dt>
@@ -620,8 +629,16 @@ title="Edit this page"
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.operators.SpinOperators.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">InitVar</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tnpy.operators.SpinOperators.__init__" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tnpy.operators.SpinOperators.__init__" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>spin</strong> (<em>InitVar</em><em>[</em><em>float</em><em>]</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
 
 <p class="rubric">Methods</p>
 <table class="autosummary longtable table autosummary">
@@ -630,7 +647,7 @@ title="Edit this page"
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.operators.SpinOperators.__init__" title="tnpy.operators.SpinOperators.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>([spin])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id5" title="tnpy.operators.SpinOperators.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>([spin])</p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -642,26 +659,69 @@ title="Edit this page"
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">spin</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.operators.SpinOperators.spin" title="tnpy.operators.SpinOperators.spin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spin</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.operators.SpinOperators.Sp" title="tnpy.operators.SpinOperators.Sp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Sp</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id0" title="tnpy.operators.SpinOperators.Sp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Sp</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.operators.SpinOperators.Sm" title="tnpy.operators.SpinOperators.Sm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Sm</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id1" title="tnpy.operators.SpinOperators.Sm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Sm</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.operators.SpinOperators.Sz" title="tnpy.operators.SpinOperators.Sz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Sz</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id2" title="tnpy.operators.SpinOperators.Sz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Sz</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.operators.SpinOperators.I2" title="tnpy.operators.SpinOperators.I2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">I2</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id3" title="tnpy.operators.SpinOperators.I2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">I2</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.operators.SpinOperators.O2" title="tnpy.operators.SpinOperators.O2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">O2</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id4" title="tnpy.operators.SpinOperators.O2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">O2</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
 </table>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tnpy.operators.SpinOperators.spin">
+<span class="sig-name descname"><span class="pre">spin</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">InitVar</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.5</span></em><a class="headerlink" href="#tnpy.operators.SpinOperators.spin" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">Sp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">np.ndarray</span></em><a class="headerlink" href="#id0" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">Sm</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">np.ndarray</span></em><a class="headerlink" href="#id1" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">Sz</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">np.ndarray</span></em><a class="headerlink" href="#id2" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">I2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">np.ndarray</span></em><a class="headerlink" href="#id3" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">O2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">np.ndarray</span></em><a class="headerlink" href="#id4" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id5" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>spin</strong> (<em>InitVar</em><em>[</em><em>float</em><em>]</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>

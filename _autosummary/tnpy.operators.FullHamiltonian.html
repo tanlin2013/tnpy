@@ -541,31 +541,32 @@ title="Edit this page"
 <h1><span class="section-number">2.3. </span>tnpy.operators.FullHamiltonian<a class="headerlink" href="#tnpy-operators-fullhamiltonian" title="Permalink to this headline">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="tnpy.operators.FullHamiltonian">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.operators.</span></span><span class="sig-name descname"><span class="pre">FullHamiltonian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/operators.html#FullHamiltonian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.operators.FullHamiltonian" title="Permalink to this definition">#</a></dt>
-<dd><p>Construct the Hamiltonian from <a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductOperator</span></code></a> (MPO).</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.operators.</span></span><span class="sig-name descname"><span class="pre">FullHamiltonian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/operators.html#FullHamiltonian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.operators.FullHamiltonian" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Construct the Hamiltonian from <a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductOperator</span></code></a> (MPO).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>mpo</strong> – </p>
+<dd class="field-odd"><p><strong>mpo</strong> (<a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>MatrixProductOperator</em></a>) – </p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <p>The matrix element of Hamiltonian can be accessed
-through the property <code class="xref py py-attr docutils literal notranslate"><span class="pre">matrix</span></code>.</p>
+through the property <a class="reference internal" href="#tnpy.operators.FullHamiltonian.matrix" title="tnpy.operators.FullHamiltonian.matrix"><code class="xref py py-attr docutils literal notranslate"><span class="pre">matrix</span></code></a>.</p>
 <blockquote>
 <div><p>ham = FullHamiltonian(mpo).matrix</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.operators.FullHamiltonian.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/operators.html#FullHamiltonian.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.operators.FullHamiltonian.__init__" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/operators.html#FullHamiltonian.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.operators.FullHamiltonian.__init__" title="Permalink to this definition">#</a></dt>
 <dd><p>Construct the Hamiltonian from <a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductOperator</span></code></a> (MPO).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>mpo</strong> – </p>
+<dd class="field-odd"><p><strong>mpo</strong> (<a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – </p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <p>The matrix element of Hamiltonian can be accessed
-through the property <code class="xref py py-attr docutils literal notranslate"><span class="pre">matrix</span></code>.</p>
+through the property <a class="reference internal" href="#tnpy.operators.FullHamiltonian.matrix" title="tnpy.operators.FullHamiltonian.matrix"><code class="xref py py-attr docutils literal notranslate"><span class="pre">matrix</span></code></a>.</p>
 <blockquote>
 <div><p>ham = FullHamiltonian(mpo).matrix</p>
 </div></blockquote>
@@ -578,7 +579,7 @@ through the property <code class="xref py py-attr docutils literal notranslate">
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.operators.FullHamiltonian.__init__" title="tnpy.operators.FullHamiltonian.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(mpo)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id0" title="tnpy.operators.FullHamiltonian.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(mpo)</p></td>
 <td><p>Construct the Hamiltonian from <a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductOperator</span></code></a> (MPO).</p></td>
 </tr>
 </tbody>
@@ -590,17 +591,49 @@ through the property <code class="xref py py-attr docutils literal notranslate">
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">matrix</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.operators.FullHamiltonian.matrix" title="tnpy.operators.FullHamiltonian.matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matrix</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_sites</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.operators.FullHamiltonian.n_sites" title="tnpy.operators.FullHamiltonian.n_sites"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_sites</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">phys_dim</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.operators.FullHamiltonian.phys_dim" title="tnpy.operators.FullHamiltonian.phys_dim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">phys_dim</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
 </table>
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/operators.html#FullHamiltonian.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Permalink to this definition">#</a></dt>
+<dd><p>Construct the Hamiltonian from <a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductOperator</span></code></a> (MPO).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mpo</strong> (<a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – </p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>The matrix element of Hamiltonian can be accessed
+through the property <a class="reference internal" href="#tnpy.operators.FullHamiltonian.matrix" title="tnpy.operators.FullHamiltonian.matrix"><code class="xref py py-attr docutils literal notranslate"><span class="pre">matrix</span></code></a>.</p>
+<blockquote>
+<div><p>ham = FullHamiltonian(mpo).matrix</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.operators.FullHamiltonian.n_sites">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_sites</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tnpy.operators.FullHamiltonian.n_sites" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.operators.FullHamiltonian.phys_dim">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">phys_dim</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tnpy.operators.FullHamiltonian.phys_dim" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.operators.FullHamiltonian.matrix">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">matrix</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">numpy.ndarray</span></a></em><a class="headerlink" href="#tnpy.operators.FullHamiltonian.matrix" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>

@@ -543,8 +543,9 @@ title="Edit this page"
 <h1><span class="section-number">5.1. </span>tnpy.model.Thirring<a class="headerlink" href="#tnpy-model-thirring" title="Permalink to this headline">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="tnpy.model.Thirring">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.model.</span></span><span class="sig-name descname"><span class="pre">Thirring</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penalty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/model/thirring.html#Thirring"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.Thirring" title="Permalink to this definition">#</a></dt>
-<dd><p>The Hamiltonian</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.model.</span></span><span class="sig-name descname"><span class="pre">Thirring</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penalty</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_target</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/model/thirring.html#Thirring"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.Thirring" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="tnpy.model.Model1D.html#tnpy.model.Model1D" title="tnpy.model.model_1d.Model1D"><code class="xref py py-class docutils literal notranslate"><span class="pre">tnpy.model.model_1d.Model1D</span></code></a></p>
+<p>The Hamiltonian</p>
 <div class="math notranslate nohighlight">
 \[H = -\frac{1}{2} \sum_{n=0}^{N-1}(S_n^+ S_{n+1}^- + S_{n+1}^+ S_n^-)
     + \tilde{m}_0 a \sum_{n=0}^{N-1} (-1)^n \left(S_n^z + \frac{1}{2}\right)
@@ -557,17 +558,20 @@ a penalty term will be taken into account</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>n</strong> – System size.</p></li>
-<li><p><strong>delta</strong> – Wavefunction-renormalized bare coupling, Delta(g).</p></li>
-<li><p><strong>ma</strong> – Wavefunction-renormalized bare mass.</p></li>
-<li><p><strong>penalty</strong> – Penalty strength (of Lagrangian multiplier).</p></li>
-<li><p><strong>s_target</strong> – The targeting total Sz charge sector.</p></li>
+<li><p><strong>n</strong> (<em>int</em>) – System size.</p></li>
+<li><p><strong>delta</strong> (<em>float</em>) – Wavefunction-renormalized bare coupling, Delta(g).</p></li>
+<li><p><strong>ma</strong> (<em>float</em>) – Wavefunction-renormalized bare mass.</p></li>
+<li><p><strong>penalty</strong> (<em>float</em>) – Penalty strength (of Lagrangian multiplier).</p></li>
+<li><p><strong>s_target</strong> (<em>int</em>) – The targeting total Sz charge sector.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.model.Thirring.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penalty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/tnpy/model/thirring.html#Thirring.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.Thirring.__init__" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penalty</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_target</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/model/thirring.html#Thirring.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.Thirring.__init__" title="Permalink to this definition">#</a></dt>
 <dd><p>The Hamiltonian</p>
 <div class="math notranslate nohighlight">
 \[H = -\frac{1}{2} \sum_{n=0}^{N-1}(S_n^+ S_{n+1}^- + S_{n+1}^+ S_n^-)
@@ -581,12 +585,15 @@ a penalty term will be taken into account</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>n</strong> – System size.</p></li>
-<li><p><strong>delta</strong> – Wavefunction-renormalized bare coupling, Delta(g).</p></li>
-<li><p><strong>ma</strong> – Wavefunction-renormalized bare mass.</p></li>
-<li><p><strong>penalty</strong> – Penalty strength (of Lagrangian multiplier).</p></li>
-<li><p><strong>s_target</strong> – The targeting total Sz charge sector.</p></li>
+<li><p><strong>n</strong> (<em>int</em>) – System size.</p></li>
+<li><p><strong>delta</strong> (<em>float</em>) – Wavefunction-renormalized bare coupling, Delta(g).</p></li>
+<li><p><strong>ma</strong> (<em>float</em>) – Wavefunction-renormalized bare mass.</p></li>
+<li><p><strong>penalty</strong> (<em>float</em>) – Penalty strength (of Lagrangian multiplier).</p></li>
+<li><p><strong>s_target</strong> (<em>int</em>) – The targeting total Sz charge sector.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -598,7 +605,7 @@ a penalty term will be taken into account</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.model.Thirring.__init__" title="tnpy.model.Thirring.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(n, delta, ma, penalty, s_target)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id0" title="tnpy.model.Thirring.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(n, delta, ma, penalty, s_target)</p></td>
 <td><p>The Hamiltonian</p></td>
 </tr>
 </tbody>
@@ -618,6 +625,35 @@ a penalty term will be taken into account</p>
 </tr>
 </tbody>
 </table>
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penalty</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_target</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/model/thirring.html#Thirring.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Permalink to this definition">#</a></dt>
+<dd><p>The Hamiltonian</p>
+<div class="math notranslate nohighlight">
+\[H = -\frac{1}{2} \sum_{n=0}^{N-1}(S_n^+ S_{n+1}^- + S_{n+1}^+ S_n^-)
+    + \tilde{m}_0 a \sum_{n=0}^{N-1} (-1)^n \left(S_n^z + \frac{1}{2}\right)
+    + \Delta(g) \sum_{n=0}^{N-1} \left(S_n^z + \frac{1}{2}\right)
+                                \left(S_{n+1}^z + \frac{1}{2}\right)\]</div>
+<p>If the penalty strength <span class="math notranslate nohighlight">\(\lambda \neq 0\)</span>,
+a penalty term will be taken into account</p>
+<div class="math notranslate nohighlight">
+\[H \rightarrow H + \lambda \left(\sum_{n=0}^{N-1} S_n^z - S_{target}\right)^2\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> (<em>int</em>) – System size.</p></li>
+<li><p><strong>delta</strong> (<em>float</em>) – Wavefunction-renormalized bare coupling, Delta(g).</p></li>
+<li><p><strong>ma</strong> (<em>float</em>) – Wavefunction-renormalized bare mass.</p></li>
+<li><p><strong>penalty</strong> (<em>float</em>) – Penalty strength (of Lagrangian multiplier).</p></li>
+<li><p><strong>s_target</strong> (<em>int</em>) – The targeting total Sz charge sector.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>

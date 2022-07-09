@@ -551,14 +551,15 @@ title="Open an issue"
 <span class="sd">        Matrix product state (MPS) for a finite size system.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            *args: Positional arguments for :class:`qtn.MatrixProductState`.</span>
-<span class="sd">            **kwargs: Keyword arguments for :class:`qtn.MatrixProductState`.</span>
+<span class="sd">            *args: Positional arguments for :class:`quimb.tensor.MatrixProductState`.</span>
+<span class="sd">            **kwargs: Keyword arguments for :class:`quimb.tensor.MatrixProductState`.</span>
 
 <span class="sd">        Note:</span>
-<span class="sd">            This class inherits directly from :class:`qtn.MatrixProductState`,</span>
+<span class="sd">            This class inherits directly from :class:`quimb.tensor.MatrixProductState`,</span>
 <span class="sd">            with some added features.</span>
 <span class="sd">            But, note that the underlying tensors are in the shape &#39;lpr&#39;,</span>
-<span class="sd">            which differs from the parent class :class:`qtn.MatrixProductState`.</span>
+<span class="sd">            which differs from the parent class</span>
+<span class="sd">            :class:`quimb.tensor.MatrixProductState`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">permute_arrays</span><span class="p">(</span><span class="s2">&quot;lpr&quot;</span><span class="p">)</span></div>
@@ -594,7 +595,7 @@ title="Open an issue"
         <span class="p">(</span><span class="n">tensor</span><span class="p">,)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">select_tensors</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">site_tag</span><span class="p">(</span><span class="n">site</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">tensor</span>
 
-    <span class="k">def</span> <span class="nf">permute_arrays</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;lrp&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="MatrixProductState.permute_arrays"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState.permute_arrays">[docs]</a>    <span class="k">def</span> <span class="nf">permute_arrays</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;lrp&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Permute the indices of each tensor in this MPS to match ``shape``.</span>
 <span class="sd">        This doesn&#39;t change how the overall object interacts with other tensor</span>
@@ -612,9 +613,9 @@ title="Open an issue"
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cyclic</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">inds</span><span class="p">[</span><span class="s2">&quot;r&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bond</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span><span class="p">)</span>
             <span class="n">inds</span> <span class="o">=</span> <span class="p">[</span><span class="n">inds</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">shape</span> <span class="k">if</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">inds</span><span class="p">]</span>
-            <span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">transpose_</span><span class="p">(</span><span class="o">*</span><span class="n">inds</span><span class="p">)</span>
+            <span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">transpose_</span><span class="p">(</span><span class="o">*</span><span class="n">inds</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">conj</span><span class="p">(</span>
+<div class="viewcode-block" id="MatrixProductState.conj"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState.conj">[docs]</a>    <span class="k">def</span> <span class="nf">conj</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">mangle_inner</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">mangle_outer</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatrixProductState</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -641,9 +642,9 @@ title="Open an issue"
                 <span class="p">{</span><span class="n">ind</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^k(\d+)&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;b\1&quot;</span><span class="p">,</span> <span class="n">ind</span><span class="p">)</span> <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">mps</span><span class="o">.</span><span class="n">outer_inds</span><span class="p">()},</span>
                 <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="p">)</span>
-        <span class="k">return</span> <span class="n">mps</span>
+        <span class="k">return</span> <span class="n">mps</span></div>
 
-    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="MatrixProductState.save"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Save the underlying tensors of this :class:`~MatrixProductState`</span>
 <span class="sd">        in the order of indices ``&#39;lpr&#39;`` into file.</span>
@@ -669,9 +670,9 @@ title="Open an issue"
         <span class="k">elif</span> <span class="n">extension</span> <span class="o">==</span> <span class="s2">&quot;.npz&quot;</span><span class="p">:</span>
             <span class="n">np</span><span class="o">.</span><span class="n">savez</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">filepath</span><span class="p">),</span> <span class="o">**</span><span class="n">tensor_datasets</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File extension </span><span class="si">{</span><span class="n">extension</span><span class="si">}</span><span class="s2"> is not supported.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File extension </span><span class="si">{</span><span class="n">extension</span><span class="si">}</span><span class="s2"> is not supported.&quot;</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="MatrixProductState.load"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState.load">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatrixProductState</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the underlying tensors of :class:`~MatrixProductState`</span>
@@ -695,9 +696,9 @@ title="Open an issue"
             <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span>
             <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File extension </span><span class="si">{</span><span class="n">extension</span><span class="si">}</span><span class="s2"> is not supported.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File extension </span><span class="si">{</span><span class="n">extension</span><span class="si">}</span><span class="s2"> is not supported.&quot;</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="MatrixProductState.random"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState.random">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">random</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">bond_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">phys_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatrixProductState</span><span class="p">:</span>
@@ -714,9 +715,9 @@ title="Open an issue"
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">rand_mps</span> <span class="o">=</span> <span class="n">qtn</span><span class="o">.</span><span class="n">MPS_rand_state</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">bond_dim</span><span class="o">=</span><span class="n">bond_dim</span><span class="p">,</span> <span class="n">phys_dim</span><span class="o">=</span><span class="n">phys_dim</span><span class="p">)</span>
         <span class="n">rand_mps</span><span class="o">.</span><span class="n">compress</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">([</span><span class="n">tensor</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="n">rand_mps</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">([</span><span class="n">tensor</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="n">rand_mps</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">split_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">):</span>
+<div class="viewcode-block" id="MatrixProductState.split_tensor"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState.split_tensor">[docs]</a>    <span class="k">def</span> <span class="nf">split_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Split the tensor at given ``site`` into two tensors,</span>
 <span class="sd">        and multiply the one on left or right ``direction`` into its</span>
@@ -754,10 +755,10 @@ title="Open an issue"
             <span class="n">neighbour</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">residual</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="bp">self</span><span class="p">[</span><span class="n">site</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">modify</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">(</span><span class="n">neighbour</span> <span class="o">@</span> <span class="n">residual</span><span class="p">)</span><span class="o">.</span><span class="n">tensor</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;MatrixProductState only supplies left or right direction.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;MatrixProductState only supplies left or right direction.&quot;</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">enlarge_bond_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_bond_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">NotImplemented</span></div>
+<div class="viewcode-block" id="MatrixProductState.enlarge_bond_dim"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState.enlarge_bond_dim">[docs]</a>    <span class="k">def</span> <span class="nf">enlarge_bond_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_bond_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">NotImplemented</span></div></div>
 
 
 <div class="viewcode-block" id="Environment"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.Environment.html#tnpy.matrix_product_state.Environment">[docs]</a><span class="k">class</span> <span class="nc">Environment</span><span class="p">:</span>
@@ -782,7 +783,7 @@ title="Open an issue"
         <span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">update_right</span><span class="p">(</span><span class="n">site</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Environment.close"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.Environment.html#tnpy.matrix_product_state.Environment.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Delete the underlying data of left and right environments.</span>
 
@@ -790,7 +791,7 @@ title="Open an issue"
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Deleting left and right environments.&quot;</span><span class="p">)</span>
-        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_right</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_right</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">mpo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatrixProductOperator</span><span class="p">:</span>
@@ -826,7 +827,7 @@ title="Open an issue"
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_right</span>
 
-    <span class="k">def</span> <span class="nf">update_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<div class="viewcode-block" id="Environment.update_left"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.Environment.html#tnpy.matrix_product_state.Environment.update_left">[docs]</a>    <span class="k">def</span> <span class="nf">update_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the left environment at ``site``.</span>
 
@@ -845,9 +846,9 @@ title="Open an issue"
                 <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mpo</span><span class="p">[</span><span class="n">site</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
                 <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conj_mps</span><span class="p">[</span><span class="n">site</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
             <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_left</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">=</span> <span class="n">tn</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_left</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">=</span> <span class="n">tn</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span></div>
 
-    <span class="k">def</span> <span class="nf">update_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<div class="viewcode-block" id="Environment.update_right"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.Environment.html#tnpy.matrix_product_state.Environment.update_right">[docs]</a>    <span class="k">def</span> <span class="nf">update_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the right environment at ``site``.</span>
 
@@ -866,9 +867,9 @@ title="Open an issue"
                 <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mpo</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
                 <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conj_mps</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
             <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_right</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">=</span> <span class="n">tn</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_right</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">=</span> <span class="n">tn</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span></div>
 
-    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">):</span>
+<div class="viewcode-block" id="Environment.update"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.Environment.html#tnpy.matrix_product_state.Environment.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Alias to :func:`~Environment.update_left` or</span>
 <span class="sd">        :func:`~Environment.update_right` depending on the given ``direction``.</span>
@@ -883,26 +884,26 @@ title="Open an issue"
         <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">Direction</span><span class="o">.</span><span class="n">RIGHTWARD</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">update_left</span><span class="p">(</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">Direction</span><span class="o">.</span><span class="n">LEFTWARD</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">update_right</span><span class="p">(</span><span class="n">site</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_right</span><span class="p">(</span><span class="n">site</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">update_mps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+<div class="viewcode-block" id="Environment.update_mps"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.Environment.html#tnpy.matrix_product_state.Environment.update_mps">[docs]</a>    <span class="k">def</span> <span class="nf">update_mps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">modify</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_conj_mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">modify</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_conj_mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">modify</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">split_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">):</span>
+<div class="viewcode-block" id="Environment.split_tensor"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.Environment.html#tnpy.matrix_product_state.Environment.split_tensor">[docs]</a>    <span class="k">def</span> <span class="nf">split_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="o">.</span><span class="n">split_tensor</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">direction</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_conj_mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">modify</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">direction</span><span class="o">.</span><span class="n">LEFTWARD</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_conj_mps</span><span class="p">[</span><span class="n">site</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">modify</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="p">[</span><span class="n">site</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">direction</span><span class="o">.</span><span class="n">RIGHTWARD</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_conj_mps</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">modify</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_conj_mps</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">modify</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">variance</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="Environment.variance"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.Environment.html#tnpy.matrix_product_state.Environment.variance">[docs]</a>    <span class="k">def</span> <span class="nf">variance</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="n">tn1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">square</span><span class="p">()</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conj_mps</span>
         <span class="n">tn2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conj_mps</span>
-        <span class="k">return</span> <span class="n">tn1</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span> <span class="o">-</span> <span class="n">tn2</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="k">return</span> <span class="n">tn1</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span> <span class="o">-</span> <span class="n">tn2</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span> <span class="o">**</span> <span class="mi">2</span></div>
 
-    <span class="k">def</span> <span class="nf">one_site_full_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<div class="viewcode-block" id="Environment.one_site_full_matrix"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.Environment.html#tnpy.matrix_product_state.Environment.one_site_full_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">one_site_full_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Construct the effective matrix for variational solver,</span>
 <span class="sd">        with one site remained un-contracted.</span>
@@ -939,9 +940,9 @@ title="Open an issue"
                     <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
                 <span class="p">],</span>
             <span class="p">}</span>
-        <span class="k">return</span> <span class="n">tn</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span><span class="o">.</span><span class="n">fuse</span><span class="p">(</span><span class="n">fuse_map</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
+        <span class="k">return</span> <span class="n">tn</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span><span class="o">.</span><span class="n">fuse</span><span class="p">(</span><span class="n">fuse_map</span><span class="p">)</span><span class="o">.</span><span class="n">data</span></div>
 
-    <span class="k">def</span> <span class="nf">one_site_matvec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LinearOperator</span><span class="p">:</span>
+<div class="viewcode-block" id="Environment.one_site_matvec"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.Environment.html#tnpy.matrix_product_state.Environment.one_site_matvec">[docs]</a>    <span class="k">def</span> <span class="nf">one_site_matvec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LinearOperator</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Construct the effective linear operator (matrix-vector product) for</span>
 <span class="sd">        variational solver, with one site remained un-contracted.</span>
@@ -972,20 +973,20 @@ title="Open an issue"
 
         <span class="k">return</span> <span class="n">LinearOperator</span><span class="p">(</span>
             <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mps</span><span class="p">[</span><span class="n">site</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">),</span> <span class="n">matvec</span><span class="o">=</span><span class="n">matvec</span>
-        <span class="p">)</span></div>
+        <span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="MatrixProductStateMeasurements"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductStateMeasurements.html#tnpy.matrix_product_state.MatrixProductStateMeasurements">[docs]</a><span class="k">class</span> <span class="nc">MatrixProductStateMeasurements</span><span class="p">:</span>
 <div class="viewcode-block" id="MatrixProductStateMeasurements.__init__"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductStateMeasurements.html#tnpy.matrix_product_state.MatrixProductStateMeasurements.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mps</span><span class="p">:</span> <span class="n">MatrixProductState</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span> <span class="o">=</span> <span class="n">mps</span></div>
 
-    <span class="k">def</span> <span class="nf">expectation_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mpo</span><span class="p">:</span> <span class="n">MatrixProductOperator</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="MatrixProductStateMeasurements.expectation_value"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductStateMeasurements.html#tnpy.matrix_product_state.MatrixProductStateMeasurements.expectation_value">[docs]</a>    <span class="k">def</span> <span class="nf">expectation_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mpo</span><span class="p">:</span> <span class="n">MatrixProductOperator</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="n">tn</span> <span class="o">=</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">mangle_inner</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span>
             <span class="k">if</span> <span class="n">mpo</span> <span class="ow">is</span> <span class="kc">None</span>
             <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">mangle_inner</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mangle_outer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">mpo</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mps</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="n">tn</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span></div>
+        <span class="k">return</span> <span class="n">tn</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span></div></div>
 </pre></div>
 
               </div>

@@ -541,33 +541,34 @@ title="Edit this page"
 <h1><span class="section-number">3.1. </span>tnpy.model.DimerXXZ<a class="headerlink" href="#tnpy-model-dimerxxz" title="Permalink to this headline">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="tnpy.model.DimerXXZ">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.model.</span></span><span class="sig-name descname"><span class="pre">DimerXXZ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">J</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penalty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trial_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/model/dimer_xxz.html#DimerXXZ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.DimerXXZ" title="Permalink to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.model.</span></span><span class="sig-name descname"><span class="pre">DimerXXZ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">J</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penalty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trial_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/model/dimer_xxz.html#DimerXXZ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.DimerXXZ" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="tnpy.model.Model1D.html#tnpy.model.Model1D" title="tnpy.model.model_1d.Model1D"><code class="xref py py-class docutils literal notranslate"><span class="pre">tnpy.model.model_1d.Model1D</span></code></a></p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>n</strong> – System size.</p></li>
-<li><p><strong>J</strong> – </p></li>
-<li><p><strong>delta</strong> – </p></li>
-<li><p><strong>h</strong> – Disorder strength.</p></li>
-<li><p><strong>penalty</strong> – Penalty strength (or Lagrangian multiplier).</p></li>
-<li><p><strong>s_target</strong> – The targeting total Sz charge sector.</p></li>
-<li><p><strong>trial_id</strong> – ID of the current disorder trial.</p></li>
+<li><p><strong>n</strong> (<em>int</em>) – System size.</p></li>
+<li><p><strong>J</strong> (<em>float</em>) – </p></li>
+<li><p><strong>delta</strong> (<em>float</em>) – </p></li>
+<li><p><strong>h</strong> (<em>float</em>) – Disorder strength.</p></li>
+<li><p><strong>penalty</strong> (<em>float</em>) – Penalty strength (or Lagrangian multiplier).</p></li>
+<li><p><strong>s_target</strong> (<em>int</em>) – The targeting total Sz charge sector.</p></li>
+<li><p><strong>trial_id</strong> (<em>str</em>) – ID of the current disorder trial.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.model.DimerXXZ.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">J</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penalty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trial_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/model/dimer_xxz.html#DimerXXZ.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.DimerXXZ.__init__" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">J</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penalty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trial_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/model/dimer_xxz.html#DimerXXZ.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.DimerXXZ.__init__" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>n</strong> – System size.</p></li>
-<li><p><strong>J</strong> – </p></li>
-<li><p><strong>delta</strong> – </p></li>
-<li><p><strong>h</strong> – Disorder strength.</p></li>
-<li><p><strong>penalty</strong> – Penalty strength (or Lagrangian multiplier).</p></li>
-<li><p><strong>s_target</strong> – The targeting total Sz charge sector.</p></li>
-<li><p><strong>trial_id</strong> – ID of the current disorder trial.</p></li>
+<li><p><strong>n</strong> (<em>int</em>) – System size.</p></li>
+<li><p><strong>J</strong> (<em>float</em>) – </p></li>
+<li><p><strong>delta</strong> (<em>float</em>) – </p></li>
+<li><p><strong>h</strong> (<em>float</em>) – Disorder strength.</p></li>
+<li><p><strong>penalty</strong> (<em>float</em>) – Penalty strength (or Lagrangian multiplier).</p></li>
+<li><p><strong>s_target</strong> (<em>int</em>) – The targeting total Sz charge sector.</p></li>
+<li><p><strong>trial_id</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – ID of the current disorder trial.</p></li>
 </ul>
 </dd>
 </dl>
@@ -580,7 +581,7 @@ title="Edit this page"
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.model.DimerXXZ.__init__" title="tnpy.model.DimerXXZ.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(n, J, delta, h[, penalty, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id0" title="tnpy.model.DimerXXZ.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(n, J, delta, h[, penalty, ...])</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">param n</dt>
 <dd class="field-odd"><p>System size.</p>
@@ -605,6 +606,24 @@ title="Edit this page"
 </tr>
 </tbody>
 </table>
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">J</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penalty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trial_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/model/dimer_xxz.html#DimerXXZ.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> (<em>int</em>) – System size.</p></li>
+<li><p><strong>J</strong> (<em>float</em>) – </p></li>
+<li><p><strong>delta</strong> (<em>float</em>) – </p></li>
+<li><p><strong>h</strong> (<em>float</em>) – Disorder strength.</p></li>
+<li><p><strong>penalty</strong> (<em>float</em>) – Penalty strength (or Lagrangian multiplier).</p></li>
+<li><p><strong>s_target</strong> (<em>int</em>) – The targeting total Sz charge sector.</p></li>
+<li><p><strong>trial_id</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – ID of the current disorder trial.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>

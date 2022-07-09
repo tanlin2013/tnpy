@@ -605,7 +605,7 @@ title="Open an issue"
     <span class="k">def</span> <span class="nf">phys_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_phys_dim</span>
 
-    <span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatrixProductOperator</span><span class="p">:</span>
+<div class="viewcode-block" id="MatrixProductOperator.square"><a class="viewcode-back" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator.square">[docs]</a>    <span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatrixProductOperator</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the square of :class:`~MatrixProductOperator` (MPO),</span>
 <span class="sd">        which equivalently merges two MPO layers into one.</span>
@@ -638,7 +638,7 @@ title="Open an issue"
 
         <span class="k">return</span> <span class="n">MatrixProductOperator</span><span class="p">(</span>
             <span class="p">[</span><span class="n">_fuse_bilayer</span><span class="p">(</span><span class="n">site</span><span class="p">)</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nsites</span><span class="p">)]</span>
-        <span class="p">)</span></div>
+        <span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="FullHamiltonian"><a class="viewcode-back" href="../../_autosummary/tnpy.operators.FullHamiltonian.html#tnpy.operators.FullHamiltonian">[docs]</a><span class="k">class</span> <span class="nc">FullHamiltonian</span><span class="p">:</span>

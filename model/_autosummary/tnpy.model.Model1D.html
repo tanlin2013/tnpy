@@ -541,18 +541,19 @@ title="Edit this page"
 <h1><span class="section-number">1.1. </span>tnpy.model.Model1D<a class="headerlink" href="#tnpy-model-model1d" title="Permalink to this headline">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="tnpy.model.Model1D">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.model.</span></span><span class="sig-name descname"><span class="pre">Model1D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/model/model_1d.html#Model1D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.Model1D" title="Permalink to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.model.</span></span><span class="sig-name descname"><span class="pre">Model1D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/model/model_1d.html#Model1D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.Model1D" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>n</strong> – System size.</p>
+<dd class="field-odd"><p><strong>n</strong> (<em>int</em>) – System size.</p>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.model.Model1D.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/model/model_1d.html#Model1D.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.Model1D.__init__" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/model/model_1d.html#Model1D.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.Model1D.__init__" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>n</strong> – System size.</p>
+<dd class="field-odd"><p><strong>n</strong> (<em>int</em>) – System size.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -564,7 +565,7 @@ title="Edit this page"
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.model.Model1D.__init__" title="tnpy.model.Model1D.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(n)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id0" title="tnpy.model.Model1D.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(n)</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">param n</dt>
 <dd class="field-odd"><p>System size.</p>
@@ -581,14 +582,40 @@ title="Edit this page"
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">mpo</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.model.Model1D.mpo" title="tnpy.model.Model1D.mpo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mpo</span></code></a></p></td>
 <td><p>Return matrix product operator (mpo) as a property of the model.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.model.Model1D.n" title="tnpy.model.Model1D.n"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
 </table>
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/model/model_1d.html#Model1D.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>n</strong> (<em>int</em>) – System size.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.model.Model1D.n">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tnpy.model.Model1D.n" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.model.Model1D.mpo">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mpo</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a></em><a class="headerlink" href="#tnpy.model.Model1D.mpo" title="Permalink to this definition">#</a></dt>
+<dd><p>Return matrix product operator (mpo) as a property of the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>mpo</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>

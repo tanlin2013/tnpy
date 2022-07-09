@@ -545,7 +545,7 @@ title="Edit this page"
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">eigh</span></code>(matrix[, k, backend])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.linalg.eigh" title="tnpy.linalg.eigh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eigh</span></code></a>(matrix[, k, backend])</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">param matrix</dt>
 <dd class="field-odd"><p>Hermitian or real symmetric matrices whose eigenvalues and eigenvectors</p>
@@ -553,14 +553,14 @@ title="Edit this page"
 </dl>
 </p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">eigshmv</span></code>(linear_operator, v0[, k, which, tol])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.linalg.eigshmv" title="tnpy.linalg.eigshmv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eigshmv</span></code></a>(linear_operator, v0[, k, which, tol])</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">param linear_operator</dt>
 <dd class="field-odd"><p></p></dd>
 </dl>
 </p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">qr</span></code>(matrix, cutoff)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.linalg.qr" title="tnpy.linalg.qr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qr</span></code></a>(matrix, cutoff)</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">param matrix</dt>
 <dd class="field-odd"><p>Input Matrix.</p>
@@ -568,7 +568,7 @@ title="Edit this page"
 </dl>
 </p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">svd</span></code>(matrix, cutoff)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.linalg.svd" title="tnpy.linalg.svd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">svd</span></code></a>(matrix, cutoff)</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">param matrix</dt>
 <dd class="field-odd"><p>Input Matrix.</p>
@@ -578,6 +578,82 @@ title="Edit this page"
 </tr>
 </tbody>
 </table>
+<dl class="py function">
+<dt class="sig sig-object py" id="tnpy.linalg.svd">
+<span class="sig-prename descclassname"><span class="pre">tnpy.linalg.</span></span><span class="sig-name descname"><span class="pre">svd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/linalg.html#svd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.linalg.svd" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>matrix</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a>) – Input Matrix.</p></li>
+<li><p><strong>cutoff</strong> (<em>int</em>) – Truncation dimensions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Tuple</em>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)">numpy.ndarray</a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)">numpy.ndarray</a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)">numpy.ndarray</a>]</p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tnpy.linalg.qr">
+<span class="sig-prename descclassname"><span class="pre">tnpy.linalg.</span></span><span class="sig-name descname"><span class="pre">qr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/linalg.html#qr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.linalg.qr" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>matrix</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a>) – Input Matrix.</p></li>
+<li><p><strong>cutoff</strong> (<em>int</em>) – Truncation dimensions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Tuple</em>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)">numpy.ndarray</a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)">numpy.ndarray</a>]</p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tnpy.linalg.eigh">
+<span class="sig-prename descclassname"><span class="pre">tnpy.linalg.</span></span><span class="sig-name descname"><span class="pre">eigh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'numpy'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/linalg.html#eigh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.linalg.eigh" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>matrix</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a>) – Hermitian or real symmetric matrices whose eigenvalues and eigenvectors
+are to be computed.</p></li>
+<li><p><strong>k</strong> (<em>int</em>) – The number of eigenpairs to be computed.</p></li>
+<li><p><strong>backend</strong> (<em>str</em>) – (‘numpy’ or ‘scipy’).</p></li>
+<li><p><strong>**kwargs</strong> – Keyword arguments for scipy solver.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Tuple</em>[float | <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)">numpy.ndarray</a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)">numpy.ndarray</a>]</p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tnpy.linalg.eigshmv">
+<span class="sig-prename descclassname"><span class="pre">tnpy.linalg.</span></span><span class="sig-name descname"><span class="pre">eigshmv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linear_operator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">which</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'SA'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/linalg.html#eigshmv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.linalg.eigshmv" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>linear_operator</strong> (<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.LinearOperator.html#scipy.sparse.linalg.LinearOperator" title="(in SciPy v1.8.1)"><em>scipy.sparse.linalg._interface.LinearOperator</em></a>) – </p></li>
+<li><p><strong>v0</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a>) – Initial guesses to the eigenvectors.</p></li>
+<li><p><strong>k</strong> (<em>int</em>) – The number of eigenpairs to be computed.</p></li>
+<li><p><strong>which</strong> (<em>str</em>) – Which k eigenvectors and eigenvalues to find.</p></li>
+<li><p><strong>tol</strong> (<em>float</em>) – Tolerance for eigenpairs (stopping criterion).
+The default value is sqrt of machine precision.</p></li>
+<li><p><strong>**kwargs</strong> – Keyword arguments for primme solver.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Tuple</em>[float | <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)">numpy.ndarray</a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)">numpy.ndarray</a>]</p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
 </section>
 
 

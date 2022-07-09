@@ -33,6 +33,8 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="4.5. tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG" href="tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.html" />
@@ -541,11 +543,22 @@ title="Edit this page"
 <h1><span class="section-number">4.4. </span>tnpy.tsdrg.TreeTensorNetworkMeasurements<a class="headerlink" href="#tnpy-tsdrg-treetensornetworkmeasurements" title="Permalink to this headline">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkMeasurements">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.tsdrg.</span></span><span class="sig-name descname"><span class="pre">TreeTensorNetworkMeasurements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree" title="tnpy.tsdrg.TensorTree"><span class="pre">tnpy.tsdrg.TensorTree</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkMeasurements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements" title="Permalink to this definition">#</a></dt>
-<dd><dl class="py method">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.tsdrg.</span></span><span class="sig-name descname"><span class="pre">TreeTensorNetworkMeasurements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tree</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkMeasurements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tree</strong> (<a class="reference internal" href="tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree" title="tnpy.tsdrg.TensorTree"><em>TensorTree</em></a>) – </p>
+</dd>
+</dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkMeasurements.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree" title="tnpy.tsdrg.TensorTree"><span class="pre">tnpy.tsdrg.TensorTree</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkMeasurements.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.__init__" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tree</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkMeasurements.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.__init__" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tree</strong> (<a class="reference internal" href="tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree" title="tnpy.tsdrg.TensorTree"><em>tnpy.tsdrg.TensorTree</em></a>) – </p>
+</dd>
+</dl>
+</dd></dl>
 
 <p class="rubric">Methods</p>
 <table class="autosummary longtable table autosummary">
@@ -554,59 +567,47 @@ title="Edit this page"
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Kullback_Leibler_divergence</span></code>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.Kullback_Leibler_divergence" title="tnpy.tsdrg.TreeTensorNetworkMeasurements.Kullback_Leibler_divergence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Kullback_Leibler_divergence</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.__init__" title="tnpy.tsdrg.TreeTensorNetworkMeasurements.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(tree)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id0" title="tnpy.tsdrg.TreeTensorNetworkMeasurements.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(tree)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">connected_two_point_function</span></code>(operator1, ...)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">entanglement_entropy</span></code>(site, level_idx[, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.connected_two_point_function" title="tnpy.tsdrg.TreeTensorNetworkMeasurements.connected_two_point_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connected_two_point_function</span></code></a>(operator1, ...)</p></td>
 <td><p><dl class="field-list simple">
-<dt class="field-odd">param site</dt>
+<dt class="field-odd">param operator1</dt>
 <dd class="field-odd"><p></p></dd>
 </dl>
 </p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">expectation_value</span></code>(mpo[, tol])</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">param mpo</dt>
-<dd class="field-odd"><p></p></dd>
-</dl>
-</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.entanglement_entropy" title="tnpy.tsdrg.TreeTensorNetworkMeasurements.entanglement_entropy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">entanglement_entropy</span></code></a>(site, level_idx[, ...])</p></td>
+<td><p>Compute the von Neumann entropy on the cutting <code class="docutils literal notranslate"><span class="pre">site</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">loop_simplify</span></code>(bra, ket[, mpo])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.expectation_value" title="tnpy.tsdrg.TreeTensorNetworkMeasurements.expectation_value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">expectation_value</span></code></a>(mpo[, tol])</p></td>
+<td><p>Compute the expectation value for given <code class="docutils literal notranslate"><span class="pre">mpo</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.loop_simplify" title="tnpy.tsdrg.TreeTensorNetworkMeasurements.loop_simplify"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loop_simplify</span></code></a>(bra, ket[, mpo])</p></td>
 <td><p>Simplify every closed loop within the network <code class="docutils literal notranslate"><span class="pre">bra</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">mpo</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">ket</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">one_point_function</span></code>(operator, site, level_idx)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.one_point_function" title="tnpy.tsdrg.TreeTensorNetworkMeasurements.one_point_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">one_point_function</span></code></a>(operator, site, level_idx)</p></td>
+<td><p>Compute the expectation value <span class="math notranslate nohighlight">\(\langle \hat{O}_i \rangle\)</span> of given local operator <span class="math notranslate nohighlight">\(\hat{O}_i\)</span> on site <span class="math notranslate nohighlight">\(i\)</span>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.participation_entropy" title="tnpy.tsdrg.TreeTensorNetworkMeasurements.participation_entropy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">participation_entropy</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">participation_entropy</span></code>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.reduced_density_matrix" title="tnpy.tsdrg.TreeTensorNetworkMeasurements.reduced_density_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reduced_density_matrix</span></code></a>(site, level_idx)</p></td>
+<td><p>Compute the reduced density matrix for the bipartite system with respect to the cutting <code class="docutils literal notranslate"><span class="pre">site</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.sandwich" title="tnpy.tsdrg.TreeTensorNetworkMeasurements.sandwich"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sandwich</span></code></a>([mpo])</p></td>
+<td><p>Take the sandwich on given <code class="docutils literal notranslate"><span class="pre">mpo</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.squared_moduli" title="tnpy.tsdrg.TreeTensorNetworkMeasurements.squared_moduli"><code class="xref py py-obj docutils literal notranslate"><span class="pre">squared_moduli</span></code></a>(level_idx)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">reduced_density_matrix</span></code>(site, level_idx)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">param site</dt>
-<dd class="field-odd"><p></p></dd>
-</dl>
-</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.two_point_function" title="tnpy.tsdrg.TreeTensorNetworkMeasurements.two_point_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">two_point_function</span></code></a>(operator1, operator2, ...)</p></td>
+<td><p>Compute the correlation function <span class="math notranslate nohighlight">\(\langle \hat{O}_{i_1}^A \hat{O}_{i_2}^B \rangle\)</span> of 2 given local operators <span class="math notranslate nohighlight">\(\hat{O}_{i_1}^A\)</span> and <span class="math notranslate nohighlight">\(\hat{O}_{i_2}^B\)</span> on site <span class="math notranslate nohighlight">\(i_1\)</span> and <span class="math notranslate nohighlight">\(i_2\)</span>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">sandwich</span></code>([mpo])</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">param mpo</dt>
-<dd class="field-odd"><p></p></dd>
-</dl>
-</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">squared_moduli</span></code>(level_idx)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">two_point_function</span></code>(operator1, operator2, ...)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">wave_func_coeff</span></code>(level_idx)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.wave_func_coeff" title="tnpy.tsdrg.TreeTensorNetworkMeasurements.wave_func_coeff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wave_func_coeff</span></code></a>(level_idx)</p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -618,11 +619,213 @@ title="Edit this page"
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">tree</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.tree" title="tnpy.tsdrg.TreeTensorNetworkMeasurements.tree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tree</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
 </table>
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tree</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkMeasurements.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tree</strong> (<a class="reference internal" href="tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree" title="tnpy.tsdrg.TensorTree"><em>tnpy.tsdrg.TensorTree</em></a>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkMeasurements.tree">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tree</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree" title="tnpy.tsdrg.TensorTree"><span class="pre">tnpy.tsdrg.TensorTree</span></a></em><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.tree" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkMeasurements.loop_simplify">
+<span class="sig-name descname"><span class="pre">loop_simplify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ket</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mpo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkMeasurements.loop_simplify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.loop_simplify" title="Permalink to this definition">#</a></dt>
+<dd><p>Simplify every closed loop within the network
+<code class="docutils literal notranslate"><span class="pre">bra</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">mpo</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">ket</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bra</strong> (<a class="reference external" href="https://quimb.readthedocs.io/en/latest/_autosummary/quimb.tensor.tensor_core.html#quimb.tensor.tensor_core.TensorNetwork" title="(in quimb v1.4)"><em>quimb.tensor.tensor_core.TensorNetwork</em></a>) – Tree tensor network which represents the bra vector.</p></li>
+<li><p><strong>ket</strong> (<a class="reference external" href="https://quimb.readthedocs.io/en/latest/_autosummary/quimb.tensor.tensor_core.html#quimb.tensor.tensor_core.TensorNetwork" title="(in quimb v1.4)"><em>quimb.tensor.tensor_core.TensorNetwork</em></a>) – Tree tensor network which represents the ket vector.</p></li>
+<li><p><strong>mpo</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a><em>]</em>) – (Optional) If not given, <code class="docutils literal notranslate"><span class="pre">bra</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">ket</span></code> will be computed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The contracted tensor.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://quimb.readthedocs.io/en/latest/_autosummary/quimb.tensor.tensor_core.html#quimb.tensor.tensor_core.Tensor" title="(in quimb v1.4)">quimb.tensor.tensor_core.Tensor</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p><code class="xref py py-mod docutils literal notranslate"><span class="pre">quimb</span></code> may provide other simplify methods based on greedy algorithm.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkMeasurements.sandwich">
+<span class="sig-name descname"><span class="pre">sandwich</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkMeasurements.sandwich"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.sandwich" title="Permalink to this definition">#</a></dt>
+<dd><p>Take the sandwich on given <code class="docutils literal notranslate"><span class="pre">mpo</span></code>.
+If it is None, this computes the inner product of state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mpo</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a><em>]</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://quimb.readthedocs.io/en/latest/_autosummary/quimb.tensor.tensor_core.html#quimb.tensor.tensor_core.Tensor" title="(in quimb v1.4)">quimb.tensor.tensor_core.Tensor</a></p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkMeasurements.expectation_value">
+<span class="sig-name descname"><span class="pre">expectation_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkMeasurements.expectation_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.expectation_value" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the expectation value for given <code class="docutils literal notranslate"><span class="pre">mpo</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mpo</strong> (<a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – The matrix product operator.</p></li>
+<li><p><strong>tol</strong> (<em>float</em>) – The numerical tolerance.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The expectation values.</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>Warning</strong> – If any off-diagonal element is larger than <code class="docutils literal notranslate"><span class="pre">tol</span></code>.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)">numpy.ndarray</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkMeasurements.reduced_density_matrix">
+<span class="sig-name descname"><span class="pre">reduced_density_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level_idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkMeasurements.reduced_density_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.reduced_density_matrix" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the reduced density matrix for the bipartite system with respect to
+the cutting <code class="docutils literal notranslate"><span class="pre">site</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>site</strong> (<em>int</em>) – </p></li>
+<li><p><strong>level_idx</strong> (<em>int</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)">numpy.ndarray</a></p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkMeasurements.entanglement_entropy">
+<span class="sig-name descname"><span class="pre">entanglement_entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nan_to_num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkMeasurements.entanglement_entropy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.entanglement_entropy" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the von Neumann entropy on the cutting <code class="docutils literal notranslate"><span class="pre">site</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>site</strong> (<em>int</em>) – </p></li>
+<li><p><strong>level_idx</strong> (<em>int</em>) – </p></li>
+<li><p><strong>nan_to_num</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkMeasurements.one_point_function">
+<span class="sig-name descname"><span class="pre">one_point_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level_idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkMeasurements.one_point_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.one_point_function" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the expectation value <span class="math notranslate nohighlight">\(\langle \hat{O}_i \rangle\)</span>
+of given local operator <span class="math notranslate nohighlight">\(\hat{O}_i\)</span> on site <span class="math notranslate nohighlight">\(i\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a>) – The operator <span class="math notranslate nohighlight">\(\hat{O}\)</span>.</p></li>
+<li><p><strong>site</strong> (<em>int</em>) – </p></li>
+<li><p><strong>level_idx</strong> (<em>int</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkMeasurements.two_point_function">
+<span class="sig-name descname"><span class="pre">two_point_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operator1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level_idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkMeasurements.two_point_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.two_point_function" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the correlation function
+<span class="math notranslate nohighlight">\(\langle \hat{O}_{i_1}^A \hat{O}_{i_2}^B \rangle\)</span>
+of 2 given local operators
+<span class="math notranslate nohighlight">\(\hat{O}_{i_1}^A\)</span> and <span class="math notranslate nohighlight">\(\hat{O}_{i_2}^B\)</span>
+on site <span class="math notranslate nohighlight">\(i_1\)</span> and <span class="math notranslate nohighlight">\(i_2\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator1</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a>) – The first operator <span class="math notranslate nohighlight">\(\hat{O}^A\)</span>.</p></li>
+<li><p><strong>operator2</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a>) – The second operator <span class="math notranslate nohighlight">\(\hat{O}^B\)</span>.</p></li>
+<li><p><strong>site1</strong> (<em>int</em>) – </p></li>
+<li><p><strong>site2</strong> (<em>int</em>) – </p></li>
+<li><p><strong>level_idx</strong> (<em>int</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkMeasurements.connected_two_point_function">
+<span class="sig-name descname"><span class="pre">connected_two_point_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operator1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level_idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkMeasurements.connected_two_point_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.connected_two_point_function" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator1</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a>) – </p></li>
+<li><p><strong>operator2</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a>) – </p></li>
+<li><p><strong>site1</strong> (<em>int</em>) – </p></li>
+<li><p><strong>site2</strong> (<em>int</em>) – </p></li>
+<li><p><strong>level_idx</strong> (<em>int</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkMeasurements.wave_func_coeff">
+<span class="sig-name descname"><span class="pre">wave_func_coeff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level_idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkMeasurements.wave_func_coeff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.wave_func_coeff" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>level_idx</strong> (<em>int</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkMeasurements.squared_moduli">
+<span class="sig-name descname"><span class="pre">squared_moduli</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level_idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkMeasurements.squared_moduli"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.squared_moduli" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>level_idx</strong> (<em>int</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkMeasurements.Kullback_Leibler_divergence">
+<span class="sig-name descname"><span class="pre">Kullback_Leibler_divergence</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkMeasurements.Kullback_Leibler_divergence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.Kullback_Leibler_divergence" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkMeasurements.participation_entropy">
+<span class="sig-name descname"><span class="pre">participation_entropy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkMeasurements.participation_entropy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkMeasurements.participation_entropy" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>

@@ -546,14 +546,57 @@ title="Edit this page"
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">boundary_vectors</span></code>(row, col)</p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.model.utils.boundary_vectors" title="tnpy.model.utils.boundary_vectors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">boundary_vectors</span></code></a>(row, col)</p></td>
+<td><p>The boundary vectors on two ends are usually just certain row and column in the Matrix Product Operator (MPO).</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">minors_if_no_penalty</span></code>(row, col)</p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.model.utils.minors_if_no_penalty" title="tnpy.model.utils.minors_if_no_penalty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minors_if_no_penalty</span></code></a>(row, col)</p></td>
+<td><p>If the model definition comes with penalty term, but the user set the penalty strength to zero, that means there are a lots of unnecessary zeros presenting in the Matrix Product Operator (MPO).</p></td>
 </tr>
 </tbody>
 </table>
+<dl class="py function">
+<dt class="sig sig-object py" id="tnpy.model.utils.boundary_vectors">
+<span class="sig-prename descclassname"><span class="pre">tnpy.model.utils.</span></span><span class="sig-name descname"><span class="pre">boundary_vectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/model/utils.html#boundary_vectors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.utils.boundary_vectors" title="Permalink to this definition">#</a></dt>
+<dd><p>The boundary vectors on two ends are usually just certain row and column in
+the Matrix Product Operator (MPO). This decorator is used to specified
+which row and column are the boundary vectors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<em>int</em>) – By which row in MPO is the boundary vector on the left end.</p></li>
+<li><p><strong>col</strong> (<em>int</em>) – By which column in MPO is the boundary vector on the right end.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Callable</em></p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tnpy.model.utils.minors_if_no_penalty">
+<span class="sig-prename descclassname"><span class="pre">tnpy.model.utils.</span></span><span class="sig-name descname"><span class="pre">minors_if_no_penalty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/model/utils.html#minors_if_no_penalty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.model.utils.minors_if_no_penalty" title="Permalink to this definition">#</a></dt>
+<dd><p>If the model definition comes with penalty term,
+but the user set the penalty strength to zero,
+that means there are a lots of unnecessary zeros presenting in
+the Matrix Product Operator (MPO).
+This decorator can help to eliminate the zeros row and column,
+without touching the definition of penalty MPO.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<em>int</em>) – By which row in MPO is the penalty term.</p></li>
+<li><p><strong>col</strong> (<em>int</em>) – By which column in MPO is the penalty term.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Callable</em></p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
 </section>
 
 

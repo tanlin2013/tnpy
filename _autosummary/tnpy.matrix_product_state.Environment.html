@@ -541,27 +541,28 @@ title="Edit this page"
 <h1><span class="section-number">1.3. </span>tnpy.matrix_product_state.Environment<a class="headerlink" href="#tnpy-matrix-product-state-environment" title="Permalink to this headline">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="tnpy.matrix_product_state.Environment">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.matrix_product_state.</span></span><span class="sig-name descname"><span class="pre">Environment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><span class="pre">tnpy.matrix_product_state.MatrixProductState</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/matrix_product_state.html#Environment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.matrix_product_state.Environment" title="Permalink to this definition">#</a></dt>
-<dd><p>The effective environment for <a class="reference internal" href="tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code></a>-based
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.matrix_product_state.</span></span><span class="sig-name descname"><span class="pre">Environment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mps</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/matrix_product_state.html#Environment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.matrix_product_state.Environment" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The effective environment for <a class="reference internal" href="tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code></a>-based
 algorithms.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>mpo</strong> – Input <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductOperator</span></code>.</p></li>
-<li><p><strong>mps</strong> – Input <a class="reference internal" href="tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code></a>.</p></li>
+<li><p><strong>mpo</strong> (<a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>MatrixProductOperator</em></a>) – Input <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductOperator</span></code>.</p></li>
+<li><p><strong>mps</strong> (<a class="reference internal" href="tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><em>MatrixProductState</em></a>) – Input <a class="reference internal" href="tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code></a>.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.matrix_product_state.Environment.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><span class="pre">tnpy.matrix_product_state.MatrixProductState</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/matrix_product_state.html#Environment.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.matrix_product_state.Environment.__init__" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mps</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/matrix_product_state.html#Environment.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.matrix_product_state.Environment.__init__" title="Permalink to this definition">#</a></dt>
 <dd><p>The effective environment for <a class="reference internal" href="tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code></a>-based
 algorithms.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>mpo</strong> – Input <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductOperator</span></code>.</p></li>
-<li><p><strong>mps</strong> – Input <a class="reference internal" href="tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code></a>.</p></li>
+<li><p><strong>mpo</strong> (<a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – Input <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductOperator</span></code>.</p></li>
+<li><p><strong>mps</strong> (<a class="reference internal" href="tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><em>tnpy.matrix_product_state.MatrixProductState</em></a>) – Input <a class="reference internal" href="tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code></a>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -574,34 +575,34 @@ algorithms.</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.matrix_product_state.Environment.__init__" title="tnpy.matrix_product_state.Environment.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(mpo, mps)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id0" title="tnpy.matrix_product_state.Environment.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(mpo, mps)</p></td>
 <td><p>The effective environment for <a class="reference internal" href="tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code></a>-based algorithms.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.matrix_product_state.Environment.close" title="tnpy.matrix_product_state.Environment.close"><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code></a>()</p></td>
 <td><p>Delete the underlying data of left and right environments.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">one_site_full_matrix</span></code>(site)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.matrix_product_state.Environment.one_site_full_matrix" title="tnpy.matrix_product_state.Environment.one_site_full_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">one_site_full_matrix</span></code></a>(site)</p></td>
 <td><p>Construct the effective matrix for variational solver, with one site remained un-contracted.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">one_site_matvec</span></code>(site)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.matrix_product_state.Environment.one_site_matvec" title="tnpy.matrix_product_state.Environment.one_site_matvec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">one_site_matvec</span></code></a>(site)</p></td>
 <td><p>Construct the effective linear operator (matrix-vector product) for variational solver, with one site remained un-contracted.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">split_tensor</span></code>(site, direction)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.matrix_product_state.Environment.split_tensor" title="tnpy.matrix_product_state.Environment.split_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split_tensor</span></code></a>(site, direction)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code>(site, direction)</p></td>
-<td><p>Alias to <code class="xref py py-func docutils literal notranslate"><span class="pre">update_left()</span></code> or <code class="xref py py-func docutils literal notranslate"><span class="pre">update_right()</span></code> depending on the given <code class="docutils literal notranslate"><span class="pre">direction</span></code>.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.matrix_product_state.Environment.update" title="tnpy.matrix_product_state.Environment.update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code></a>(site, direction)</p></td>
+<td><p>Alias to <a class="reference internal" href="#tnpy.matrix_product_state.Environment.update_left" title="tnpy.matrix_product_state.Environment.update_left"><code class="xref py py-func docutils literal notranslate"><span class="pre">update_left()</span></code></a> or <a class="reference internal" href="#tnpy.matrix_product_state.Environment.update_right" title="tnpy.matrix_product_state.Environment.update_right"><code class="xref py py-func docutils literal notranslate"><span class="pre">update_right()</span></code></a> depending on the given <code class="docutils literal notranslate"><span class="pre">direction</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_left</span></code>(site)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.matrix_product_state.Environment.update_left" title="tnpy.matrix_product_state.Environment.update_left"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_left</span></code></a>(site)</p></td>
 <td><p>Update the left environment at <code class="docutils literal notranslate"><span class="pre">site</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_mps</span></code>(site, data)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.matrix_product_state.Environment.update_mps" title="tnpy.matrix_product_state.Environment.update_mps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_mps</span></code></a>(site, data)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_right</span></code>(site)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.matrix_product_state.Environment.update_right" title="tnpy.matrix_product_state.Environment.update_right"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_right</span></code></a>(site)</p></td>
 <td><p>Update the right environment at <code class="docutils literal notranslate"><span class="pre">site</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">variance</span></code>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.matrix_product_state.Environment.variance" title="tnpy.matrix_product_state.Environment.variance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">variance</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -613,23 +614,184 @@ algorithms.</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">left</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.matrix_product_state.Environment.left" title="tnpy.matrix_product_state.Environment.left"><code class="xref py py-obj docutils literal notranslate"><span class="pre">left</span></code></a></p></td>
 <td><p>Get a dictionary where left environments are stored on the respective site.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">mpo</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.matrix_product_state.Environment.mpo" title="tnpy.matrix_product_state.Environment.mpo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mpo</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">mps</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.matrix_product_state.Environment.mps" title="tnpy.matrix_product_state.Environment.mps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mps</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_sites</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.matrix_product_state.Environment.n_sites" title="tnpy.matrix_product_state.Environment.n_sites"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_sites</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">right</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.matrix_product_state.Environment.right" title="tnpy.matrix_product_state.Environment.right"><code class="xref py py-obj docutils literal notranslate"><span class="pre">right</span></code></a></p></td>
 <td><p>Get a dictionary where right environments are stored on the respective site.</p></td>
 </tr>
 </tbody>
 </table>
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mps</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/matrix_product_state.html#Environment.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Permalink to this definition">#</a></dt>
+<dd><p>The effective environment for <a class="reference internal" href="tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code></a>-based
+algorithms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mpo</strong> (<a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – Input <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductOperator</span></code>.</p></li>
+<li><p><strong>mps</strong> (<a class="reference internal" href="tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><em>tnpy.matrix_product_state.MatrixProductState</em></a>) – Input <a class="reference internal" href="tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code></a>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.matrix_product_state.Environment.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/matrix_product_state.html#Environment.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.matrix_product_state.Environment.close" title="Permalink to this definition">#</a></dt>
+<dd><p>Delete the underlying data of left and right environments.</p>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.matrix_product_state.Environment.mpo">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mpo</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a></em><a class="headerlink" href="#tnpy.matrix_product_state.Environment.mpo" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.matrix_product_state.Environment.mps">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><span class="pre">tnpy.matrix_product_state.MatrixProductState</span></a></em><a class="headerlink" href="#tnpy.matrix_product_state.Environment.mps" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.matrix_product_state.Environment.n_sites">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_sites</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tnpy.matrix_product_state.Environment.n_sites" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.matrix_product_state.Environment.left">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">left</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://quimb.readthedocs.io/en/latest/_autosummary/quimb.tensor.tensor_core.html#quimb.tensor.tensor_core.Tensor" title="(in quimb v1.4)"><span class="pre">quimb.tensor.tensor_core.Tensor</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tnpy.matrix_product_state.Environment.left" title="Permalink to this definition">#</a></dt>
+<dd><p>Get a dictionary where left environments are stored on the respective
+site.</p>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.matrix_product_state.Environment.right">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">right</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://quimb.readthedocs.io/en/latest/_autosummary/quimb.tensor.tensor_core.html#quimb.tensor.tensor_core.Tensor" title="(in quimb v1.4)"><span class="pre">quimb.tensor.tensor_core.Tensor</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tnpy.matrix_product_state.Environment.right" title="Permalink to this definition">#</a></dt>
+<dd><p>Get a dictionary where right environments are stored on the respective
+site.</p>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.matrix_product_state.Environment.update_left">
+<span class="sig-name descname"><span class="pre">update_left</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/matrix_product_state.html#Environment.update_left"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.matrix_product_state.Environment.update_left" title="Permalink to this definition">#</a></dt>
+<dd><p>Update the left environment at <code class="docutils literal notranslate"><span class="pre">site</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>site</strong> (<em>int</em>) – </p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.matrix_product_state.Environment.update_right">
+<span class="sig-name descname"><span class="pre">update_right</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/matrix_product_state.html#Environment.update_right"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.matrix_product_state.Environment.update_right" title="Permalink to this definition">#</a></dt>
+<dd><p>Update the right environment at <code class="docutils literal notranslate"><span class="pre">site</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>site</strong> (<em>int</em>) – </p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.matrix_product_state.Environment.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/matrix_product_state.html#Environment.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.matrix_product_state.Environment.update" title="Permalink to this definition">#</a></dt>
+<dd><p>Alias to <a class="reference internal" href="#tnpy.matrix_product_state.Environment.update_left" title="tnpy.matrix_product_state.Environment.update_left"><code class="xref py py-func docutils literal notranslate"><span class="pre">update_left()</span></code></a> or
+<a class="reference internal" href="#tnpy.matrix_product_state.Environment.update_right" title="tnpy.matrix_product_state.Environment.update_right"><code class="xref py py-func docutils literal notranslate"><span class="pre">update_right()</span></code></a> depending on the given <code class="docutils literal notranslate"><span class="pre">direction</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>site</strong> (<em>int</em>) – </p></li>
+<li><p><strong>direction</strong> (<a class="reference internal" href="tnpy.matrix_product_state.Direction.html#tnpy.matrix_product_state.Direction" title="tnpy.matrix_product_state.Direction"><em>tnpy.matrix_product_state.Direction</em></a>) – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.matrix_product_state.Environment.update_mps">
+<span class="sig-name descname"><span class="pre">update_mps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/matrix_product_state.html#Environment.update_mps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.matrix_product_state.Environment.update_mps" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>site</strong> (<em>int</em>) – </p></li>
+<li><p><strong>data</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.matrix_product_state.Environment.split_tensor">
+<span class="sig-name descname"><span class="pre">split_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/matrix_product_state.html#Environment.split_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.matrix_product_state.Environment.split_tensor" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>site</strong> (<em>int</em>) – </p></li>
+<li><p><strong>direction</strong> (<a class="reference internal" href="tnpy.matrix_product_state.Direction.html#tnpy.matrix_product_state.Direction" title="tnpy.matrix_product_state.Direction"><em>tnpy.matrix_product_state.Direction</em></a>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.matrix_product_state.Environment.variance">
+<span class="sig-name descname"><span class="pre">variance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/matrix_product_state.html#Environment.variance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.matrix_product_state.Environment.variance" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.matrix_product_state.Environment.one_site_full_matrix">
+<span class="sig-name descname"><span class="pre">one_site_full_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/matrix_product_state.html#Environment.one_site_full_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.matrix_product_state.Environment.one_site_full_matrix" title="Permalink to this definition">#</a></dt>
+<dd><p>Construct the effective matrix for variational solver,
+with one site remained un-contracted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>site</strong> (<em>int</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)">numpy.ndarray</a></p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.matrix_product_state.Environment.one_site_matvec">
+<span class="sig-name descname"><span class="pre">one_site_matvec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tnpy/matrix_product_state.html#Environment.one_site_matvec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.matrix_product_state.Environment.one_site_matvec" title="Permalink to this definition">#</a></dt>
+<dd><p>Construct the effective linear operator (matrix-vector product) for
+variational solver, with one site remained un-contracted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>site</strong> (<em>int</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.LinearOperator.html#scipy.sparse.linalg.LinearOperator" title="(in SciPy v1.8.1)">scipy.sparse.linalg._interface.LinearOperator</a></p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
 </dd></dl>
 
 </section>

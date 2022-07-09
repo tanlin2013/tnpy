@@ -541,7 +541,7 @@ title="Open an issue"
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The node of binary tree, while data structure is inherited from</span>
-<span class="sd">        :class:`~quimb.Tensor`.</span>
+<span class="sd">        :class:`quimb.Tensor`.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            node_id:</span>
@@ -584,18 +584,27 @@ title="Open an issue"
 
 
 <div class="viewcode-block" id="TensorTree"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree">[docs]</a><span class="k">class</span> <span class="nc">TensorTree</span><span class="p">:</span>
-    <span class="nd">@dataclass</span>
+<div class="viewcode-block" id="TensorTree.Syntax"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree.Syntax">[docs]</a>    <span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">class</span> <span class="nc">Syntax</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The name of indices follows a standardized syntax.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            * For open index: Node&lt;node_id&gt;LevelIdx&lt;nth_idx&gt;</span>
+<span class="sd">            * For connected index: Node&lt;node1_id&gt;-Node&lt;node2_id&gt;</span>
+<span class="sd">            * In the presence of conjugated node, replace `Node` with `ConjNode`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="n">node</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Node&quot;</span>
         <span class="n">conj_node</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;ConjNode&quot;</span>
-        <span class="n">level_idx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;LevelIdx&quot;</span>
+        <span class="n">level_idx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;LevelIdx&quot;</span></div>
 
 <div class="viewcode-block" id="TensorTree.__init__"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mpo</span><span class="p">:</span> <span class="n">MatrixProductOperator</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The bottom-up binary tree where each node contains a tensor.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            mpo:</span>
+<span class="sd">            mpo: The matrix product operator.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_root_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span> <span class="o">=</span> <span class="p">{</span>
@@ -635,6 +644,15 @@ title="Open an issue"
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">horizon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The horizon is a moving line to track the node ids in</span>
+<span class="sd">        the current renormalized system.</span>
+<span class="sd">        This can be useful during the bottom-up construction of the tree,</span>
+<span class="sd">        until there is only one node on the horizon, that is the root.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The horizon.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_horizon</span>
 
     <span class="nd">@property</span>
@@ -643,7 +661,7 @@ title="Open an issue"
 <span class="sd">        Total number of nodes in tree.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            n_nodes:</span>
+<span class="sd">            Number of nodes, including leaves in tree.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tree</span><span class="p">)</span>
 
@@ -651,7 +669,20 @@ title="Open an issue"
     <span class="k">def</span> <span class="nf">n_leaves</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_leaves</span>
 
-    <span class="k">def</span> <span class="nf">fuse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">right_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">new_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+<div class="viewcode-block" id="TensorTree.fuse"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree.fuse">[docs]</a>    <span class="k">def</span> <span class="nf">fuse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">right_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">new_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fuse two nodes into one and assign the given data one it.</span>
+<span class="sd">        Meanwhile, the horizon is updated accordingly.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            left_id: The ID of left node to be fused.</span>
+<span class="sd">            right_id: The ID of right node to be fused.</span>
+<span class="sd">            new_id: The ID of new node.</span>
+<span class="sd">            data: Data that will be assigned to the new node.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t perform fuse on a grown tree.&quot;</span><span class="p">)</span>
         <span class="n">left_ind</span> <span class="o">=</span> <span class="p">(</span>
@@ -695,9 +726,9 @@ title="Open an issue"
         <span class="bp">self</span><span class="o">.</span><span class="n">_horizon</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_horizon</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">left_id</span><span class="p">)]</span> <span class="o">=</span> <span class="n">new_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_horizon</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">right_id</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_nodes</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_leaves</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_root_id</span> <span class="o">=</span> <span class="n">new_id</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_root_id</span> <span class="o">=</span> <span class="n">new_id</span></div>
 
-    <span class="k">def</span> <span class="nf">check_root</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+<div class="viewcode-block" id="TensorTree.check_root"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree.check_root">[docs]</a>    <span class="k">def</span> <span class="nf">check_root</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Accessory decorator for checking the existence of root in</span>
 <span class="sd">        :class:`~TensorTree`.</span>
@@ -712,7 +743,7 @@ title="Open an issue"
                 <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t find root in tree.&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">wrapper</span>
+        <span class="k">return</span> <span class="n">wrapper</span></div>
 
     <span class="nd">@property</span>
     <span class="nd">@check_root</span>
@@ -726,7 +757,7 @@ title="Open an issue"
 
         <span class="k">return</span> <span class="n">max_depth</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
 
-    <span class="nd">@check_root</span>
+<div class="viewcode-block" id="TensorTree.tensor_network"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree.tensor_network">[docs]</a>    <span class="nd">@check_root</span>
     <span class="k">def</span> <span class="nf">tensor_network</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">node_ids</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -741,9 +772,10 @@ title="Open an issue"
 <span class="sd">            conj: Take a conjugate on this network.</span>
 <span class="sd">                This will change the indices on physical bonds, as well as the internal</span>
 <span class="sd">                indices within the network. This will be an inplace operation.</span>
-<span class="sd">            mangle_outer: For conjugate network only. If False, the indices on physical</span>
+<span class="sd">            mangle_outer: For conjugate network only, namely when ``conj`` is True.</span>
+<span class="sd">                If this parameter is set to False, the indices on physical</span>
 <span class="sd">                bonds will remain untouched. This can be useful for taking inner product</span>
-<span class="sd">                on the same state, i.e. :math:`\langle\psi|\psi\rangle`.</span>
+<span class="sd">                on the state, i.e. :math:`\langle\psi|\psi\rangle`.</span>
 <span class="sd">            with_leaves: Whether the leaves, that is, the MPOs, should be taken</span>
 <span class="sd">                into account in this network.</span>
 <span class="sd">        Returns:</span>
@@ -782,22 +814,22 @@ title="Open an issue"
                     <span class="p">}</span>
                 <span class="p">)</span>
             <span class="k">return</span> <span class="n">conj_net</span>
-        <span class="k">return</span> <span class="n">net</span>
+        <span class="k">return</span> <span class="n">net</span></div>
 
-    <span class="nd">@check_root</span>
+<div class="viewcode-block" id="TensorTree.find_path"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree.find_path">[docs]</a>    <span class="nd">@check_root</span>
     <span class="k">def</span> <span class="nf">find_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">return_itself</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Find the path to targeted node starting from the root.</span>
+<span class="sd">        Find the path from the root to the targeted node ``node_id``.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            node_id:</span>
-<span class="sd">            return_itself:</span>
+<span class="sd">            node_id: The id of node we are looking for.</span>
+<span class="sd">            return_itself: Should the target node be included in returning path.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            path: ID of nodes to targeted node, including targeted node itself.</span>
+<span class="sd">            ID of nodes on the path from the root to the targeted node.</span>
 
 <span class="sd">        Raises:</span>
-<span class="sd">            If path is empty, raises KeyError for input ``node_id``.</span>
+<span class="sd">            KeyError: If no path can be found to the given ``node_id``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">def</span> <span class="nf">find_node</span><span class="p">(</span><span class="n">current_node</span><span class="p">:</span> <span class="n">Node</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">trial_path</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -806,12 +838,10 @@ title="Open an issue"
 
 <span class="sd">            Args:</span>
 <span class="sd">                current_node: Current node in iterative depth-first searching</span>
-<span class="sd">                trial_path: List for recording the trial path to the targeted</span>
-<span class="sd">                    leaf.</span>
+<span class="sd">                trial_path: List for recording the trial path to the targeted leaf.</span>
 
 <span class="sd">            Returns:</span>
-<span class="sd">                found: Return True if the given ``node_id`` is found in tree,</span>
-<span class="sd">                    else False.</span>
+<span class="sd">                Return True if the given ``node_id`` is found in tree, else False.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="k">if</span> <span class="n">current_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">trial_path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_node</span><span class="o">.</span><span class="n">node_id</span><span class="p">)</span>
@@ -827,9 +857,9 @@ title="Open an issue"
         <span class="n">path</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">find_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;The given node_id is not found in tree.&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">path</span> <span class="k">if</span> <span class="n">return_itself</span> <span class="k">else</span> <span class="n">path</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">path</span> <span class="k">if</span> <span class="n">return_itself</span> <span class="k">else</span> <span class="n">path</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
 
-    <span class="nd">@check_root</span>
+<div class="viewcode-block" id="TensorTree.common_ancestor"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree.common_ancestor">[docs]</a>    <span class="nd">@check_root</span>
     <span class="k">def</span> <span class="nf">common_ancestor</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">node_id1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">node_id2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">lowest</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
@@ -855,10 +885,20 @@ title="Open an issue"
         <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
             <span class="k">assert</span> <span class="n">path1</span> <span class="o">==</span> <span class="n">path2</span>
             <span class="n">common_path</span> <span class="o">=</span> <span class="n">path1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">common_path</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">lowest</span> <span class="k">else</span> <span class="n">common_path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">common_path</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">lowest</span> <span class="k">else</span> <span class="n">common_path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
 
-    <span class="nd">@check_root</span>
+<div class="viewcode-block" id="TensorTree.plot"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree.plot">[docs]</a>    <span class="nd">@check_root</span>
     <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Digraph</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot the tree with :class:`graphviz.Digraph`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            view: View the plot in an interactive window.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The Digraph object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="k">def</span> <span class="nf">find_child</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">]:</span>
                 <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -904,11 +944,11 @@ title="Open an issue"
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">view</span><span class="p">:</span>
             <span class="n">graph</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">graph</span></div>
+        <span class="k">return</span> <span class="n">graph</span></div></div>
 
 
 <div class="viewcode-block" id="TreeTensorNetworkSDRG"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG">[docs]</a><span class="k">class</span> <span class="nc">TreeTensorNetworkSDRG</span><span class="p">:</span>
-    <span class="nd">@dataclass</span>
+<div class="viewcode-block" id="TreeTensorNetworkSDRG.GapCache"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache">[docs]</a>    <span class="nd">@dataclass</span>
     <span class="k">class</span> <span class="nc">GapCache</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Helper class for caching the energy gap in</span>
@@ -926,23 +966,23 @@ title="Open an issue"
                 <span class="bp">self</span><span class="o">.</span><span class="n">gap</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tsdrg</span><span class="o">.</span><span class="n">truncation_gap</span><span class="p">(</span><span class="n">evals</span><span class="p">))</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">tsdrg</span><span class="o">.</span><span class="n">_evals</span> <span class="o">=</span> <span class="n">evals</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tsdrg</span><span class="o">.</span><span class="n">n_sites</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">else</span> <span class="kc">None</span>
 
-        <span class="k">def</span> <span class="nf">neighbouring_bonds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bond</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<div class="viewcode-block" id="TreeTensorNetworkSDRG.GapCache.neighbouring_bonds"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.neighbouring_bonds">[docs]</a>        <span class="k">def</span> <span class="nf">neighbouring_bonds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bond</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">bond</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">neighbours</span> <span class="o">=</span> <span class="p">[</span><span class="n">bond</span><span class="p">]</span>
             <span class="k">elif</span> <span class="n">bond</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tsdrg</span><span class="o">.</span><span class="n">_fused_mpo_cache</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">neighbours</span> <span class="o">=</span> <span class="p">[</span><span class="n">bond</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">neighbours</span> <span class="o">=</span> <span class="p">[</span><span class="n">bond</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">bond</span><span class="p">]</span>
-            <span class="k">return</span> <span class="n">neighbours</span>
+            <span class="k">return</span> <span class="n">neighbours</span></div>
 
-        <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_gapped_bond</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<div class="viewcode-block" id="TreeTensorNetworkSDRG.GapCache.update"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.update">[docs]</a>        <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_gapped_bond</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">gap</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">max_gapped_bond</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">evecs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">max_gapped_bond</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">bond</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighbouring_bonds</span><span class="p">(</span><span class="n">max_gapped_bond</span><span class="p">):</span>
                 <span class="n">evals</span><span class="p">,</span> <span class="n">evecs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tsdrg</span><span class="o">.</span><span class="n">block_eigen_solver</span><span class="p">(</span><span class="n">bond</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">gap</span><span class="p">[</span><span class="n">bond</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tsdrg</span><span class="o">.</span><span class="n">truncation_gap</span><span class="p">(</span><span class="n">evals</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">evecs</span><span class="p">[</span><span class="n">bond</span><span class="p">]</span> <span class="o">=</span> <span class="n">evecs</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">tsdrg</span><span class="o">.</span><span class="n">_evals</span> <span class="o">=</span> <span class="n">evals</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tsdrg</span><span class="o">.</span><span class="n">_evals</span> <span class="o">=</span> <span class="n">evals</span></div></div>
 
 <div class="viewcode-block" id="TreeTensorNetworkSDRG.__init__"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mpo</span><span class="p">:</span> <span class="n">MatrixProductOperator</span><span class="p">,</span> <span class="n">chi</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -994,15 +1034,28 @@ title="Open an issue"
     <span class="k">def</span> <span class="nf">evals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_evals</span>
 
-    <span class="k">def</span> <span class="nf">block_eigen_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locus</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<div class="viewcode-block" id="TreeTensorNetworkSDRG.block_eigen_solver"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.block_eigen_solver">[docs]</a>    <span class="k">def</span> <span class="nf">block_eigen_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locus</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Solve the 2-site Hamiltonian with :attr:`~TreeTensorNetworkSDRG.chi` lowest</span>
+<span class="sd">        eigen-pairs.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            locus: The site in coarse-grained system during the RG process.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A tuple (``evals``, ``evecs``),</span>
+<span class="sd">            where ``evals`` are the lowest</span>
+<span class="sd">            :attr:`~TreeTensorNetworkSDRG.chi` eigenvalues,</span>
+<span class="sd">            and ``evecs`` are the corresponding eigenvectors.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_hamiltonian</span><span class="p">(</span><span class="n">locus</span><span class="p">)</span>
         <span class="n">evals</span><span class="p">,</span> <span class="n">evecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">chi</span><span class="p">:</span>
             <span class="n">evals</span> <span class="o">=</span> <span class="n">evals</span><span class="p">[:</span> <span class="bp">self</span><span class="o">.</span><span class="n">chi</span><span class="p">]</span>
             <span class="n">evecs</span> <span class="o">=</span> <span class="n">evecs</span><span class="p">[:,</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">chi</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">evals</span><span class="p">,</span> <span class="n">evecs</span>
+        <span class="k">return</span> <span class="n">evals</span><span class="p">,</span> <span class="n">evecs</span></div>
 
-    <span class="k">def</span> <span class="nf">truncation_gap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">evals</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="TreeTensorNetworkSDRG.truncation_gap"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.truncation_gap">[docs]</a>    <span class="k">def</span> <span class="nf">truncation_gap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">evals</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the gap upon :attr:`~TreeTensorNetworkSDRG.chi` eigenvalues kept.</span>
 
@@ -1010,12 +1063,12 @@ title="Open an issue"
 <span class="sd">            evals: The eigenvalues (energy spectrum).</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            gap: The truncation gap, evals[chi+1] - evals[chi].</span>
+<span class="sd">            The truncation gap, evals[chi+1] - evals[chi].</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">gaps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">evals</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">gaps</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">chi</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">gaps</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">chi</span> <span class="k">else</span> <span class="n">gaps</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">gaps</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">chi</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">gaps</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">chi</span> <span class="k">else</span> <span class="n">gaps</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
 
-    <span class="k">def</span> <span class="nf">block_hamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locus</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<div class="viewcode-block" id="TreeTensorNetworkSDRG.block_hamiltonian"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.block_hamiltonian">[docs]</a>    <span class="k">def</span> <span class="nf">block_hamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locus</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Construct the 2-site Hamiltonian from coarse-graining MPO.</span>
 
@@ -1023,7 +1076,7 @@ title="Open an issue"
 <span class="sd">            locus: The site in coarse-grained system during the RG process.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            block_ham: The 2-site Hamiltonian.</span>
+<span class="sd">            The 2-site Hamiltonian.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">mpo1</span><span class="p">,</span> <span class="n">mpo2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fused_mpo_cache</span><span class="p">[</span><span class="n">locus</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fused_mpo_cache</span><span class="p">[</span><span class="n">locus</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mpo1</span><span class="o">.</span><span class="n">inds</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
@@ -1035,9 +1088,9 @@ title="Open an issue"
             <span class="p">{</span><span class="s2">&quot;0&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">ham</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ham</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">ham</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ham</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="mi">3</span><span class="p">]]},</span>
             <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="n">ham</span><span class="o">.</span><span class="n">data</span>
+        <span class="k">return</span> <span class="n">ham</span><span class="o">.</span><span class="n">data</span></div>
 
-    <span class="k">def</span> <span class="nf">spectrum_projector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locus</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">evecs</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<div class="viewcode-block" id="TreeTensorNetworkSDRG.spectrum_projector"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.spectrum_projector">[docs]</a>    <span class="k">def</span> <span class="nf">spectrum_projector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locus</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">evecs</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Coarse-grain the MPO with given evecs which is used to form a projector.</span>
 
@@ -1046,7 +1099,7 @@ title="Open an issue"
 <span class="sd">            evecs:</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            projector:</span>
+<span class="sd">            The projector.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">mpo1</span><span class="p">,</span> <span class="n">mpo2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fused_mpo_cache</span><span class="p">[</span><span class="n">locus</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fused_mpo_cache</span><span class="p">[</span><span class="n">locus</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
         <span class="n">projector</span> <span class="o">=</span> <span class="n">qtn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
@@ -1073,9 +1126,15 @@ title="Open an issue"
             <span class="o">.</span><span class="n">contract</span><span class="p">()</span>
             <span class="o">.</span><span class="n">reindex</span><span class="p">({</span><span class="s2">&quot;-1&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;k</span><span class="si">{</span><span class="n">rand_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;-2&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;b</span><span class="si">{</span><span class="n">rand_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">})</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="n">projector</span><span class="o">.</span><span class="n">data</span>
+        <span class="k">return</span> <span class="n">projector</span><span class="o">.</span><span class="n">data</span></div>
 
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TreeTensorNetworkSDRG.run"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Start the algorithm.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="n">count</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
             <span class="n">max_gapped_bond</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_gap_cache</span><span class="o">.</span><span class="n">gap</span><span class="p">)))</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
@@ -1097,7 +1156,7 @@ title="Open an issue"
                 <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Obtain ground state energies, </span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evals</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
                 <span class="k">assert</span> <span class="n">step</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_sites</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;step is out of range.&quot;</span>
                 <span class="k">break</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_gap_cache</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">max_gapped_bond</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_gap_cache</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">max_gapped_bond</span><span class="p">)</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">measurements</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TreeTensorNetworkMeasurements</span><span class="p">:</span>
@@ -1111,10 +1170,10 @@ title="Open an issue"
         <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span> <span class="o">=</span> <span class="n">tree</span></div>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">tree</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TensorTree</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span>
 
-    <span class="k">def</span> <span class="nf">loop_simplify</span><span class="p">(</span>
+<div class="viewcode-block" id="TreeTensorNetworkMeasurements.loop_simplify"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements.loop_simplify">[docs]</a>    <span class="k">def</span> <span class="nf">loop_simplify</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">bra</span><span class="p">:</span> <span class="n">qtn</span><span class="o">.</span><span class="n">TensorNetwork</span><span class="p">,</span>
         <span class="n">ket</span><span class="p">:</span> <span class="n">qtn</span><span class="o">.</span><span class="n">TensorNetwork</span><span class="p">,</span>
@@ -1130,9 +1189,10 @@ title="Open an issue"
 <span class="sd">            mpo: (Optional) If not given, ``bra`` &amp; ``ket`` will be computed.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            tensor: The contracted tensor.</span>
-<span class="sd">        Notes:</span>
+<span class="sd">            The contracted tensor.</span>
 
+<span class="sd">        Notes:</span>
+<span class="sd">            :mod:`quimb` may provide other simplify methods based on greedy algorithm.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">net</span> <span class="o">=</span> <span class="p">(</span><span class="n">bra</span> <span class="o">&amp;</span> <span class="n">ket</span><span class="p">)</span> <span class="k">if</span> <span class="n">mpo</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">(</span><span class="n">bra</span> <span class="o">&amp;</span> <span class="n">mpo</span> <span class="o">&amp;</span> <span class="n">ket</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">mpo</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1147,10 +1207,12 @@ title="Open an issue"
                 <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">net</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">contract</span><span class="p">(</span><span class="nb">all</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">net</span>
+        <span class="k">return</span> <span class="n">net</span></div>
 
-    <span class="k">def</span> <span class="nf">sandwich</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mpo</span><span class="p">:</span> <span class="n">MatrixProductOperator</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">qtn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<div class="viewcode-block" id="TreeTensorNetworkMeasurements.sandwich"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements.sandwich">[docs]</a>    <span class="k">def</span> <span class="nf">sandwich</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mpo</span><span class="p">:</span> <span class="n">MatrixProductOperator</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">qtn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Take the sandwich on given ``mpo``.</span>
+<span class="sd">        If it is None, this computes the inner product of state.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            mpo:</span>
@@ -1164,38 +1226,45 @@ title="Open an issue"
             <span class="k">if</span> <span class="n">mpo</span> <span class="ow">is</span> <span class="kc">None</span>
             <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">tensor_network</span><span class="p">(</span><span class="n">conj</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">loop_simplify</span><span class="p">(</span><span class="n">bra</span><span class="p">,</span> <span class="n">ket</span><span class="p">,</span> <span class="n">mpo</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">loop_simplify</span><span class="p">(</span><span class="n">bra</span><span class="p">,</span> <span class="n">ket</span><span class="p">,</span> <span class="n">mpo</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">expectation_value</span><span class="p">(</span>
+<div class="viewcode-block" id="TreeTensorNetworkMeasurements.expectation_value"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements.expectation_value">[docs]</a>    <span class="k">def</span> <span class="nf">expectation_value</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">mpo</span><span class="p">:</span> <span class="n">MatrixProductOperator</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-12</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the expectation value for given ``mpo``.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            mpo:</span>
-<span class="sd">            tol:</span>
+<span class="sd">            mpo: The matrix product operator.</span>
+<span class="sd">            tol: The numerical tolerance.</span>
 
 <span class="sd">        Returns:</span>
+<span class="sd">            The expectation values.</span>
 
-<span class="sd">        Warnings:</span>
-<span class="sd">            Warning will be raised if any off-diagonal element is larger</span>
-<span class="sd">            than ``tol``.</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            Warning: If any off-diagonal element is larger than ``tol``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">exp_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sandwich</span><span class="p">(</span><span class="n">mpo</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span>
             <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">exp_val</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="n">exp_val</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">diagflat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">exp_val</span><span class="p">)),</span> <span class="n">atol</span><span class="o">=</span><span class="n">tol</span>
         <span class="p">):</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Expectation value may contain large off-diagonal elements.&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">exp_val</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">exp_val</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_min_surface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bipartite_site</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Dict</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Find the smaller side over bipartition,</span>
+<span class="sd">        and find the lowest common ancestor (LCA) between ``bipartite_site``</span>
+<span class="sd">        and the rest of sites on the smaller side.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            bipartite_site:</span>
 
 <span class="sd">        Returns:</span>
-
+<span class="sd">            A tuple (``min_side``, ``ket_inds_map``, ``bra_inds_map``),</span>
+<span class="sd">            where ``min_side`` is either 0 for the left side or 1 for the right.</span>
+<span class="sd">            ``ket_inds_map`` and ``bra_inds_map`` are each a dictionary of indices</span>
+<span class="sd">            that maps the original indices of LCA nodes into the physical bonds.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">min_side</span> <span class="o">=</span> <span class="p">(</span>
             <span class="mi">0</span> <span class="k">if</span> <span class="p">(</span><span class="n">bipartite_site</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">n_leaves</span> <span class="o">-</span> <span class="n">bipartite_site</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">1</span>
@@ -1213,8 +1282,10 @@ title="Open an issue"
             <span class="n">bra_inds_map</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="p">[</span><span class="n">lca_id</span><span class="p">]</span><span class="o">.</span><span class="n">inds</span><span class="p">[</span><span class="n">min_side</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;rho_b</span><span class="si">{</span><span class="n">leaf_id</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="k">return</span> <span class="n">min_side</span><span class="p">,</span> <span class="n">ket_inds_map</span><span class="p">,</span> <span class="n">bra_inds_map</span>
 
-    <span class="k">def</span> <span class="nf">reduced_density_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">level_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<div class="viewcode-block" id="TreeTensorNetworkMeasurements.reduced_density_matrix"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements.reduced_density_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">reduced_density_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">level_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the reduced density matrix for the bipartite system with respect to</span>
+<span class="sd">        the cutting ``site``.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            site:</span>
@@ -1264,12 +1335,13 @@ title="Open an issue"
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">net</span><span class="o">.</span><span class="n">to_dense</span><span class="p">(</span>
             <span class="p">[</span><span class="o">*</span><span class="n">on_min_ket_surface</span><span class="o">.</span><span class="n">values</span><span class="p">()],</span> <span class="p">[</span><span class="o">*</span><span class="n">on_min_bra_surface</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
-        <span class="p">)</span>
+        <span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">entanglement_entropy</span><span class="p">(</span>
+<div class="viewcode-block" id="TreeTensorNetworkMeasurements.entanglement_entropy"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements.entanglement_entropy">[docs]</a>    <span class="k">def</span> <span class="nf">entanglement_entropy</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">level_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">nan_to_num</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the von Neumann entropy on the cutting ``site``.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            site:</span>
@@ -1281,9 +1353,21 @@ title="Open an issue"
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">rho</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvalsh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reduced_density_matrix</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">level_idx</span><span class="p">))[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">entropy</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">rho</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">entropy</span><span class="p">)</span> <span class="k">if</span> <span class="n">nan_to_num</span> <span class="k">else</span> <span class="n">entropy</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">entropy</span><span class="p">)</span> <span class="k">if</span> <span class="n">nan_to_num</span> <span class="k">else</span> <span class="n">entropy</span></div>
 
-    <span class="k">def</span> <span class="nf">one_point_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operator</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">level_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<div class="viewcode-block" id="TreeTensorNetworkMeasurements.one_point_function"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements.one_point_function">[docs]</a>    <span class="k">def</span> <span class="nf">one_point_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operator</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">level_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the expectation value :math:`\langle \hat{O}_i \rangle`</span>
+<span class="sd">        of given local operator :math:`\hat{O}_i` on site :math:`i`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            operator: The operator :math:`\hat{O}`.</span>
+<span class="sd">            site:</span>
+<span class="sd">            level_idx:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">node_ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">find_path</span><span class="p">(</span><span class="n">site</span><span class="p">)</span>
         <span class="n">ket</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">tensor_network</span><span class="p">(</span><span class="n">node_ids</span><span class="p">)</span>
         <span class="n">ket</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span>
@@ -1303,9 +1387,9 @@ title="Open an issue"
         <span class="p">)</span>
         <span class="n">bra</span><span class="o">.</span><span class="n">reindex</span><span class="p">({</span><span class="sa">f</span><span class="s2">&quot;k</span><span class="si">{</span><span class="n">site</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;b</span><span class="si">{</span><span class="n">site</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">qtn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">operator</span><span class="p">,</span> <span class="n">inds</span><span class="o">=</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;b</span><span class="si">{</span><span class="n">site</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;k</span><span class="si">{</span><span class="n">site</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">bra</span> <span class="o">&amp;</span> <span class="n">t</span> <span class="o">&amp;</span> <span class="n">ket</span><span class="p">)</span><span class="o">.</span><span class="n">contract</span><span class="p">(</span><span class="nb">all</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">bra</span> <span class="o">&amp;</span> <span class="n">t</span> <span class="o">&amp;</span> <span class="n">ket</span><span class="p">)</span><span class="o">.</span><span class="n">contract</span><span class="p">(</span><span class="nb">all</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">two_point_function</span><span class="p">(</span>
+<div class="viewcode-block" id="TreeTensorNetworkMeasurements.two_point_function"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements.two_point_function">[docs]</a>    <span class="k">def</span> <span class="nf">two_point_function</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">operator1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">operator2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
@@ -1313,6 +1397,23 @@ title="Open an issue"
         <span class="n">site2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">level_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the correlation function</span>
+<span class="sd">        :math:`\langle \hat{O}_{i_1}^A \hat{O}_{i_2}^B \rangle`</span>
+<span class="sd">        of 2 given local operators</span>
+<span class="sd">        :math:`\hat{O}_{i_1}^A` and :math:`\hat{O}_{i_2}^B`</span>
+<span class="sd">        on site :math:`i_1` and :math:`i_2`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            operator1: The first operator :math:`\hat{O}^A`.</span>
+<span class="sd">            operator2: The second operator :math:`\hat{O}^B`.</span>
+<span class="sd">            site1:</span>
+<span class="sd">            site2:</span>
+<span class="sd">            level_idx:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">site1</span> <span class="o">!=</span> <span class="n">site2</span>
         <span class="n">site1</span><span class="p">,</span> <span class="n">site2</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">((</span><span class="n">site1</span><span class="p">,</span> <span class="n">site2</span><span class="p">))</span>
         <span class="c1"># TODO: operators aren&#39;t sorted accordingly</span>
@@ -1336,9 +1437,9 @@ title="Open an issue"
         <span class="n">bra</span><span class="o">.</span><span class="n">reindex</span><span class="p">({</span><span class="sa">f</span><span class="s2">&quot;k</span><span class="si">{</span><span class="n">site1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;b</span><span class="si">{</span><span class="n">site1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;k</span><span class="si">{</span><span class="n">site2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;b</span><span class="si">{</span><span class="n">site2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">t1</span> <span class="o">=</span> <span class="n">qtn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">operator1</span><span class="p">,</span> <span class="n">inds</span><span class="o">=</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;b</span><span class="si">{</span><span class="n">site1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;k</span><span class="si">{</span><span class="n">site1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
         <span class="n">t2</span> <span class="o">=</span> <span class="n">qtn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">operator2</span><span class="p">,</span> <span class="n">inds</span><span class="o">=</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;b</span><span class="si">{</span><span class="n">site2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;k</span><span class="si">{</span><span class="n">site2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">bra</span> <span class="o">&amp;</span> <span class="n">t1</span> <span class="o">&amp;</span> <span class="n">t2</span> <span class="o">&amp;</span> <span class="n">ket</span><span class="p">)</span><span class="o">.</span><span class="n">contract</span><span class="p">(</span><span class="nb">all</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">bra</span> <span class="o">&amp;</span> <span class="n">t1</span> <span class="o">&amp;</span> <span class="n">t2</span> <span class="o">&amp;</span> <span class="n">ket</span><span class="p">)</span><span class="o">.</span><span class="n">contract</span><span class="p">(</span><span class="nb">all</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">connected_two_point_function</span><span class="p">(</span>
+<div class="viewcode-block" id="TreeTensorNetworkMeasurements.connected_two_point_function"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements.connected_two_point_function">[docs]</a>    <span class="k">def</span> <span class="nf">connected_two_point_function</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">operator1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">operator2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
@@ -1346,40 +1447,52 @@ title="Open an issue"
         <span class="n">site2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">level_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            operator1:</span>
+<span class="sd">            operator2:</span>
+<span class="sd">            site1:</span>
+<span class="sd">            site2:</span>
+<span class="sd">            level_idx:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">two_point_function</span><span class="p">(</span>
             <span class="n">operator1</span><span class="p">,</span> <span class="n">operator2</span><span class="p">,</span> <span class="n">site1</span><span class="p">,</span> <span class="n">site2</span><span class="p">,</span> <span class="n">level_idx</span>
         <span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">one_point_function</span><span class="p">(</span>
             <span class="n">operator1</span><span class="p">,</span> <span class="n">site1</span><span class="p">,</span> <span class="n">level_idx</span>
         <span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">one_point_function</span><span class="p">(</span>
             <span class="n">operator2</span><span class="p">,</span> <span class="n">site2</span><span class="p">,</span> <span class="n">level_idx</span>
-        <span class="p">)</span>
+        <span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">wave_func_coeff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">NotImplemented</span>
-
-    <span class="k">def</span> <span class="nf">squared_moduli</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">NotImplemented</span>
-
-    <span class="k">def</span> <span class="nf">Kullback_Leibler_divergence</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">NotImplemented</span>
-
-    <span class="k">def</span> <span class="nf">participation_entropy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TreeTensorNetworkMeasurements.wave_func_coeff"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements.wave_func_coeff">[docs]</a>    <span class="k">def</span> <span class="nf">wave_func_coeff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">NotImplemented</span></div>
+
+<div class="viewcode-block" id="TreeTensorNetworkMeasurements.squared_moduli"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements.squared_moduli">[docs]</a>    <span class="k">def</span> <span class="nf">squared_moduli</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">NotImplemented</span></div>
+
+<div class="viewcode-block" id="TreeTensorNetworkMeasurements.Kullback_Leibler_divergence"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements.Kullback_Leibler_divergence">[docs]</a>    <span class="k">def</span> <span class="nf">Kullback_Leibler_divergence</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">NotImplemented</span></div>
+
+<div class="viewcode-block" id="TreeTensorNetworkMeasurements.participation_entropy"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements.participation_entropy">[docs]</a>    <span class="k">def</span> <span class="nf">participation_entropy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">NotImplemented</span></div></div>
 
 
 <div class="viewcode-block" id="HighEnergyTreeTensorNetworkSDRG"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.html#tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG">[docs]</a><span class="k">class</span> <span class="nc">HighEnergyTreeTensorNetworkSDRG</span><span class="p">(</span><span class="n">TreeTensorNetworkSDRG</span><span class="p">):</span>
 <div class="viewcode-block" id="HighEnergyTreeTensorNetworkSDRG.__init__"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.html#tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">block_eigen_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locus</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<div class="viewcode-block" id="HighEnergyTreeTensorNetworkSDRG.block_eigen_solver"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.html#tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.block_eigen_solver">[docs]</a>    <span class="k">def</span> <span class="nf">block_eigen_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locus</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
         <span class="n">matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_hamiltonian</span><span class="p">(</span><span class="n">locus</span><span class="p">)</span>
         <span class="n">evals</span><span class="p">,</span> <span class="n">evecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">chi</span><span class="p">:</span>
             <span class="n">evals</span> <span class="o">=</span> <span class="n">evals</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">chi</span> <span class="p">:]</span>
             <span class="n">evecs</span> <span class="o">=</span> <span class="n">evecs</span><span class="p">[:,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">chi</span> <span class="p">:]</span>
-        <span class="k">return</span> <span class="n">evals</span><span class="p">,</span> <span class="n">evecs</span>
+        <span class="k">return</span> <span class="n">evals</span><span class="p">,</span> <span class="n">evecs</span></div>
 
-    <span class="k">def</span> <span class="nf">truncation_gap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">evals</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="HighEnergyTreeTensorNetworkSDRG.truncation_gap"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.html#tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.truncation_gap">[docs]</a>    <span class="k">def</span> <span class="nf">truncation_gap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">evals</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the gap upon :attr:`~TreeTensorNetworkSDRG.chi` highest eigenvalues kept.</span>
 
@@ -1387,17 +1500,17 @@ title="Open an issue"
 <span class="sd">            evals: The eigenvalues (energy spectrum).</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            gap: The truncation gap, evals[-chi] - evals[-chi-1].</span>
+<span class="sd">            The truncation gap, evals[-chi] - evals[-chi-1].</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">gaps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">evals</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">gaps</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">chi</span><span class="p">]</span> <span class="k">if</span> <span class="n">gaps</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">chi</span> <span class="k">else</span> <span class="n">gaps</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="n">gaps</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">chi</span><span class="p">]</span> <span class="k">if</span> <span class="n">gaps</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">chi</span> <span class="k">else</span> <span class="n">gaps</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div></div>
 
 
 <div class="viewcode-block" id="ShiftInvertTreeTensorNetworkSDRG"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG.html#tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG">[docs]</a><span class="k">class</span> <span class="nc">ShiftInvertTreeTensorNetworkSDRG</span><span class="p">(</span><span class="n">TreeTensorNetworkSDRG</span><span class="p">):</span>
 <div class="viewcode-block" id="ShiftInvertTreeTensorNetworkSDRG.__init__"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG.html#tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">block_eigen_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locus</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<div class="viewcode-block" id="ShiftInvertTreeTensorNetworkSDRG.block_eigen_solver"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG.html#tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG.block_eigen_solver">[docs]</a>    <span class="k">def</span> <span class="nf">block_eigen_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locus</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
         <span class="n">matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_hamiltonian</span><span class="p">(</span><span class="n">locus</span><span class="p">)</span>
         <span class="n">evals</span><span class="p">,</span> <span class="n">evecs</span> <span class="o">=</span> <span class="n">spl</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">matrix</span> <span class="o">@</span> <span class="n">matrix</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">chi</span><span class="p">:</span>
@@ -1421,7 +1534,7 @@ title="Open an issue"
         <span class="c1"># )</span>
         <span class="c1"># logger.info(f&quot;rho {rho}&quot;)</span>
         <span class="c1"># logger.info(f&quot;residual {res}&quot;)</span>
-        <span class="k">return</span> <span class="n">evals</span><span class="p">,</span> <span class="n">evecs</span></div>
+        <span class="k">return</span> <span class="n">evals</span><span class="p">,</span> <span class="n">evecs</span></div></div>
 </pre></div>
 
               </div>

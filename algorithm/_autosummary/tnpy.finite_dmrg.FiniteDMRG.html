@@ -541,54 +541,55 @@ title="Edit this page"
 <h1><span class="section-number">2.1. </span>tnpy.finite_dmrg.FiniteDMRG<a class="headerlink" href="#tnpy-finite-dmrg-finitedmrg" title="Permalink to this headline">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="tnpy.finite_dmrg.FiniteDMRG">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.finite_dmrg.</span></span><span class="sig-name descname"><span class="pre">FiniteDMRG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">bond_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><span class="pre">tnpy.matrix_product_state.MatrixProductState</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact_solver_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/finite_dmrg.html#FiniteDMRG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG" title="Permalink to this definition">#</a></dt>
-<dd><p>The Density Matrix Renormalization Group (DMRG) algorithm of a
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.finite_dmrg.</span></span><span class="sig-name descname"><span class="pre">FiniteDMRG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bond_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact_solver_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/finite_dmrg.html#FiniteDMRG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The Density Matrix Renormalization Group (DMRG) algorithm of a
 finite size system.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>mpo</strong> – Matrix product operator.</p></li>
-<li><p><strong>bond_dim</strong> – Bond dimensions.</p></li>
-<li><p><strong>block_size</strong> – Block size of each local update.</p></li>
-<li><p><strong>mps</strong> – (Optional) Initial guess of <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code>.</p></li>
-<li><p><strong>exact_solver_dim</strong> – A switch point at which the exact eigensolver
+<li><p><strong>mpo</strong> (<a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – Matrix product operator.</p></li>
+<li><p><strong>bond_dim</strong> (<em>int</em>) – Bond dimensions.</p></li>
+<li><p><strong>block_size</strong> (<em>int</em>) – Block size of each local update.</p></li>
+<li><p><strong>mps</strong> (<a class="reference internal" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><em>tnpy.matrix_product_state.MatrixProductState</em></a>) – (Optional) Initial guess of <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code>.</p></li>
+<li><p><strong>exact_solver_dim</strong> (<em>int</em>) – A switch point at which the exact eigensolver
 should be used below certain matrix size.</p></li>
 </ul>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<p>To start the algorithm, one can call <code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code>,</p>
+<p>To start the algorithm, one can call <a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.run" title="tnpy.finite_dmrg.FiniteDMRG.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a>,</p>
 <blockquote>
 <div><p>fdmrg = FiniteDMRG(mpo, bond_dim=20)
 fdmrg.run(tol=1e-8)</p>
 </div></blockquote>
 <p>The optimized <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code> can then be retrieved
-from <code class="xref py py-attr docutils literal notranslate"><span class="pre">mps</span></code>.</p>
+from <a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.mps" title="tnpy.finite_dmrg.FiniteDMRG.mps"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mps</span></code></a>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.finite_dmrg.FiniteDMRG.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">bond_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><span class="pre">tnpy.matrix_product_state.MatrixProductState</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact_solver_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/finite_dmrg.html#FiniteDMRG.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.__init__" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bond_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact_solver_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/finite_dmrg.html#FiniteDMRG.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.__init__" title="Permalink to this definition">#</a></dt>
 <dd><p>The Density Matrix Renormalization Group (DMRG) algorithm of a
 finite size system.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>mpo</strong> – Matrix product operator.</p></li>
-<li><p><strong>bond_dim</strong> – Bond dimensions.</p></li>
-<li><p><strong>block_size</strong> – Block size of each local update.</p></li>
-<li><p><strong>mps</strong> – (Optional) Initial guess of <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code>.</p></li>
-<li><p><strong>exact_solver_dim</strong> – A switch point at which the exact eigensolver
+<li><p><strong>mpo</strong> (<a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – Matrix product operator.</p></li>
+<li><p><strong>bond_dim</strong> (<em>int</em>) – Bond dimensions.</p></li>
+<li><p><strong>block_size</strong> (<em>int</em>) – Block size of each local update.</p></li>
+<li><p><strong>mps</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><em>tnpy.matrix_product_state.MatrixProductState</em></a><em>]</em>) – (Optional) Initial guess of <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code>.</p></li>
+<li><p><strong>exact_solver_dim</strong> (<em>int</em>) – A switch point at which the exact eigensolver
 should be used below certain matrix size.</p></li>
 </ul>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<p>To start the algorithm, one can call <code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code>,</p>
+<p>To start the algorithm, one can call <a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.run" title="tnpy.finite_dmrg.FiniteDMRG.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a>,</p>
 <blockquote>
 <div><p>fdmrg = FiniteDMRG(mpo, bond_dim=20)
 fdmrg.run(tol=1e-8)</p>
 </div></blockquote>
 <p>The optimized <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code> can then be retrieved
-from <code class="xref py py-attr docutils literal notranslate"><span class="pre">mps</span></code>.</p>
+from <a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.mps" title="tnpy.finite_dmrg.FiniteDMRG.mps"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mps</span></code></a>.</p>
 </dd></dl>
 
 <p class="rubric">Methods</p>
@@ -598,29 +599,29 @@ from <code class="xref py py-attr docutils literal notranslate"><span class="pre
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.__init__" title="tnpy.finite_dmrg.FiniteDMRG.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(mpo, bond_dim[, block_size, mps, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id0" title="tnpy.finite_dmrg.FiniteDMRG.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(mpo, bond_dim[, block_size, mps, ...])</p></td>
 <td><p>The Density Matrix Renormalization Group (DMRG) algorithm of a finite size system.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">one_site_solver</span></code>(site[, tol])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.one_site_solver" title="tnpy.finite_dmrg.FiniteDMRG.one_site_solver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">one_site_solver</span></code></a>(site[, tol])</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">param site</dt>
 <dd class="field-odd"><p></p></dd>
 </dl>
 </p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">perturb_wave_function</span></code>(site[, alpha])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.perturb_wave_function" title="tnpy.finite_dmrg.FiniteDMRG.perturb_wave_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">perturb_wave_function</span></code></a>(site[, alpha])</p></td>
 <td><p>Perturb the local tensor of wave function by an amount of <code class="docutils literal notranslate"><span class="pre">alpha</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code>([tol, max_sweep, metric])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.run" title="tnpy.finite_dmrg.FiniteDMRG.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a>([tol, max_sweep, metric])</p></td>
 <td><p>By calling this method, <a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG" title="tnpy.finite_dmrg.FiniteDMRG"><code class="xref py py-class docutils literal notranslate"><span class="pre">FiniteDMRG</span></code></a> will start the sweeping procedure until the given tolerance is reached or touching the maximally allowed number of sweeps.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">sweep</span></code>([direction, tol])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.sweep" title="tnpy.finite_dmrg.FiniteDMRG.sweep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sweep</span></code></a>([direction, tol])</p></td>
 <td><p>Perform a single sweep on the given <code class="docutils literal notranslate"><span class="pre">direction</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">two_site_solver</span></code>(site[, tol])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.two_site_solver" title="tnpy.finite_dmrg.FiniteDMRG.two_site_solver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">two_site_solver</span></code></a>(site[, tol])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">variance</span></code>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.variance" title="tnpy.finite_dmrg.FiniteDMRG.variance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">variance</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -632,23 +633,186 @@ from <code class="xref py py-attr docutils literal notranslate"><span class="pre
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">bond_dim</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.bond_dim" title="tnpy.finite_dmrg.FiniteDMRG.bond_dim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bond_dim</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">measurements</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.measurements" title="tnpy.finite_dmrg.FiniteDMRG.measurements"><code class="xref py py-obj docutils literal notranslate"><span class="pre">measurements</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">mps</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.mps" title="tnpy.finite_dmrg.FiniteDMRG.mps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mps</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_sites</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.n_sites" title="tnpy.finite_dmrg.FiniteDMRG.n_sites"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_sites</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">phys_dim</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.phys_dim" title="tnpy.finite_dmrg.FiniteDMRG.phys_dim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">phys_dim</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
 </table>
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bond_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact_solver_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/finite_dmrg.html#FiniteDMRG.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Permalink to this definition">#</a></dt>
+<dd><p>The Density Matrix Renormalization Group (DMRG) algorithm of a
+finite size system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mpo</strong> (<a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – Matrix product operator.</p></li>
+<li><p><strong>bond_dim</strong> (<em>int</em>) – Bond dimensions.</p></li>
+<li><p><strong>block_size</strong> (<em>int</em>) – Block size of each local update.</p></li>
+<li><p><strong>mps</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><em>tnpy.matrix_product_state.MatrixProductState</em></a><em>]</em>) – (Optional) Initial guess of <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code>.</p></li>
+<li><p><strong>exact_solver_dim</strong> (<em>int</em>) – A switch point at which the exact eigensolver
+should be used below certain matrix size.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>To start the algorithm, one can call <a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.run" title="tnpy.finite_dmrg.FiniteDMRG.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a>,</p>
+<blockquote>
+<div><p>fdmrg = FiniteDMRG(mpo, bond_dim=20)
+fdmrg.run(tol=1e-8)</p>
+</div></blockquote>
+<p>The optimized <code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code> can then be retrieved
+from <a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.mps" title="tnpy.finite_dmrg.FiniteDMRG.mps"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mps</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.finite_dmrg.FiniteDMRG.bond_dim">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bond_dim</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.bond_dim" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.finite_dmrg.FiniteDMRG.mps">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><span class="pre">tnpy.matrix_product_state.MatrixProductState</span></a></em><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.mps" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.finite_dmrg.FiniteDMRG.n_sites">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_sites</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.n_sites" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.finite_dmrg.FiniteDMRG.phys_dim">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">phys_dim</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.phys_dim" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.finite_dmrg.FiniteDMRG.variance">
+<span class="sig-name descname"><span class="pre">variance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/finite_dmrg.html#FiniteDMRG.variance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.variance" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.finite_dmrg.FiniteDMRG.one_site_solver">
+<span class="sig-name descname"><span class="pre">one_site_solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/finite_dmrg.html#FiniteDMRG.one_site_solver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.one_site_solver" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>site</strong> (<em>int</em>) – </p></li>
+<li><p><strong>tol</strong> (<em>float</em>) – Tolerance to the eigensolver.</p></li>
+<li><p><strong>**kwargs</strong> – Keyword arguments to primme eigensolver.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Tuple</em>[float, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)">numpy.ndarray</a>]</p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.finite_dmrg.FiniteDMRG.two_site_solver">
+<span class="sig-name descname"><span class="pre">two_site_solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/finite_dmrg.html#FiniteDMRG.two_site_solver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.two_site_solver" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>site</strong> (<em>int</em>) – </p></li>
+<li><p><strong>tol</strong> (<em>float</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.finite_dmrg.FiniteDMRG.perturb_wave_function">
+<span class="sig-name descname"><span class="pre">perturb_wave_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/finite_dmrg.html#FiniteDMRG.perturb_wave_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.perturb_wave_function" title="Permalink to this definition">#</a></dt>
+<dd><p>Perturb the local tensor of wave function by an amount of <code class="docutils literal notranslate"><span class="pre">alpha</span></code>.
+For the single-site DMRG <a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG.one_site_solver" title="tnpy.finite_dmrg.FiniteDMRG.one_site_solver"><code class="xref py py-func docutils literal notranslate"><span class="pre">one_site_solver()</span></code></a>,
+the modified density matrix can be used against trapping in local
+minimums. This is an in-place operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>site</strong> (<em>int</em>) – </p></li>
+<li><p><strong>alpha</strong> (<em>float</em>) – The small parameter for perturbation.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>1. <a class="reference external" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.72.180403">S. R. White,
+Density matrix renormalization group algorithms with a single
+center site, Phys. Rev. B 72, 180403 (2005).</a></p>
+<p>2. <a class="reference external" href="https://arxiv.org/abs/1008.3477">U. Schollwoeck,
+The density-matrix renormalization group in the age of matrix
+product states, arXiv:1008.3477 (2011).</a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.finite_dmrg.FiniteDMRG.sweep">
+<span class="sig-name descname"><span class="pre">sweep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Direction.RIGHTWARD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/finite_dmrg.html#FiniteDMRG.sweep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.sweep" title="Permalink to this definition">#</a></dt>
+<dd><p>Perform a single sweep on the given <code class="docutils literal notranslate"><span class="pre">direction</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>direction</strong> (<a class="reference internal" href="../../_autosummary/tnpy.matrix_product_state.Direction.html#tnpy.matrix_product_state.Direction" title="tnpy.matrix_product_state.Direction"><em>tnpy.matrix_product_state.Direction</em></a>) – The left or right direction on which the sweep to
+perform.</p></li>
+<li><p><strong>tol</strong> (<em>float</em>) – Tolerance to the eigensolver.</p></li>
+<li><p><strong>**kwargs</strong> – Keyword arguments to primme eigensolver.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Variationally optimized energy after this sweep.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.finite_dmrg.FiniteDMRG.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_sweep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Metric.ENERGY</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/finite_dmrg.html#FiniteDMRG.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.run" title="Permalink to this definition">#</a></dt>
+<dd><p>By calling this method, <a class="reference internal" href="#tnpy.finite_dmrg.FiniteDMRG" title="tnpy.finite_dmrg.FiniteDMRG"><code class="xref py py-class docutils literal notranslate"><span class="pre">FiniteDMRG</span></code></a> will start the sweeping
+procedure until the given tolerance is reached or touching the
+maximally allowed number of sweeps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tol</strong> (<em>float</em>) – Required precision to the variationally optimized energy.</p></li>
+<li><p><strong>max_sweep</strong> (<em>int</em>) – Maximum number of sweeps.</p></li>
+<li><p><strong>metric</strong> (<em>tnpy.finite_dmrg.Metric</em>) – By which value to examine the convergence.</p></li>
+<li><p><strong>**kwargs</strong> – Keyword arguments to primme eigensolver.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A record of energies computed on each sweep.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>List</em>[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.finite_dmrg.FiniteDMRG.measurements">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">measurements</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductStateMeasurements.html#tnpy.matrix_product_state.MatrixProductStateMeasurements" title="tnpy.matrix_product_state.MatrixProductStateMeasurements"><span class="pre">tnpy.matrix_product_state.MatrixProductStateMeasurements</span></a></em><a class="headerlink" href="#tnpy.finite_dmrg.FiniteDMRG.measurements" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>
