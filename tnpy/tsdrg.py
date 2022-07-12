@@ -24,11 +24,11 @@ class Node(qtn.Tensor):
         :class:`quimb.Tensor`.
 
         Args:
-            node_id:
-            left:
-            right:
-            *args:
-            **kwargs:
+            node_id: An integer ID of this node.
+            left: The left child node. Default None.
+            right: The right child node. Default None.
+            *args: Arguments to initialize :class:`quimb.Tensor`.
+            **kwargs: Keywords to initialize :class:`quimb.Tensor`.
         """
         super().__init__(*args, **kwargs)
         self._node_id = node_id
@@ -112,14 +112,34 @@ class TensorTree:
 
     @property
     def root_id(self) -> int | None:
+        """
+        The ID of root.
+
+        Returns:
+            None if the tree is not constructed yet.
+        """
         return self._root_id
 
     @property
     def root(self) -> Node:
+        """
+        The root of tree.
+
+        Returns:
+
+        Raises:
+            KeyError: If the tree is not constructed yet.
+        """
         return self[self._root_id]
 
     @property
     def leaves(self) -> Dict[int, Node]:
+        """
+        A dictionary to leaves, i.e. matrix product operator.
+
+        Returns:
+
+        """
         return dict(islice(self._tree.items(), self._n_leaves))
 
     @property
@@ -147,12 +167,20 @@ class TensorTree:
 
     @property
     def n_leaves(self) -> int:
+        """
+        The number of leaves, namely the system size.
+
+        Returns:
+
+        """
         return self._n_leaves
 
     def fuse(self, left_id: int, right_id: int, new_id: int, data: np.ndarray):
         """
         Fuse two nodes into one and assign the given data one it.
-        Meanwhile, the horizon is updated accordingly.
+        Meanwhile, the :attr:`~TensorTree.horizon` will be updated accordingly.
+        Note that the ``data`` should be provided from outer scope,
+        and this method is only responsible to create new node in the tree.
 
         Args:
             left_id: The ID of left node to be fused.
@@ -228,6 +256,13 @@ class TensorTree:
     @property  # type: ignore
     @check_root
     def n_layers(self) -> int:
+        """
+        Compute the number of layers in this tree, leaves included.
+
+        Returns:
+
+        """
+
         def max_depth(current_node: Node | None) -> int:
             if current_node is not None:
                 left_depth = max_depth(current_node.left)
@@ -447,6 +482,15 @@ class TreeTensorNetworkSDRG:
                 self.tsdrg._evals = evals if self.tsdrg.n_sites == 2 else None
 
         def neighbouring_bonds(self, bond: int) -> List[int]:
+            """
+            Obtain the neighbouring bonds of input `bond`.
+
+            Args:
+                bond:
+
+            Returns:
+
+            """
             if bond == 0:
                 neighbours = [bond]
             elif bond == len(self.tsdrg._fused_mpo_cache) - 1:
@@ -456,6 +500,16 @@ class TreeTensorNetworkSDRG:
             return neighbours
 
         def update(self, max_gapped_bond: int):
+            """
+            Update the gap accordingly after 2 nodes are fused.
+            This will only examine neighbours of 2 fused nodes.
+
+            Args:
+                max_gapped_bond: The bond between 2 fused nodes.
+
+            Returns:
+
+            """
             self.gap.pop(max_gapped_bond)
             self.evecs.pop(max_gapped_bond)
             for bond in self.neighbouring_bonds(max_gapped_bond):
@@ -496,22 +550,52 @@ class TreeTensorNetworkSDRG:
 
     @property
     def mpo(self) -> MatrixProductOperator:
+        """
+        The input matrix product operator.
+
+        Returns:
+
+        """
         return self._mpo
 
     @property
     def chi(self) -> int:
+        """
+        The input bond dimensions.
+        That is, number of eigenvectors to keep in the projection.
+
+        Returns:
+
+        """
         return self._chi
 
     @property
     def tree(self) -> TensorTree:
+        """
+
+        Returns:
+
+        """
         return self._tree
 
     @property
     def n_sites(self) -> int:
+        """
+        Number of sites, i.e. the system size.
+
+        Returns:
+
+        """
         return self.mpo.nsites
 
     @property
     def evals(self) -> np.ndarray | None:
+        """
+        The renormalized eigenvalues, with length :attr:`~TreeTensorNetworkSDRG.chi`.
+
+        Returns:
+            The approximated eigenvalues. Return None is the algorithm is not run yet.
+        """
         return self._evals
 
     def block_eigen_solver(self, locus: int) -> Tuple[np.ndarray, np.ndarray]:
@@ -640,6 +724,12 @@ class TreeTensorNetworkSDRG:
 
     @property
     def measurements(self) -> TreeTensorNetworkMeasurements:
+        """
+        Call available measurements in :class:`~TreeTensorNetworkMeasurements`.
+
+        Returns:
+
+        """
         if not len(self._fused_mpo_cache) == 1:
             raise RuntimeError("tSDRG algorithm hasn't been executed yet.")
         return TreeTensorNetworkMeasurements(self._tree)
@@ -647,6 +737,12 @@ class TreeTensorNetworkSDRG:
 
 class TreeTensorNetworkMeasurements:
     def __init__(self, tree: TensorTree):
+        """
+        A collection of all available physical measurements for :class:`~TensorTree`.
+
+        Args:
+            tree: The renormalized eigenstates in tree representation.
+        """
         self._tree = tree
 
     @property
