@@ -546,7 +546,7 @@ class TreeTensorNetworkSDRG:
         self._tree = TensorTree(mpo)
         self._fused_mpo_cache = list(mpo)
         self._gap_cache = self.GapCache(self)
-        self._evals = None
+        self._evals: np.ndarray | None = None
 
     @property
     def mpo(self) -> MatrixProductOperator:
