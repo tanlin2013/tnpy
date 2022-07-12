@@ -51,7 +51,7 @@ class ExactDiagonalization(FullHamiltonian):
         return self._evecs
 
     def _eigen_solver(self) -> Tuple[np.ndarray, np.ndarray]:
-        return np.linalg.eigh(self.matrix)
+        return np.linalg.eigh(self.matrix)  # type: ignore
 
     def reduced_density_matrix(self, site: int, level_idx: int = 0) -> np.ndarray:
         r"""

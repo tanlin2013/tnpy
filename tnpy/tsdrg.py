@@ -236,7 +236,7 @@ class TensorTree:
         if self.n_nodes == 2 * self.n_leaves - 1:
             self._root_id = new_id
 
-    def check_root(func: Callable) -> Callable:
+    def check_root(func: Callable) -> Callable:  # type: ignore  # noqa
         """
         Accessory decorator for checking the existence of root in
         :class:`~TensorTree`.

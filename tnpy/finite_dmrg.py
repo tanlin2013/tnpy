@@ -109,8 +109,10 @@ class FiniteDMRG:
         """
         v0 = self.mps[site].data.reshape(-1, 1)
         if v0.size < self._exact_solver_dim:
-            return eigh(self._env.one_site_full_matrix(site))
-        return eigshmv(self._env.one_site_matvec(site), v0=v0, tol=tol, **kwargs)
+            return eigh(self._env.one_site_full_matrix(site))  # type: ignore
+        return eigshmv(
+            self._env.one_site_matvec(site), v0=v0, tol=tol, **kwargs
+        )  # type: ignore
 
     def two_site_solver(self, site: int, tol: float = 1e-8, **kwargs):
         return NotImplemented
@@ -345,14 +347,14 @@ class ShiftInvertDMRG(FiniteDMRG):
                 self._env.one_site_full_matrix(site),
                 b=self._env2.one_site_full_matrix(site),
                 backend="scipy",
-            )
+            )  # type: ignore
         return eigshmv(
             self._env.one_site_matvec(site),
             M=self._env2.one_site_matvec(site),
             v0=v0,
             tol=tol,
             **kwargs,
-        )
+        )  # type: ignore
 
     def sweep(
         self, direction: Direction = Direction.RIGHTWARD, tol: float = 1e-8, **kwargs
