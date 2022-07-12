@@ -147,7 +147,7 @@ class TestTreeTensorNetworkSDRG:
     def test_run(self, ed, tsdrg):
         tsdrg.run()
         np.testing.assert_allclose(
-            ed.evals[: tsdrg.chi], np.sort(tsdrg.evals), atol=1e-12
+            ed.evals[: tsdrg.chi], np.sort(tsdrg.evals), atol=1e-8
         )
 
     def test_measurements(self, ed, tsdrg):
@@ -155,15 +155,15 @@ class TestTreeTensorNetworkSDRG:
         np.testing.assert_allclose(
             ed.evals[: tsdrg.chi],
             tsdrg.measurements.expectation_value(tsdrg.mpo),
-            atol=1e-12,
+            atol=1e-8,
         )
 
     def test_upside_down_spectrum(self, model, ed):
         tsdrg = tSDRG(-1 * model.mpo, chi=2**4)
         tsdrg.run()
-        np.testing.assert_allclose(ed.evals[-1], -1 * tsdrg.evals[0], atol=1e-12)
+        np.testing.assert_allclose(ed.evals[-1], -1 * tsdrg.evals[0], atol=1e-4)
         np.testing.assert_allclose(
-            ed.evals[-1], tsdrg.measurements.expectation_value(model.mpo)[0], atol=1e-12
+            ed.evals[-1], tsdrg.measurements.expectation_value(model.mpo)[0], atol=1e-4
         )
 
 
