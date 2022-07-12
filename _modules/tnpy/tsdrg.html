@@ -544,11 +544,11 @@ title="Open an issue"
 <span class="sd">        :class:`quimb.Tensor`.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            node_id:</span>
-<span class="sd">            left:</span>
-<span class="sd">            right:</span>
-<span class="sd">            *args:</span>
-<span class="sd">            **kwargs:</span>
+<span class="sd">            node_id: An integer ID of this node.</span>
+<span class="sd">            left: The left child node. Default None.</span>
+<span class="sd">            right: The right child node. Default None.</span>
+<span class="sd">            *args: Arguments to initialize :class:`quimb.Tensor`.</span>
+<span class="sd">            **kwargs: Keywords to initialize :class:`quimb.Tensor`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_node_id</span> <span class="o">=</span> <span class="n">node_id</span>
@@ -632,14 +632,34 @@ title="Open an issue"
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">root_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The ID of root.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None if the tree is not constructed yet.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root_id</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">root</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The root of tree.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            KeyError: If the tree is not constructed yet.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_id</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">leaves</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Node</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A dictionary to leaves, i.e. matrix product operator.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">islice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tree</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_leaves</span><span class="p">))</span>
 
     <span class="nd">@property</span>
@@ -667,12 +687,20 @@ title="Open an issue"
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">n_leaves</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The number of leaves, namely the system size.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_leaves</span>
 
 <div class="viewcode-block" id="TensorTree.fuse"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree.fuse">[docs]</a>    <span class="k">def</span> <span class="nf">fuse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">right_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">new_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Fuse two nodes into one and assign the given data one it.</span>
-<span class="sd">        Meanwhile, the horizon is updated accordingly.</span>
+<span class="sd">        Meanwhile, the :attr:`~TensorTree.horizon` will be updated accordingly.</span>
+<span class="sd">        Note that the ``data`` should be provided from outer scope,</span>
+<span class="sd">        and this method is only responsible to create new node in the tree.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            left_id: The ID of left node to be fused.</span>
@@ -745,9 +773,16 @@ title="Open an issue"
 
         <span class="k">return</span> <span class="n">wrapper</span></div>
 
-    <span class="nd">@property</span>
+    <span class="nd">@property</span>  <span class="c1"># type: ignore</span>
     <span class="nd">@check_root</span>
     <span class="k">def</span> <span class="nf">n_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the number of layers in this tree, leaves included.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="k">def</span> <span class="nf">max_depth</span><span class="p">(</span><span class="n">current_node</span><span class="p">:</span> <span class="n">Node</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">current_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">left_depth</span> <span class="o">=</span> <span class="n">max_depth</span><span class="p">(</span><span class="n">current_node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
@@ -967,6 +1002,15 @@ title="Open an issue"
                 <span class="bp">self</span><span class="o">.</span><span class="n">tsdrg</span><span class="o">.</span><span class="n">_evals</span> <span class="o">=</span> <span class="n">evals</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tsdrg</span><span class="o">.</span><span class="n">n_sites</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">else</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="TreeTensorNetworkSDRG.GapCache.neighbouring_bonds"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.neighbouring_bonds">[docs]</a>        <span class="k">def</span> <span class="nf">neighbouring_bonds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bond</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Obtain the neighbouring bonds of input `bond`.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                bond:</span>
+
+<span class="sd">            Returns:</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
             <span class="k">if</span> <span class="n">bond</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">neighbours</span> <span class="o">=</span> <span class="p">[</span><span class="n">bond</span><span class="p">]</span>
             <span class="k">elif</span> <span class="n">bond</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tsdrg</span><span class="o">.</span><span class="n">_fused_mpo_cache</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
@@ -976,6 +1020,16 @@ title="Open an issue"
             <span class="k">return</span> <span class="n">neighbours</span></div>
 
 <div class="viewcode-block" id="TreeTensorNetworkSDRG.GapCache.update"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.update">[docs]</a>        <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_gapped_bond</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Update the gap accordingly after 2 nodes are fused.</span>
+<span class="sd">            This will only examine neighbours of 2 fused nodes.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                max_gapped_bond: The bond between 2 fused nodes.</span>
+
+<span class="sd">            Returns:</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">gap</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">max_gapped_bond</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">evecs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">max_gapped_bond</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">bond</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighbouring_bonds</span><span class="p">(</span><span class="n">max_gapped_bond</span><span class="p">):</span>
@@ -1016,22 +1070,52 @@ title="Open an issue"
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">mpo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatrixProductOperator</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The input matrix product operator.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mpo</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">chi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The input bond dimensions.</span>
+<span class="sd">        That is, number of eigenvectors to keep in the projection.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chi</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">tree</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TensorTree</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">n_sites</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Number of sites, i.e. the system size.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpo</span><span class="o">.</span><span class="n">nsites</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">evals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The renormalized eigenvalues, with length :attr:`~TreeTensorNetworkSDRG.chi`.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The approximated eigenvalues. Return None is the algorithm is not run yet.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_evals</span>
 
 <div class="viewcode-block" id="TreeTensorNetworkSDRG.block_eigen_solver"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkSDRG.html#tnpy.tsdrg.TreeTensorNetworkSDRG.block_eigen_solver">[docs]</a>    <span class="k">def</span> <span class="nf">block_eigen_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locus</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
@@ -1160,6 +1244,12 @@ title="Open an issue"
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">measurements</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TreeTensorNetworkMeasurements</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Call available measurements in :class:`~TreeTensorNetworkMeasurements`.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fused_mpo_cache</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;tSDRG algorithm hasn&#39;t been executed yet.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">TreeTensorNetworkMeasurements</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tree</span><span class="p">)</span></div>
@@ -1167,6 +1257,12 @@ title="Open an issue"
 
 <div class="viewcode-block" id="TreeTensorNetworkMeasurements"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements">[docs]</a><span class="k">class</span> <span class="nc">TreeTensorNetworkMeasurements</span><span class="p">:</span>
 <div class="viewcode-block" id="TreeTensorNetworkMeasurements.__init__"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">:</span> <span class="n">TensorTree</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A collection of all available physical measurements for :class:`~TensorTree`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            tree: The renormalized eigenstates in tree representation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span> <span class="o">=</span> <span class="n">tree</span></div>
 
     <span class="nd">@property</span>
@@ -1487,7 +1583,7 @@ title="Open an issue"
 <div class="viewcode-block" id="TreeTensorNetworkMeasurements.squared_moduli"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements.squared_moduli">[docs]</a>    <span class="k">def</span> <span class="nf">squared_moduli</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">NotImplemented</span></div>
 
-<div class="viewcode-block" id="TreeTensorNetworkMeasurements.Kullback_Leibler_divergence"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements.Kullback_Leibler_divergence">[docs]</a>    <span class="k">def</span> <span class="nf">Kullback_Leibler_divergence</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TreeTensorNetworkMeasurements.kullback_leibler_divergence"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements.kullback_leibler_divergence">[docs]</a>    <span class="k">def</span> <span class="nf">kullback_leibler_divergence</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">NotImplemented</span></div>
 
 <div class="viewcode-block" id="TreeTensorNetworkMeasurements.participation_entropy"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements.participation_entropy">[docs]</a>    <span class="k">def</span> <span class="nf">participation_entropy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

@@ -608,22 +608,22 @@ title="Edit this page"
 <td><p>The horizon is a moving line to track the node ids in the current renormalized system.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.TensorTree.leaves" title="tnpy.tsdrg.TensorTree.leaves"><code class="xref py py-obj docutils literal notranslate"><span class="pre">leaves</span></code></a></p></td>
-<td><p></p></td>
+<td><p>A dictionary to leaves, i.e. matrix product operator.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TensorTree.n_layers" title="tnpy.tsdrg.TensorTree.n_layers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_layers</span></code></a></p></td>
-<td><p></p></td>
+<td><p>Compute the number of layers in this tree, leaves included.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.TensorTree.n_leaves" title="tnpy.tsdrg.TensorTree.n_leaves"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_leaves</span></code></a></p></td>
-<td><p></p></td>
+<td><p>The number of leaves, namely the system size.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TensorTree.n_nodes" title="tnpy.tsdrg.TensorTree.n_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_nodes</span></code></a></p></td>
 <td><p>Total number of nodes in tree.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.TensorTree.root" title="tnpy.tsdrg.TensorTree.root"><code class="xref py py-obj docutils literal notranslate"><span class="pre">root</span></code></a></p></td>
-<td><p></p></td>
+<td><p>The root of tree.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TensorTree.root_id" title="tnpy.tsdrg.TensorTree.root_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">root_id</span></code></a></p></td>
-<td><p></p></td>
+<td><p>The ID of root.</p></td>
 </tr>
 </tbody>
 </table>
@@ -698,17 +698,32 @@ title="Edit this page"
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.root_id">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">root_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tnpy.tsdrg.TensorTree.root_id" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>The ID of root.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None if the tree is not constructed yet.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.root">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">root</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="tnpy.tsdrg.Node.html#tnpy.tsdrg.Node" title="tnpy.tsdrg.Node"><span class="pre">tnpy.tsdrg.Node</span></a></em><a class="headerlink" href="#tnpy.tsdrg.TensorTree.root" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>The root of tree.</p>
+<p>Returns:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>KeyError</strong> – If the tree is not constructed yet.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.leaves">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">leaves</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="tnpy.tsdrg.Node.html#tnpy.tsdrg.Node" title="tnpy.tsdrg.Node"><span class="pre">tnpy.tsdrg.Node</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tnpy.tsdrg.TensorTree.leaves" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>A dictionary to leaves, i.e. matrix product operator.</p>
+<p>Returns:</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.horizon">
@@ -738,13 +753,17 @@ until there is only one node on the horizon, that is the root.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.n_leaves">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_leaves</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tnpy.tsdrg.TensorTree.n_leaves" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>The number of leaves, namely the system size.</p>
+<p>Returns:</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.fuse">
 <span class="sig-name descname"><span class="pre">fuse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TensorTree.fuse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.fuse" title="Permalink to this definition">#</a></dt>
 <dd><p>Fuse two nodes into one and assign the given data one it.
-Meanwhile, the horizon is updated accordingly.</p>
+Meanwhile, the <a class="reference internal" href="#tnpy.tsdrg.TensorTree.horizon" title="tnpy.tsdrg.TensorTree.horizon"><code class="xref py py-attr docutils literal notranslate"><span class="pre">horizon</span></code></a> will be updated accordingly.
+Note that the <code class="docutils literal notranslate"><span class="pre">data</span></code> should be provided from outer scope,
+and this method is only responsible to create new node in the tree.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -777,7 +796,9 @@ Meanwhile, the horizon is updated accordingly.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.n_layers">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_layers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tnpy.tsdrg.TensorTree.n_layers" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Compute the number of layers in this tree, leaves included.</p>
+<p>Returns:</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.tensor_network">

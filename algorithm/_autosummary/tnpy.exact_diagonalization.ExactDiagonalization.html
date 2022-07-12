@@ -553,10 +553,16 @@ Calculations are taken in prompt on the initialization of this class.</p>
 <dd class="field-odd"><p><strong>mpo</strong> (<a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – The matrix product operator.</p>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><strong>ResourceWarning</strong> – When the dimensions of Hamiltonian are larger</p>
+<dd class="field-even"><p><strong>ResourceWarning</strong> – When the dimensions of Hamiltonian are larger
+    than <span class="math notranslate nohighlight">\(4096        imes 4096\)</span>.</p>
 </dd>
 </dl>
-<p>:raises than <span class="math notranslate nohighlight">\(4096    imes 4096\)</span>.:</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ed</span> <span class="o">=</span> <span class="n">ExactDiagonalization</span><span class="p">(</span><span class="n">mpo</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">evals</span> <span class="o">=</span> <span class="n">ed</span><span class="o">.</span><span class="n">evals</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">evecs</span> <span class="o">=</span> <span class="n">ed</span><span class="o">.</span><span class="n">evecs</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.exact_diagonalization.ExactDiagonalization.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/exact_diagonalization.html#ExactDiagonalization.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.exact_diagonalization.ExactDiagonalization.__init__" title="Permalink to this definition">#</a></dt>
@@ -568,10 +574,16 @@ Calculations are taken in prompt on the initialization of this class.</p>
 <dd class="field-odd"><p><strong>mpo</strong> (<a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – The matrix product operator.</p>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><strong>ResourceWarning</strong> – When the dimensions of Hamiltonian are larger</p>
+<dd class="field-even"><p><strong>ResourceWarning</strong> – When the dimensions of Hamiltonian are larger
+    than <span class="math notranslate nohighlight">\(4096        imes 4096\)</span>.</p>
 </dd>
 </dl>
-<p>:raises than <span class="math notranslate nohighlight">\(4096    imes 4096\)</span>.:</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ed</span> <span class="o">=</span> <span class="n">ExactDiagonalization</span><span class="p">(</span><span class="n">mpo</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">evals</span> <span class="o">=</span> <span class="n">ed</span><span class="o">.</span><span class="n">evals</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">evecs</span> <span class="o">=</span> <span class="n">ed</span><span class="o">.</span><span class="n">evecs</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <p class="rubric">Methods</p>
@@ -585,22 +597,26 @@ Calculations are taken in prompt on the initialization of this class.</p>
 <td><p>Perform the numerically exact diagonalization on the matrix, which is constructed through the given Matrix Product Operator (MPO).</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#tnpy.exact_diagonalization.ExactDiagonalization.connected_two_point_function" title="tnpy.exact_diagonalization.ExactDiagonalization.connected_two_point_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connected_two_point_function</span></code></a>(operator1, ...)</p></td>
-<td><p></p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">param operator1</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.exact_diagonalization.ExactDiagonalization.entanglement_entropy" title="tnpy.exact_diagonalization.ExactDiagonalization.entanglement_entropy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">entanglement_entropy</span></code></a>(site[, level_idx, ...])</p></td>
-<td><p></p></td>
+<td><p>Compute the von Neumann entropy on the cutting <code class="docutils literal notranslate"><span class="pre">site</span></code>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#tnpy.exact_diagonalization.ExactDiagonalization.kron_operators" title="tnpy.exact_diagonalization.ExactDiagonalization.kron_operators"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kron_operators</span></code></a>(operators)</p></td>
 <td><p>Perform Kronecker product on the given sequence of operators.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.exact_diagonalization.ExactDiagonalization.one_point_function" title="tnpy.exact_diagonalization.ExactDiagonalization.one_point_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">one_point_function</span></code></a>(operator, site[, level_idx])</p></td>
-<td><p></p></td>
+<td><p>Compute the expectation value <span class="math notranslate nohighlight">\(\langle \hat{O}_i \rangle\)</span> of given local operator <span class="math notranslate nohighlight">\(\hat{O}_i\)</span> on site <span class="math notranslate nohighlight">\(i\)</span>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#tnpy.exact_diagonalization.ExactDiagonalization.reduced_density_matrix" title="tnpy.exact_diagonalization.ExactDiagonalization.reduced_density_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reduced_density_matrix</span></code></a>(site[, level_idx])</p></td>
-<td><p></p></td>
+<td><p>Compute the reduced density matrix on the bi-partition <code class="docutils literal notranslate"><span class="pre">site</span></code> <span class="math notranslate nohighlight">\(i\)</span> through the singular value decomposition.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.exact_diagonalization.ExactDiagonalization.two_point_function" title="tnpy.exact_diagonalization.ExactDiagonalization.two_point_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">two_point_function</span></code></a>(operator1, operator2, ...)</p></td>
-<td><p></p></td>
+<td><p>Compute the correlation function <span class="math notranslate nohighlight">\(\langle \hat{O}_{i_1}^A \hat{O}_{i_2}^B \rangle\)</span> of 2 given local operators <span class="math notranslate nohighlight">\(\hat{O}_{i_1}^A\)</span> and <span class="math notranslate nohighlight">\(\hat{O}_{i_2}^B\)</span> on site <span class="math notranslate nohighlight">\(i_1\)</span> and <span class="math notranslate nohighlight">\(i_2\)</span>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#tnpy.exact_diagonalization.ExactDiagonalization.variance" title="tnpy.exact_diagonalization.ExactDiagonalization.variance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">variance</span></code></a>([operator, tol])</p></td>
 <td><p>Compute the variance on input operator.</p></td>
@@ -642,10 +658,16 @@ Calculations are taken in prompt on the initialization of this class.</p>
 <dd class="field-odd"><p><strong>mpo</strong> (<a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – The matrix product operator.</p>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><strong>ResourceWarning</strong> – When the dimensions of Hamiltonian are larger</p>
+<dd class="field-even"><p><strong>ResourceWarning</strong> – When the dimensions of Hamiltonian are larger
+    than <span class="math notranslate nohighlight">\(4096        imes 4096\)</span>.</p>
 </dd>
 </dl>
-<p>:raises than <span class="math notranslate nohighlight">\(4096    imes 4096\)</span>.:</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ed</span> <span class="o">=</span> <span class="n">ExactDiagonalization</span><span class="p">(</span><span class="n">mpo</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">evals</span> <span class="o">=</span> <span class="n">ed</span><span class="o">.</span><span class="n">evals</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">evecs</span> <span class="o">=</span> <span class="n">ed</span><span class="o">.</span><span class="n">evecs</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py property">
@@ -671,40 +693,52 @@ the k-th eigenvalue <code class="docutils literal notranslate"><span class="pre"
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.exact_diagonalization.ExactDiagonalization.reduced_density_matrix">
 <span class="sig-name descname"><span class="pre">reduced_density_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/exact_diagonalization.html#ExactDiagonalization.reduced_density_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.exact_diagonalization.ExactDiagonalization.reduced_density_matrix" title="Permalink to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Compute the reduced density matrix on the bi-partition <code class="docutils literal notranslate"><span class="pre">site</span></code> <span class="math notranslate nohighlight">\(i\)</span>
+through the singular value decomposition.</p>
+<div class="math notranslate nohighlight">
+\[\rho_A = tr_B rho\]</div>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>site</strong> (<em>int</em>) – </p></li>
-<li><p><strong>level_idx</strong> (<em>int</em>) – </p></li>
+<li><p><strong>site</strong> (<em>int</em>) – The site to which the bi-partition is taken on
+the bond <span class="math notranslate nohighlight">\(i\)</span> to <span class="math notranslate nohighlight">\(i+1\)</span>.</p></li>
+<li><p><strong>level_idx</strong> (<em>int</em>) – Compute on k-th eigenvector. Default 0 to the 1st eigenvector.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)">numpy.ndarray</a></p>
 </dd>
 </dl>
+<p>Returns:</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.exact_diagonalization.ExactDiagonalization.entanglement_entropy">
 <span class="sig-name descname"><span class="pre">entanglement_entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nan_to_num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/exact_diagonalization.html#ExactDiagonalization.entanglement_entropy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.exact_diagonalization.ExactDiagonalization.entanglement_entropy" title="Permalink to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Compute the von Neumann entropy on the cutting <code class="docutils literal notranslate"><span class="pre">site</span></code>.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>site</strong> (<em>int</em>) – </p></li>
-<li><p><strong>level_idx</strong> (<em>int</em>) – </p></li>
-<li><p><strong>nan_to_num</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>site</strong> (<em>int</em>) – The site to which the bi-partition is taken on
+the bond <span class="math notranslate nohighlight">\(i\)</span> to <span class="math notranslate nohighlight">\(i+1\)</span>.</p></li>
+<li><p><strong>level_idx</strong> (<em>int</em>) – Compute on k-th eigenvector. Default 0 to the 1st eigenvector.</p></li>
+<li><p><strong>nan_to_num</strong> (<em>bool</em>) – If True, convert NaN to zero. Default False.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>float</p>
 </dd>
 </dl>
+<p>Returns:</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.exact_diagonalization.ExactDiagonalization.kron_operators">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">kron_operators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operators</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/exact_diagonalization.html#ExactDiagonalization.kron_operators"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.exact_diagonalization.ExactDiagonalization.kron_operators" title="Permalink to this definition">#</a></dt>
-<dd><p>Perform Kronecker product on the given sequence of operators.</p>
+<dd><p>Perform Kronecker product on the given sequence of operators.
+This can be used to construct, for instance,
+<span class="math notranslate nohighlight">\(I_1 \otimes \cdots \otimes S_i^z \otimes \cdots \otimes I_N\)</span>
+on the many-body basis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>operators</strong> (<em>Sequence</em><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a><em>]</em>) – A list of operators to take Kronecker product.</p>
@@ -721,10 +755,12 @@ the k-th eigenvalue <code class="docutils literal notranslate"><span class="pre"
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.exact_diagonalization.ExactDiagonalization.one_point_function">
 <span class="sig-name descname"><span class="pre">one_point_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/exact_diagonalization.html#ExactDiagonalization.one_point_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.exact_diagonalization.ExactDiagonalization.one_point_function" title="Permalink to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Compute the expectation value <span class="math notranslate nohighlight">\(\langle \hat{O}_i \rangle\)</span>
+of given local operator <span class="math notranslate nohighlight">\(\hat{O}_i\)</span> on site <span class="math notranslate nohighlight">\(i\)</span>.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>operator</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a>) – </p></li>
+<li><p><strong>operator</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a>) – The operator <span class="math notranslate nohighlight">\(\hat{O}\)</span>.</p></li>
 <li><p><strong>site</strong> (<em>int</em>) – </p></li>
 <li><p><strong>level_idx</strong> (<em>int</em>) – </p></li>
 </ul>
@@ -733,16 +769,22 @@ the k-th eigenvalue <code class="docutils literal notranslate"><span class="pre"
 <dd class="field-even"><p>float</p>
 </dd>
 </dl>
+<p>Returns:</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.exact_diagonalization.ExactDiagonalization.two_point_function">
 <span class="sig-name descname"><span class="pre">two_point_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operator1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level_idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/exact_diagonalization.html#ExactDiagonalization.two_point_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.exact_diagonalization.ExactDiagonalization.two_point_function" title="Permalink to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Compute the correlation function
+<span class="math notranslate nohighlight">\(\langle \hat{O}_{i_1}^A \hat{O}_{i_2}^B \rangle\)</span>
+of 2 given local operators
+<span class="math notranslate nohighlight">\(\hat{O}_{i_1}^A\)</span> and <span class="math notranslate nohighlight">\(\hat{O}_{i_2}^B\)</span>
+on site <span class="math notranslate nohighlight">\(i_1\)</span> and <span class="math notranslate nohighlight">\(i_2\)</span>.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>operator1</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a>) – </p></li>
-<li><p><strong>operator2</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a>) – </p></li>
+<li><p><strong>operator1</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a>) – The first operator <span class="math notranslate nohighlight">\(\hat{O}^A\)</span>.</p></li>
+<li><p><strong>operator2</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a>) – The second operator <span class="math notranslate nohighlight">\(\hat{O}^B\)</span>.</p></li>
 <li><p><strong>site1</strong> (<em>int</em>) – </p></li>
 <li><p><strong>site2</strong> (<em>int</em>) – </p></li>
 <li><p><strong>level_idx</strong> (<em>int</em>) – </p></li>
@@ -752,6 +794,7 @@ the k-th eigenvalue <code class="docutils literal notranslate"><span class="pre"
 <dd class="field-even"><p>float</p>
 </dd>
 </dl>
+<p>Returns:</p>
 </dd></dl>
 
 <dl class="py method">
@@ -771,6 +814,7 @@ the k-th eigenvalue <code class="docutils literal notranslate"><span class="pre"
 <dd class="field-even"><p>float</p>
 </dd>
 </dl>
+<p>Returns:</p>
 </dd></dl>
 
 <dl class="py method">

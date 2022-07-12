@@ -13,11 +13,11 @@
 
    .. autosummary::
    
-      ~TreeTensorNetworkMeasurements.Kullback_Leibler_divergence
       ~TreeTensorNetworkMeasurements.__init__
       ~TreeTensorNetworkMeasurements.connected_two_point_function
       ~TreeTensorNetworkMeasurements.entanglement_entropy
       ~TreeTensorNetworkMeasurements.expectation_value
+      ~TreeTensorNetworkMeasurements.kullback_leibler_divergence
       ~TreeTensorNetworkMeasurements.loop_simplify
       ~TreeTensorNetworkMeasurements.one_point_function
       ~TreeTensorNetworkMeasurements.participation_entropy

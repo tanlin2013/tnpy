@@ -629,22 +629,22 @@ For measurements, please refer to
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.chi" title="tnpy.tsdrg.TreeTensorNetworkSDRG.chi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">chi</span></code></a></p></td>
-<td><p></p></td>
+<td><p>The input bond dimensions.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.evals" title="tnpy.tsdrg.TreeTensorNetworkSDRG.evals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evals</span></code></a></p></td>
-<td><p></p></td>
+<td><p>The renormalized eigenvalues, with length <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.chi" title="tnpy.tsdrg.TreeTensorNetworkSDRG.chi"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chi</span></code></a>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.measurements" title="tnpy.tsdrg.TreeTensorNetworkSDRG.measurements"><code class="xref py py-obj docutils literal notranslate"><span class="pre">measurements</span></code></a></p></td>
-<td><p></p></td>
+<td><p>Call available measurements in <a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements" title="tnpy.tsdrg.TreeTensorNetworkMeasurements"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeTensorNetworkMeasurements</span></code></a>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.mpo" title="tnpy.tsdrg.TreeTensorNetworkSDRG.mpo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mpo</span></code></a></p></td>
-<td><p></p></td>
+<td><p>The input matrix product operator.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.n_sites" title="tnpy.tsdrg.TreeTensorNetworkSDRG.n_sites"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_sites</span></code></a></p></td>
-<td><p></p></td>
+<td><p>Number of sites, i.e. the system size.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.tree" title="tnpy.tsdrg.TreeTensorNetworkSDRG.tree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tree</span></code></a></p></td>
-<td><p></p></td>
+<td><p>Returns:</p></td>
 </tr>
 </tbody>
 </table>
@@ -684,7 +684,8 @@ For measurements, please refer to
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.neighbouring_bonds">
 <span class="sig-name descname"><span class="pre">neighbouring_bonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bond</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkSDRG.GapCache.neighbouring_bonds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.neighbouring_bonds" title="Permalink to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Obtain the neighbouring bonds of input <cite>bond</cite>.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>bond</strong> (<em>int</em>) – </p>
 </dd>
@@ -692,16 +693,20 @@ For measurements, please refer to
 <dd class="field-even"><p><em>List</em>[int]</p>
 </dd>
 </dl>
+<p>Returns:</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.update">
 <span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_gapped_bond</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkSDRG.GapCache.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.update" title="Permalink to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Update the gap accordingly after 2 nodes are fused.
+This will only examine neighbours of 2 fused nodes.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>max_gapped_bond</strong> (<em>int</em>) – </p>
+<dd class="field-odd"><p><strong>max_gapped_bond</strong> (<em>int</em>) – The bond between 2 fused nodes.</p>
 </dd>
 </dl>
+<p>Returns:</p>
 </dd></dl>
 
 <dl class="py method">
@@ -754,27 +759,41 @@ For measurements, please refer to
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.mpo">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mpo</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a></em><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.mpo" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>The input matrix product operator.</p>
+<p>Returns:</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.chi">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">chi</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.chi" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>The input bond dimensions.
+That is, number of eigenvectors to keep in the projection.</p>
+<p>Returns:</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.tree">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tree</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree" title="tnpy.tsdrg.TensorTree"><span class="pre">tnpy.tsdrg.TensorTree</span></a></em><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.tree" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Returns:</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.n_sites">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_sites</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.n_sites" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Number of sites, i.e. the system size.</p>
+<p>Returns:</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.evals">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evals</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">numpy.ndarray</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.evals" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>The renormalized eigenvalues, with length <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.chi" title="tnpy.tsdrg.TreeTensorNetworkSDRG.chi"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chi</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The approximated eigenvalues. Return None is the algorithm is not run yet.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.block_eigen_solver">
@@ -861,7 +880,9 @@ and <code class="docutils literal notranslate"><span class="pre">evecs</span></c
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.measurements">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">measurements</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements" title="tnpy.tsdrg.TreeTensorNetworkMeasurements"><span class="pre">tnpy.tsdrg.TreeTensorNetworkMeasurements</span></a></em><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.measurements" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Call available measurements in <a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements" title="tnpy.tsdrg.TreeTensorNetworkMeasurements"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeTensorNetworkMeasurements</span></code></a>.</p>
+<p>Returns:</p>
+</dd></dl>
 
 </dd></dl>
 
