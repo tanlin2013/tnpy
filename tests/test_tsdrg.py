@@ -105,7 +105,7 @@ class TestTreeTensorNetworkSDRG:
     def model(self):
         return RandomHeisenberg(n=8, h=10.0, penalty=0, s_target=0)
 
-    @pytest.fixture(scope="class")
+    @pytest.fixture(scope="function")
     def tsdrg(self, model):
         return tSDRG(model.mpo, chi=2**6)
 
@@ -291,15 +291,14 @@ class TestHighEnergyTreeTensorNetworkSDRG:
     def model(self):
         return RandomHeisenberg(n=10, h=0.5, penalty=0, s_target=0)
 
-    @pytest.fixture(scope="class")
+    @pytest.fixture(scope="function")
     def tsdrg(self, model):
-        return HighEnergyTreeTensorNetworkSDRG(model.mpo, chi=2**4)
+        return HighEnergyTreeTensorNetworkSDRG(model.mpo, chi=2**6)
 
     @pytest.fixture(scope="class")
     def ed(self, model):
         return ExactDiagonalization(model.mpo)
 
     def test_run(self, ed, tsdrg):
-        print(ed.evals)
         tsdrg.run()
-        np.testing.assert_allclose(ed.evals[-1], tsdrg.evals[-1], atol=1e-6)
+        np.testing.assert_allclose(ed.evals[-1], tsdrg.evals[-1], atol=1e-4)

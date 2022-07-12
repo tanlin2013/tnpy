@@ -15,7 +15,7 @@ class TestFiniteDMRG:
     def ed(self, model):
         return ExactDiagonalization(model.mpo)
 
-    @pytest.fixture(scope="class")
+    @pytest.fixture(scope="function")
     def fdmrg(self, model):
         return FiniteDMRG(model.mpo, bond_dim=2**5)
 
@@ -36,7 +36,7 @@ class TestShiftInvertDMRG:
     def ed(self, model):
         return ExactDiagonalization(model.mpo)
 
-    @pytest.fixture(scope="class")
+    @pytest.fixture(scope="function")
     def sidmrg(self, model, offset):
         shifted_model = RandomHeisenberg(
             n=model.n, h=model.h, seed=model.seed, offset=offset
