@@ -12,10 +12,10 @@ class Helper:
     @staticmethod
     def compressed_bond_dims(n: int, bond_dim: int, phys_dim: int) -> np.ndarray:
         if n % 2 == 0:
-            chi = [min(phys_dim ** i, bond_dim) for i in range(1, n // 2)]
+            chi = [min(phys_dim**i, bond_dim) for i in range(1, n // 2)]
             chi += [int(min(phys_dim ** (n / 2), bond_dim))] + chi[::-1]
         else:
-            chi = [min(phys_dim ** i, bond_dim) for i in range(1, (n + 1) // 2)]
+            chi = [min(phys_dim**i, bond_dim) for i in range(1, (n + 1) // 2)]
             chi += chi[::-1]
         return np.array(chi)
 
@@ -77,8 +77,8 @@ class TestMatrixProductState:
     )
     def test_load(self, filename, expectation):
         with expectation:
-            mps = MatrixProductState.load(filename)
-            assert False
+            mps = MatrixProductState.load(filename)  # noqa: F841
+            pass  # TODO: NotImplemented
 
     @pytest.mark.parametrize("site", [2, 3, 4, 6])
     def test_split_tensor(self, site, mps):
