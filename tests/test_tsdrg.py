@@ -113,8 +113,13 @@ class TestTreeTensorNetworkSDRG:
     def ed(self, model):
         return ExactDiagonalization(model.mpo)
 
+    @pytest.fixture(scope="class")
+    def static_tsdrg(self):
+        model = RandomHeisenberg(n=8, h=0.0, penalty=0, s_target=0)
+        return tSDRG(model.mpo, chi=2**6)
+
     @pytest.mark.parametrize("site", list(range(5)))
-    def test_block_hamiltonian(self, tsdrg, site):
+    def test_block_hamiltonian(self, static_tsdrg, site):
         np.testing.assert_array_equal(
             np.array(
                 [
@@ -124,10 +129,10 @@ class TestTreeTensorNetworkSDRG:
                     [0, 0, 0, 0.25],
                 ]
             ),
-            tsdrg.block_hamiltonian(site),
+            static_tsdrg.block_hamiltonian(site),
         )
 
-    def test_spectrum_projector(self, tsdrg):
+    def test_spectrum_projector(self, static_tsdrg):
         evecs = np.array(
             [
                 [0, 1, 0, 0],
@@ -136,7 +141,7 @@ class TestTreeTensorNetworkSDRG:
                 [0, 0, 0, 1],
             ]
         )
-        projector = tsdrg.spectrum_projector(locus=3, evecs=evecs)
+        projector = static_tsdrg.spectrum_projector(locus=3, evecs=evecs)
         np.testing.assert_array_equal(evecs.reshape((2, 2, 4)), projector)
 
     def test_run(self, ed, tsdrg):
