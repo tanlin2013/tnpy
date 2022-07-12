@@ -41,7 +41,7 @@ class TestShiftInvertDMRG:
         shifted_model = RandomHeisenberg(
             n=model.n, h=model.h, seed=model.seed, offset=offset
         )
-        return ShiftInvertDMRG(shifted_model.mpo, bond_dim=2**4, offset=offset)
+        return ShiftInvertDMRG(shifted_model.mpo, bond_dim=2**6, offset=offset)
 
     @pytest.fixture(scope="class")
     def nearest_idx(self, ed, offset):
