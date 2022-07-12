@@ -14,8 +14,9 @@ a numerical approach to quantum many-body systems.
 
 
 **tnpy** is built on top of [quimb](https://github.com/jcmgray/quimb),
-along with [TensorNetwork](https://github.com/google/TensorNetwork) for tensor contractions,
-with optimized support for various backend engines (TensorFlow, JAX, PyTorch, and Numpy).
+along with [TensorNetwork](https://github.com/google/TensorNetwork)
+for tensor contractions, with optimized support for various backend engines
+(TensorFlow, JAX, PyTorch, and Numpy).
 For eigen-solver we adopt [primme](https://github.com/primme/primme),
 an iterative multi-method solver with preconditioning.
 
@@ -93,8 +94,9 @@ Getting started
    ```
 
 2. Compute any physical quantities whatever you want from the obtained state.
-   The resulting MPS is of the type `tensornetwork.FiniteMPS`,
-   see [here](https://tensornetwork.readthedocs.io/en/latest/stubs/tensornetwork.FiniteMPS.html#tensornetwork.FiniteMPS) for more details.
+   The resulting MPS is of the type `quimb.tensor.MatrixProductState`,
+   see [here](https://tanlin2013.github.io/tnpy/matrix_product_state.html)
+   for more details.
 
    ```
    my_mps = fdmrg.mps
