@@ -1066,7 +1066,7 @@ title="Open an issue"
         <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span> <span class="o">=</span> <span class="n">TensorTree</span><span class="p">(</span><span class="n">mpo</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_fused_mpo_cache</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">mpo</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_gap_cache</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GapCache</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_evals</span> <span class="o">=</span> <span class="kc">None</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_evals</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">mpo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatrixProductOperator</span><span class="p">:</span>
