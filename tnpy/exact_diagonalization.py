@@ -54,6 +54,22 @@ class ExactDiagonalization(FullHamiltonian):
         return np.linalg.eigh(self.matrix)
 
     def reduced_density_matrix(self, site: int, level_idx: int = 0) -> np.ndarray:
+        r"""
+        Compute the reduced density matrix on the bi-partition ``site`` :math:`i`
+        through the singular value decomposition.
+
+        .. math::
+
+            \rho_A = tr_B rho
+
+        Args:
+            site: The site to which the bi-partition is taken on
+                the bond :math:`i` to :math:`i+1`.
+            level_idx: Compute on k-th eigenvector. Default 0 to the 1st eigenvector.
+
+        Returns:
+
+        """
         if not 0 <= site < self.n_sites - 1:
             raise ValueError(
                 "Parameter `site` for bi-partition has to be within the system size."
@@ -74,14 +90,29 @@ class ExactDiagonalization(FullHamiltonian):
     def entanglement_entropy(
         self, site: int, level_idx: int = 0, nan_to_num: bool = False
     ) -> float:
+        r"""
+        Compute the von Neumann entropy on the cutting ``site``.
+
+        Args:
+            site: The site to which the bi-partition is taken on
+                the bond :math:`i` to :math:`i+1`.
+            level_idx: Compute on k-th eigenvector. Default 0 to the 1st eigenvector.
+            nan_to_num: If True, convert NaN to zero. Default False.
+
+        Returns:
+
+        """
         rho = self.reduced_density_matrix(site, level_idx)
         entropy = -1 * rho @ np.log(rho)
         return np.nan_to_num(entropy) if nan_to_num else entropy
 
     @staticmethod
     def kron_operators(operators: Sequence[np.ndarray]) -> np.ndarray:
-        """
+        r"""
         Perform Kronecker product on the given sequence of operators.
+        This can be used to construct, for instance,
+        :math:`I_1 \otimes \cdots \otimes S_i^z \otimes \cdots \otimes I_N`
+        on the many-body basis.
 
         Args:
             operators: A list of operators to take Kronecker product.
@@ -97,6 +128,18 @@ class ExactDiagonalization(FullHamiltonian):
     def one_point_function(
         self, operator: np.ndarray, site: int, level_idx: int = 0
     ) -> float:
+        r"""
+        Compute the expectation value :math:`\langle \hat{O}_i \rangle`
+        of given local operator :math:`\hat{O}_i` on site :math:`i`.
+
+        Args:
+            operator: The operator :math:`\hat{O}`.
+            site:
+            level_idx:
+
+        Returns:
+
+        """
         assert operator.shape == (self.phys_dim, self.phys_dim)
         opt_mat = self.kron_operators(
             [
@@ -115,6 +158,23 @@ class ExactDiagonalization(FullHamiltonian):
         site2: int,
         level_idx: int,
     ) -> float:
+        r"""
+        Compute the correlation function
+        :math:`\langle \hat{O}_{i_1}^A \hat{O}_{i_2}^B \rangle`
+        of 2 given local operators
+        :math:`\hat{O}_{i_1}^A` and :math:`\hat{O}_{i_2}^B`
+        on site :math:`i_1` and :math:`i_2`.
+
+        Args:
+            operator1: The first operator :math:`\hat{O}^A`.
+            operator2: The second operator :math:`\hat{O}^B`.
+            site1:
+            site2:
+            level_idx:
+
+        Returns:
+
+        """
         assert operator1.shape == (self.phys_dim, self.phys_dim)
         assert operator2.shape == (self.phys_dim, self.phys_dim)
         assert site1 != site2
@@ -139,6 +199,18 @@ class ExactDiagonalization(FullHamiltonian):
         site2: int,
         level_idx: int,
     ) -> float:
+        """
+
+        Args:
+            operator1:
+            operator2:
+            site1:
+            site2:
+            level_idx:
+
+        Returns:
+
+        """
         return self.two_point_function(
             operator1, operator2, site1, site2, level_idx
         ) - self.one_point_function(
