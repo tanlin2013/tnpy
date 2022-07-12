@@ -756,7 +756,7 @@ title="Open an issue"
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_nodes</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_leaves</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_root_id</span> <span class="o">=</span> <span class="n">new_id</span></div>
 
-<div class="viewcode-block" id="TensorTree.check_root"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree.check_root">[docs]</a>    <span class="k">def</span> <span class="nf">check_root</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+<div class="viewcode-block" id="TensorTree.check_root"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree.check_root">[docs]</a>    <span class="k">def</span> <span class="nf">check_root</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>  <span class="c1"># type: ignore  # noqa</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Accessory decorator for checking the existence of root in</span>
 <span class="sd">        :class:`~TensorTree`.</span>

@@ -655,8 +655,9 @@ title="Edit this page"
 <p>This project is a python implementation of Tensor Network,
 a numerical approach to quantum many-body systems.</p>
 <p><strong>tnpy</strong> is built on top of <a class="reference external" href="https://github.com/jcmgray/quimb">quimb</a>,
-along with <a class="reference external" href="https://github.com/google/TensorNetwork">TensorNetwork</a> for tensor contractions,
-with optimized support for various backend engines (TensorFlow, JAX, PyTorch, and Numpy).
+along with <a class="reference external" href="https://github.com/google/TensorNetwork">TensorNetwork</a>
+for tensor contractions, with optimized support for various backend engines
+(TensorFlow, JAX, PyTorch, and Numpy).
 For eigen-solver we adopt <a class="reference external" href="https://github.com/primme/primme">primme</a>,
 an iterative multi-method solver with preconditioning.</p>
 <p>Currently, we support Matrix Product State (MPS) algorithms,
@@ -743,8 +744,9 @@ and <a class="reference external" href="https://networkx.org/">networkx</a></p>
 </div>
 </li>
 <li><p>Compute any physical quantities whatever you want from the obtained state.
-The resulting MPS is of the type <code class="docutils literal notranslate"><span class="pre">tensornetwork.FiniteMPS</span></code>,
-see <a class="reference external" href="https://tensornetwork.readthedocs.io/en/latest/stubs/tensornetwork.FiniteMPS.html#tensornetwork.FiniteMPS">here</a> for more details.</p>
+The resulting MPS is of the type <code class="docutils literal notranslate"><span class="pre">quimb.tensor.MatrixProductState</span></code>,
+see <a class="reference external" href="https://tanlin2013.github.io/tnpy/matrix_product_state.html">here</a>
+for more details.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_mps</span> <span class="o">=</span> <span class="n">fdmrg</span><span class="o">.</span><span class="n">mps</span>
 </pre></div>
 </div>
