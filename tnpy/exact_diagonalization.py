@@ -18,7 +18,12 @@ class ExactDiagonalization(FullHamiltonian):
 
         Raises:
             ResourceWarning: When the dimensions of Hamiltonian are larger
-            than :math:`4096 \times 4096`.
+                than :math:`4096 \times 4096`.
+
+        Examples:
+            >>> ed = ExactDiagonalization(mpo)
+            >>> evals = ed.evals
+            >>> evecs = ed.evecs
         """
         super().__init__(mpo)
         self._evals, self._evecs = self._eigen_solver()
