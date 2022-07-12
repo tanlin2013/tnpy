@@ -1063,7 +1063,7 @@ class TreeTensorNetworkMeasurements:
     def squared_moduli(self, level_idx: int):
         return NotImplemented
 
-    def Kullback_Leibler_divergence(self):
+    def kullback_leibler_divergence(self):
         return NotImplemented
 
     def participation_entropy(self):
