@@ -92,7 +92,7 @@ class MatrixProductState(qtn.MatrixProductState):
                 inds["l"] = self.bond(i, (i - 1) % self.n_sites)
             if self.cyclic or i < self.n_sites - 1:
                 inds["r"] = self.bond(i, (i + 1) % self.n_sites)
-            inds = [inds[s] for s in shape if s in inds]
+            inds = [inds[s] for s in shape if s in inds]  # type: ignore
             self[i].transpose_(*inds)
 
     def conj(
@@ -255,7 +255,8 @@ class Environment:
         self._mps = mps
         self._conj_mps = mps.conj(mangle_inner=True, mangle_outer=True)
         self._n_sites = mpo.nsites
-        self._left, self._right = {}, {}
+        self._left: Dict[int, qtn.Tensor] = {}
+        self._right: Dict[int, qtn.Tensor] = {}
         for site in tqdm(range(1, self.n_sites), desc="Initializing left environments"):
             self.update_left(site)
         for site in tqdm(

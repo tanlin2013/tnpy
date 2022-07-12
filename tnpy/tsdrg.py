@@ -225,7 +225,7 @@ class TensorTree:
 
         return wrapper
 
-    @property
+    @property  # type: ignore
     @check_root
     def n_layers(self) -> int:
         def max_depth(current_node: Node | None) -> int:
