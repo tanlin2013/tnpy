@@ -617,6 +617,10 @@ class TreeTensorNetworkSDRG:
 
         Returns:
             The 2-site Hamiltonian.
+
+        Warnings:
+            This implicitly assumes the boundary vectors of MPO are
+            the first row and the last column.
         """
         mpo1, mpo2 = self._fused_mpo_cache[locus], self._fused_mpo_cache[locus + 1]
         if len(mpo1.inds) == 4:
