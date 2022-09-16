@@ -125,8 +125,6 @@ class TensorTree:
         """
         The root of tree.
 
-        Returns:
-
         Raises:
             KeyError: If the tree is not constructed yet.
         """
@@ -136,9 +134,6 @@ class TensorTree:
     def leaves(self) -> Dict[int, Node]:
         """
         A dictionary to leaves, i.e. matrix product operator.
-
-        Returns:
-
         """
         return dict(islice(self._tree.items(), self._n_leaves))
 
@@ -158,10 +153,7 @@ class TensorTree:
     @property
     def n_nodes(self) -> int:
         """
-        Total number of nodes in tree.
-
-        Returns:
-            Number of nodes, including leaves in tree.
+        Total number of nodes in tree, including leaves.
         """
         return len(self._tree)
 
@@ -169,9 +161,6 @@ class TensorTree:
     def n_leaves(self) -> int:
         """
         The number of leaves, namely the system size.
-
-        Returns:
-
         """
         return self._n_leaves
 
@@ -187,9 +176,6 @@ class TensorTree:
             right_id: The ID of right node to be fused.
             new_id: The ID of new node.
             data: Data that will be assigned to the new node.
-
-        Returns:
-
         """
         if self.root_id is not None:
             raise RuntimeError("Can't perform fuse on a grown tree.")
@@ -258,9 +244,6 @@ class TensorTree:
     def n_layers(self) -> int:
         """
         Compute the number of layers in this tree, leaves included.
-
-        Returns:
-
         """
 
         def max_depth(current_node: Node | None) -> int:
@@ -552,9 +535,6 @@ class TreeTensorNetworkSDRG:
     def mpo(self) -> MatrixProductOperator:
         """
         The input matrix product operator.
-
-        Returns:
-
         """
         return self._mpo
 
@@ -563,18 +543,13 @@ class TreeTensorNetworkSDRG:
         """
         The input bond dimensions.
         That is, number of eigenvectors to keep in the projection.
-
-        Returns:
-
         """
         return self._chi
 
     @property
     def tree(self) -> TensorTree:
         """
-
-        Returns:
-
+        The tree.
         """
         return self._tree
 
@@ -582,9 +557,6 @@ class TreeTensorNetworkSDRG:
     def n_sites(self) -> int:
         """
         Number of sites, i.e. the system size.
-
-        Returns:
-
         """
         return self.mpo.nsites
 
@@ -695,9 +667,6 @@ class TreeTensorNetworkSDRG:
     def run(self):
         """
         Start the algorithm.
-
-        Returns:
-
         """
         for step in count(start=1):
             max_gapped_bond = int(np.argmax(np.array(self._gap_cache.gap)))

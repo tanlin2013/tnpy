@@ -41,9 +41,6 @@ class ExactDiagonalization(FullHamiltonian):
     def evals(self) -> np.ndarray:
         """
         Eigenvalues in ascending order.
-
-        Returns:
-
         """
         return self._evals
 

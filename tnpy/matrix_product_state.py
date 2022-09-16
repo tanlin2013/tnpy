@@ -52,9 +52,6 @@ class MatrixProductState(qtn.MatrixProductState):
     def phys_dim(self) -> int:
         """
         Physical dimensions of local state.
-
-        Returns:
-
         """
         return self[0].shape[0]
 
@@ -62,8 +59,6 @@ class MatrixProductState(qtn.MatrixProductState):
     def bond_dim(self) -> int:
         """
         The bond dimensions.
-
-        Returns:
 
         Notes:
             The actual bond dimensions can be smaller
