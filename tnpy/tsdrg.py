@@ -146,7 +146,7 @@ class TensorTree:
         until there is only one node on the horizon, that is the root.
 
         Returns:
-            The horizon.
+            The horizon as a list of node ids.
         """
         return self._horizon
 
