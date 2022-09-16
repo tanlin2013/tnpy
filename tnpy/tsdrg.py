@@ -264,6 +264,10 @@ class TensorTree:
         with_leaves: bool = False,
     ) -> qtn.TensorNetwork:
         r"""
+        Construct the :class:`qtn.TensorNetwork` object from the given list
+        of `node_ids`. Physical quantities often don't require all nodes,
+        and one could cooperate this method with :func:`~TensorTree.find_path`
+        or :func:`~TensorTree.common_ancestor`.
 
         Args:
             node_ids: The id of nodes that will be selected from the tree.
