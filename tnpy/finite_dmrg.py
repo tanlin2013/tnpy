@@ -283,12 +283,22 @@ class ShiftInvertDMRG(FiniteDMRG):
         mps: MatrixProductState = None,
         exact_solver_dim: int = 200,
     ):
-        """
+        r"""
         The DMRG algorithm for optimizing the shift-invert spectrum of
         a finite size system.
 
+        .. math::
+
+            (H - \epsilon) \phi_n = \frac{1}{E_n - \epsilon}(H - \epsilon)^2 \phi_n
+
+        the original eigenvectors then can be restored through
+
+        .. math::
+
+            \psi_n = (H - \epsilon) \phi_n
+
         Args:
-            mpo:
+            mpo: The matrix product operator for :math:`H - \epsilon`.
             bond_dim:
             offset:
             block_size:
