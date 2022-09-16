@@ -1,4 +1,5 @@
-from typing import Tuple, Sequence
+from itertools import permutations
+from typing import Tuple, Sequence, List, Dict
 
 import numpy as np
 
@@ -7,7 +8,7 @@ from tnpy.operators import MatrixProductOperator, FullHamiltonian
 
 
 class ExactDiagonalization(FullHamiltonian):
-    def __init__(self, mpo: MatrixProductOperator):
+    def __init__(self, mpo: MatrixProductOperator, proj: np.ndarray = None):
         """
         Perform the numerically exact diagonalization on the matrix,
         which is constructed through the given Matrix Product Operator (MPO).
@@ -15,6 +16,7 @@ class ExactDiagonalization(FullHamiltonian):
 
         Args:
             mpo: The matrix product operator.
+            proj: Projector apply to the Hamiltonian, :math:`P^T H P`.
 
         Raises:
             ResourceWarning: When the dimensions of Hamiltonian are larger
@@ -26,7 +28,14 @@ class ExactDiagonalization(FullHamiltonian):
             >>> evecs = ed.evecs
         """
         super().__init__(mpo)
+        self._proj = proj
+        if self.proj:
+            self._matrix = self.proj.T @ self._matrix @ self.proj
         self._evals, self._evecs = self._eigen_solver()
+
+    @property
+    def proj(self) -> np.ndarray:
+        return self._proj
 
     @property
     def evals(self) -> np.ndarray:
@@ -245,3 +254,29 @@ class ExactDiagonalization(FullHamiltonian):
         ):
             logger.warning("Expectation value may contain large off-diagonal elements.")
         return np.diag(var)
+
+
+class SpinSector:
+    def __init__(self):
+        self._basis = {"u": np.array([[1, 0]]), "d": np.array([[0, 1]])}
+
+    @property
+    def basis(self) -> Dict[str, np.ndarray]:
+        return self.basis
+
+    @classmethod
+    def kron_product(cls, spin_bases: List[np.ndarray]) -> np.ndarray | float:
+        if not spin_bases:
+            return 1
+
+        return np.kron(spin_bases[0], cls.kron_product(spin_bases[1:]))
+
+    def spin_zero_projector(self, n: int):
+        spin_zero_permutations = sorted(
+            set(list(permutations(f"{'u' * (n // 2)}{'d' * (n // 2)}", n)))
+        )
+        zero_charge_basis = [
+            self.kron_product(list(map(self._basis.get, elem)))
+            for elem in spin_zero_permutations
+        ]
+        return np.hstack(tuple(map(np.transpose, zero_charge_basis)))
