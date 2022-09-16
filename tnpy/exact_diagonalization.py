@@ -66,7 +66,7 @@ class ExactDiagonalization(FullHamiltonian):
 
         .. math::
 
-            \rho_A = tr_B rho
+            \rho_A = tr_B \rho
 
         Args:
             site: The site to which the bi-partition is taken on
