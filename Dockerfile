@@ -17,6 +17,6 @@ RUN apt-get -y clean && \
 # Install required python packages and tnpy
 RUN curl -sSL https://install.python-poetry.org | python3 - && \
     poetry config virtualenvs.create false --local && \
-    poetry install --no-dev
+    poetry install --without dev
 
 ENTRYPOINT /bin/bash
