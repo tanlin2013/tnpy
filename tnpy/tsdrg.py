@@ -590,6 +590,10 @@ class TreeTensorNetworkSDRG:
         """
         matrix = self.block_hamiltonian(locus)
         evals, evecs = np.linalg.eigh(matrix)
+        print(locus)
+        print(matrix)
+        print(evals)
+        print(evecs)
         if matrix.shape[0] > self.chi:
             evals = evals[: self.chi]
             evecs = evecs[:, : self.chi]
@@ -1087,31 +1091,22 @@ class HighEnergyTreeTensorNetworkSDRG(TreeTensorNetworkSDRG):
 
 
 class ShiftInvertTreeTensorNetworkSDRG(TreeTensorNetworkSDRG):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, mpo: MatrixProductOperator, chi: int, offset: float):
+        self._offset = offset
+        super().__init__(mpo, chi=chi)
+
+    @property
+    def offset(self) -> float:
+        return self._offset
 
     def block_eigen_solver(self, locus: int) -> Tuple[np.ndarray, np.ndarray]:
         matrix = self.block_hamiltonian(locus)
         evals, evecs = spl.eigh(matrix, b=matrix @ matrix)
         if matrix.shape[0] > self.chi:
-            logger.info(
-                f"Truncating evecs with shape {evecs.shape} to "
-                f"({evecs.shape[0]}, {self.chi})."
-            )
-            d = self.chi // 2
-            evals = np.hstack((evals[:d], evals[-d:]))
-            evecs = np.hstack((evecs[:, :d], evecs[:, -d:]))
-        idx = np.argsort(np.reciprocal(evals))
-        evals = np.reciprocal(evals)[idx]
+            evals = evals[: self.chi]
+            evecs = evecs[:, : self.chi]
+        evals = np.reciprocal(evals) + self.offset
+        idx = np.argsort(evals)
+        evals = evals[idx]
         evecs = matrix @ evecs[:, idx]
-        # res = np.array([
-        #     np.linalg.norm(matrix @ evecs[:, i] - evals[i] * evecs[:, i])
-        #     for i in range(len(evals))
-        # ])
-        # logger.info(f"evals {evals}")
-        # rho = np.array(
-        #     [evecs.T[i, :] @ matrix @ evecs[:, i] for i in range(len(evals))]
-        # )
-        # logger.info(f"rho {rho}")
-        # logger.info(f"residual {res}")
         return evals, evecs

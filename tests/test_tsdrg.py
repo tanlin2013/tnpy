@@ -8,6 +8,7 @@ from tnpy.tsdrg import (
     TensorTree,
     TreeTensorNetworkSDRG as tSDRG,
     HighEnergyTreeTensorNetworkSDRG,
+    ShiftInvertTreeTensorNetworkSDRG,
 )
 
 
@@ -103,11 +104,11 @@ class TestTensorTree:
 class TestTreeTensorNetworkSDRG:
     @pytest.fixture(scope="class")
     def model(self):
-        return RandomHeisenberg(n=8, h=10.0, penalty=0, s_target=0)
+        return RandomHeisenberg(n=4, h=0.1, penalty=0, s_target=0)
 
     @pytest.fixture(scope="function")
     def tsdrg(self, model):
-        return tSDRG(model.mpo, chi=2**6)
+        return tSDRG(model.mpo, chi=2**2)
 
     @pytest.fixture(scope="class")
     def ed(self, model):
@@ -145,6 +146,9 @@ class TestTreeTensorNetworkSDRG:
         np.testing.assert_array_equal(evecs.reshape((2, 2, 4)), projector)
 
     def test_run(self, ed, tsdrg):
+        import sys
+
+        np.set_printoptions(threshold=sys.maxsize, linewidth=sys.maxsize)
         tsdrg.run()
         np.testing.assert_allclose(
             ed.evals[: tsdrg.chi], np.sort(tsdrg.evals), atol=1e-8
@@ -302,3 +306,51 @@ class TestHighEnergyTreeTensorNetworkSDRG:
     def test_run(self, ed, tsdrg):
         tsdrg.run()
         np.testing.assert_allclose(ed.evals[-1], tsdrg.evals[-1], atol=1e-4)
+
+
+class TestShiftInvertTreeTensorNetworkSDRG:
+    @pytest.fixture(scope="class", params=[0.0, 1.0, 2.0])
+    def offset(self, request) -> float:
+        return request.param
+
+    @pytest.fixture(scope="class")
+    def model(self):
+        return RandomHeisenberg(n=10, h=10.0, penalty=0, s_target=0, seed=2020)
+
+    @pytest.fixture(scope="function")
+    def sitsdrg(self, model, offset):
+        shifted_model = RandomHeisenberg(
+            n=model.n, h=model.h, seed=model.seed, offset=offset
+        )
+        return ShiftInvertTreeTensorNetworkSDRG(
+            shifted_model.mpo, chi=2**5, offset=offset
+        )
+
+    @pytest.fixture(scope="class")
+    def ed(self, model):
+        return ExactDiagonalization(model.mpo)
+
+    @pytest.fixture(scope="class")
+    def nearest_idx(self, ed, offset):
+        return ed.evals[np.where(ed.evals < offset)].argmax()
+
+    @pytest.fixture(scope="class")
+    def nearest_eval(self, ed, nearest_idx):
+        return ed.evals[nearest_idx]
+
+    @pytest.fixture(scope="class")
+    def nearest_evec(self, ed, nearest_idx):
+        return ed.evecs[:, nearest_idx]
+
+    def test_run(self, ed, sitsdrg, nearest_eval, model, offset):
+        import sys
+
+        np.set_printoptions(threshold=sys.maxsize)
+        n_nearest_eval = ed.evals[np.argsort(np.abs(ed.evals - offset))]
+        print(np.sort(n_nearest_eval[:20]))
+        sitsdrg.run()
+        np.testing.assert_allclose(nearest_eval, sitsdrg.evals[-1], atol=1e-4)
+
+    # def test_variance(self, model, sitsdrg):
+    #     sitsdrg.run()
+    #     print(sitsdrg.measurements.variance(model.mpo)[-1])
