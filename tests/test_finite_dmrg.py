@@ -24,13 +24,13 @@ class TestFiniteDMRG:
 
 
 class TestShiftInvertDMRG:
-    @pytest.fixture(scope="class", params=[0.1, 0.2])
+    @pytest.fixture(scope="class", params=[-0.1, 0.1, 0.2])
     def offset(self, request) -> float:
         return request.param
 
     @pytest.fixture(scope="class")
     def model(self):
-        return RandomHeisenberg(n=8, h=0.5, seed=2021)
+        return RandomHeisenberg(n=10, h=10.5, seed=2022)
 
     @pytest.fixture(scope="class")
     def ed(self, model):
