@@ -1,5 +1,5 @@
 FROM python:3.10
-MAINTAINER "TaoLin" <tanlin2013@gmail.com>
+LABEL maintainer="TaoLin tanlin2013@gmail.com"
 
 ARG WORKDIR=/home/tnpy
 ENV PYTHONPATH="${PYTHONPATH}:$WORKDIR" \
