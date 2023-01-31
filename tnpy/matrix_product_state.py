@@ -188,7 +188,7 @@ class MatrixProductState(qtn.MatrixProductState):
         Returns:
 
         """
-        rand_mps = qtn.MPS_rand_state(n=n, bond_dim=bond_dim, phys_dim=phys_dim)
+        rand_mps = qtn.MPS_rand_state(L=n, bond_dim=bond_dim, phys_dim=phys_dim)
         rand_mps.compress()
         return cls([tensor.data for tensor in rand_mps], **kwargs)
 
