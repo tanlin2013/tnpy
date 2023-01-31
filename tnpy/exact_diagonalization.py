@@ -9,7 +9,7 @@ from tnpy.operators import MatrixProductOperator, FullHamiltonian
 
 class ExactDiagonalization(FullHamiltonian):
     def __init__(self, mpo: MatrixProductOperator, proj: np.ndarray = None):
-        """
+        r"""
         Perform the numerically exact diagonalization on the matrix,
         which is constructed through the given Matrix Product Operator (MPO).
         Calculations are taken in prompt on the initialization of this class.
