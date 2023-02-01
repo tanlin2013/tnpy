@@ -3928,4 +3928,4 @@ mkl = ["mkl-devel"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9, <3.11"
-content-hash = "be43000b8b9da5b9de424a8a01f8bfca42441c4b629b2a92e7f59cead5c40f7e"
+content-hash = "cc937076f46e2c6de24a85d93f92dceab3b6e7201a0f6adc644702ea47d200e1"
