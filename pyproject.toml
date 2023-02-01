@@ -71,5 +71,8 @@ profile = "black"
 ignore_missing_imports = true
 strict_optional = false
 
+[tool.bandit]
+skips = ["B101"]
+
 [tool.cruft]
 skip = []
