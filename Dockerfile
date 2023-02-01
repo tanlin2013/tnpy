@@ -1,4 +1,4 @@
-FROM python:3.11-slim as python
+FROM python:3.10-slim as python
 LABEL maintainer="TaoLin tanlin2013@gmail.com"
 ENV PYTHONUNBUFFERED=true
 WORKDIR /app
