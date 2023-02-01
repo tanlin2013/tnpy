@@ -19,6 +19,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          apt-get install python3-sphinx
           python -m pip install --upgrade pip
           python -m pip install --upgrade poetry>=1.2.0
           poetry install --with docs
