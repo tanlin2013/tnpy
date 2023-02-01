@@ -1,29 +1,23 @@
-FROM python:3.10-slim as python
+FROM python:3.10.8 as python
 LABEL maintainer="TaoLin tanlin2013@gmail.com"
 ENV PYTHONUNBUFFERED=true
 WORKDIR /app
 
 
-FROM python as lapack
+FROM python as runtime
+ENV POETRY_HOME=/opt/poetry
+ENV PATH="/app/.venv/bin:$PATH"
+COPY . ./
+
 RUN apt update && \
     apt-get install -y --no-install-recommends  \
-    gfortran libblas-dev liblapack-dev graphviz
+     gfortran libblas-dev liblapack-dev graphviz \
 
-
-FROM python as poetry
-ENV POETRY_HOME=/opt/poetry
-ENV PATH="$POETRY_HOME/bin:$PATH"
-COPY . ./
-RUN apt update && \
-    apt-get install -y curl
 RUN curl -sSL https://install.python-poetry.org | python3 - --version 1.3.2 &&  \
     poetry config virtualenvs.in-project true && \
     poetry install --no-interaction --no-ansi -vvv --without dev
 
-
-FROM python as runtime
-ENV PATH="/app/.venv/bin:$PATH"
-COPY --from=poetry /app /app
 RUN apt-get -y clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* \
+
 ENTRYPOINT /bin/bash
