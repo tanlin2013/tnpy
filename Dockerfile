@@ -1,22 +1,28 @@
-FROM python:3.10
-LABEL maintainer="TaoLin tanlin2013@gmail.com"
+FROM python:3.11-slim as python
+ENV PYTHONUNBUFFERED=true
+WORKDIR /app
 
-ARG WORKDIR=/home/tnpy
-ENV PYTHONPATH="${PYTHONPATH}:$WORKDIR" \
-    PATH="/root/.local/bin:$PATH"
-WORKDIR $WORKDIR
-COPY . $WORKDIR
 
-# Install fortran, blas, lapack
+FROM python as lapack
 RUN apt update && \
-    apt-get install -y --no-install-recommends \
-      gfortran libblas-dev liblapack-dev graphviz
+    apt-get install -y --no-install-recommends  \
+    gfortran libblas-dev liblapack-dev graphviz
+
+
+FROM python as poetry
+ENV POETRY_HOME=/opt/poetry
+ENV PATH="$POETRY_HOME/bin:$PATH"
+COPY . ./
+RUN apt update && \
+    apt-get install -y curl
+RUN curl -sSL https://install.python-poetry.org | python3 - --version 1.3.2 &&  \
+    poetry config virtualenvs.in-project true && \
+    poetry install --no-interaction --no-ansi -vvv --without dev
+
+
+FROM python as runtime
+ENV PATH="/app/.venv/bin:$PATH"
+COPY --from=poetry /app /app
 RUN apt-get -y clean && \
     rm -rf /var/lib/apt/lists/*
-
-# Install required python packages and tnpy
-RUN curl -sSL https://install.python-poetry.org | python3 - && \
-    poetry config virtualenvs.create false --local && \
-    poetry install --without dev
-
 ENTRYPOINT /bin/bash
