@@ -71,5 +71,5 @@ profile = "black"
 ignore_missing_imports = true
 strict_optional = false
 
-[tool.cruft]
-skip = []
+#[tool.cruft]
+#skip = []
