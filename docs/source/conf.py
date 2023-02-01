@@ -12,22 +12,21 @@
 #
 import os
 import sys
+from importlib import metadata
 
 sys.path.insert(0, os.path.abspath("../.."))
 sys.path.insert(0, os.path.abspath("../../tnpy"))
-from tnpy import __version__  # noqa: E402
-
 
 # -- Project information -----------------------------------------------------
 
 project = "tnpy"
-copyright = "2021, Tan Tao-Lin"
+copyright = "2023, Tan Tao-Lin"
 author = "Tan Tao-Lin"
 
 # The short X.Y version
-version = __version__
+version = metadata.version("tnpy")
 # The full version, including alpha/beta/rc tags
-release = __version__
+release = metadata.version("tnpy")
 
 # -- General configuration ---------------------------------------------------
 
