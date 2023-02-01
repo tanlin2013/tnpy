@@ -1,4 +1,5 @@
 # tnpy
+
 _________________
 
 [![PyPI version](https://badge.fury.io/py/tnpy.svg)](http://badge.fury.io/py/tnpy)
@@ -18,7 +19,6 @@ _________________
 
 This project is a python implementation of Tensor Network,
 a numerical approach to quantum many-body systems.
-
 
 **tnpy** is built on top of [quimb](https://github.com/jcmgray/quimb),
 along with [TensorNetwork](https://github.com/google/TensorNetwork)
@@ -44,9 +44,9 @@ Dependencies are listed in
 and they are supposed to be installed together with **tnpy**.
 Here we just list the essential building blocks.
 
-  * [jcmgray/quimb](https://github.com/jcmgray/quimb)
-  * [google/Tensornetwork](https://github.com/google/TensorNetwork)
-  * [primme/primme](https://github.com/primme/primme)
+* [jcmgray/quimb](https://github.com/jcmgray/quimb)
+* [google/Tensornetwork](https://github.com/google/TensorNetwork)
+* [primme/primme](https://github.com/primme/primme)
 
 Also, it's required to have [lapack](http://www.netlib.org/lapack/)
 and [blas](http://www.netlib.org/blas/) installed in prior to Primme.
@@ -56,35 +56,36 @@ with [mkl-devel](https://pypi.org/project/mkl-devel/).
 Installation
 ------------
 
-   * Using Docker
+* Using Docker
 
-     ```
-     docker run --rm -it tanlin2013/tnpy
-     ```
-   * Using pip
-     * Latest release:
-       ```
-       pip install tnpy
-       ```
-     * Development version:
-       ```
-       pip install git+https://github.com/tanlin2013/tnpy@main
-       ```
-   * Optional dependencies
-     * If [lapack](http://www.netlib.org/lapack/) and
-       [blas](http://www.netlib.org/blas/) are missing
-       ```
-       pip install tnpy[mkl]
-       ```
-     * For [quimb](https://github.com/jcmgray/quimb) drawing functionality.
-       This will install [matplotlib](https://matplotlib.org/)
-       and [networkx](https://networkx.org/)
-       ```
-       pip install tnpy[drawing]
-       ```
+  ```
+  docker run --rm -it tanlin2013/tnpy
+  ```
+* Using pip
+    * Latest release:
+      ```
+      pip install tnpy
+      ```
+    * Development version:
+      ```
+      pip install git+https://github.com/tanlin2013/tnpy@main
+      ```
+* Optional dependencies
+    * If [lapack](http://www.netlib.org/lapack/) and
+      [blas](http://www.netlib.org/blas/) are missing
+      ```
+      pip install tnpy[mkl]
+      ```
+    * For [quimb](https://github.com/jcmgray/quimb) drawing functionality.
+      This will install [matplotlib](https://matplotlib.org/)
+      and [networkx](https://networkx.org/)
+      ```
+      pip install tnpy[drawing]
+      ```
 
 Getting started
 ---------------
+
 1. We provide built-in models. Though it's also possible to register your own one.
 
    ```
@@ -108,3 +109,8 @@ Getting started
    ```
    my_mps = fdmrg.mps
    ```
+
+License
+-------
+© Tan Tao-Lin, 2023. Licensed under a [MIT](https://github.com/tanlin2013/tnpy/master/LICENSE)
+license.
