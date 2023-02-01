@@ -2,9 +2,10 @@
 name = "tnpy"
 version = "0.1.1a3"
 description = "Tensor Network algorithms implemented in python."
-authors = ["taolin <tanlin2013@gmail.com>"]
+authors = ["Tan Tao-Lin <tanlin2013@gmail.com>"]
 homepage = "https://github.com/tanlin2013/tnpy"
 documentation = "https://tanlin2013.github.io/tnpy/"
+license = "MIT"
 readme = "README.md"
 keywords = ["tensornetwork", "quantum-mechanics", "quantum-algorithms"]
 
@@ -29,14 +30,20 @@ mkl = ["mkl-devel"]  # (https://github.com/tanlin2013/tnpy/issues/5)
 drawing = ["matplotlib", "networkx"]
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^7.1.1"
-pytest-cov = "^3.0.0"
-pytest-mock = "^3.6.1"
-pylint = "^2.13.7"
-flake8 = "^4.0.1"
-mypy = "^0.942"
-jupyter = "^1.0.0"
 pre-commit = "^2.19.0"
+commitizen = "^2.40.0"
+vulture = ">=1.0"
+bandit = ">=1.6"
+safety = ">=1.8"
+isort = ">=5.3"
+flake8-bugbear = ">=19.8"
+black = ">=18.3"
+mypy = ">=0.730.0"
+ipython = ">=7.7"
+pytest = ">=5.0"
+pytest-cov = ">=2.7"
+pytest-mock = ">=1.10"
+pep8-naming = ">=0.8.2"
 cruft = ">=2.2"
 
 [tool.poetry.group.docs]
@@ -48,7 +55,21 @@ sphinx-book-theme = "^0.3.2"
 m2r2 = "^0.3.2"
 #pandoc = "2.1"
 nbsphinx = "^0.8.8"
+portray = ">=1.3.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 100
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+ignore_missing_imports = true
+strict_optional = false
+
+[tool.cruft]
+skip = []
