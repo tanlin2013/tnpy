@@ -29,10 +29,20 @@ repos:
     hooks:
     -   id: poetry-check
     -   id: poetry-lock
+        stages: [push]
 
 -   repo: https://github.com/commitizen-tools/commitizen
     rev: v2.40.0
     hooks:
     -   id: commitizen
     -   id: commitizen-branch
+        stages: [push]
+
+-   repo: local
+    hooks:
+    -   id: cruft-check
+        name: cruft-check
+        entry: bash -c 'cruft check'
+        language: python
+        pass_filenames: false
         stages: [push]
