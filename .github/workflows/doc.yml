@@ -19,7 +19,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt-get install -y python3-sphinx
+          sudo apt-get install -y python3-sphinx pandoc
           python -m pip install --upgrade pip
           python -m pip install --upgrade poetry>=1.2.0
           poetry install --with docs
