@@ -19,7 +19,9 @@ primme = "3.2.1"
 h5py = ">=3.6, <4.0"
 graphviz = "0.20.1"
 tensornetwork = "0.4.6"
-autoray = ">=0.2, <0.4"
+numba = "^0.56.4"
+llvmlite = "^0.39.1"
+autoray = "^0.6.0"
 quimb = "1.4.0"
 mkl-devel = { version = "2023.0.0", optional = true }
 matplotlib = { version ="^3.5.2", optional = true }
