@@ -20,7 +20,7 @@ jobs:
           poetry install --all-extras
 
       - name: Test
-        run: pytest tests/
+        run: poetry run pytest tests/
 
   build:
     runs-on: ${{ matrix.os }}
