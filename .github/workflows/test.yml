@@ -2,7 +2,7 @@ name: Test
 
 on:
   workflow_run:
-    workflows: [ "Docker build" ]
+    workflows: ["Docker build"]
     types:
       - completed
 
@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: docker://${{ github.repository }}:sha-${{ github.sha }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v3
 
