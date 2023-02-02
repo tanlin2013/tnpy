@@ -17,7 +17,7 @@ RUN curl -sSL https://install.python-poetry.org | python3 - --version 1.3.2 &&  
     poetry config virtualenvs.in-project true && \
     poetry install --no-interaction --no-ansi -vvv --without dev
 
-RUN apt-get -y clean && \
-    rm -rf /var/lib/apt/lists/* \
+RUN apt-get -y clean &&  \
+    rm -rf /var/lib/apt/lists/*
 
 ENTRYPOINT /bin/bash
