@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Install dev dependencies
         run: |
-          poetry install
+          poetry install --all-extras
 
       - name: Test
         run: pytest tests/
