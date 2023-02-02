@@ -16,7 +16,7 @@ RUN apt update && \
     gfortran libblas-dev liblapack-dev graphviz
 
 RUN curl -sSL https://install.python-poetry.org | python3 - --version 1.3.2 &&  \
-    poetry config virtualenvs.create false &&  \
+    poetry config virtualenvs.create false --local &&  \
     poetry install -vvv --without dev --all-extras
 
 RUN apt-get -y clean &&  \
