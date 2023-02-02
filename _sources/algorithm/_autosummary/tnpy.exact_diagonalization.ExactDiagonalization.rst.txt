@@ -35,5 +35,6 @@
       ~ExactDiagonalization.matrix
       ~ExactDiagonalization.n_sites
       ~ExactDiagonalization.phys_dim
+      ~ExactDiagonalization.proj
    
    

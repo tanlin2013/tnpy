@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>4.7.1. Algorithm &#8212; tnpy 0.1.1a3 documentation</title>
+    <title>&lt;no title&gt; &#8212; tnpy 0.1.1a3 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -37,8 +37,6 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="1. Model 1D" href="../model/model_1d.html" />
-    <link rel="prev" title="4.6. tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG" href="../algorithm/_autosummary/tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -90,7 +88,7 @@
   Algorithms
  </span>
 </p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../algorithm/exact_diagonalization.html">
    1. Exact Diagonalization (ED)
@@ -147,16 +145,16 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../algorithm/tsdrg.html">
    4. Tree Tensor Strong-disorder Renormalization Group (tSDRG)
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
   <label for="toctree-checkbox-4">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../algorithm/_autosummary/tnpy.tsdrg.Node.html">
      4.1. tnpy.tsdrg.Node
@@ -187,8 +185,8 @@
      4.6. tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="tsdrg.html">
      4.7.1. Algorithm
     </a>
    </li>
@@ -479,7 +477,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/tanlin2013/tnpy/issues/new?title=Issue%20on%20page%20%2Fnotebooks/tsdrg.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/tanlin2013/tnpy/issues/new?title=Issue%20on%20page%20%2Fnotebooks/krylov.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -496,7 +494,7 @@ title="Open an issue"
       </li>
       
       <li>
-        <a href="https://github.com/tanlin2013/tnpy/edit/master/docs/notebooks/tsdrg.ipynb"
+        <a href="https://github.com/tanlin2013/tnpy/edit/master/docs/notebooks/krylov.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -536,61 +534,7 @@ title="Edit this page"
         <i class="fas fa-list"></i> Contents
     </div>
     <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   4.7.1. Algorithm
-  </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Preparation">
-     4.7.1.1. Preparation
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Main-part:-growing-the-tree">
-     4.7.1.2. Main part: growing the tree
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#Data-Structure">
-   4.7.2. Data Structure
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#Measurements">
-   4.7.3. Measurements
-  </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Near-ground-state-energies">
-     4.7.3.1. Near-ground-state energies
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Correlation-function">
-     4.7.3.2. Correlation function
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Depth-first-Search-(DFS)-&amp;-Common-Ancestor">
-     4.7.3.3. Depth-first Search (DFS) &amp; Common Ancestor
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Entanglement-entropy">
-     4.7.3.4. Entanglement entropy
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#References">
-   4.7.4. References
-  </a>
- </li>
+        <ul class="simple visible nav section-nav flex-column">
 </ul>
 
     </nav>
@@ -600,7 +544,7 @@ title="Edit this page"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Algorithm</h1>
+                <h1><no title></h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -609,61 +553,7 @@ title="Edit this page"
                             <h2> Contents </h2>
                         </div>
                         <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   4.7.1. Algorithm
-  </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Preparation">
-     4.7.1.1. Preparation
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Main-part:-growing-the-tree">
-     4.7.1.2. Main part: growing the tree
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#Data-Structure">
-   4.7.2. Data Structure
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#Measurements">
-   4.7.3. Measurements
-  </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Near-ground-state-energies">
-     4.7.3.1. Near-ground-state energies
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Correlation-function">
-     4.7.3.2. Correlation function
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Depth-first-Search-(DFS)-&amp;-Common-Ancestor">
-     4.7.3.3. Depth-first Search (DFS) &amp; Common Ancestor
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Entanglement-entropy">
-     4.7.3.4. Entanglement entropy
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#References">
-   4.7.4. References
-  </a>
- </li>
+                            <ul class="simple visible nav section-nav flex-column">
 </ul>
 
                         </nav>
@@ -931,200 +821,231 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<section id="Algorithm">
-<h1><span class="section-number">4.7.1. </span>Algorithm<a class="headerlink" href="#Algorithm" title="Permalink to this headline">#</a></h1>
-<section id="Preparation">
-<h2><span class="section-number">4.7.1.1. </span>Preparation<a class="headerlink" href="#Preparation" title="Permalink to this headline">#</a></h2>
-<ol class="arabic simple">
-<li><p>Decompose Hamiltonian (of an 1D system) into MPO form.</p></li>
-<li><p>Calculate the 2-site Hamiltonian for each nearest-neighbor <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(i+1\)</span>.</p></li>
-</ol>
-<p>This can be done in the following way. Suppose we have the following MPO on site <span class="math notranslate nohighlight">\(i\)</span>,</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}W_i =
-   \begin{bmatrix}
-       I &amp; S^+_i &amp; S^z_i \\
-       0 &amp; 0 &amp; S^-_i \\
-       0 &amp; 0 &amp; I
-   \end{bmatrix}\end{split}\]</div>
-<p>By considering the product of the left vector <span class="math notranslate nohighlight">\(W^{[L]}\)</span> and the right vector <span class="math notranslate nohighlight">\(W^{[R]}\)</span> on site <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(i+1\)</span>, respectively, we have</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}W^{[L]}_i W^{[R]}_{i+1} \\
-= \begin{bmatrix}
-    I &amp; S^+_i &amp; S^z_i
-   \end{bmatrix}
-\begin{bmatrix}
-    S^z_{i+1}\\
-    S^-_{i+1} \\
-    I
-\end{bmatrix},\end{split}\]</div>
-<p>where the left vector is taken from the 1st row of the MPO, and the right vector is taken from the last column of the MPO. The vector product immediately yields the 2-site Hamiltonian.</p>
-<blockquote>
-<div><p><strong>Note:</strong> The example here is the Ising model with transverse field.</p>
-</div></blockquote>
-<ol class="arabic simple" start="3">
-<li><p>Compute the energy spectrum (eigenvalues) for every 2-site Hamiltonian.</p></li>
-<li><p>Considering the bond dimension <span class="math notranslate nohighlight">\(\chi\)</span> to be the number of eigenvectors that will be preserved later. We define the energy gap <span class="math notranslate nohighlight">\(\Delta_{\chi}\)</span> to be</p></li>
-</ol>
-<div class="math notranslate nohighlight">
-\[\begin{split}\Delta_{\chi} =
-\begin{cases}
-    E_N - E_{N-1} \,\,\,\,\,when \,\,\chi \geq k - 1,\\
-    E_{\chi+1} - E_{\chi} \,\,\,\,\,when \,\,\chi &lt; k - 1,
-\end{cases}\end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(k\)</span> is the total number of eigenvectors.</p>
-</section>
-<section id="Main-part:-growing-the-tree">
-<h2><span class="section-number">4.7.1.2. </span>Main part: growing the tree<a class="headerlink" href="#Main-part:-growing-the-tree" title="Permalink to this headline">#</a></h2>
-<div><p><img alt="5578a72b0c664e83a4e0686f982dc229" class="no-scaled-link" src="../_images/tsdrg1.png" style="width: 300px;" />   <img alt="4e55d63bc4a74bcd91aa9e083753f9dd" class="no-scaled-link" src="../_images/tsdrg2.png" style="width: 300px;" /></p>
-</div><ol class="arabic simple">
-<li><p>Merge the 2-site block with largest energy gap. This can be performed by constructing the isometric tensor <span class="math notranslate nohighlight">\(V\)</span> (the triangular tensor in the figure) to be <span class="math notranslate nohighlight">\(min(\chi, k)\)</span> eigenvectors of the 2-site Hamiltonian. By contracting <span class="math notranslate nohighlight">\(V^{\dagger}\)</span> and <span class="math notranslate nohighlight">\(V\)</span> with 2 MPO tensors, one gets the updated MPO.</p></li>
-<li><p>Compute the energy spectrum and the energy gap accordingly for affected block with its neighbors.</p></li>
-<li><p>Repeat this procedure until there is only one MPO tensor remained.</p></li>
-</ol>
-<blockquote>
-<div><p>Note: The isometric tensor at each step should be saved for later usage.</p>
-</div></blockquote>
-</section>
-</section>
-<section id="Data-Structure">
-<h1><span class="section-number">4.7.2. </span>Data Structure<a class="headerlink" href="#Data-Structure" title="Permalink to this headline">#</a></h1>
-<p>The problem considered here essentially forms a random binary tree. Though the construction of this tree is bottom-up, the data structure takes the same as in the standard top-down approach. Here we take Python for implementation</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
-
-<span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
-    <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span>
-    <span class="n">value</span><span class="p">:</span> <span class="n">Any</span>
-    <span class="n">left</span><span class="p">:</span> <span class="s1">&#39;Node&#39;</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">right</span><span class="p">:</span> <span class="s1">&#39;Node&#39;</span> <span class="o">=</span> <span class="kc">None</span>
-</pre></div>
-</div>
-<p>In class <code class="docutils literal notranslate"><span class="pre">Node</span></code>, for each attribute we mean</p>
-<ul class="simple">
-<li><p><strong>id:</strong> The identity of each tree node</p></li>
-<li><p><strong>value:</strong> Data you want to save. Here it will be the isometric tensor <span class="math notranslate nohighlight">\(V\)</span>.</p></li>
-<li><p><strong>left:</strong> The child tree node on the left.</p></li>
-<li><p><strong>right:</strong> The child tree node on the right.</p></li>
-</ul>
-</section>
-<section id="Measurements">
-<h1><span class="section-number">4.7.3. </span>Measurements<a class="headerlink" href="#Measurements" title="Permalink to this headline">#</a></h1>
-<p>We consider 3 physical measurements, energy spectrum near the ground state, correlation function and entanglement entropy. For latter two, one needs to consider the problem of lowest common ancestor (LCA) in graph theory and computer science.</p>
-<section id="Near-ground-state-energies">
-<h2><span class="section-number">4.7.3.1. </span>Near-ground-state energies<a class="headerlink" href="#Near-ground-state-energies" title="Permalink to this headline">#</a></h2>
-<p>We may compare the tSDRG result with exact diagonalization (ED)</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[116]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tnpy.model</span> <span class="kn">import</span> <span class="n">RandomHeisenberg</span>
-<span class="kn">from</span> <span class="nn">tnpy.exact_diagonalization</span> <span class="kn">import</span> <span class="n">ExactDiagonalization</span>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="n">model</span> <span class="o">=</span> <span class="n">RandomHeisenberg</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">2021</span><span class="p">)</span>
-<span class="n">ed</span> <span class="o">=</span> <span class="n">ExactDiagonalization</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">mpo</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ed</span><span class="o">.</span><span class="n">evals</span><span class="p">)</span>
+<span class="n">mat_size</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="c1"># elems drawn from normal dist</span>
+<span class="n">rand_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">mat_size</span><span class="p">,</span> <span class="n">mat_size</span><span class="p">)</span>
+<span class="c1"># symmetrize the matrix</span>
+<span class="n">ham</span> <span class="o">=</span> <span class="p">(</span><span class="n">rand_mat</span> <span class="o">+</span> <span class="n">rand_mat</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">matshow</span><span class="p">(</span><span class="n">ham</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[116]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.colorbar.Colorbar at 0x132cc5960&gt;
+</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<div class="highlight"><pre>
-[-5.725274   -5.72107734 -4.74615997 -4.71268557 -4.06178764 -3.51217086
- -3.25686868 -3.1702727  -3.08738826 -2.96569967 -2.96208476 -2.36976171
- -2.2468987  -1.96518603 -1.93061032 -1.66092774 -1.63521806 -1.53696184
- -1.53608151 -1.50235556 -1.3824775  -1.30353663 -1.28495105 -0.74151444
- -0.48708556 -0.46889621 -0.38280498 -0.32933783  0.02287853  0.02405187
-  0.11860807  0.14026275  0.25916564  0.26466405  0.29724328  0.41903877
-  0.52586047  0.57210892  0.73767002  0.99008145  0.99912061  1.28296561
-  1.39148235  1.50087939  1.58252137  1.62971816  1.79899183  1.80060276
-  1.82251982  2.32711     2.35072418  2.42976868  2.51529568  2.62638576
-  2.77518678  2.78965217  3.0927528   3.37982529  3.39238364  3.40923678
-  3.59608887  4.2094474   4.42301798  5.18876342]
-</pre></div></div>
+<img alt="../_images/notebooks_krylov_0_1.png" src="../_images/notebooks_krylov_0_1.png" />
 </div>
-<p>whereas for tSDRG, and with truncated bond dimensions <span class="math notranslate nohighlight">\(\chi &lt; 2^N\)</span></p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[105]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tnpy.tsdrg</span> <span class="kn">import</span> <span class="n">TreeTensorNetworkSDRG</span>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Krylov</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subspace_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ham</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">psi</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_subspace_size</span> <span class="o">=</span> <span class="n">subspace_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ham</span> <span class="o">=</span> <span class="n">ham</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_psi</span> <span class="o">=</span> <span class="n">psi</span>
 
-<span class="n">tsdrg</span> <span class="o">=</span> <span class="n">TreeTensorNetworkSDRG</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">mpo</span><span class="p">,</span> <span class="n">chi</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">tsdrg</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">subspace_size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subspace_size</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ham</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ham</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">psi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_psi</span>
+
+    <span class="k">def</span> <span class="nf">gen_krylov_subspace</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_power</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ham</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">psi</span>
+                <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subspace_size</span><span class="p">)</span>
+            <span class="p">]</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="k">def</span> <span class="nf">subspace_projector</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="n">q</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">qr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gen_krylov_subspace</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">q</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[117]:
+</pre></div>
 </div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-2021-10-29 15:06:37 [tsdrg.py] INFO: step 1, merging TreeNode(4) and TreeNode(5) to TreeNode(7)
-2021-10-29 15:06:37 [tsdrg.py] INFO: step 2, merging TreeNode(2) and TreeNode(3) to TreeNode(8)
-2021-10-29 15:06:37 [tsdrg.py] INFO: step 3, merging TreeNode(0) and TreeNode(1) to TreeNode(9)
-2021-10-29 15:06:37 [tsdrg.py] INFO: step 4, merging TreeNode(8) and TreeNode(7) to TreeNode(10)
-2021-10-29 15:06:37 [tsdrg.py] INFO: step 5, merging TreeNode(9) and TreeNode(10) to TreeNode(11)
-2021-10-29 15:06:37 [tsdrg.py] INFO: Reach head node of the tree
-2021-10-29 15:06:37 [tsdrg.py] INFO: Obtain ground state energies [-5.72520711 -5.72105886 -4.70924236 -4.65539092]
-</pre></div></div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">psi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">mat_size</span><span class="p">)</span>
+<span class="n">psi</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">psi</span><span class="p">)</span>
+</pre></div>
 </div>
-<p>but if we take the maximum bond dimensions <span class="math notranslate nohighlight">\(\chi = 2^N\)</span>, which is 64 here, then the result will then be exact.</p>
+</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[118]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tsdrg</span> <span class="o">=</span> <span class="n">TreeTensorNetworkSDRG</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">mpo</span><span class="p">,</span> <span class="n">chi</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
-<span class="n">tsdrg</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">krylov</span> <span class="o">=</span> <span class="n">Krylov</span><span class="p">(</span><span class="n">subspace_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ham</span><span class="o">=</span><span class="n">ham</span><span class="p">,</span> <span class="n">psi</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">mat_size</span><span class="p">))</span>
+<span class="n">span</span> <span class="o">=</span> <span class="n">krylov</span><span class="o">.</span><span class="n">gen_krylov_subspace</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">matshow</span><span class="p">(</span><span class="n">span</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[118]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.colorbar.Colorbar at 0x132e30e50&gt;
+</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_krylov_3_1.png" src="../_images/notebooks_krylov_3_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[119]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="n">krylov</span><span class="o">.</span><span class="n">subspace_projector</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">matshow</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[119]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
 <div class="highlight"><pre>
-2021-10-29 12:39:01 [tsdrg.py] INFO: step 1, merging TreeNode(4) and TreeNode(5) to TreeNode(7)
-2021-10-29 12:39:01 [tsdrg.py] INFO: step 2, merging TreeNode(2) and TreeNode(3) to TreeNode(8)
-2021-10-29 12:39:01 [tsdrg.py] INFO: step 3, merging TreeNode(8) and TreeNode(7) to TreeNode(9)
-2021-10-29 12:39:01 [tsdrg.py] INFO: step 4, merging TreeNode(1) and TreeNode(9) to TreeNode(10)
-2021-10-29 12:39:02 [tsdrg.py] INFO: step 5, merging TreeNode(0) and TreeNode(10) to TreeNode(11)
-2021-10-29 12:39:02 [tsdrg.py] INFO: Reach head node of the tree
-2021-10-29 12:39:02 [tsdrg.py] INFO: Obtain ground state energies [-5.725274   -5.72107734 -4.74615997 -4.71268557 -4.06178764 -3.51217086
- -3.25686868 -3.1702727  -3.08738826 -2.96569967 -2.96208476 -2.36976171
- -2.2468987  -1.96518603 -1.93061032 -1.66092774 -1.63521806 -1.53696184
- -1.53608151 -1.50235556 -1.3824775  -1.30353663 -1.28495105 -0.74151444
- -0.48708556 -0.46889621 -0.38280498 -0.32933783  0.02287853  0.02405187
-  0.11860807  0.14026275  0.25916564  0.26466405  0.29724328  0.41903877
-  0.52586047  0.57210892  0.73767002  0.99008145  0.99912061  1.28296561
-  1.39148235  1.50087939  1.58252137  1.62971816  1.79899183  1.80060276
-  1.82251982  2.32711     2.35072418  2.42976868  2.51529568  2.62638576
-  2.77518678  2.78965217  3.0927528   3.37982529  3.39238364  3.40923678
-  3.59608887  4.2094474   4.42301798  5.18876342]
+&lt;matplotlib.colorbar.Colorbar at 0x132f17550&gt;
 </pre></div></div>
 </div>
-</section>
-<section id="Correlation-function">
-<h2><span class="section-number">4.7.3.2. </span>Correlation function<a class="headerlink" href="#Correlation-function" title="Permalink to this headline">#</a></h2>
-<div><p><img alt="62db91efc0ce4084acd9cb309ad6968a" class="no-scaled-link" src="../_images/tsdrg3.png" style="width: 800px;" /></p>
-</div></section>
-<section id="Depth-first-Search-(DFS)-&amp;-Common-Ancestor">
-<h2><span class="section-number">4.7.3.3. </span>Depth-first Search (DFS) &amp; Common Ancestor<a class="headerlink" href="#Depth-first-Search-(DFS)-&-Common-Ancestor" title="Permalink to this headline">#</a></h2>
-</section>
-<section id="Entanglement-entropy">
-<h2><span class="section-number">4.7.3.4. </span>Entanglement entropy<a class="headerlink" href="#Entanglement-entropy" title="Permalink to this headline">#</a></h2>
-</section>
-</section>
-<section id="References">
-<h1><span class="section-number">4.7.4. </span>References<a class="headerlink" href="#References" title="Permalink to this headline">#</a></h1>
-<ol class="arabic simple">
-<li><p><a class="reference external" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.96.064427">Griffiths singularities in the random quantum Ising antiferromagnet: A tree tensor network renormalization group study</a></p></li>
-<li><p><a class="reference external" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.89.214203">Self-assembling tensor networks and holography in disordered spin chains</a></p></li>
-</ol>
-</section>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_krylov_4_1.png" src="../_images/notebooks_krylov_4_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[120]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">matshow</span><span class="p">(</span><span class="n">q</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">ham</span> <span class="o">@</span> <span class="n">q</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[120]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.colorbar.Colorbar at 0x13300a320&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_krylov_5_1.png" src="../_images/notebooks_krylov_5_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[113]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tnpy.model.transverse_ising</span> <span class="kn">import</span> <span class="n">TransverseIsing</span>
+<span class="kn">from</span> <span class="nn">tnpy.operators</span> <span class="kn">import</span> <span class="n">FullHamiltonian</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">TransverseIsing</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">ham</span> <span class="o">=</span> <span class="n">FullHamiltonian</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">mpo</span><span class="p">)</span><span class="o">.</span><span class="n">matrix</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">matshow</span><span class="p">(</span><span class="n">ham</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[113]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.colorbar.Colorbar at 0x132adf370&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_krylov_6_1.png" src="../_images/notebooks_krylov_6_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[115]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">psi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ham</span><span class="p">))</span>
+<span class="n">psi</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">psi</span><span class="p">)</span>
+
+<span class="n">krylov</span> <span class="o">=</span> <span class="n">Krylov</span><span class="p">(</span><span class="n">subspace_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ham</span><span class="o">=</span><span class="n">ham</span><span class="p">,</span> <span class="n">psi</span><span class="o">=</span><span class="n">psi</span><span class="p">)</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">krylov</span><span class="o">.</span><span class="n">subspace_projector</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">matshow</span><span class="p">(</span><span class="n">q</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">ham</span> <span class="o">@</span> <span class="n">q</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[115]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.colorbar.Colorbar at 0x132d0ded0&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_krylov_7_1.png" src="../_images/notebooks_krylov_7_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
 
 
               </div>
@@ -1134,20 +1055,6 @@ div.rendered_html tbody tr:hover {
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../algorithm/_autosummary/tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">4.6. </span>tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="../model/model_1d.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">1. </span>Model 1D</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
 </div>
             </footer>
         </div>

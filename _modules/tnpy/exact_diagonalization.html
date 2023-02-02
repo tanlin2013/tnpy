@@ -518,7 +518,8 @@ title="Open an issue"
               <div>
                 
   <h1>Source code for tnpy.exact_diagonalization</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Sequence</span>
+<span></span><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">permutations</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -527,14 +528,15 @@ title="Open an issue"
 
 
 <div class="viewcode-block" id="ExactDiagonalization"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.exact_diagonalization.ExactDiagonalization.html#tnpy.exact_diagonalization.ExactDiagonalization">[docs]</a><span class="k">class</span> <span class="nc">ExactDiagonalization</span><span class="p">(</span><span class="n">FullHamiltonian</span><span class="p">):</span>
-<div class="viewcode-block" id="ExactDiagonalization.__init__"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.exact_diagonalization.ExactDiagonalization.html#tnpy.exact_diagonalization.ExactDiagonalization.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mpo</span><span class="p">:</span> <span class="n">MatrixProductOperator</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ExactDiagonalization.__init__"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.exact_diagonalization.ExactDiagonalization.html#tnpy.exact_diagonalization.ExactDiagonalization.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mpo</span><span class="p">:</span> <span class="n">MatrixProductOperator</span><span class="p">,</span> <span class="n">proj</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform the numerically exact diagonalization on the matrix,</span>
 <span class="sd">        which is constructed through the given Matrix Product Operator (MPO).</span>
 <span class="sd">        Calculations are taken in prompt on the initialization of this class.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            mpo: The matrix product operator.</span>
+<span class="sd">            proj: Projector apply to the Hamiltonian, :math:`P^T H P`.</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ResourceWarning: When the dimensions of Hamiltonian are larger</span>
@@ -546,21 +548,25 @@ title="Open an issue"
 <span class="sd">            &gt;&gt;&gt; evecs = ed.evecs</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">mpo</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_proj</span> <span class="o">=</span> <span class="n">proj</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">proj</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">proj</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">proj</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_evals</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_evecs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigen_solver</span><span class="p">()</span></div>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">proj</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proj</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">evals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Eigenvalues in ascending order.</span>
-
-<span class="sd">        Returns:</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_evals</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">evecs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Eigenvectors in the order accordingly to :attr:`~ExactDiagonalization.evals`.</span>
 
 <span class="sd">        Returns:</span>
@@ -574,13 +580,13 @@ title="Open an issue"
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
 
 <div class="viewcode-block" id="ExactDiagonalization.reduced_density_matrix"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.exact_diagonalization.ExactDiagonalization.html#tnpy.exact_diagonalization.ExactDiagonalization.reduced_density_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">reduced_density_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">level_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the reduced density matrix on the bi-partition ``site`` :math:`i`</span>
 <span class="sd">        through the singular value decomposition.</span>
 
 <span class="sd">        .. math::</span>
 
-<span class="sd">            \rho_A = tr_B rho</span>
+<span class="sd">            \rho_A = tr_B \rho</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            site: The site to which the bi-partition is taken on</span>
@@ -610,7 +616,7 @@ title="Open an issue"
 <div class="viewcode-block" id="ExactDiagonalization.entanglement_entropy"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.exact_diagonalization.ExactDiagonalization.html#tnpy.exact_diagonalization.ExactDiagonalization.entanglement_entropy">[docs]</a>    <span class="k">def</span> <span class="nf">entanglement_entropy</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">level_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">nan_to_num</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the von Neumann entropy on the cutting ``site``.</span>
 
 <span class="sd">        Args:</span>
@@ -628,7 +634,7 @@ title="Open an issue"
 
 <div class="viewcode-block" id="ExactDiagonalization.kron_operators"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.exact_diagonalization.ExactDiagonalization.html#tnpy.exact_diagonalization.ExactDiagonalization.kron_operators">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">kron_operators</span><span class="p">(</span><span class="n">operators</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform Kronecker product on the given sequence of operators.</span>
 <span class="sd">        This can be used to construct, for instance,</span>
 <span class="sd">        :math:`I_1 \otimes \cdots \otimes S_i^z \otimes \cdots \otimes I_N`</span>
@@ -648,7 +654,7 @@ title="Open an issue"
 <div class="viewcode-block" id="ExactDiagonalization.one_point_function"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.exact_diagonalization.ExactDiagonalization.html#tnpy.exact_diagonalization.ExactDiagonalization.one_point_function">[docs]</a>    <span class="k">def</span> <span class="nf">one_point_function</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">operator</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">level_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the expectation value :math:`\langle \hat{O}_i \rangle`</span>
 <span class="sd">        of given local operator :math:`\hat{O}_i` on site :math:`i`.</span>
 
@@ -678,7 +684,7 @@ title="Open an issue"
         <span class="n">site2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">level_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the correlation function</span>
 <span class="sd">        :math:`\langle \hat{O}_{i_1}^A \hat{O}_{i_2}^B \rangle`</span>
 <span class="sd">        of 2 given local operators</span>
@@ -719,7 +725,7 @@ title="Open an issue"
         <span class="n">site2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">level_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            operator1:</span>
@@ -740,7 +746,7 @@ title="Open an issue"
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="ExactDiagonalization.variance"><a class="viewcode-back" href="../../algorithm/_autosummary/tnpy.exact_diagonalization.ExactDiagonalization.html#tnpy.exact_diagonalization.ExactDiagonalization.variance">[docs]</a>    <span class="k">def</span> <span class="nf">variance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operator</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-12</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the variance on input operator.</span>
 
 <span class="sd">        Args:</span>
@@ -765,6 +771,32 @@ title="Open an issue"
         <span class="p">):</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Expectation value may contain large off-diagonal elements.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">var</span><span class="p">)</span></div></div>
+
+
+<span class="k">class</span> <span class="nc">SpinSector</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_basis</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;u&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]),</span> <span class="s2">&quot;d&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">basis</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">basis</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">kron_product</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">spin_bases</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">spin_bases</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">spin_bases</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">cls</span><span class="o">.</span><span class="n">kron_product</span><span class="p">(</span><span class="n">spin_bases</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+
+    <span class="k">def</span> <span class="nf">spin_zero_projector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">spin_zero_permutations</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+            <span class="nb">set</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">permutations</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;u&#39;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="si">}{</span><span class="s1">&#39;d&#39;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">)))</span>
+        <span class="p">)</span>
+        <span class="n">zero_charge_basis</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">kron_product</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_basis</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="n">elem</span><span class="p">)))</span>
+            <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">spin_zero_permutations</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">,</span> <span class="n">zero_charge_basis</span><span class="p">)))</span>
 </pre></div>
 
               </div>
@@ -783,7 +815,7 @@ title="Open an issue"
   
     By Tan Tao-Lin<br/>
   
-      &copy; Copyright 2021, Tan Tao-Lin.<br/>
+      &copy; Copyright 2023, Tan Tao-Lin.<br/>
 </p>
         </footer>
     </div>

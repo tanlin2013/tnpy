@@ -33,6 +33,7 @@
       ~ShiftInvertTreeTensorNetworkSDRG.measurements
       ~ShiftInvertTreeTensorNetworkSDRG.mpo
       ~ShiftInvertTreeTensorNetworkSDRG.n_sites
+      ~ShiftInvertTreeTensorNetworkSDRG.offset
       ~ShiftInvertTreeTensorNetworkSDRG.tree
    
    

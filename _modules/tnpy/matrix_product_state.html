@@ -537,7 +537,7 @@ title="Open an issue"
 
 
 <div class="viewcode-block" id="Direction"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.Direction.html#tnpy.matrix_product_state.Direction">[docs]</a><span class="k">class</span> <span class="nc">Direction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Enumeration for specifying the direction (leftward or rightward).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -547,7 +547,7 @@ title="Open an issue"
 
 <div class="viewcode-block" id="MatrixProductState"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState">[docs]</a><span class="k">class</span> <span class="nc">MatrixProductState</span><span class="p">(</span><span class="n">qtn</span><span class="o">.</span><span class="n">MatrixProductState</span><span class="p">):</span>
 <div class="viewcode-block" id="MatrixProductState.__init__"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Matrix product state (MPS) for a finite size system.</span>
 
 <span class="sd">        Args:</span>
@@ -570,20 +570,15 @@ title="Open an issue"
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">phys_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Physical dimensions of local state.</span>
-
-<span class="sd">        Returns:</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">bond_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The bond dimensions.</span>
-
-<span class="sd">        Returns:</span>
 
 <span class="sd">        Notes:</span>
 <span class="sd">            The actual bond dimensions can be smaller</span>
@@ -596,7 +591,7 @@ title="Open an issue"
         <span class="k">return</span> <span class="n">tensor</span>
 
 <div class="viewcode-block" id="MatrixProductState.permute_arrays"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState.permute_arrays">[docs]</a>    <span class="k">def</span> <span class="nf">permute_arrays</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;lrp&quot;</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Permute the indices of each tensor in this MPS to match ``shape``.</span>
 <span class="sd">        This doesn&#39;t change how the overall object interacts with other tensor</span>
 <span class="sd">        networks but may be useful for extracting the underlying arrays</span>
@@ -618,7 +613,7 @@ title="Open an issue"
 <div class="viewcode-block" id="MatrixProductState.conj"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState.conj">[docs]</a>    <span class="k">def</span> <span class="nf">conj</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">mangle_inner</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">mangle_outer</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatrixProductState</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a conjugated copy of this :class:`~MatrixProductState` instance.</span>
 
 <span class="sd">        Args:</span>
@@ -645,7 +640,7 @@ title="Open an issue"
         <span class="k">return</span> <span class="n">mps</span></div>
 
 <div class="viewcode-block" id="MatrixProductState.save"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Save the underlying tensors of this :class:`~MatrixProductState`</span>
 <span class="sd">        in the order of indices ``&#39;lpr&#39;`` into file.</span>
 <span class="sd">        Only accepts suffix ``&#39;.hdf5&#39;`` or ``&#39;.npz&#39;`` as file extension.</span>
@@ -674,7 +669,7 @@ title="Open an issue"
 
 <div class="viewcode-block" id="MatrixProductState.load"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState.load">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatrixProductState</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the underlying tensors of :class:`~MatrixProductState`</span>
 <span class="sd">        from a file. Tensors in the file should take the order of indices</span>
 <span class="sd">        ``&#39;lpr&#39;``. Only accepts suffix ``&#39;.hdf5&#39;`` or ``&#39;.npz&#39;`` as</span>
@@ -702,7 +697,7 @@ title="Open an issue"
     <span class="k">def</span> <span class="nf">random</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">bond_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">phys_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatrixProductState</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a randomly initialized :class:`~MatrixProductState`.</span>
 
 <span class="sd">        Args:</span>
@@ -713,12 +708,12 @@ title="Open an issue"
 <span class="sd">        Returns:</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">rand_mps</span> <span class="o">=</span> <span class="n">qtn</span><span class="o">.</span><span class="n">MPS_rand_state</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">bond_dim</span><span class="o">=</span><span class="n">bond_dim</span><span class="p">,</span> <span class="n">phys_dim</span><span class="o">=</span><span class="n">phys_dim</span><span class="p">)</span>
+        <span class="n">rand_mps</span> <span class="o">=</span> <span class="n">qtn</span><span class="o">.</span><span class="n">MPS_rand_state</span><span class="p">(</span><span class="n">L</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">bond_dim</span><span class="o">=</span><span class="n">bond_dim</span><span class="p">,</span> <span class="n">phys_dim</span><span class="o">=</span><span class="n">phys_dim</span><span class="p">)</span>
         <span class="n">rand_mps</span><span class="o">.</span><span class="n">compress</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">([</span><span class="n">tensor</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="n">rand_mps</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="MatrixProductState.split_tensor"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html#tnpy.matrix_product_state.MatrixProductState.split_tensor">[docs]</a>    <span class="k">def</span> <span class="nf">split_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Split the tensor at given ``site`` into two tensors,</span>
 <span class="sd">        and multiply the one on left or right ``direction`` into its</span>
 <span class="sd">        neighbouring tensor. This is an inplace operation.</span>
@@ -763,7 +758,7 @@ title="Open an issue"
 
 <div class="viewcode-block" id="Environment"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.Environment.html#tnpy.matrix_product_state.Environment">[docs]</a><span class="k">class</span> <span class="nc">Environment</span><span class="p">:</span>
 <div class="viewcode-block" id="Environment.__init__"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.Environment.html#tnpy.matrix_product_state.Environment.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mpo</span><span class="p">:</span> <span class="n">MatrixProductOperator</span><span class="p">,</span> <span class="n">mps</span><span class="p">:</span> <span class="n">MatrixProductState</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The effective environment for :class:`~MatrixProductState`-based</span>
 <span class="sd">        algorithms.</span>
 
@@ -785,7 +780,7 @@ title="Open an issue"
             <span class="bp">self</span><span class="o">.</span><span class="n">update_right</span><span class="p">(</span><span class="n">site</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Environment.close"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.Environment.html#tnpy.matrix_product_state.Environment.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Delete the underlying data of left and right environments.</span>
 
 <span class="sd">        Returns:</span>
@@ -808,7 +803,7 @@ title="Open an issue"
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">left</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">qtn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get a dictionary where left environments are stored on the respective</span>
 <span class="sd">        site.</span>
 
@@ -819,7 +814,7 @@ title="Open an issue"
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">right</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">qtn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get a dictionary where right environments are stored on the respective</span>
 <span class="sd">        site.</span>
 
@@ -829,7 +824,7 @@ title="Open an issue"
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_right</span>
 
 <div class="viewcode-block" id="Environment.update_left"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.Environment.html#tnpy.matrix_product_state.Environment.update_left">[docs]</a>    <span class="k">def</span> <span class="nf">update_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the left environment at ``site``.</span>
 
 <span class="sd">        Args:</span>
@@ -850,7 +845,7 @@ title="Open an issue"
         <span class="bp">self</span><span class="o">.</span><span class="n">_left</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">=</span> <span class="n">tn</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Environment.update_right"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.Environment.html#tnpy.matrix_product_state.Environment.update_right">[docs]</a>    <span class="k">def</span> <span class="nf">update_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the right environment at ``site``.</span>
 
 <span class="sd">        Args:</span>
@@ -871,7 +866,7 @@ title="Open an issue"
         <span class="bp">self</span><span class="o">.</span><span class="n">_right</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">=</span> <span class="n">tn</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Environment.update"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.Environment.html#tnpy.matrix_product_state.Environment.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Alias to :func:`~Environment.update_left` or</span>
 <span class="sd">        :func:`~Environment.update_right` depending on the given ``direction``.</span>
 
@@ -905,7 +900,7 @@ title="Open an issue"
         <span class="k">return</span> <span class="n">tn1</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span> <span class="o">-</span> <span class="n">tn2</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span> <span class="o">**</span> <span class="mi">2</span></div>
 
 <div class="viewcode-block" id="Environment.one_site_full_matrix"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.Environment.html#tnpy.matrix_product_state.Environment.one_site_full_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">one_site_full_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Construct the effective matrix for variational solver,</span>
 <span class="sd">        with one site remained un-contracted.</span>
 
@@ -944,7 +939,7 @@ title="Open an issue"
         <span class="k">return</span> <span class="n">tn</span><span class="o">.</span><span class="n">contract</span><span class="p">()</span><span class="o">.</span><span class="n">fuse</span><span class="p">(</span><span class="n">fuse_map</span><span class="p">)</span><span class="o">.</span><span class="n">data</span></div>
 
 <div class="viewcode-block" id="Environment.one_site_matvec"><a class="viewcode-back" href="../../_autosummary/tnpy.matrix_product_state.Environment.html#tnpy.matrix_product_state.Environment.one_site_matvec">[docs]</a>    <span class="k">def</span> <span class="nf">one_site_matvec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LinearOperator</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Construct the effective linear operator (matrix-vector product) for</span>
 <span class="sd">        variational solver, with one site remained un-contracted.</span>
 
@@ -1006,7 +1001,7 @@ title="Open an issue"
   
     By Tan Tao-Lin<br/>
   
-      &copy; Copyright 2021, Tan Tao-Lin.<br/>
+      &copy; Copyright 2023, Tan Tao-Lin.<br/>
 </p>
         </footer>
     </div>

@@ -588,12 +588,7 @@ title="Edit this page"
 <td><p>Plot the tree with <code class="xref py py-class docutils literal notranslate"><span class="pre">graphviz.Digraph</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TensorTree.tensor_network" title="tnpy.tsdrg.TensorTree.tensor_network"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor_network</span></code></a>([node_ids, conj, ...])</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">param node_ids</dt>
-<dd class="field-odd"><p>The id of nodes that will be selected from the tree.</p>
-</dd>
-</dl>
-</p></td>
+<td><p>Construct the <code class="xref py py-class docutils literal notranslate"><span class="pre">qtn.TensorNetwork</span></code> object from the given list of <cite>node_ids</cite>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -617,7 +612,7 @@ title="Edit this page"
 <td><p>The number of leaves, namely the system size.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TensorTree.n_nodes" title="tnpy.tsdrg.TensorTree.n_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_nodes</span></code></a></p></td>
-<td><p>Total number of nodes in tree.</p></td>
+<td><p>Total number of nodes in tree, including leaves.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.TensorTree.root" title="tnpy.tsdrg.TensorTree.root"><code class="xref py py-obj docutils literal notranslate"><span class="pre">root</span></code></a></p></td>
 <td><p>The root of tree.</p></td>
@@ -710,7 +705,6 @@ title="Edit this page"
 <dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.root">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">root</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="tnpy.tsdrg.Node.html#tnpy.tsdrg.Node" title="tnpy.tsdrg.Node"><span class="pre">tnpy.tsdrg.Node</span></a></em><a class="headerlink" href="#tnpy.tsdrg.TensorTree.root" title="Permalink to this definition">#</a></dt>
 <dd><p>The root of tree.</p>
-<p>Returns:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises</dt>
 <dd class="field-odd"><p><strong>KeyError</strong> – If the tree is not constructed yet.</p>
@@ -722,7 +716,6 @@ title="Edit this page"
 <dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.leaves">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">leaves</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="tnpy.tsdrg.Node.html#tnpy.tsdrg.Node" title="tnpy.tsdrg.Node"><span class="pre">tnpy.tsdrg.Node</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tnpy.tsdrg.TensorTree.leaves" title="Permalink to this definition">#</a></dt>
 <dd><p>A dictionary to leaves, i.e. matrix product operator.</p>
-<p>Returns:</p>
 </dd></dl>
 
 <dl class="py property">
@@ -734,7 +727,7 @@ This can be useful during the bottom-up construction of the tree,
 until there is only one node on the horizon, that is the root.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The horizon.</p>
+<dd class="field-odd"><p>The horizon as a list of node ids.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -742,19 +735,13 @@ until there is only one node on the horizon, that is the root.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.n_nodes">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_nodes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tnpy.tsdrg.TensorTree.n_nodes" title="Permalink to this definition">#</a></dt>
-<dd><p>Total number of nodes in tree.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Number of nodes, including leaves in tree.</p>
-</dd>
-</dl>
+<dd><p>Total number of nodes in tree, including leaves.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.n_leaves">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_leaves</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tnpy.tsdrg.TensorTree.n_leaves" title="Permalink to this definition">#</a></dt>
 <dd><p>The number of leaves, namely the system size.</p>
-<p>Returns:</p>
 </dd></dl>
 
 <dl class="py method">
@@ -770,11 +757,10 @@ and this method is only responsible to create new node in the tree.</p>
 <li><p><strong>left_id</strong> (<em>int</em>) – The ID of left node to be fused.</p></li>
 <li><p><strong>right_id</strong> (<em>int</em>) – The ID of right node to be fused.</p></li>
 <li><p><strong>new_id</strong> (<em>int</em>) – The ID of new node.</p></li>
-<li><p><strong>data</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a>) – Data that will be assigned to the new node.</p></li>
+<li><p><strong>data</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em></a>) – Data that will be assigned to the new node.</p></li>
 </ul>
 </dd>
 </dl>
-<p>Returns:</p>
 </dd></dl>
 
 <dl class="py method">
@@ -797,13 +783,16 @@ and this method is only responsible to create new node in the tree.</p>
 <dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.n_layers">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_layers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tnpy.tsdrg.TensorTree.n_layers" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute the number of layers in this tree, leaves included.</p>
-<p>Returns:</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TensorTree.tensor_network">
 <span class="sig-name descname"><span class="pre">tensor_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mangle_outer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_leaves</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TensorTree.tensor_network"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TensorTree.tensor_network" title="Permalink to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Construct the <code class="xref py py-class docutils literal notranslate"><span class="pre">qtn.TensorNetwork</span></code> object from the given list
+of <cite>node_ids</cite>. Physical quantities often don’t require all nodes,
+and one could cooperate this method with <a class="reference internal" href="#tnpy.tsdrg.TensorTree.find_path" title="tnpy.tsdrg.TensorTree.find_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_path()</span></code></a>
+or <a class="reference internal" href="#tnpy.tsdrg.TensorTree.common_ancestor" title="tnpy.tsdrg.TensorTree.common_ancestor"><code class="xref py py-func docutils literal notranslate"><span class="pre">common_ancestor()</span></code></a>.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>node_ids</strong> (<em>Sequence</em><em>[</em><em>int</em><em>]</em>) – The id of nodes that will be selected from the tree.</p></li>
@@ -819,7 +808,7 @@ into account in this network.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://quimb.readthedocs.io/en/latest/_autosummary/quimb.tensor.tensor_core.html#quimb.tensor.tensor_core.TensorNetwork" title="(in quimb v1.4)">quimb.tensor.tensor_core.TensorNetwork</a></p>
+<dd class="field-even"><p>quimb.tensor.tensor_core.TensorNetwork</p>
 </dd>
 </dl>
 <p>Returns:</p>
@@ -920,7 +909,7 @@ the root.</p>
   
     By Tan Tao-Lin<br/>
   
-      &copy; Copyright 2021, Tan Tao-Lin.<br/>
+      &copy; Copyright 2023, Tan Tao-Lin.<br/>
 </p>
         </footer>
     </div>
