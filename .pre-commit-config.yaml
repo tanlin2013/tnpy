@@ -23,6 +23,7 @@ repos:
     rev: 6.0.0
     hooks:
     -   id: flake8
+        additional_dependencies: [Flake8-pyproject]
 
 -   repo: https://github.com/python-poetry/poetry
     rev: 1.3.2

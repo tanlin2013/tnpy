@@ -69,9 +69,22 @@ line-length = 100
 [tool.isort]
 profile = "black"
 
+[tool.flake8]
+count = true
+max-line-length = 100
+ignore = [
+    "E203",
+    "W503"
+]
+
 [tool.mypy]
 ignore_missing_imports = true
 strict_optional = false
+plugins = ["numpy.typing.mypy_plugin"]
+
+[tool.coverage.report]
+exclude_lines = ["pragma: no cover"]
+omit = ["*tests*"]
 
 [tool.bandit]
 skips = ["B101"]
