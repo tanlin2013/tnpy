@@ -1,4 +1,4 @@
-# tnpy
+# tnpy: Tensor Network algorithms implemented in python.
 
 _________________
 
