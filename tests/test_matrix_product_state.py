@@ -1,11 +1,11 @@
 import os
 from contextlib import nullcontext as does_not_raise
 
-import pytest
 import numpy as np
+import pytest
 
+from tnpy.matrix_product_state import Direction, Environment, MatrixProductState
 from tnpy.model import RandomHeisenberg
-from tnpy.matrix_product_state import Direction, MatrixProductState, Environment
 
 
 class Helper:
@@ -84,9 +84,7 @@ class TestMatrixProductState:
     def test_split_tensor(self, site, mps):
         two_site_mps = mps[site] @ mps[site + 1]
         mps.split_tensor(site, direction=Direction.RIGHTWARD)
-        np.testing.assert_allclose(
-            two_site_mps.data, (mps[site] @ mps[site + 1]).data, atol=1e-12
-        )
+        np.testing.assert_allclose(two_site_mps.data, (mps[site] @ mps[site + 1]).data, atol=1e-12)
         assert mps[site].tags == {f"I{site}"}
         assert mps[site + 1].tags == {f"I{site + 1}"}
 
@@ -95,9 +93,7 @@ class TestEnvironment:
     @pytest.fixture(scope="class")
     def env(self):
         model = RandomHeisenberg(n=6, h=0, penalty=100.0)
-        return Environment(
-            model.mpo, MatrixProductState.random(n=model.n, bond_dim=16, phys_dim=2)
-        )
+        return Environment(model.mpo, MatrixProductState.random(n=model.n, bond_dim=16, phys_dim=2))
 
     def test_left(self, env):
         print(env.mps)

@@ -1,15 +1,15 @@
-import pytest
 import numpy as np
+import pytest
 
-from tnpy.model import RandomHeisenberg, TotalSz
-from tnpy.operators import SpinOperators, FullHamiltonian
 from tnpy.exact_diagonalization import ExactDiagonalization
+from tnpy.model import RandomHeisenberg, TotalSz
+from tnpy.operators import FullHamiltonian, SpinOperators
 from tnpy.tsdrg import (
-    TensorTree,
-    TreeTensorNetworkSDRG as tSDRG,
     HighEnergyTreeTensorNetworkSDRG,
     ShiftInvertTreeTensorNetworkSDRG,
+    TensorTree,
 )
+from tnpy.tsdrg import TreeTensorNetworkSDRG as tSDRG
 
 
 class TestTensorTree:
@@ -21,25 +21,19 @@ class TestTensorTree:
             left_id=1,
             right_id=2,
             new_id=4,
-            data=ExactDiagonalization(RandomHeisenberg(n=2, h=0).mpo).evecs.reshape(
-                (2, 2, 4)
-            ),
+            data=ExactDiagonalization(RandomHeisenberg(n=2, h=0).mpo).evecs.reshape((2, 2, 4)),
         )
         tree.fuse(
             left_id=0,
             right_id=4,
             new_id=5,
-            data=ExactDiagonalization(RandomHeisenberg(n=3, h=0).mpo).evecs.reshape(
-                (2, 4, 8)
-            ),
+            data=ExactDiagonalization(RandomHeisenberg(n=3, h=0).mpo).evecs.reshape((2, 4, 8)),
         )
         tree.fuse(
             left_id=5,
             right_id=3,
             new_id=6,
-            data=ExactDiagonalization(RandomHeisenberg(n=4, h=0).mpo).evecs.reshape(
-                (8, 2, 16)
-            ),
+            data=ExactDiagonalization(RandomHeisenberg(n=4, h=0).mpo).evecs.reshape((8, 2, 16)),
         )
         return tree
 
@@ -150,9 +144,7 @@ class TestTreeTensorNetworkSDRG:
 
         np.set_printoptions(threshold=sys.maxsize, linewidth=sys.maxsize)
         tsdrg.run()
-        np.testing.assert_allclose(
-            ed.evals[: tsdrg.chi], np.sort(tsdrg.evals), atol=1e-8
-        )
+        np.testing.assert_allclose(ed.evals[: tsdrg.chi], np.sort(tsdrg.evals), atol=1e-8)
 
     def test_measurements(self, ed, tsdrg):
         tsdrg.run()
@@ -218,9 +210,7 @@ class TestTreeTensorNetworkMeasurements:
         np.testing.assert_allclose(
             ed.reduced_density_matrix(site=site, level_idx=level_idx),
             np.linalg.eigvalsh(
-                tsdrg.measurements.reduced_density_matrix(
-                    site=site, level_idx=level_idx
-                )
+                tsdrg.measurements.reduced_density_matrix(site=site, level_idx=level_idx)
             )[::-1],
             atol=1e-12,
         )
@@ -252,9 +242,7 @@ class TestTreeTensorNetworkMeasurements:
         Sp, Sm, Sz, I2, O2 = SpinOperators()
         np.testing.assert_allclose(
             ed.two_point_function(Sz, Sz, site1, site2, level_idx=level_idx),
-            tsdrg.measurements.two_point_function(
-                Sz, Sz, site1, site2, level_idx=level_idx
-            ),
+            tsdrg.measurements.two_point_function(Sz, Sz, site1, site2, level_idx=level_idx),
             atol=1e-12,
         )
 
@@ -319,12 +307,8 @@ class TestShiftInvertTreeTensorNetworkSDRG:
 
     @pytest.fixture(scope="function")
     def sitsdrg(self, model, offset):
-        shifted_model = RandomHeisenberg(
-            n=model.n, h=model.h, seed=model.seed, offset=offset
-        )
-        return ShiftInvertTreeTensorNetworkSDRG(
-            shifted_model.mpo, chi=2**5, offset=offset
-        )
+        shifted_model = RandomHeisenberg(n=model.n, h=model.h, seed=model.seed, offset=offset)
+        return ShiftInvertTreeTensorNetworkSDRG(shifted_model.mpo, chi=2**5, offset=offset)
 
     @pytest.fixture(scope="class")
     def ed(self, model):

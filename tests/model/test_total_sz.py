@@ -1,6 +1,5 @@
-import pytest
-
 import numpy as np
+import pytest
 
 from tnpy.model import TotalSz
 from tnpy.operators import FullHamiltonian
