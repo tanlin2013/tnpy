@@ -398,7 +398,6 @@ class ShiftInvertDMRG(FiniteDMRG):
             raise RuntimeError("FiniteDMRG is probably not executed yet.")
         return MatrixProductStateMeasurements(self.restored_mps)
 
-    @property
     def variance(self) -> float:
         tn = (
             self.restored_mps
