@@ -75,7 +75,8 @@ count = true
 max-line-length = 100
 ignore = [
     "E203",
-    "W503"
+    "W503",
+    "N806"
 ]
 
 [tool.mypy]
