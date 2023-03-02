@@ -1,8 +1,8 @@
 import numpy as np
 
-from tnpy.operators import SpinOperators
 from tnpy.model.model_1d import Model1D
 from tnpy.model.utils import boundary_vectors, minors_if_no_penalty
+from tnpy.operators import SpinOperators
 
 
 class RandomHeisenberg(Model1D):
@@ -86,9 +86,7 @@ class RandomHeisenberg(Model1D):
     def _elem(self, site: int) -> np.ndarray:
         Sp, Sm, Sz, I2, O2 = SpinOperators()
 
-        alpha = (
-            self.penalty * (0.25 + self.s_target**2 / self.n) - self.offset / self.n
-        )
+        alpha = self.penalty * (0.25 + self.s_target**2 / self.n) - self.offset / self.n
         beta = self._random_sequence[site] - 2.0 * self.penalty * self.s_target
 
         return np.array(

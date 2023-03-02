@@ -92,11 +92,7 @@ class FiniteTDVP:
                 self._update_left_env(site + 1)
                 self._update_left_norm(site + 1)
                 if site < self.N - 1:
-                    C = Node(
-                        self._unit_solver(Evolve.BACKWARD, t_span, site).reshape(
-                            r.shape
-                        )
-                    )
+                    C = Node(self._unit_solver(Evolve.BACKWARD, t_span, site).reshape(r.shape))
                     Mp = self._mps.nodes[site + 1]
                     C[1] ^ Mp[0]
                     self._mps.nodes[site + 1] = C @ Mp
@@ -106,11 +102,7 @@ class FiniteTDVP:
                 self._update_right_env(site - 1)
                 self._update_right_norm(site - 1)
                 if site > 0:
-                    C = Node(
-                        self._unit_solver(Evolve.BACKWARD, t_span, site - 1).reshape(
-                            q.shape
-                        )
-                    )
+                    C = Node(self._unit_solver(Evolve.BACKWARD, t_span, site - 1).reshape(q.shape))
                     Mp = self._mps.nodes[site - 1]
                     Mp[2] ^ C[0]
             # @TODO: measure something here to check the status of mps

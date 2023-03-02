@@ -12,7 +12,7 @@ from tensornetwork import Node
 from tqdm import tqdm
 
 from tnpy import logger
-from tnpy.linalg import svd, LinearOperator
+from tnpy.linalg import LinearOperator, svd
 from tnpy.operators import MatrixProductOperator
 
 
@@ -90,9 +90,7 @@ class MatrixProductState(qtn.MatrixProductState):
             inds = [inds[s] for s in shape if s in inds]  # type: ignore
             self[i].transpose_(*inds)
 
-    def conj(
-        self, mangle_inner: bool = False, mangle_outer: bool = False
-    ) -> MatrixProductState:
+    def conj(self, mangle_inner: bool = False, mangle_outer: bool = False) -> MatrixProductState:
         """
         Create a conjugated copy of this :class:`~MatrixProductState` instance.
 
@@ -109,9 +107,7 @@ class MatrixProductState(qtn.MatrixProductState):
         """
         mps = super().conj()
         if mangle_inner:
-            mps.reindex(
-                {ind: qtn.rand_uuid() for ind in mps.inner_inds()}, inplace=True
-            )
+            mps.reindex({ind: qtn.rand_uuid() for ind in mps.inner_inds()}, inplace=True)
         if mangle_outer:
             mps.reindex(
                 {ind: re.sub(r"^k(\d+)", r"b\1", ind) for ind in mps.outer_inds()},
@@ -132,9 +128,7 @@ class MatrixProductState(qtn.MatrixProductState):
 
         """
         # @TODO: solve ordering issue
-        tensor_datasets = {
-            self.site_tag(site): self[site].data for site in range(self.nsites)
-        }
+        tensor_datasets = {self.site_tag(site): self[site].data for site in range(self.nsites)}
         filepath = Path(filename)
         extension = filepath.suffix
         if extension == ".hdf5":
@@ -174,9 +168,7 @@ class MatrixProductState(qtn.MatrixProductState):
             raise ValueError(f"File extension {extension} is not supported.")
 
     @classmethod
-    def random(
-        cls, n: int, bond_dim: int, phys_dim: int, **kwargs
-    ) -> MatrixProductState:
+    def random(cls, n: int, bond_dim: int, phys_dim: int, **kwargs) -> MatrixProductState:
         """
         Create a randomly initialized :class:`~MatrixProductState`.
 
@@ -254,9 +246,7 @@ class Environment:
         self._right: Dict[int, qtn.Tensor] = {}
         for site in tqdm(range(1, self.n_sites), desc="Initializing left environments"):
             self.update_left(site)
-        for site in tqdm(
-            range(self.n_sites - 2, -1, -1), desc="Initializing right environments"
-        ):
+        for site in tqdm(range(self.n_sites - 2, -1, -1), desc="Initializing right environments"):
             self.update_right(site)
 
     def close(self):
@@ -447,9 +437,7 @@ class Environment:
                 ]
             return tn.contract(output_inds=output_inds).data.reshape(-1, 1)
 
-        return LinearOperator(
-            shape=(self.mps[site].size, self.mps[site].size), matvec=matvec
-        )
+        return LinearOperator(shape=(self.mps[site].size, self.mps[site].size), matvec=matvec)
 
 
 class MatrixProductStateMeasurements:

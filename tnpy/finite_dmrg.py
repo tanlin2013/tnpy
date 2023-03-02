@@ -1,22 +1,22 @@
 import time
-from enum import Enum
 from datetime import timedelta
-from itertools import cycle
+from enum import Enum
 from functools import partial
-from typing import Tuple, List
+from itertools import cycle
+from typing import List, Tuple
 
 import numpy as np
 from quimb.tensor import rand_uuid
 
 from tnpy import logger
 from tnpy.linalg import eigh, eigshmv
-from tnpy.operators import MatrixProductOperator
 from tnpy.matrix_product_state import (
-    MatrixProductState,
-    Environment,
     Direction,
+    Environment,
+    MatrixProductState,
     MatrixProductStateMeasurements,
 )
+from tnpy.operators import MatrixProductOperator
 
 
 class Metric(Enum):
@@ -94,9 +94,7 @@ class FiniteDMRG:
     def variance(self) -> float:
         return self._env.variance()
 
-    def one_site_solver(
-        self, site: int, tol: float = 1e-8, **kwargs
-    ) -> Tuple[float, np.ndarray]:
+    def one_site_solver(self, site: int, tol: float = 1e-8, **kwargs) -> Tuple[float, np.ndarray]:
         """
 
         Args:
@@ -110,9 +108,7 @@ class FiniteDMRG:
         v0 = self.mps[site].data.reshape(-1, 1)
         if v0.size < self._exact_solver_dim:
             return eigh(self._env.one_site_full_matrix(site))  # type: ignore
-        return eigshmv(
-            self._env.one_site_matvec(site), v0=v0, tol=tol, **kwargs
-        )  # type: ignore
+        return eigshmv(self._env.one_site_matvec(site), v0=v0, tol=tol, **kwargs)  # type: ignore
 
     def two_site_solver(self, site: int, tol: float = 1e-8, **kwargs):
         return NotImplemented
@@ -174,9 +170,7 @@ class FiniteDMRG:
             self._env.update(site, direction=direction)
         return energy
 
-    def _converged(
-        self, n_sweep: int, tol: float, max_sweep: int, metric: Metric
-    ) -> bool:
+    def _converged(self, n_sweep: int, tol: float, max_sweep: int, metric: Metric) -> bool:
         """
         Helper function for checking the convergence.
 
@@ -191,9 +185,7 @@ class FiniteDMRG:
         """
 
         def stopping_criterion(gradient: float) -> bool:
-            logger.info(
-                f"Metric {metric.name} is lowered by {gradient:e} " f"in this sweep."
-            )
+            logger.info(f"Metric {metric.name} is lowered by {gradient:e} " f"in this sweep.")
             if abs(gradient) < tol:
                 logger.info(f"Reaching set tolerance {tol}, stop sweeping.")
                 return True
@@ -241,9 +233,7 @@ class FiniteDMRG:
             A record of energies computed on each sweep.
         """
         clock = [time.process_time()]
-        converged = partial(
-            self._converged, tol=tol, max_sweep=max_sweep, metric=metric
-        )
+        converged = partial(self._converged, tol=tol, max_sweep=max_sweep, metric=metric)
         logger.info(
             f"Set tolerance = {tol} to metric {metric.name},"
             f" up to maximally {max_sweep} sweeps."
@@ -348,9 +338,7 @@ class ShiftInvertDMRG(FiniteDMRG):
             [gen_array(site) for site in range(self.n_sites)], shape="lpr"
         )
 
-    def one_site_solver(
-        self, site: int, tol: float = 1e-8, **kwargs
-    ) -> Tuple[float, np.ndarray]:
+    def one_site_solver(self, site: int, tol: float = 1e-8, **kwargs) -> Tuple[float, np.ndarray]:
         v0 = self.mps[site].data.reshape(-1, 1)
         if v0.size < self._exact_solver_dim:
             return eigh(
