@@ -17,8 +17,6 @@
       ~Node.add_owner
       ~Node.add_tag
       ~Node.almost_equals
-      ~Node.apply_to_arrays
-      ~Node.as_network
       ~Node.astype
       ~Node.astype_
       ~Node.bonds
@@ -43,21 +41,15 @@
       ~Node.fuse_
       ~Node.gate
       ~Node.gate_
-      ~Node.get_params
       ~Node.graph
       ~Node.ind_size
-      ~Node.inds_size
       ~Node.inner_inds
       ~Node.iscomplex
       ~Node.isel
       ~Node.isel_
-      ~Node.isometrize
-      ~Node.isometrize_
       ~Node.largest_element
       ~Node.max_dim
       ~Node.modify
-      ~Node.moveindex
-      ~Node.moveindex_
       ~Node.multiply_index_diagonal
       ~Node.multiply_index_diagonal_
       ~Node.new_bond
@@ -73,7 +65,6 @@
       ~Node.remove_owner
       ~Node.retag
       ~Node.retag_
-      ~Node.set_params
       ~Node.shared_bond_size
       ~Node.singular_values
       ~Node.split
@@ -92,7 +83,6 @@
       ~Node.unfuse_
       ~Node.unitize
       ~Node.unitize_
-      ~Node.visualize
    
    
 
