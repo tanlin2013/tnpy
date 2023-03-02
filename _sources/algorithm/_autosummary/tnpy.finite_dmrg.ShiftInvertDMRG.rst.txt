@@ -19,6 +19,7 @@
       ~ShiftInvertDMRG.run
       ~ShiftInvertDMRG.sweep
       ~ShiftInvertDMRG.two_site_solver
+      ~ShiftInvertDMRG.variance
    
    
 
@@ -34,6 +35,5 @@
       ~ShiftInvertDMRG.n_sites
       ~ShiftInvertDMRG.phys_dim
       ~ShiftInvertDMRG.restored_mps
-      ~ShiftInvertDMRG.variance
    
    

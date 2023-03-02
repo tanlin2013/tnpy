@@ -520,9 +520,9 @@ title="Open an issue"
   <h1>Source code for tnpy.model.random_heisenberg</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">tnpy.operators</span> <span class="kn">import</span> <span class="n">SpinOperators</span>
 <span class="kn">from</span> <span class="nn">tnpy.model.model_1d</span> <span class="kn">import</span> <span class="n">Model1D</span>
 <span class="kn">from</span> <span class="nn">tnpy.model.utils</span> <span class="kn">import</span> <span class="n">boundary_vectors</span><span class="p">,</span> <span class="n">minors_if_no_penalty</span>
+<span class="kn">from</span> <span class="nn">tnpy.operators</span> <span class="kn">import</span> <span class="n">SpinOperators</span>
 
 
 <div class="viewcode-block" id="RandomHeisenberg"><a class="viewcode-back" href="../../../model/_autosummary/tnpy.model.RandomHeisenberg.html#tnpy.model.RandomHeisenberg">[docs]</a><span class="k">class</span> <span class="nc">RandomHeisenberg</span><span class="p">(</span><span class="n">Model1D</span><span class="p">):</span>
@@ -606,9 +606,7 @@ title="Open an issue"
     <span class="k">def</span> <span class="nf">_elem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="n">Sp</span><span class="p">,</span> <span class="n">Sm</span><span class="p">,</span> <span class="n">Sz</span><span class="p">,</span> <span class="n">I2</span><span class="p">,</span> <span class="n">O2</span> <span class="o">=</span> <span class="n">SpinOperators</span><span class="p">()</span>
 
-        <span class="n">alpha</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">penalty</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.25</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_target</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
-        <span class="p">)</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">penalty</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.25</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_target</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
         <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_random_sequence</span><span class="p">[</span><span class="n">site</span><span class="p">]</span> <span class="o">-</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">penalty</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_target</span>
 
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
