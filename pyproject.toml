@@ -32,7 +32,7 @@ mkl = ["mkl-devel"]  # (https://github.com/tanlin2013/tnpy/issues/5)
 drawing = ["matplotlib", "networkx"]
 
 [tool.poetry.group.dev.dependencies]
-pre-commit = "^2.19.0"
+pre-commit = "^3.0.0"
 commitizen = "^2.35.0"
 vulture = "^2.4"
 bandit = "^1.7.4"
