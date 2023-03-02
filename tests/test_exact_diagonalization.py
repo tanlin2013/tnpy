@@ -1,9 +1,9 @@
-import pytest
 import numpy as np
+import pytest
 import scipy.linalg as spla
 
-from tnpy.model import RandomHeisenberg
 from tnpy.exact_diagonalization import ExactDiagonalization
+from tnpy.model import RandomHeisenberg
 from tnpy.operators import FullHamiltonian
 
 

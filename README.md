@@ -1,17 +1,24 @@
-# tnpy
+# tnpy: Tensor Network algorithms implemented in python.
 
-[![PyPI version](https://badge.fury.io/py/tnpy.svg)](https://badge.fury.io/py/tnpy)
-![license](https://img.shields.io/github/license/tanlin2013/tnpy?style=plastic)
+_________________
 
-![build](https://github.com/tanlin2013/tnpy/actions/workflows/build.yml/badge.svg)
-![tests](https://github.com/tanlin2013/tnpy/actions/workflows/tests.yml/badge.svg)
-![docs](https://github.com/tanlin2013/tnpy/actions/workflows/docs.yml/badge.svg)
+[![PyPI version](https://badge.fury.io/py/tnpy.svg)](http://badge.fury.io/py/tnpy)
+[![Downloads](https://pepy.tech/badge/tnpy)](https://pepy.tech/project/tnpy)
+[![codecov](https://codecov.io/gh/tanlin2013/tnpy/branch/main/graph/badge.svg)](https://codecov.io/gh/tanlin2013/tnpy)
+[![Join the chat at https://gitter.im/tanlin2013/tnpy](https://badges.gitter.im/tanlin2013/tnpy.svg)](https://gitter.im/tanlin2013/tnpy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://timothycrosley.github.io/isort/)
+[![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://pypi.python.org/pypi/tnpy/)
+[![Docker build](https://github.com/tanlin2013/tnpy/actions/workflows/build.yml/badge.svg)](https://github.com/tanlin2013/tnpy/actions/workflows/build.yml)
+[![Test Status](https://github.com/tanlin2013/tnpy/actions/workflows/test.yml/badge.svg)](https://github.com/tanlin2013/tnpy/actions/workflows/test.yml)
+[![Lint Status](https://github.com/tanlin2013/tnpy/actions/workflows/lint.yml/badge.svg)](https://github.com/tanlin2013/tnpy/actions/workflows/lint.yml)
+_________________
 
 [Documentation](https://tanlin2013.github.io/tnpy/) |
+_________________
 
 This project is a python implementation of Tensor Network,
 a numerical approach to quantum many-body systems.
-
 
 **tnpy** is built on top of [quimb](https://github.com/jcmgray/quimb),
 along with [TensorNetwork](https://github.com/google/TensorNetwork)
@@ -37,9 +44,9 @@ Dependencies are listed in
 and they are supposed to be installed together with **tnpy**.
 Here we just list the essential building blocks.
 
-  * [jcmgray/quimb](https://github.com/jcmgray/quimb)
-  * [google/Tensornetwork](https://github.com/google/TensorNetwork)
-  * [primme/primme](https://github.com/primme/primme)
+* [jcmgray/quimb](https://github.com/jcmgray/quimb)
+* [google/Tensornetwork](https://github.com/google/TensorNetwork)
+* [primme/primme](https://github.com/primme/primme)
 
 Also, it's required to have [lapack](http://www.netlib.org/lapack/)
 and [blas](http://www.netlib.org/blas/) installed in prior to Primme.
@@ -49,35 +56,36 @@ with [mkl-devel](https://pypi.org/project/mkl-devel/).
 Installation
 ------------
 
-   * Using Docker
+* Using Docker
 
-     ```
-     docker run --rm -it tanlin2013/tnpy
-     ```
-   * Using pip
-     * Latest release:
-       ```
-       pip install tnpy
-       ```
-     * Development version:
-       ```
-       pip install git+https://github.com/tanlin2013/tnpy@main
-       ```
-   * Optional dependencies
-     * If [lapack](http://www.netlib.org/lapack/) and
-       [blas](http://www.netlib.org/blas/) are missing
-       ```
-       pip install tnpy[mkl]
-       ```
-     * For [quimb](https://github.com/jcmgray/quimb) drawing functionality.
-       This will install [matplotlib](https://matplotlib.org/)
-       and [networkx](https://networkx.org/)
-       ```
-       pip install tnpy[drawing]
-       ```
+  ```
+  docker run --rm -it tanlin2013/tnpy
+  ```
+* Using pip
+    * Latest release:
+      ```
+      pip install tnpy
+      ```
+    * Development version:
+      ```
+      pip install git+https://github.com/tanlin2013/tnpy@main
+      ```
+* Optional dependencies
+    * If [lapack](http://www.netlib.org/lapack/) and
+      [blas](http://www.netlib.org/blas/) are missing
+      ```
+      pip install tnpy[mkl]
+      ```
+    * For [quimb](https://github.com/jcmgray/quimb) drawing functionality.
+      This will install [matplotlib](https://matplotlib.org/)
+      and [networkx](https://networkx.org/)
+      ```
+      pip install tnpy[drawing]
+      ```
 
 Getting started
 ---------------
+
 1. We provide built-in models. Though it's also possible to register your own one.
 
    ```
@@ -101,3 +109,8 @@ Getting started
    ```
    my_mps = fdmrg.mps
    ```
+
+License
+-------
+© Tan Tao-Lin, 2023. Licensed under a [MIT](https://github.com/tanlin2013/tnpy/master/LICENSE)
+license.

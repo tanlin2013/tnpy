@@ -1,5 +1,5 @@
-import pytest
 import numpy as np
+import pytest
 
 from tnpy.exact_diagonalization import ExactDiagonalization
 from tnpy.finite_dmrg import FiniteDMRG, ShiftInvertDMRG
@@ -24,13 +24,13 @@ class TestFiniteDMRG:
 
 
 class TestShiftInvertDMRG:
-    @pytest.fixture(scope="class", params=[0.1, 0.2])
+    @pytest.fixture(scope="class", params=[-0.1, 0.1, 0.2])
     def offset(self, request) -> float:
         return request.param
 
     @pytest.fixture(scope="class")
     def model(self):
-        return RandomHeisenberg(n=8, h=0.5, seed=2021)
+        return RandomHeisenberg(n=10, h=10.5, seed=2022)
 
     @pytest.fixture(scope="class")
     def ed(self, model):
@@ -38,9 +38,7 @@ class TestShiftInvertDMRG:
 
     @pytest.fixture(scope="function")
     def sidmrg(self, model, offset):
-        shifted_model = RandomHeisenberg(
-            n=model.n, h=model.h, seed=model.seed, offset=offset
-        )
+        shifted_model = RandomHeisenberg(n=model.n, h=model.h, seed=model.seed, offset=offset)
         return ShiftInvertDMRG(shifted_model.mpo, bond_dim=2**6, offset=offset)
 
     @pytest.fixture(scope="class")
@@ -61,9 +59,7 @@ class TestShiftInvertDMRG:
     def test_restored_mps(self, sidmrg, nearest_evec):
         sidmrg.run(tol=1e-8)
         restored_vec = (
-            sidmrg.restored_mps.contract()
-            .fuse({"k": sidmrg.restored_mps.outer_inds()})
-            .data
+            sidmrg.restored_mps.contract().fuse({"k": sidmrg.restored_mps.outer_inds()}).data
         )
         # Note: They can differ up to a global phase (+1 or -1)
         if not np.allclose(restored_vec, nearest_evec, atol=1e-6):

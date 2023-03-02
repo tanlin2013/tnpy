@@ -1,7 +1,7 @@
 from typing import Tuple
 
-import primme
 import numpy as np
+import primme
 import scipy.linalg as spla
 from scipy.sparse.linalg import LinearOperator
 
@@ -83,7 +83,5 @@ def eigshmv(
     Returns:
 
     """
-    evals, evecs = primme.eigsh(
-        linear_operator, v0=v0, k=k, which=which, tol=tol, **kwargs
-    )
+    evals, evecs = primme.eigsh(linear_operator, v0=v0, k=k, which=which, tol=tol, **kwargs)
     return (evals[0], evecs) if k == 1 else (evals, evecs)

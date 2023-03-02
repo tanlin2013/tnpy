@@ -1,15 +1,15 @@
 from itertools import permutations
-from typing import Tuple, Sequence, List, Dict
+from typing import Dict, List, Sequence, Tuple
 
 import numpy as np
 
 from tnpy import logger
-from tnpy.operators import MatrixProductOperator, FullHamiltonian
+from tnpy.operators import FullHamiltonian, MatrixProductOperator
 
 
 class ExactDiagonalization(FullHamiltonian):
     def __init__(self, mpo: MatrixProductOperator, proj: np.ndarray = None):
-        """
+        r"""
         Perform the numerically exact diagonalization on the matrix,
         which is constructed through the given Matrix Product Operator (MPO).
         Calculations are taken in prompt on the initialization of this class.
@@ -77,13 +77,9 @@ class ExactDiagonalization(FullHamiltonian):
 
         """
         if not 0 <= site < self.n_sites - 1:
-            raise ValueError(
-                "Parameter `site` for bi-partition has to be within the system size."
-            )
+            raise ValueError("Parameter `site` for bi-partition has to be within the system size.")
         if not 0 <= level_idx < len(self.evals):
-            raise ValueError(
-                "Parameter `level_idx` has to be lower than truncation dimension."
-            )
+            raise ValueError("Parameter `level_idx` has to be lower than truncation dimension.")
         to_shape = (
             (self.phys_dim ** (site + 1), -1)
             if site < self.n_sites // 2
@@ -131,9 +127,7 @@ class ExactDiagonalization(FullHamiltonian):
             opt = np.kron(opt, next_opt)
         return opt
 
-    def one_point_function(
-        self, operator: np.ndarray, site: int, level_idx: int = 0
-    ) -> float:
+    def one_point_function(self, operator: np.ndarray, site: int, level_idx: int = 0) -> float:
         r"""
         Compute the expectation value :math:`\langle \hat{O}_i \rangle`
         of given local operator :math:`\hat{O}_i` on site :math:`i`.
@@ -146,7 +140,8 @@ class ExactDiagonalization(FullHamiltonian):
         Returns:
 
         """
-        assert operator.shape == (self.phys_dim, self.phys_dim)
+        if operator.shape != (self.phys_dim, self.phys_dim):
+            raise ValueError(f"Operator shape mismatched with physical dims {self.phys_dim}.")
         opt_mat = self.kron_operators(
             [
                 np.eye(self.phys_dim**site),
@@ -181,9 +176,13 @@ class ExactDiagonalization(FullHamiltonian):
         Returns:
 
         """
-        assert operator1.shape == (self.phys_dim, self.phys_dim)
-        assert operator2.shape == (self.phys_dim, self.phys_dim)
-        assert site1 != site2
+        if operator1.shape != (self.phys_dim, self.phys_dim) or operator2.shape != (
+            self.phys_dim,
+            self.phys_dim,
+        ):
+            raise ValueError(f"Operator shape mismatched with physical dims {self.phys_dim}.")
+        if site1 == site2:
+            raise ValueError("Two sites must not be the same site.")
         site1, site2 = sorted((site1, site2))
         # TODO: operators aren't sorted accordingly
         opt_mat = self.kron_operators(
@@ -219,9 +218,7 @@ class ExactDiagonalization(FullHamiltonian):
         """
         return self.two_point_function(
             operator1, operator2, site1, site2, level_idx
-        ) - self.one_point_function(
-            operator1, site1, level_idx
-        ) * self.one_point_function(
+        ) - self.one_point_function(operator1, site1, level_idx) * self.one_point_function(
             operator2, site2, level_idx
         )
 
@@ -273,7 +270,6 @@ class SpinSector:
             set(list(permutations(f"{'u' * (n // 2)}{'d' * (n // 2)}", n)))
         )
         zero_charge_basis = [
-            self.kron_product(list(map(self._basis.get, elem)))
-            for elem in spin_zero_permutations
+            self.kron_product(list(map(self._basis.get, elem))) for elem in spin_zero_permutations
         ]
         return np.hstack(tuple(map(np.transpose, zero_charge_basis)))

@@ -1,8 +1,8 @@
 import numpy as np
 
-from tnpy.operators import SpinOperators, MatrixProductOperator
 from tnpy.model.model_1d import Model1D
 from tnpy.model.utils import boundary_vectors
+from tnpy.operators import MatrixProductOperator, SpinOperators
 
 
 class TotalSz(Model1D):
@@ -45,7 +45,8 @@ class TotalSz(Model1D):
             Phys. Rev. B 82, 012405 (2010).
             <https://journals.aps.org/prb/abstract/10.1103/PhysRevB.82.012405>`_
         """
-        assert 0 <= partition_site < self.n
+        if not 0 <= partition_site < self.n:
+            raise ValueError("Partition site must be in between 0 and the system size n.")
         return MatrixProductOperator(
             [
                 self._elem(site) if site <= partition_site else self._rest_elem(site)

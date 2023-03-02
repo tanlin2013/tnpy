@@ -1,0 +1,17 @@
+{
+  "template": "https://github.com/tanlin2013/cookiecutter-python/",
+  "commit": "52658e95ca943b42a87527253e70981d67d61512",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "full_name": "Tan Tao-Lin",
+      "email": "tanlin2013@gmail.com",
+      "github_username": "tanlin2013",
+      "project_name": "tnpy",
+      "description": "Tensor Network algorithms implemented in python.",
+      "version": "0.1.1a3",
+      "_template": "https://github.com/tanlin2013/cookiecutter-python/"
+    }
+  },
+  "directory": null
+}

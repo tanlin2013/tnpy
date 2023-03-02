@@ -1,8 +1,8 @@
 import numpy as np
 
-from tnpy.operators import SpinOperators
 from tnpy.model.model_1d import Model1D
 from tnpy.model.utils import boundary_vectors
+from tnpy.operators import SpinOperators
 
 
 class TransverseIsing(Model1D):

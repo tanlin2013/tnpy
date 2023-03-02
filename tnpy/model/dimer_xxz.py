@@ -1,8 +1,8 @@
 import numpy as np
 
-from tnpy.operators import SpinOperators
 from tnpy.model.model_1d import Model1D
 from tnpy.model.utils import boundary_vectors, minors_if_no_penalty
+from tnpy.operators import SpinOperators
 
 
 class DimerXXZ(Model1D):
