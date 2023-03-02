@@ -1,7 +1,7 @@
 from __future__ import annotations
 
+from dataclasses import InitVar, astuple, dataclass, field
 from itertools import groupby
-from dataclasses import dataclass, InitVar, field, astuple
 
 import numpy as np
 import quimb.tensor as qtn
@@ -73,12 +73,10 @@ class MatrixProductOperator(qtn.MatrixProductOperator):
             g = groupby(iterable)
             return next(g, True) and not next(g, False)
 
-        assert all_equal(
-            [
-                super(MatrixProductOperator, self).phys_dim(site)
-                for site in range(self.n_sites)
-            ]
-        )
+        if not all_equal(
+            [super(MatrixProductOperator, self).phys_dim(site) for site in range(self.n_sites)]
+        ):
+            raise ValueError("All MPO tensors are assumed to have same physical dims.")
 
     @property
     def n_sites(self) -> int:
@@ -96,12 +94,8 @@ class MatrixProductOperator(qtn.MatrixProductOperator):
         Returns:
             squared_mpo:
         """
-        first_layer = self.reindex(
-            {f"b{site}": f"dummy{site}" for site in range(self.nsites)}
-        )
-        second_layer = self.reindex(
-            {f"k{site}": f"dummy{site}" for site in range(self.nsites)}
-        )
+        first_layer = self.reindex({f"b{site}": f"dummy{site}" for site in range(self.nsites)})
+        second_layer = self.reindex({f"k{site}": f"dummy{site}" for site in range(self.nsites)})
         second_layer.reindex(
             {ind: qtn.rand_uuid() for ind in second_layer.inner_inds()}, inplace=True
         )
@@ -119,9 +113,7 @@ class MatrixProductOperator(qtn.MatrixProductOperator):
                 }
             )
 
-        return MatrixProductOperator(
-            [_fuse_bilayer(site).data for site in range(self.nsites)]
-        )
+        return MatrixProductOperator([_fuse_bilayer(site).data for site in range(self.nsites)])
 
 
 class FullHamiltonian:
@@ -147,8 +139,7 @@ class FullHamiltonian:
 
         if self.phys_dim**self.n_sites > 2**12:
             raise ResourceWarning(
-                f"Requesting more than {self.n_sites} sites "
-                f"with physical dim {self.phys_dim}."
+                f"Requesting more than {self.n_sites} sites " f"with physical dim {self.phys_dim}."
             )
 
         self._matrix = (

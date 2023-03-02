@@ -4,11 +4,11 @@ import re
 from dataclasses import dataclass, field
 from functools import wraps
 from itertools import count, islice
-from typing import Union, List, Dict, Iterator, Callable, Sequence, Tuple
+from typing import Callable, Dict, Iterator, List, Sequence, Tuple, Union
 
 import numpy as np
-import scipy.linalg as spl
 import quimb.tensor as qtn
+import scipy.linalg as spl
 from graphviz import Digraph
 
 from tnpy import logger
@@ -16,9 +16,7 @@ from tnpy.operators import MatrixProductOperator
 
 
 class Node(qtn.Tensor):
-    def __init__(
-        self, node_id: int, left: Node = None, right: Node = None, *args, **kwargs
-    ):
+    def __init__(self, node_id: int, left: Node = None, right: Node = None, *args, **kwargs):
         """
         The node of binary tree, while data structure is inherited from
         :class:`quimb.Tensor`.
@@ -88,9 +86,7 @@ class TensorTree:
         """
         self._root_id: int | None = None
         self._tree = {
-            site: Node(
-                node_id=site, data=tensor.data, inds=tensor.inds, tags=tensor.tags
-            )
+            site: Node(node_id=site, data=tensor.data, inds=tensor.inds, tags=tensor.tags)
             for site, tensor in enumerate(mpo)
         }
         self._n_leaves = mpo.nsites
@@ -380,12 +376,10 @@ class TensorTree:
         path1 = self.find_path(node_id1, return_itself=True)
         path2 = self.find_path(node_id2, return_itself=True)
         try:
-            first_unmatched = next(
-                idx for idx, (x, y) in enumerate(zip(path1, path2)) if x != y
-            )
+            first_unmatched = next(idx for idx, (x, y) in enumerate(zip(path1, path2)) if x != y)
             common_path = path1[:first_unmatched]
         except StopIteration:
-            assert path1 == path2
+            assert path1 == path2  # nosec: B101
             common_path = path1[:-1]
         return common_path if not lowest else common_path[-1]
 
@@ -425,9 +419,7 @@ class TensorTree:
         graph = Digraph()
         graph.node("head", style="invis")
         graph.edge("head", f"{self.root.node_id}", headport="n", arrowhead="inv")
-        graph.node(
-            f"{self.root.node_id}", shape="triangle", rank="max", style="rounded"
-        )
+        graph.node(f"{self.root.node_id}", shape="triangle", rank="max", style="rounded")
         find_child(self.root)
         # for constraining mpo inside an invisible box
         with graph.subgraph(name="cluster_0") as sg:
@@ -699,7 +691,7 @@ class TreeTensorNetworkSDRG:
             if len(self._fused_mpo_cache) == 1:
                 logger.info("Reaching the root in tree.")
                 logger.info(f"Obtain ground state energies, {repr(self.evals)}.")
-                assert step == self.n_sites - 1, "step is out of range."
+                assert step == self.n_sites - 1, "step is out of range."  # nosec: B101
                 break
             self._gap_cache.update(max_gapped_bond)
 
@@ -785,9 +777,7 @@ class TreeTensorNetworkMeasurements:
         )
         return self.loop_simplify(bra, ket, mpo)
 
-    def expectation_value(
-        self, mpo: MatrixProductOperator, tol: float = 1e-12
-    ) -> np.ndarray:
+    def expectation_value(self, mpo: MatrixProductOperator, tol: float = 1e-12) -> np.ndarray:
         """
         Compute the expectation value for given ``mpo``.
 
@@ -823,9 +813,7 @@ class TreeTensorNetworkMeasurements:
             ``ket_inds_map`` and ``bra_inds_map`` are each a dictionary of indices
             that maps the original indices of LCA nodes into the physical bonds.
         """
-        min_side = (
-            0 if (bipartite_site + 1) / (self.tree.n_leaves - bipartite_site) < 1 else 1
-        )
+        min_side = 0 if (bipartite_site + 1) / (self.tree.n_leaves - bipartite_site) < 1 else 1
         iterator = (
             range(bipartite_site + 1)
             if min_side == 0
@@ -852,13 +840,9 @@ class TreeTensorNetworkMeasurements:
 
         """
         if not 0 <= site < self.tree.n_leaves - 1:
-            raise ValueError(
-                "Parameter `site` for bi-partition has to be within the system size."
-            )
+            raise ValueError("Parameter `site` for bi-partition has to be within the system size.")
         if not 0 <= level_idx < self.tree.root.shape[2]:
-            raise ValueError(
-                "Parameter `level_idx` has to be lower than truncation dimension."
-            )
+            raise ValueError("Parameter `level_idx` has to be lower than truncation dimension.")
         min_side, on_min_ket_surface, on_min_bra_surface = self._min_surface(site)
         to_site = site + 1 if min_side == 0 else site
         node_ids = self.tree.find_path(to_site)
@@ -890,13 +874,9 @@ class TreeTensorNetworkMeasurements:
                 )
             ]
         )
-        return net.to_dense(
-            [*on_min_ket_surface.values()], [*on_min_bra_surface.values()]
-        )
+        return net.to_dense([*on_min_ket_surface.values()], [*on_min_bra_surface.values()])
 
-    def entanglement_entropy(
-        self, site: int, level_idx: int, nan_to_num: bool = False
-    ) -> float:
+    def entanglement_entropy(self, site: int, level_idx: int, nan_to_num: bool = False) -> float:
         """
         Compute the von Neumann entropy on the cutting ``site``.
 
@@ -912,9 +892,7 @@ class TreeTensorNetworkMeasurements:
         entropy = -1 * rho @ np.log(rho)
         return np.nan_to_num(entropy) if nan_to_num else entropy
 
-    def one_point_function(
-        self, operator: np.ndarray, site: int, level_idx: int
-    ) -> float:
+    def one_point_function(self, operator: np.ndarray, site: int, level_idx: int) -> float:
         r"""
         Compute the expectation value :math:`\langle \hat{O}_i \rangle`
         of given local operator :math:`\hat{O}_i` on site :math:`i`.
@@ -973,7 +951,8 @@ class TreeTensorNetworkMeasurements:
         Returns:
 
         """
-        assert site1 != site2
+        if site1 == site2:
+            raise ValueError("Two sites must not be the same site.")
         site1, site2 = sorted((site1, site2))
         # TODO: operators aren't sorted accordingly
         node_ids = list(set(self.tree.find_path(site1) + self.tree.find_path(site2)))
@@ -1020,9 +999,7 @@ class TreeTensorNetworkMeasurements:
         """
         return self.two_point_function(
             operator1, operator2, site1, site2, level_idx
-        ) - self.one_point_function(
-            operator1, site1, level_idx
-        ) * self.one_point_function(
+        ) - self.one_point_function(operator1, site1, level_idx) * self.one_point_function(
             operator2, site2, level_idx
         )
 
