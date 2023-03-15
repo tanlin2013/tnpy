@@ -54,7 +54,7 @@ optional = true
 
 [tool.poetry.group.docs.dependencies]
 sphinx = "^4.5.0"
-sphinx-book-theme = "^0.3.2"
+sphinx-book-theme = "^1.0.0"
 nbsphinx = "^0.8.8"
 m2r2 = "^0.3.2"
 pandoc = "^2.3"
