@@ -1,0 +1,939 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>4.3. tnpy.tsdrg.TreeTensorNetworkSDRG &#8212; tnpy 0.1.1a3 documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4.4. tnpy.tsdrg.TreeTensorNetworkMeasurements" href="tnpy.tsdrg.TreeTensorNetworkMeasurements.html" />
+    <link rel="prev" title="4.2. tnpy.tsdrg.TensorTree" href="tnpy.tsdrg.TensorTree.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">tnpy 0.1.1a3 documentation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Algorithms
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../exact_diagonalization.html">
+   1. Exact Diagonalization (ED)
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tnpy.exact_diagonalization.ExactDiagonalization.html">
+     1.1. tnpy.exact_diagonalization.ExactDiagonalization
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../finite_dmrg.html">
+   2. Finite Density Matrix Renormalization Group (fDMRG)
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tnpy.finite_dmrg.FiniteDMRG.html">
+     2.1. tnpy.finite_dmrg.FiniteDMRG
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tnpy.finite_dmrg.ShiftInvertDMRG.html">
+     2.2. tnpy.finite_dmrg.ShiftInvertDMRG
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../finite_tdvp.html">
+   3. Finite Time-dependent Variational Principle (fTDVP)
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tnpy.finite_tdvp.FiniteTDVP.html">
+     3.1. tnpy.finite_tdvp.FiniteTDVP
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../tsdrg.html">
+   4. Tree Tensor Strong-disorder Renormalization Group (tSDRG)
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="tnpy.tsdrg.Node.html">
+     4.1. tnpy.tsdrg.Node
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tnpy.tsdrg.TensorTree.html">
+     4.2. tnpy.tsdrg.TensorTree
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     4.3. tnpy.tsdrg.TreeTensorNetworkSDRG
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkMeasurements.html">
+     4.4. tnpy.tsdrg.TreeTensorNetworkMeasurements
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG.html">
+     4.5. tnpy.tsdrg.HighEnergyTreeTensorNetworkSDRG
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG.html">
+     4.6. tnpy.tsdrg.ShiftInvertTreeTensorNetworkSDRG
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../notebooks/tsdrg.html">
+     4.7.1. Algorithm
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Built-in models
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../model/model_1d.html">
+   1. Model 1D
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../model/_autosummary/tnpy.model.Model1D.html">
+     1.1. tnpy.model.Model1D
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../model/xxz.html">
+   2. XXZ model
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../model/_autosummary/tnpy.model.XXZ.html">
+     2.1. tnpy.model.XXZ
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../model/dimer_xxz.html">
+   3. Dimer XXZ model
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../model/_autosummary/tnpy.model.DimerXXZ.html">
+     3.1. tnpy.model.DimerXXZ
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../model/random_heisenberg.html">
+   4. Random Heisenberg model
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../model/_autosummary/tnpy.model.RandomHeisenberg.html">
+     4.1. tnpy.model.RandomHeisenberg
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../model/thirring.html">
+   5. Thirring model
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../model/_autosummary/tnpy.model.Thirring.html">
+     5.1. tnpy.model.Thirring
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../model/total_sz.html">
+   6. Total Sz
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../model/_autosummary/tnpy.model.TotalSz.html">
+     6.1. tnpy.model.TotalSz
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../model/utils.html">
+   7. Utils
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../model/_autosummary/tnpy.model.utils.html">
+     7.1. tnpy.model.utils
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Operators and linear algebra
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../matrix_product_state.html">
+   1. Matrix Product State (MPS)
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.matrix_product_state.Direction.html">
+     1.1. tnpy.matrix_product_state.Direction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductState.html">
+     1.2. tnpy.matrix_product_state.MatrixProductState
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.matrix_product_state.Environment.html">
+     1.3. tnpy.matrix_product_state.Environment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.matrix_product_state.MatrixProductStateMeasurements.html">
+     1.4. tnpy.matrix_product_state.MatrixProductStateMeasurements
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../operators.html">
+   2. Matrix Product Operator (MPO) &amp; others
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html">
+     2.1. tnpy.operators.MatrixProductOperator
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.operators.SpinOperators.html">
+     2.2. tnpy.operators.SpinOperators
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.operators.FullHamiltonian.html">
+     2.3. tnpy.operators.FullHamiltonian
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../linalg.html">
+   3. Linear Algebra
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../_autosummary/tnpy.linalg.html">
+     3.1. tnpy.linalg
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/tanlin2013/tnpy"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/tanlin2013/tnpy/issues/new?title=Issue%20on%20page%20%2Falgorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkSDRG.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/tanlin2013/tnpy/edit/master/docs/algorithm/_autosummary/tnpy.tsdrg.TreeTensorNetworkSDRG.rst"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>tnpy.tsdrg.TreeTensorNetworkSDRG</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="tnpy-tsdrg-treetensornetworksdrg">
+<h1><span class="section-number">4.3. </span>tnpy.tsdrg.TreeTensorNetworkSDRG<a class="headerlink" href="#tnpy-tsdrg-treetensornetworksdrg" title="Permalink to this headline">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tnpy.tsdrg.</span></span><span class="sig-name descname"><span class="pre">TreeTensorNetworkSDRG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkSDRG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The tree tensor network version of strong disorder renormalization
+group algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mpo</strong> (<a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>MatrixProductOperator</em></a>) – The matrix product operator.</p></li>
+<li><p><strong>chi</strong> (<em>int</em>) – The truncation dimensions.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>The tSDRG algorithm can be launched by calling
+<a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.run" title="tnpy.tsdrg.TreeTensorNetworkSDRG.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> method.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tsdrg</span> <span class="o">=</span> <span class="n">TreeTensorNetworkSDRG</span><span class="p">(</span><span class="n">mpo</span><span class="p">,</span> <span class="n">chi</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tsdrg</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>After executing <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.run" title="tnpy.tsdrg.TreeTensorNetworkSDRG.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a>,
+one can access the binary tensor tree <a class="reference internal" href="tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree" title="tnpy.tsdrg.TensorTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">TensorTree</span></code></a>
+through the attribute <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.tree" title="tnpy.tsdrg.TreeTensorNetworkSDRG.tree"><code class="xref py py-attr docutils literal notranslate"><span class="pre">tree</span></code></a>.
+For measurements, please refer to
+<a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.measurements" title="tnpy.tsdrg.TreeTensorNetworkSDRG.measurements"><code class="xref py py-attr docutils literal notranslate"><span class="pre">measurements</span></code></a> or
+<a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements" title="tnpy.tsdrg.TreeTensorNetworkMeasurements"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeTensorNetworkMeasurements</span></code></a>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkSDRG.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.__init__" title="Permalink to this definition">#</a></dt>
+<dd><p>The tree tensor network version of strong disorder renormalization
+group algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mpo</strong> (<a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – The matrix product operator.</p></li>
+<li><p><strong>chi</strong> (<em>int</em>) – The truncation dimensions.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>The tSDRG algorithm can be launched by calling
+<a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.run" title="tnpy.tsdrg.TreeTensorNetworkSDRG.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> method.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tsdrg</span> <span class="o">=</span> <span class="n">TreeTensorNetworkSDRG</span><span class="p">(</span><span class="n">mpo</span><span class="p">,</span> <span class="n">chi</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tsdrg</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>After executing <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.run" title="tnpy.tsdrg.TreeTensorNetworkSDRG.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a>,
+one can access the binary tensor tree <a class="reference internal" href="tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree" title="tnpy.tsdrg.TensorTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">TensorTree</span></code></a>
+through the attribute <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.tree" title="tnpy.tsdrg.TreeTensorNetworkSDRG.tree"><code class="xref py py-attr docutils literal notranslate"><span class="pre">tree</span></code></a>.
+For measurements, please refer to
+<a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.measurements" title="tnpy.tsdrg.TreeTensorNetworkSDRG.measurements"><code class="xref py py-attr docutils literal notranslate"><span class="pre">measurements</span></code></a> or
+<a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements" title="tnpy.tsdrg.TreeTensorNetworkMeasurements"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeTensorNetworkMeasurements</span></code></a>.</p>
+</dd></dl>
+
+<p class="rubric">Methods</p>
+<table class="autosummary longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id0" title="tnpy.tsdrg.TreeTensorNetworkSDRG.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(mpo, chi)</p></td>
+<td><p>The tree tensor network version of strong disorder renormalization group algorithm.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.block_eigen_solver" title="tnpy.tsdrg.TreeTensorNetworkSDRG.block_eigen_solver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">block_eigen_solver</span></code></a>(locus)</p></td>
+<td><p>Solve the 2-site Hamiltonian with <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.chi" title="tnpy.tsdrg.TreeTensorNetworkSDRG.chi"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chi</span></code></a> lowest eigen-pairs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.block_hamiltonian" title="tnpy.tsdrg.TreeTensorNetworkSDRG.block_hamiltonian"><code class="xref py py-obj docutils literal notranslate"><span class="pre">block_hamiltonian</span></code></a>(locus)</p></td>
+<td><p>Construct the 2-site Hamiltonian from coarse-graining MPO.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.run" title="tnpy.tsdrg.TreeTensorNetworkSDRG.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a>()</p></td>
+<td><p>Start the algorithm.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.spectrum_projector" title="tnpy.tsdrg.TreeTensorNetworkSDRG.spectrum_projector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spectrum_projector</span></code></a>(locus, evecs)</p></td>
+<td><p>Coarse-grain the MPO with given evecs which is used to form a projector.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.truncation_gap" title="tnpy.tsdrg.TreeTensorNetworkSDRG.truncation_gap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">truncation_gap</span></code></a>(evals)</p></td>
+<td><p>Return the gap upon <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.chi" title="tnpy.tsdrg.TreeTensorNetworkSDRG.chi"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chi</span></code></a> eigenvalues kept.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table class="autosummary longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.chi" title="tnpy.tsdrg.TreeTensorNetworkSDRG.chi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">chi</span></code></a></p></td>
+<td><p>The input bond dimensions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.evals" title="tnpy.tsdrg.TreeTensorNetworkSDRG.evals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evals</span></code></a></p></td>
+<td><p>The renormalized eigenvalues, with length <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.chi" title="tnpy.tsdrg.TreeTensorNetworkSDRG.chi"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chi</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.measurements" title="tnpy.tsdrg.TreeTensorNetworkSDRG.measurements"><code class="xref py py-obj docutils literal notranslate"><span class="pre">measurements</span></code></a></p></td>
+<td><p>Call available measurements in <a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements" title="tnpy.tsdrg.TreeTensorNetworkMeasurements"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeTensorNetworkMeasurements</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.mpo" title="tnpy.tsdrg.TreeTensorNetworkSDRG.mpo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mpo</span></code></a></p></td>
+<td><p>The input matrix product operator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.n_sites" title="tnpy.tsdrg.TreeTensorNetworkSDRG.n_sites"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_sites</span></code></a></p></td>
+<td><p>Number of sites, i.e. the system size.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.tree" title="tnpy.tsdrg.TreeTensorNetworkSDRG.tree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tree</span></code></a></p></td>
+<td><p>The tree.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GapCache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tsdrg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">evecs=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkSDRG.GapCache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Helper class for caching the energy gap in
+<a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG" title="tnpy.tsdrg.TreeTensorNetworkSDRG"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeTensorNetworkSDRG</span></code></a> algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tsdrg</strong> (<a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG" title="tnpy.tsdrg.TreeTensorNetworkSDRG"><em>tnpy.tsdrg.TreeTensorNetworkSDRG</em></a>) – </p></li>
+<li><p><strong>evecs</strong> (<em>List</em><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em></a><em>]</em>) – </p></li>
+<li><p><strong>gap</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.tsdrg">
+<span class="sig-name descname"><span class="pre">tsdrg</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG" title="tnpy.tsdrg.TreeTensorNetworkSDRG"><span class="pre">tnpy.tsdrg.TreeTensorNetworkSDRG</span></a></em><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.tsdrg" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.evecs">
+<span class="sig-name descname"><span class="pre">evecs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.evecs" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.gap">
+<span class="sig-name descname"><span class="pre">gap</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.gap" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.neighbouring_bonds">
+<span class="sig-name descname"><span class="pre">neighbouring_bonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bond</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkSDRG.GapCache.neighbouring_bonds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.neighbouring_bonds" title="Permalink to this definition">#</a></dt>
+<dd><p>Obtain the neighbouring bonds of input <cite>bond</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>bond</strong> (<em>int</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>List</em>[int]</p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_gapped_bond</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkSDRG.GapCache.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.update" title="Permalink to this definition">#</a></dt>
+<dd><p>Update the gap accordingly after 2 nodes are fused.
+This will only examine neighbours of 2 fused nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>max_gapped_bond</strong> (<em>int</em>) – The bond between 2 fused nodes.</p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tsdrg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">evecs=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.__init__" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tsdrg</strong> (<a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG" title="tnpy.tsdrg.TreeTensorNetworkSDRG"><em>tnpy.tsdrg.TreeTensorNetworkSDRG</em></a>) – </p></li>
+<li><p><strong>evecs</strong> (<em>List</em><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em></a><em>]</em>) – </p></li>
+<li><p><strong>gap</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkSDRG.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Permalink to this definition">#</a></dt>
+<dd><p>The tree tensor network version of strong disorder renormalization
+group algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mpo</strong> (<a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><em>tnpy.operators.MatrixProductOperator</em></a>) – The matrix product operator.</p></li>
+<li><p><strong>chi</strong> (<em>int</em>) – The truncation dimensions.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>The tSDRG algorithm can be launched by calling
+<a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.run" title="tnpy.tsdrg.TreeTensorNetworkSDRG.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> method.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tsdrg</span> <span class="o">=</span> <span class="n">TreeTensorNetworkSDRG</span><span class="p">(</span><span class="n">mpo</span><span class="p">,</span> <span class="n">chi</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tsdrg</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>After executing <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.run" title="tnpy.tsdrg.TreeTensorNetworkSDRG.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a>,
+one can access the binary tensor tree <a class="reference internal" href="tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree" title="tnpy.tsdrg.TensorTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">TensorTree</span></code></a>
+through the attribute <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.tree" title="tnpy.tsdrg.TreeTensorNetworkSDRG.tree"><code class="xref py py-attr docutils literal notranslate"><span class="pre">tree</span></code></a>.
+For measurements, please refer to
+<a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.measurements" title="tnpy.tsdrg.TreeTensorNetworkSDRG.measurements"><code class="xref py py-attr docutils literal notranslate"><span class="pre">measurements</span></code></a> or
+<a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements" title="tnpy.tsdrg.TreeTensorNetworkMeasurements"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeTensorNetworkMeasurements</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.mpo">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mpo</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../_autosummary/tnpy.operators.MatrixProductOperator.html#tnpy.operators.MatrixProductOperator" title="tnpy.operators.MatrixProductOperator"><span class="pre">tnpy.operators.MatrixProductOperator</span></a></em><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.mpo" title="Permalink to this definition">#</a></dt>
+<dd><p>The input matrix product operator.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.chi">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">chi</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.chi" title="Permalink to this definition">#</a></dt>
+<dd><p>The input bond dimensions.
+That is, number of eigenvectors to keep in the projection.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.tree">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tree</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="tnpy.tsdrg.TensorTree.html#tnpy.tsdrg.TensorTree" title="tnpy.tsdrg.TensorTree"><span class="pre">tnpy.tsdrg.TensorTree</span></a></em><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.tree" title="Permalink to this definition">#</a></dt>
+<dd><p>The tree.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.n_sites">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_sites</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.n_sites" title="Permalink to this definition">#</a></dt>
+<dd><p>Number of sites, i.e. the system size.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.evals">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evals</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><span class="pre">numpy.ndarray</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.evals" title="Permalink to this definition">#</a></dt>
+<dd><p>The renormalized eigenvalues, with length <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.chi" title="tnpy.tsdrg.TreeTensorNetworkSDRG.chi"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chi</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The approximated eigenvalues. Return None is the algorithm is not run yet.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.block_eigen_solver">
+<span class="sig-name descname"><span class="pre">block_eigen_solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locus</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkSDRG.block_eigen_solver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.block_eigen_solver" title="Permalink to this definition">#</a></dt>
+<dd><p>Solve the 2-site Hamiltonian with <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.chi" title="tnpy.tsdrg.TreeTensorNetworkSDRG.chi"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chi</span></code></a> lowest
+eigen-pairs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>locus</strong> (<em>int</em>) – The site in coarse-grained system during the RG process.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tuple (<code class="docutils literal notranslate"><span class="pre">evals</span></code>, <code class="docutils literal notranslate"><span class="pre">evecs</span></code>),
+where <code class="docutils literal notranslate"><span class="pre">evals</span></code> are the lowest
+<a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.chi" title="tnpy.tsdrg.TreeTensorNetworkSDRG.chi"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chi</span></code></a> eigenvalues,
+and <code class="docutils literal notranslate"><span class="pre">evecs</span></code> are the corresponding eigenvectors.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Tuple</em>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)">numpy.ndarray</a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)">numpy.ndarray</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.truncation_gap">
+<span class="sig-name descname"><span class="pre">truncation_gap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">evals</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkSDRG.truncation_gap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.truncation_gap" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the gap upon <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.chi" title="tnpy.tsdrg.TreeTensorNetworkSDRG.chi"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chi</span></code></a> eigenvalues kept.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>evals</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em></a>) – The eigenvalues (energy spectrum).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The truncation gap, evals[chi+1] - evals[chi].</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.block_hamiltonian">
+<span class="sig-name descname"><span class="pre">block_hamiltonian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locus</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkSDRG.block_hamiltonian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.block_hamiltonian" title="Permalink to this definition">#</a></dt>
+<dd><p>Construct the 2-site Hamiltonian from coarse-graining MPO.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>locus</strong> (<em>int</em>) – The site in coarse-grained system during the RG process.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The 2-site Hamiltonian.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)">numpy.ndarray</a></p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This implicitly assumes the boundary vectors of MPO are
+the first row and the last column.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.spectrum_projector">
+<span class="sig-name descname"><span class="pre">spectrum_projector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">evecs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkSDRG.spectrum_projector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.spectrum_projector" title="Permalink to this definition">#</a></dt>
+<dd><p>Coarse-grain the MPO with given evecs which is used to form a projector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>locus</strong> (<em>int</em>) – The site in coarse-grained system during the RG process.</p></li>
+<li><p><strong>evecs</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>numpy.ndarray</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The projector.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)">numpy.ndarray</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tnpy/tsdrg.html#TreeTensorNetworkSDRG.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.run" title="Permalink to this definition">#</a></dt>
+<dd><p>Start the algorithm.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.measurements">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">measurements</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements" title="tnpy.tsdrg.TreeTensorNetworkMeasurements"><span class="pre">tnpy.tsdrg.TreeTensorNetworkMeasurements</span></a></em><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.measurements" title="Permalink to this definition">#</a></dt>
+<dd><p>Call available measurements in <a class="reference internal" href="tnpy.tsdrg.TreeTensorNetworkMeasurements.html#tnpy.tsdrg.TreeTensorNetworkMeasurements" title="tnpy.tsdrg.TreeTensorNetworkMeasurements"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeTensorNetworkMeasurements</span></code></a>.</p>
+<p>Returns:</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="tnpy.tsdrg.TensorTree.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">4.2. </span>tnpy.tsdrg.TensorTree</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="tnpy.tsdrg.TreeTensorNetworkMeasurements.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">4.4. </span>tnpy.tsdrg.TreeTensorNetworkMeasurements</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Tan Tao-Lin<br/>
+  
+      &copy; Copyright 2023, Tan Tao-Lin.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
