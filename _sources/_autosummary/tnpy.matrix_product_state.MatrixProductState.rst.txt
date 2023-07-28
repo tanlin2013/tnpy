@@ -28,6 +28,7 @@
       ~MatrixProductState.antidiag_gauge_
       ~MatrixProductState.apply_to_arrays
       ~MatrixProductState.as_cyclic
+      ~MatrixProductState.as_network
       ~MatrixProductState.aslinearoperator
       ~MatrixProductState.astype
       ~MatrixProductState.astype_
@@ -43,20 +44,34 @@
       ~MatrixProductState.canonize_around_
       ~MatrixProductState.canonize_between
       ~MatrixProductState.canonize_cyclic
+      ~MatrixProductState.check
       ~MatrixProductState.column_reduce
       ~MatrixProductState.column_reduce_
+      ~MatrixProductState.combine
       ~MatrixProductState.compress
       ~MatrixProductState.compress_all
       ~MatrixProductState.compress_all_
+      ~MatrixProductState.compress_all_simple
+      ~MatrixProductState.compress_all_simple_
+      ~MatrixProductState.compress_all_tree
+      ~MatrixProductState.compress_all_tree_
       ~MatrixProductState.compress_between
       ~MatrixProductState.compress_simplify
       ~MatrixProductState.compress_simplify_
       ~MatrixProductState.compress_site
       ~MatrixProductState.compute_centralities
       ~MatrixProductState.compute_contracted_inds
+      ~MatrixProductState.compute_hierarchical_grouping
       ~MatrixProductState.compute_hierarchical_linkage
       ~MatrixProductState.compute_hierarchical_ordering
       ~MatrixProductState.compute_hierarchical_ssa_path
+      ~MatrixProductState.compute_local_expectation
+      ~MatrixProductState.compute_local_expectation_cluster
+      ~MatrixProductState.compute_local_expectation_exact
+      ~MatrixProductState.compute_local_expectation_rehearse
+      ~MatrixProductState.compute_local_expectation_simple
+      ~MatrixProductState.compute_local_expectation_tn
+      ~MatrixProductState.compute_reduced_factor
       ~MatrixProductState.compute_shortest_distances
       ~MatrixProductState.conj
       ~MatrixProductState.conj_
@@ -73,6 +88,7 @@
       ~MatrixProductState.contract_ind
       ~MatrixProductState.contract_structured
       ~MatrixProductState.contract_tags
+      ~MatrixProductState.contract_tags_
       ~MatrixProductState.contraction_cost
       ~MatrixProductState.contraction_info
       ~MatrixProductState.contraction_path
@@ -90,6 +106,9 @@
       ~MatrixProductState.distance
       ~MatrixProductState.distribute_exponent
       ~MatrixProductState.draw
+      ~MatrixProductState.draw_3d
+      ~MatrixProductState.draw_3d_interactive
+      ~MatrixProductState.draw_interactive
       ~MatrixProductState.draw_tree_span
       ~MatrixProductState.drop_tags
       ~MatrixProductState.enlarge_bond_dim
@@ -97,7 +116,9 @@
       ~MatrixProductState.equalize_norms
       ~MatrixProductState.equalize_norms_
       ~MatrixProductState.expand_bond_dimension
+      ~MatrixProductState.expand_bond_dimension_
       ~MatrixProductState.expec
+      ~MatrixProductState.filter_valid_site_tags
       ~MatrixProductState.fit
       ~MatrixProductState.fit_
       ~MatrixProductState.flip
@@ -110,11 +131,18 @@
       ~MatrixProductState.fuse_multibonds_
       ~MatrixProductState.gate
       ~MatrixProductState.gate_
+      ~MatrixProductState.gate_fit_local_
       ~MatrixProductState.gate_inds
       ~MatrixProductState.gate_inds_
+      ~MatrixProductState.gate_inds_with_tn
+      ~MatrixProductState.gate_inds_with_tn_
+      ~MatrixProductState.gate_simple_
       ~MatrixProductState.gate_split
       ~MatrixProductState.gate_split_
       ~MatrixProductState.gate_with_auto_swap
+      ~MatrixProductState.gate_with_auto_swap_
+      ~MatrixProductState.gauge_all
+      ~MatrixProductState.gauge_all_
       ~MatrixProductState.gauge_all_canonize
       ~MatrixProductState.gauge_all_canonize_
       ~MatrixProductState.gauge_all_random
@@ -126,11 +154,17 @@
       ~MatrixProductState.gauge_simple_insert
       ~MatrixProductState.gauge_simple_remove
       ~MatrixProductState.gauge_simple_temp
+      ~MatrixProductState.gen_inds_from_coos
       ~MatrixProductState.gen_loops
       ~MatrixProductState.gen_site_coos
+      ~MatrixProductState.gen_sites_present
+      ~MatrixProductState.gen_tags_from_coos
       ~MatrixProductState.geometry_hash
       ~MatrixProductState.get_equation
+      ~MatrixProductState.get_hyperinds
       ~MatrixProductState.get_inputs_output_size_dict
+      ~MatrixProductState.get_multibonds
+      ~MatrixProductState.get_params
       ~MatrixProductState.get_symbol_map
       ~MatrixProductState.get_tree_span
       ~MatrixProductState.graph
@@ -139,13 +173,21 @@
       ~MatrixProductState.hyperinds_resolve_
       ~MatrixProductState.ind_size
       ~MatrixProductState.ind_sizes
+      ~MatrixProductState.inds_size
       ~MatrixProductState.inner_inds
+      ~MatrixProductState.insert_compressor_between_regions
+      ~MatrixProductState.insert_compressor_between_regions_
       ~MatrixProductState.insert_gauge
       ~MatrixProductState.insert_operator
       ~MatrixProductState.insert_operator_
       ~MatrixProductState.iscomplex
+      ~MatrixProductState.isconnected
       ~MatrixProductState.isel
       ~MatrixProductState.isel_
+      ~MatrixProductState.isometrize
+      ~MatrixProductState.isometrize_
+      ~MatrixProductState.istree
+      ~MatrixProductState.item
       ~MatrixProductState.largest_element
       ~MatrixProductState.least_central_tid
       ~MatrixProductState.left_canonize
@@ -153,6 +195,10 @@
       ~MatrixProductState.left_compress
       ~MatrixProductState.left_compress_site
       ~MatrixProductState.load
+      ~MatrixProductState.local_expectation
+      ~MatrixProductState.local_expectation_cluster
+      ~MatrixProductState.local_expectation_exact
+      ~MatrixProductState.local_expectation_simple
       ~MatrixProductState.logneg_subsys
       ~MatrixProductState.loop_simplify
       ~MatrixProductState.loop_simplify_
@@ -174,6 +220,7 @@
       ~MatrixProductState.normalize
       ~MatrixProductState.outer_dims_inds
       ~MatrixProductState.outer_inds
+      ~MatrixProductState.outer_size
       ~MatrixProductState.pair_simplify
       ~MatrixProductState.pair_simplify_
       ~MatrixProductState.partial_trace
@@ -181,6 +228,7 @@
       ~MatrixProductState.partition
       ~MatrixProductState.partition_tensors
       ~MatrixProductState.permute_arrays
+      ~MatrixProductState.pop_tensor
       ~MatrixProductState.ptr
       ~MatrixProductState.random
       ~MatrixProductState.randomize
@@ -198,8 +246,11 @@
       ~MatrixProductState.replace_with_identity
       ~MatrixProductState.replace_with_svd
       ~MatrixProductState.replace_with_svd_
+      ~MatrixProductState.reset_cached_properties
       ~MatrixProductState.retag
       ~MatrixProductState.retag_
+      ~MatrixProductState.retag_all
+      ~MatrixProductState.retag_all_
       ~MatrixProductState.retag_sites
       ~MatrixProductState.right_canonize
       ~MatrixProductState.right_canonize_site
@@ -214,6 +265,7 @@
       ~MatrixProductState.select_local
       ~MatrixProductState.select_neighbors
       ~MatrixProductState.select_tensors
+      ~MatrixProductState.set_params
       ~MatrixProductState.shift_orthogonality_center
       ~MatrixProductState.show
       ~MatrixProductState.singular_values
@@ -229,10 +281,13 @@
       ~MatrixProductState.strip_exponent
       ~MatrixProductState.subgraphs
       ~MatrixProductState.swap_site_to
+      ~MatrixProductState.swap_site_to_
       ~MatrixProductState.swap_sites_with_compress
+      ~MatrixProductState.swap_sites_with_compress_
       ~MatrixProductState.tensors_sorted
       ~MatrixProductState.tids_are_connected
       ~MatrixProductState.to_dense
+      ~MatrixProductState.to_qarray
       ~MatrixProductState.trace
       ~MatrixProductState.unitize
       ~MatrixProductState.unitize_
@@ -262,8 +317,10 @@
       ~MatrixProductState.shape
       ~MatrixProductState.site_ind_id
       ~MatrixProductState.site_inds
+      ~MatrixProductState.site_inds_present
       ~MatrixProductState.site_tag_id
       ~MatrixProductState.site_tags
+      ~MatrixProductState.site_tags_present
       ~MatrixProductState.sites
       ~MatrixProductState.tags
       ~MatrixProductState.tensors
