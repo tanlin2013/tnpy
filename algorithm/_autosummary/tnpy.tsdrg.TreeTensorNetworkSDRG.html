@@ -658,7 +658,7 @@ For measurements, please refer to
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tsdrg</strong> (<a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG" title="tnpy.tsdrg.TreeTensorNetworkSDRG"><em>tnpy.tsdrg.TreeTensorNetworkSDRG</em></a>) – </p></li>
-<li><p><strong>evecs</strong> (<em>List</em><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.25)"><em>numpy.ndarray</em></a><em>]</em>) – </p></li>
+<li><p><strong>evecs</strong> (<em>List</em><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><em>numpy.ndarray</em></a><em>]</em>) – </p></li>
 <li><p><strong>gap</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – </p></li>
 </ul>
 </dd>
@@ -673,7 +673,7 @@ For measurements, please refer to
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.evecs">
-<span class="sig-name descname"><span class="pre">evecs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.25)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.evecs" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">evecs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.GapCache.evecs" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -716,7 +716,7 @@ This will only examine neighbours of 2 fused nodes.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tsdrg</strong> (<a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG" title="tnpy.tsdrg.TreeTensorNetworkSDRG"><em>tnpy.tsdrg.TreeTensorNetworkSDRG</em></a>) – </p></li>
-<li><p><strong>evecs</strong> (<em>List</em><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.25)"><em>numpy.ndarray</em></a><em>]</em>) – </p></li>
+<li><p><strong>evecs</strong> (<em>List</em><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><em>numpy.ndarray</em></a><em>]</em>) – </p></li>
 <li><p><strong>gap</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – </p></li>
 </ul>
 </dd>
@@ -783,7 +783,7 @@ That is, number of eigenvectors to keep in the projection.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="tnpy.tsdrg.TreeTensorNetworkSDRG.evals">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evals</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.25)"><span class="pre">numpy.ndarray</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.evals" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evals</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">numpy.ndarray</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.evals" title="Permalink to this definition">#</a></dt>
 <dd><p>The renormalized eigenvalues, with length <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.chi" title="tnpy.tsdrg.TreeTensorNetworkSDRG.chi"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chi</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -808,7 +808,7 @@ where <code class="docutils literal notranslate"><span class="pre">evals</span><
 and <code class="docutils literal notranslate"><span class="pre">evecs</span></code> are the corresponding eigenvectors.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><em>Tuple</em>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.25)">numpy.ndarray</a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.25)">numpy.ndarray</a>]</p>
+<dd class="field-odd"><p><em>Tuple</em>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)">numpy.ndarray</a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)">numpy.ndarray</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -819,7 +819,7 @@ and <code class="docutils literal notranslate"><span class="pre">evecs</span></c
 <dd><p>Return the gap upon <a class="reference internal" href="#tnpy.tsdrg.TreeTensorNetworkSDRG.chi" title="tnpy.tsdrg.TreeTensorNetworkSDRG.chi"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chi</span></code></a> eigenvalues kept.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>evals</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.25)"><em>numpy.ndarray</em></a>) – The eigenvalues (energy spectrum).</p>
+<dd class="field-odd"><p><strong>evals</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><em>numpy.ndarray</em></a>) – The eigenvalues (energy spectrum).</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The truncation gap, evals[chi+1] - evals[chi].</p>
@@ -842,7 +842,7 @@ and <code class="docutils literal notranslate"><span class="pre">evecs</span></c
 <dd class="field-even"><p>The 2-site Hamiltonian.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.25)">numpy.ndarray</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)">numpy.ndarray</a></p>
 </dd>
 </dl>
 <div class="admonition warning">
@@ -860,14 +860,14 @@ the first row and the last column.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>locus</strong> (<em>int</em>) – The site in coarse-grained system during the RG process.</p></li>
-<li><p><strong>evecs</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.25)"><em>numpy.ndarray</em></a>) – </p></li>
+<li><p><strong>evecs</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><em>numpy.ndarray</em></a>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The projector.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.25)">numpy.ndarray</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)">numpy.ndarray</a></p>
 </dd>
 </dl>
 </dd></dl>
