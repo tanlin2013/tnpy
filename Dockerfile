@@ -1,4 +1,4 @@
-FROM python:3.10.8 as python
+FROM python:3.12.2 as python
 LABEL maintainer="TaoLin tanlin2013@gmail.com"
 
 ARG WORKDIR=/home
