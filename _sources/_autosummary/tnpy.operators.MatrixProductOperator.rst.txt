@@ -94,11 +94,13 @@
       ~MatrixProductOperator.copy
       ~MatrixProductOperator.count_canonized
       ~MatrixProductOperator.cut_between
+      ~MatrixProductOperator.cut_bond
       ~MatrixProductOperator.cut_iter
       ~MatrixProductOperator.delete
       ~MatrixProductOperator.diagonal_reduce
       ~MatrixProductOperator.diagonal_reduce_
       ~MatrixProductOperator.distance
+      ~MatrixProductOperator.distance_normalized
       ~MatrixProductOperator.distribute_exponent
       ~MatrixProductOperator.dot
       ~MatrixProductOperator.draw

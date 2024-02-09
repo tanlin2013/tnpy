@@ -798,20 +798,26 @@ title="Edit this page"
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cut_between</span></code>(left_tags, right_tags, left_ind, ...)</p></td>
 <td><p>Cut the bond between the tensors specified by <code class="docutils literal notranslate"><span class="pre">left_tags</span></code> and <code class="docutils literal notranslate"><span class="pre">right_tags</span></code>, giving them the new inds <code class="docutils literal notranslate"><span class="pre">left_ind</span></code> and <code class="docutils literal notranslate"><span class="pre">right_ind</span></code> respectively.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cut_iter</span></code>(*inds)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cut_bond</span></code>(bond[, new_left_ind, new_right_ind])</p></td>
+<td><p>Cut the bond index specified by <code class="docutils literal notranslate"><span class="pre">bond</span></code> between the tensors it connects.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cut_iter</span></code>(*inds)</p></td>
 <td><p>Cut and iterate over one or more indices in this tensor network.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">delete</span></code>(tags[, which])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">delete</span></code>(tags[, which])</p></td>
 <td><p>Delete any tensors which match all or any of <code class="docutils literal notranslate"><span class="pre">tags</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">diagonal_reduce</span></code>([output_inds, atol, cache, ...])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">diagonal_reduce</span></code>([output_inds, atol, cache, ...])</p></td>
 <td><p>Find tensors with diagonal structure and collapse those axes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">diagonal_reduce_</span></code>([output_inds, atol, cache, ...])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">diagonal_reduce_</span></code>([output_inds, atol, cache, ...])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">distance</span></code>(tnB[, xAA, xAB, xBB, method])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">distance</span></code>(tnB[, xAA, xAB, xBB, method, ...])</p></td>
 <td><p>Compute the Frobenius norm distance between two tensor networks:</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">distance_normalized</span></code>(tnB[, xAA, xAB, xBB, ...])</p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">distribute_exponent</span></code>()</p></td>
 <td><p>Distribute the exponent <code class="docutils literal notranslate"><span class="pre">p</span></code> of this tensor network (i.e.</p></td>
@@ -1290,11 +1296,11 @@ title="Edit this page"
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">trace</span></code>([left_inds, right_inds])</p></td>
 <td><p>Take the trace of this MPO.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">unitize</span></code>(**kwargs)</p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">unitize</span></code>([method, allow_no_left_inds, inplace])</p></td>
+<td><p>Project every tensor in this network into an isometric form, assuming they have <code class="docutils literal notranslate"><span class="pre">left_inds</span></code> marked.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">unitize_</span></code>(**kwargs)</p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">unitize_</span></code></p></td>
+<td><p>Method descriptor with partial application of the given arguments and keywords.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">upper_ind</span></code>(site)</p></td>
 <td><p>Get the upper physical index name of <code class="docutils literal notranslate"><span class="pre">site</span></code>.</p></td>

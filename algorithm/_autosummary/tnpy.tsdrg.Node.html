@@ -641,211 +641,214 @@ title="Edit this page"
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">direct_product_</span></code>(T2[, sum_inds, inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">distance</span></code>(tnB[, xAA, xAB, xBB, method])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">distance</span></code>(tnB[, xAA, xAB, xBB, method, ...])</p></td>
 <td><p>Compute the Frobenius norm distance between two tensor networks:</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw</span></code>([color, show_inds, show_tags, ...])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">distance_normalized</span></code>(tnB[, xAA, xAB, xBB, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw</span></code>([color, show_inds, show_tags, ...])</p></td>
 <td><p>Plot this tensor network as a networkx graph using matplotlib, with edge width corresponding to bond dimension.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">drop_tags</span></code>([tags])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">drop_tags</span></code>([tags])</p></td>
 <td><p>Drop certain tags, defaulting to all, from this tensor.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">entropy</span></code>(left_inds[, method])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">entropy</span></code>(left_inds[, method])</p></td>
 <td><p>Return the entropy associated with splitting this tensor according to <code class="docutils literal notranslate"><span class="pre">left_inds</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">expand_ind</span></code>(ind, size[, mode, rand_strength, ...])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">expand_ind</span></code>(ind, size[, mode, rand_strength, ...])</p></td>
 <td><p>Inplace increase the size of the dimension of <code class="docutils literal notranslate"><span class="pre">ind</span></code>, the new array entries will be filled with zeros by default.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">filter_bonds</span></code>(other)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">filter_bonds</span></code>(other)</p></td>
 <td><p>Sort this tensor's indices into a list of those that it shares and doesn't share with another tensor.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">flip</span></code>(ind[, inplace])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">flip</span></code>(ind[, inplace])</p></td>
 <td><p>Reverse the axis on this tensor corresponding to <code class="docutils literal notranslate"><span class="pre">ind</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">flip_</span></code>(ind, *[, inplace])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">flip_</span></code>(ind, *[, inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fuse</span></code>(fuse_map[, inplace])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fuse</span></code>(fuse_map[, inplace])</p></td>
 <td><p>Combine groups of indices into single indices.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fuse_</span></code>(fuse_map, *[, inplace])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fuse_</span></code>(fuse_map, *[, inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gate</span></code>(G, ind[, preserve_inds, inplace])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gate</span></code>(G, ind[, preserve_inds, inplace])</p></td>
 <td><p>Gate this tensor - contract a matrix into one of its indices without changing its indices.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gate_</span></code>(G, ind[, preserve_inds, inplace])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gate_</span></code>(G, ind[, preserve_inds, inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code>()</p></td>
 <td><p>A simple function that returns the 'parameters' of the underlying data array.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph</span></code>([color, show_inds, show_tags, ...])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph</span></code>([color, show_inds, show_tags, ...])</p></td>
 <td><p>Plot this tensor network as a networkx graph using matplotlib, with edge width corresponding to bond dimension.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">idxmax</span></code>([f])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">idxmax</span></code>([f])</p></td>
 <td><p>Get the index configuration of the maximum element of this tensor, optionally applying <code class="docutils literal notranslate"><span class="pre">f</span></code> first.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">idxmin</span></code>([f])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">idxmin</span></code>([f])</p></td>
 <td><p>Get the index configuration of the minimum element of this tensor, optionally applying <code class="docutils literal notranslate"><span class="pre">f</span></code> first.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ind_size</span></code>(ind)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ind_size</span></code>(ind)</p></td>
 <td><p>Return the size of dimension corresponding to <code class="docutils literal notranslate"><span class="pre">ind</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">inds_size</span></code>(inds)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">inds_size</span></code>(inds)</p></td>
 <td><p>Return the total size of dimensions corresponding to <code class="docutils literal notranslate"><span class="pre">inds</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">inner_inds</span></code>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">inner_inds</span></code>()</p></td>
 <td><p>Get all indices that appear on two or more tensors.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">iscomplex</span></code>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">iscomplex</span></code>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">isel</span></code>(selectors[, inplace])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">isel</span></code>(selectors[, inplace])</p></td>
 <td><p>Select specific values for some dimensions/indices of this tensor, thereby removing them.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">isel_</span></code>(selectors, *[, inplace])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">isel_</span></code>(selectors, *[, inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">isometrize</span></code>([left_inds, method, inplace])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">isometrize</span></code>([left_inds, method, inplace])</p></td>
 <td><p>Make this tensor unitary (or isometric) with respect to <code class="docutils literal notranslate"><span class="pre">left_inds</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">isometrize_</span></code>([left_inds, method, inplace])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">isometrize_</span></code>([left_inds, method, inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">item</span></code>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">item</span></code>()</p></td>
 <td><p>Return the scalar value of this tensor, if it has a single element.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">largest_element</span></code>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">largest_element</span></code>()</p></td>
 <td><p>Return the largest element, in terms of absolute magnitude, of this tensor.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_dim</span></code>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_dim</span></code>()</p></td>
 <td><p>Return the maximum size of any dimension, or 1 if scalar.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">modify</span></code>(**kwargs)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">modify</span></code>(**kwargs)</p></td>
 <td><p>Overwrite the data of this tensor in place.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">moveindex</span></code>(ind, axis[, inplace])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">moveindex</span></code>(ind, axis[, inplace])</p></td>
 <td><p>Move the index <code class="docutils literal notranslate"><span class="pre">ind</span></code> to position <code class="docutils literal notranslate"><span class="pre">axis</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">moveindex_</span></code>(ind, axis, *[, inplace])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">moveindex_</span></code>(ind, axis, *[, inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">multiply_index_diagonal</span></code>(ind, x[, inplace])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">multiply_index_diagonal</span></code>(ind, x[, inplace])</p></td>
 <td><p>Multiply this tensor by 1D array <code class="docutils literal notranslate"><span class="pre">x</span></code> as if it were a diagonal tensor being contracted into index <code class="docutils literal notranslate"><span class="pre">ind</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">multiply_index_diagonal_</span></code>(ind, x, *[, inplace])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">multiply_index_diagonal_</span></code>(ind, x, *[, inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">new_bond</span></code>(T2[, size, name, axis1, axis2])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">new_bond</span></code>(T2[, size, name, axis1, axis2])</p></td>
 <td><p>Inplace addition of a new bond between tensors <code class="docutils literal notranslate"><span class="pre">T1</span></code> and <code class="docutils literal notranslate"><span class="pre">T2</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">new_ind</span></code>(name[, size, axis, mode, ...])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">new_ind</span></code>(name[, size, axis, mode, ...])</p></td>
 <td><p>Inplace add a new index - a named dimension.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">new_ind_with_identity</span></code>(name, left_inds, ...)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">new_ind_with_identity</span></code>(name, left_inds, ...)</p></td>
 <td><p>Inplace add a new index, where the newly stacked array entries form the identity from <code class="docutils literal notranslate"><span class="pre">left_inds</span></code> to <code class="docutils literal notranslate"><span class="pre">right_inds</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">norm</span></code>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">norm</span></code>()</p></td>
 <td><p>Frobenius norm of this tensor:</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">normalize</span></code>([inplace])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">normalize</span></code>([inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">normalize_</span></code>(*[, inplace])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">normalize_</span></code>(*[, inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">randomize</span></code>([dtype, inplace])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">randomize</span></code>([dtype, inplace])</p></td>
 <td><p>Randomize the entries of this tensor.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">randomize_</span></code>([dtype, inplace])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">randomize_</span></code>([dtype, inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">reindex</span></code>(index_map[, inplace])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">reindex</span></code>(index_map[, inplace])</p></td>
 <td><p>Rename the indices of this tensor, optionally in-place.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">reindex_</span></code>(index_map, *[, inplace])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">reindex_</span></code>(index_map, *[, inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_owner</span></code>(tn)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_owner</span></code>(tn)</p></td>
 <td><p>Remove TensorNetwork <code class="docutils literal notranslate"><span class="pre">tn</span></code> as an owner of this Tensor.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">retag</span></code>(retag_map[, inplace])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">retag</span></code>(retag_map[, inplace])</p></td>
 <td><p>Rename the tags of this tensor, optionally, in-place.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">retag_</span></code>(retag_map, *[, inplace])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">retag_</span></code>(retag_map, *[, inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code>(params)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code>(params)</p></td>
 <td><p>A simple function that sets the 'parameters' of the underlying data array.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">shared_bond_size</span></code>(other)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">shared_bond_size</span></code>(other)</p></td>
 <td><p>Get the total size of the shared index(es) with <code class="docutils literal notranslate"><span class="pre">other</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">singular_values</span></code>(left_inds[, method])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">singular_values</span></code>(left_inds[, method])</p></td>
 <td><p>Return the singular values associated with splitting this tensor according to <code class="docutils literal notranslate"><span class="pre">left_inds</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">split</span></code>(left_inds[, method, get, absorb, ...])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">split</span></code>(left_inds[, method, get, absorb, ...])</p></td>
 <td><p>Decompose this tensor into two tensors.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">squeeze</span></code>([include, exclude, inplace])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">squeeze</span></code>([include, exclude, inplace])</p></td>
 <td><p>Drop any singlet dimensions from this tensor.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">squeeze_</span></code>([include, exclude, inplace])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">squeeze_</span></code>([include, exclude, inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">sum_reduce</span></code>(ind[, inplace])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">sum_reduce</span></code>(ind[, inplace])</p></td>
 <td><p>Sum over index <code class="docutils literal notranslate"><span class="pre">ind</span></code>, removing it from this tensor.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">sum_reduce_</span></code>(ind, *[, inplace])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">sum_reduce_</span></code>(ind, *[, inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">symmetrize</span></code>(ind1, ind2[, inplace])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">symmetrize</span></code>(ind1, ind2[, inplace])</p></td>
 <td><p>Hermitian symmetrize this tensor for indices <code class="docutils literal notranslate"><span class="pre">ind1</span></code> and <code class="docutils literal notranslate"><span class="pre">ind2</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">symmetrize_</span></code>(ind1, ind2, *[, inplace])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">symmetrize_</span></code>(ind1, ind2, *[, inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dense</span></code>(*inds_seq[, to_qarray])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dense</span></code>(*inds_seq[, to_qarray])</p></td>
 <td><p>Convert this Tensor into an dense array, with a single dimension for each of inds in <code class="docutils literal notranslate"><span class="pre">inds_seqs</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_qarray</span></code>(*inds_seq[, to_qarray])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_qarray</span></code>(*inds_seq[, to_qarray])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">trace</span></code>(left_inds, right_inds[, ...])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">trace</span></code>(left_inds, right_inds[, ...])</p></td>
 <td><p>Trace index or indices <code class="docutils literal notranslate"><span class="pre">left_inds</span></code> with <code class="docutils literal notranslate"><span class="pre">right_inds</span></code>, removing them.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">transpose</span></code>(*output_inds[, inplace])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">transpose</span></code>(*output_inds[, inplace])</p></td>
 <td><p>Transpose this tensor - permuting the order of both the data <em>and</em> the indices.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">transpose_</span></code>(*output_inds[, inplace])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">transpose_</span></code>(*output_inds[, inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">transpose_like</span></code>(other[, inplace])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">transpose_like</span></code>(other[, inplace])</p></td>
 <td><p>Transpose this tensor to match the indices of <code class="docutils literal notranslate"><span class="pre">other</span></code>, allowing for one index to be different.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">transpose_like_</span></code>(other, *[, inplace])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">transpose_like_</span></code>(other, *[, inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">unfuse</span></code>(unfuse_map, shape_map[, inplace])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">unfuse</span></code>(unfuse_map, shape_map[, inplace])</p></td>
 <td><p>Reshape single indices into groups of multiple indices</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">unfuse_</span></code>(unfuse_map, shape_map, *[, inplace])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">unfuse_</span></code>(unfuse_map, shape_map, *[, inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">unitize</span></code>(**kwargs)</p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">unitize</span></code>([left_inds, method, inplace])</p></td>
+<td><p>Make this tensor unitary (or isometric) with respect to <code class="docutils literal notranslate"><span class="pre">left_inds</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">unitize_</span></code>(**kwargs)</p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">unitize_</span></code></p></td>
+<td><p>Method descriptor with partial application of the given arguments and keywords.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">vector_reduce</span></code>(ind, v[, inplace])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">vector_reduce</span></code>(ind, v[, inplace])</p></td>
 <td><p>Contract the vector <code class="docutils literal notranslate"><span class="pre">v</span></code> with the index <code class="docutils literal notranslate"><span class="pre">ind</span></code> of this tensor, removing it.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">vector_reduce_</span></code>(ind, v, *[, inplace])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">vector_reduce_</span></code>(ind, v, *[, inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">visualize</span></code>(**kwargs)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">visualize</span></code>(**kwargs)</p></td>
 <td><p>Visualize all entries of a tensor, with indices mapped into the plane and values mapped into a color wheel.</p></td>
 </tr>
 </tbody>

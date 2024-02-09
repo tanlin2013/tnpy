@@ -101,11 +101,13 @@
       ~MatrixProductState.correlation
       ~MatrixProductState.count_canonized
       ~MatrixProductState.cut_between
+      ~MatrixProductState.cut_bond
       ~MatrixProductState.cut_iter
       ~MatrixProductState.delete
       ~MatrixProductState.diagonal_reduce
       ~MatrixProductState.diagonal_reduce_
       ~MatrixProductState.distance
+      ~MatrixProductState.distance_normalized
       ~MatrixProductState.distribute_exponent
       ~MatrixProductState.draw
       ~MatrixProductState.draw_3d
