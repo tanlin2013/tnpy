@@ -39,6 +39,8 @@
       ~MatrixProductState.bond_size
       ~MatrixProductState.bond_sizes
       ~MatrixProductState.calc_current_orthog_center
+      ~MatrixProductState.canonicalize
+      ~MatrixProductState.canonicalize_
       ~MatrixProductState.canonize
       ~MatrixProductState.canonize_around
       ~MatrixProductState.canonize_around_
@@ -109,6 +111,8 @@
       ~MatrixProductState.distance
       ~MatrixProductState.distance_normalized
       ~MatrixProductState.distribute_exponent
+      ~MatrixProductState.drape_bond_between
+      ~MatrixProductState.drape_bond_between_
       ~MatrixProductState.draw
       ~MatrixProductState.draw_3d
       ~MatrixProductState.draw_3d_interactive
@@ -141,13 +145,19 @@
       ~MatrixProductState.gate_inds_
       ~MatrixProductState.gate_inds_with_tn
       ~MatrixProductState.gate_inds_with_tn_
+      ~MatrixProductState.gate_nonlocal
+      ~MatrixProductState.gate_nonlocal_
       ~MatrixProductState.gate_simple_
       ~MatrixProductState.gate_split
       ~MatrixProductState.gate_split_
       ~MatrixProductState.gate_with_auto_swap
       ~MatrixProductState.gate_with_auto_swap_
+      ~MatrixProductState.gate_with_mpo
+      ~MatrixProductState.gate_with_mpo_
       ~MatrixProductState.gate_with_op_lazy
       ~MatrixProductState.gate_with_op_lazy_
+      ~MatrixProductState.gate_with_submpo
+      ~MatrixProductState.gate_with_submpo_
       ~MatrixProductState.gauge_all
       ~MatrixProductState.gauge_all_
       ~MatrixProductState.gauge_all_canonize
@@ -197,6 +207,8 @@
       ~MatrixProductState.item
       ~MatrixProductState.largest_element
       ~MatrixProductState.least_central_tid
+      ~MatrixProductState.left_canonicalize
+      ~MatrixProductState.left_canonicalize_
       ~MatrixProductState.left_canonize
       ~MatrixProductState.left_canonize_site
       ~MatrixProductState.left_compress
@@ -263,6 +275,8 @@
       ~MatrixProductState.retag_all
       ~MatrixProductState.retag_all_
       ~MatrixProductState.retag_sites
+      ~MatrixProductState.right_canonicalize
+      ~MatrixProductState.right_canonicalize_
       ~MatrixProductState.right_canonize
       ~MatrixProductState.right_canonize_site
       ~MatrixProductState.right_compress

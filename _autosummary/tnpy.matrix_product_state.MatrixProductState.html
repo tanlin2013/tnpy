@@ -652,7 +652,7 @@ which differs from the parent class
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">balance_bonds_</span></code>(*[, inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">bipartite_schmidt_state</span></code>(sz_a[, get, cur_orthog])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">bipartite_schmidt_state</span></code>(sz_a[, get, info])</p></td>
 <td><p>Compute the reduced state for a bipartition of an OBC MPS, in terms of the minimal left/right schmidt basis.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">bond</span></code>(i, j)</p></td>
@@ -667,8 +667,14 @@ which differs from the parent class
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">calc_current_orthog_center</span></code>()</p></td>
 <td><p>Calculate the site(s) of the current orthogonality center.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">canonize</span></code>(where[, cur_orthog, bra])</p></td>
-<td><p>Mixed canonize this TN. If this is a MPS, this implies that::.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">canonicalize</span></code>(where[, cur_orthog, info, bra, ...])</p></td>
+<td><p>Gauge this MPS into mixed canonical form, implying.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">canonicalize_</span></code>(where[, cur_orthog, info, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">canonize</span></code>(where[, cur_orthog, info, bra, inplace])</p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">canonize_around</span></code>(tags[, which, min_distance, ...])</p></td>
 <td><p>Expand a locally canonical region around <code class="docutils literal notranslate"><span class="pre">tags</span></code>.</p></td>
@@ -730,7 +736,7 @@ which differs from the parent class
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">compress_simplify_</span></code>([output_inds, atol, ...])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">compress_site</span></code>(i[, canonize, cur_orthog, bra])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">compress_site</span></code>(i[, canonize, info, bra])</p></td>
 <td><p>Compress the bonds adjacent to site <code class="docutils literal notranslate"><span class="pre">i</span></code>, by default first setting the orthogonality center to that site.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_centralities</span></code>()</p></td>
@@ -877,6 +883,12 @@ which differs from the parent class
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">distribute_exponent</span></code>()</p></td>
 <td><p>Distribute the exponent <code class="docutils literal notranslate"><span class="pre">p</span></code> of this tensor network (i.e.</p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">drape_bond_between</span></code>(tagsa, tagsb, tags_target)</p></td>
+<td><p>Take the bond(s) connecting the tensors tagged at <code class="docutils literal notranslate"><span class="pre">tagsa</span></code> and <code class="docutils literal notranslate"><span class="pre">tagsb</span></code>, and 'drape' it through the tensor tagged at <code class="docutils literal notranslate"><span class="pre">tags_target</span></code>, effectively adding an identity tensor between the two and contracting it with the third.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">drape_bond_between_</span></code>(tagsa, tagsb, tags_target)</p></td>
+<td><p></p></td>
+</tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw</span></code>([color, show_inds, show_tags, ...])</p></td>
 <td><p>Plot this tensor network as a networkx graph using matplotlib, with edge width corresponding to bond dimension.</p></td>
 </tr>
@@ -898,7 +910,7 @@ which differs from the parent class
 <tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.matrix_product_state.MatrixProductState.enlarge_bond_dim" title="tnpy.matrix_product_state.MatrixProductState.enlarge_bond_dim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enlarge_bond_dim</span></code></a>(new_bond_dim, method)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">entropy</span></code>(i[, cur_orthog, method])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">entropy</span></code>(i[, info, method])</p></td>
 <td><p>The entropy of bipartition between the left block of <code class="docutils literal notranslate"><span class="pre">i</span></code> sites and the rest.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">equalize_norms</span></code>([value, inplace])</p></td>
@@ -934,11 +946,11 @@ which differs from the parent class
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_TN</span></code>(tn[, like, inplace])</p></td>
 <td><p>Construct a specific tensor network subclass (i.e.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_dense</span></code>(psi, dims[, site_ind_id, site_tag_id])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_dense</span></code>(psi[, dims, tags, site_ind_id, ...])</p></td>
 <td><p>Create a <code class="docutils literal notranslate"><span class="pre">MatrixProductState</span></code> directly from a dense vector</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_fill_fn</span></code>(fill_fn, L, bond_dim[, ...])</p></td>
-<td><p>Create a random MPS by supplying a function to generate the data for each site.</p></td>
+<td><p>Create an MPS by supplying a 'filling' function to generate the data for each site.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">full_simplify</span></code>([seq, output_inds, atol, ...])</p></td>
 <td><p>Perform a series of tensor network 'simplifications' in a loop until there is no more reduction in the number of tensors or indices.</p></td>
@@ -973,6 +985,12 @@ which differs from the parent class
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gate_inds_with_tn_</span></code>(inds, gate, ...[, inplace])</p></td>
 <td><p></p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gate_nonlocal</span></code>(G, where[, dims, method, ...])</p></td>
+<td><p>Apply a potentially non-local gate to this MPS by first decomposing it into an MPO, then compressing the MPS with MPO only on the minimal set of sites covering <cite>where</cite>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gate_nonlocal_</span></code>(G, where[, dims, method, ...])</p></td>
+<td><p></p></td>
+</tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gate_simple_</span></code>(G, where, gauges[, renorm])</p></td>
 <td><p>Apply a gate to this vector tensor network at sites <code class="docutils literal notranslate"><span class="pre">where</span></code>, using simple update style gauging of the tensors first, as supplied in <code class="docutils literal notranslate"><span class="pre">gauges</span></code>.</p></td>
 </tr>
@@ -982,16 +1000,28 @@ which differs from the parent class
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gate_split_</span></code>(G, where, *[, inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gate_with_auto_swap</span></code>(G, where[, inplace, ...])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gate_with_auto_swap</span></code>(G, where[, info, ...])</p></td>
 <td><p>Perform a two site gate on this MPS by, if necessary, swapping and compressing the sites until they are adjacent, using <code class="docutils literal notranslate"><span class="pre">gate_split</span></code>, then unswapping the sites back to their original position.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gate_with_auto_swap_</span></code>(G, where, *[, inplace, ...])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gate_with_auto_swap_</span></code>(G, where[, info, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gate_with_mpo</span></code>(mpo[, method, transpose, ...])</p></td>
+<td><p>Gate this MPS with an MPO and compress the result with one of various methods back to MPS form.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gate_with_mpo_</span></code>(mpo[, method, transpose, ...])</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gate_with_op_lazy</span></code>(A[, transpose, inplace])</p></td>
 <td><p>Act lazily with the operator tensor network <code class="docutils literal notranslate"><span class="pre">A</span></code>, which should have matching structure, on this vector/state tensor network, like <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">&#64;</span> <span class="pre">x</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gate_with_op_lazy_</span></code>(A[, transpose, inplace])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gate_with_submpo</span></code>(submpo[, where, method, ...])</p></td>
+<td><p>Apply an MPO, which only acts on a subset of sites, to this MPS, compressing the MPS with the MPO only on the minimal set of sites covering <cite>where</cite>, keeping the MPS form.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gate_with_submpo_</span></code>(submpo[, where, method, ...])</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge_all</span></code>([method])</p></td>
@@ -1141,8 +1171,14 @@ which differs from the parent class
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">least_central_tid</span></code>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">left_canonize</span></code>([stop, start, normalize, bra])</p></td>
-<td><p>Left canonize all or a portion of this TN. If this is a MPS, this implies that::.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">left_canonicalize</span></code>([stop, start, normalize, ...])</p></td>
+<td><p>Left canonicalize all or a portion of this TN (i.e. sweep the orthogonality center to the right). If this is a MPS, this implies that::.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">left_canonicalize_</span></code>([stop, start, normalize, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">left_canonize</span></code>([stop, start, normalize, bra, ...])</p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">left_canonize_site</span></code>(i[, bra])</p></td>
 <td><p>Left canonize this TN's ith site, inplace.</p></td>
@@ -1177,7 +1213,7 @@ which differs from the parent class
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">loop_simplify_</span></code>([output_inds, ...])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">magnetization</span></code>(i[, direction, cur_orthog])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">magnetization</span></code>(i[, direction, info])</p></td>
 <td><p>Compute the magnetization at site <code class="docutils literal notranslate"><span class="pre">i</span></code>.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_norm</span></code>([mangle_append, layer_tags, ...])</p></td>
@@ -1339,8 +1375,14 @@ which differs from the parent class
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">retag_sites</span></code>(new_id[, where, inplace])</p></td>
 <td><p>Modify the site tags for all or some tensors in this tensor network (without changing the <code class="docutils literal notranslate"><span class="pre">site_tag_id</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">right_canonize</span></code>([stop, start, normalize, bra])</p></td>
-<td><p>Right canonize all or a portion of this TN. If this is a MPS, this implies that::.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">right_canonicalize</span></code>([stop, start, normalize, ...])</p></td>
+<td><p>Right canonicalize all or a portion of this TN (i.e.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">right_canonicalize_</span></code>([stop, start, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">right_canonize</span></code>([stop, start, normalize, ...])</p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">right_canonize_site</span></code>(i[, bra])</p></td>
 <td><p>Right canonize this TN's ith site, inplace.</p></td>
@@ -1354,10 +1396,10 @@ which differs from the parent class
 <tr class="row-odd"><td><p><a class="reference internal" href="#tnpy.matrix_product_state.MatrixProductState.save" title="tnpy.matrix_product_state.MatrixProductState.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a>(filename)</p></td>
 <td><p>Save the underlying tensors of this <a class="reference internal" href="#tnpy.matrix_product_state.MatrixProductState" title="tnpy.matrix_product_state.MatrixProductState"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixProductState</span></code></a> in the order of indices <code class="docutils literal notranslate"><span class="pre">'lpr'</span></code> into file.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">schmidt_gap</span></code>(i[, cur_orthog, method])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">schmidt_gap</span></code>(i[, info, method])</p></td>
 <td><p>The schmidt gap of bipartition between the left block of <code class="docutils literal notranslate"><span class="pre">i</span></code> sites and the rest.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">schmidt_values</span></code>(i[, cur_orthog, method])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">schmidt_values</span></code>(i[, info, method])</p></td>
 <td><p>Find the schmidt values associated with the bipartition of this MPS between sites on either site of <code class="docutils literal notranslate"><span class="pre">i</span></code>. In other words, <code class="docutils literal notranslate"><span class="pre">i</span></code> is the number of sites in the left hand partition::.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">select</span></code>(tags[, which, virtual])</p></td>
@@ -1387,7 +1429,7 @@ which differs from the parent class
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">show</span></code>([max_width])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">singular_values</span></code>(i[, cur_orthog, method])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">singular_values</span></code>(i[, info, method])</p></td>
 <td><p>Find the singular values associated with the ith bond.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">site_ind</span></code>(i)</p></td>
@@ -1429,16 +1471,16 @@ which differs from the parent class
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">sum_reduce_</span></code>(ind, *[, inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">swap_site_to</span></code>(i, f[, cur_orthog, inplace])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">swap_site_to</span></code>(i, f[, info, inplace])</p></td>
 <td><p>Swap site <code class="docutils literal notranslate"><span class="pre">i</span></code> to site <code class="docutils literal notranslate"><span class="pre">f</span></code>, compressing the bond after each swap.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">swap_site_to_</span></code>(i, f[, cur_orthog, inplace])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">swap_site_to_</span></code>(i, f[, info, inplace])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">swap_sites_with_compress</span></code>(i, j[, cur_orthog, ...])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">swap_sites_with_compress</span></code>(i, j[, info, inplace])</p></td>
 <td><p>Swap sites <code class="docutils literal notranslate"><span class="pre">i</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span></code> by contracting, then splitting with the physical indices swapped.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">swap_sites_with_compress_</span></code>(i, j[, ...])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">swap_sites_with_compress_</span></code>(i, j[, info, inplace])</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">tensors_sorted</span></code>()</p></td>

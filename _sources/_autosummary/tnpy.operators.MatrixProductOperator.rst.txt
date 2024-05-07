@@ -39,6 +39,8 @@
       ~MatrixProductOperator.bond_size
       ~MatrixProductOperator.bond_sizes
       ~MatrixProductOperator.calc_current_orthog_center
+      ~MatrixProductOperator.canonicalize
+      ~MatrixProductOperator.canonicalize_
       ~MatrixProductOperator.canonize
       ~MatrixProductOperator.canonize_around
       ~MatrixProductOperator.canonize_around_
@@ -103,6 +105,8 @@
       ~MatrixProductOperator.distance_normalized
       ~MatrixProductOperator.distribute_exponent
       ~MatrixProductOperator.dot
+      ~MatrixProductOperator.drape_bond_between
+      ~MatrixProductOperator.drape_bond_between_
       ~MatrixProductOperator.draw
       ~MatrixProductOperator.draw_3d
       ~MatrixProductOperator.draw_3d_interactive
@@ -113,12 +117,15 @@
       ~MatrixProductOperator.equalize_norms_
       ~MatrixProductOperator.expand_bond_dimension
       ~MatrixProductOperator.expand_bond_dimension_
+      ~MatrixProductOperator.fill_empty_sites
+      ~MatrixProductOperator.fill_empty_sites_
       ~MatrixProductOperator.filter_valid_site_tags
       ~MatrixProductOperator.fit
       ~MatrixProductOperator.fit_
       ~MatrixProductOperator.flip
       ~MatrixProductOperator.flip_
       ~MatrixProductOperator.from_TN
+      ~MatrixProductOperator.from_dense
       ~MatrixProductOperator.from_fill_fn
       ~MatrixProductOperator.full_simplify
       ~MatrixProductOperator.full_simplify_
@@ -183,6 +190,8 @@
       ~MatrixProductOperator.item
       ~MatrixProductOperator.largest_element
       ~MatrixProductOperator.least_central_tid
+      ~MatrixProductOperator.left_canonicalize
+      ~MatrixProductOperator.left_canonicalize_
       ~MatrixProductOperator.left_canonize
       ~MatrixProductOperator.left_canonize_site
       ~MatrixProductOperator.left_compress
@@ -238,6 +247,8 @@
       ~MatrixProductOperator.retag_all
       ~MatrixProductOperator.retag_all_
       ~MatrixProductOperator.retag_sites
+      ~MatrixProductOperator.right_canonicalize
+      ~MatrixProductOperator.right_canonicalize_
       ~MatrixProductOperator.right_canonize
       ~MatrixProductOperator.right_canonize_site
       ~MatrixProductOperator.right_compress

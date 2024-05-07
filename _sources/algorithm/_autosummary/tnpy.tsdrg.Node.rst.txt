@@ -70,6 +70,8 @@
       ~Node.negate_
       ~Node.new_bond
       ~Node.new_ind
+      ~Node.new_ind_pair_with_identity
+      ~Node.new_ind_pair_with_identity_
       ~Node.new_ind_with_identity
       ~Node.norm
       ~Node.normalize
