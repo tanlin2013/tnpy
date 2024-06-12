@@ -29,6 +29,7 @@
       ~MatrixProductOperator.apply
       ~MatrixProductOperator.apply_to_arrays
       ~MatrixProductOperator.as_cyclic
+      ~MatrixProductOperator.as_network
       ~MatrixProductOperator.aslinearoperator
       ~MatrixProductOperator.astype
       ~MatrixProductOperator.astype_
@@ -38,25 +39,37 @@
       ~MatrixProductOperator.bond_size
       ~MatrixProductOperator.bond_sizes
       ~MatrixProductOperator.calc_current_orthog_center
+      ~MatrixProductOperator.canonicalize
+      ~MatrixProductOperator.canonicalize_
       ~MatrixProductOperator.canonize
       ~MatrixProductOperator.canonize_around
       ~MatrixProductOperator.canonize_around_
       ~MatrixProductOperator.canonize_between
       ~MatrixProductOperator.canonize_cyclic
+      ~MatrixProductOperator.check
       ~MatrixProductOperator.column_reduce
       ~MatrixProductOperator.column_reduce_
+      ~MatrixProductOperator.combine
       ~MatrixProductOperator.compress
       ~MatrixProductOperator.compress_all
       ~MatrixProductOperator.compress_all_
+      ~MatrixProductOperator.compress_all_1d
+      ~MatrixProductOperator.compress_all_1d_
+      ~MatrixProductOperator.compress_all_simple
+      ~MatrixProductOperator.compress_all_simple_
+      ~MatrixProductOperator.compress_all_tree
+      ~MatrixProductOperator.compress_all_tree_
       ~MatrixProductOperator.compress_between
       ~MatrixProductOperator.compress_simplify
       ~MatrixProductOperator.compress_simplify_
       ~MatrixProductOperator.compress_site
       ~MatrixProductOperator.compute_centralities
       ~MatrixProductOperator.compute_contracted_inds
+      ~MatrixProductOperator.compute_hierarchical_grouping
       ~MatrixProductOperator.compute_hierarchical_linkage
       ~MatrixProductOperator.compute_hierarchical_ordering
       ~MatrixProductOperator.compute_hierarchical_ssa_path
+      ~MatrixProductOperator.compute_reduced_factor
       ~MatrixProductOperator.compute_shortest_distances
       ~MatrixProductOperator.conj
       ~MatrixProductOperator.conj_
@@ -73,6 +86,7 @@
       ~MatrixProductOperator.contract_ind
       ~MatrixProductOperator.contract_structured
       ~MatrixProductOperator.contract_tags
+      ~MatrixProductOperator.contract_tags_
       ~MatrixProductOperator.contraction_cost
       ~MatrixProductOperator.contraction_info
       ~MatrixProductOperator.contraction_path
@@ -82,30 +96,53 @@
       ~MatrixProductOperator.copy
       ~MatrixProductOperator.count_canonized
       ~MatrixProductOperator.cut_between
+      ~MatrixProductOperator.cut_bond
       ~MatrixProductOperator.cut_iter
       ~MatrixProductOperator.delete
       ~MatrixProductOperator.diagonal_reduce
       ~MatrixProductOperator.diagonal_reduce_
       ~MatrixProductOperator.distance
+      ~MatrixProductOperator.distance_normalized
       ~MatrixProductOperator.distribute_exponent
       ~MatrixProductOperator.dot
+      ~MatrixProductOperator.drape_bond_between
+      ~MatrixProductOperator.drape_bond_between_
       ~MatrixProductOperator.draw
+      ~MatrixProductOperator.draw_3d
+      ~MatrixProductOperator.draw_3d_interactive
+      ~MatrixProductOperator.draw_interactive
       ~MatrixProductOperator.draw_tree_span
       ~MatrixProductOperator.drop_tags
       ~MatrixProductOperator.equalize_norms
       ~MatrixProductOperator.equalize_norms_
       ~MatrixProductOperator.expand_bond_dimension
+      ~MatrixProductOperator.expand_bond_dimension_
+      ~MatrixProductOperator.fill_empty_sites
+      ~MatrixProductOperator.fill_empty_sites_
+      ~MatrixProductOperator.filter_valid_site_tags
       ~MatrixProductOperator.fit
       ~MatrixProductOperator.fit_
       ~MatrixProductOperator.flip
       ~MatrixProductOperator.flip_
       ~MatrixProductOperator.from_TN
+      ~MatrixProductOperator.from_dense
+      ~MatrixProductOperator.from_fill_fn
       ~MatrixProductOperator.full_simplify
       ~MatrixProductOperator.full_simplify_
       ~MatrixProductOperator.fuse_multibonds
       ~MatrixProductOperator.fuse_multibonds_
       ~MatrixProductOperator.gate_inds
       ~MatrixProductOperator.gate_inds_
+      ~MatrixProductOperator.gate_inds_with_tn
+      ~MatrixProductOperator.gate_inds_with_tn_
+      ~MatrixProductOperator.gate_lower_with_op_lazy
+      ~MatrixProductOperator.gate_lower_with_op_lazy_
+      ~MatrixProductOperator.gate_sandwich_with_op_lazy
+      ~MatrixProductOperator.gate_sandwich_with_op_lazy_
+      ~MatrixProductOperator.gate_upper_with_op_lazy
+      ~MatrixProductOperator.gate_upper_with_op_lazy_
+      ~MatrixProductOperator.gauge_all
+      ~MatrixProductOperator.gauge_all_
       ~MatrixProductOperator.gauge_all_canonize
       ~MatrixProductOperator.gauge_all_canonize_
       ~MatrixProductOperator.gauge_all_random
@@ -117,11 +154,18 @@
       ~MatrixProductOperator.gauge_simple_insert
       ~MatrixProductOperator.gauge_simple_remove
       ~MatrixProductOperator.gauge_simple_temp
+      ~MatrixProductOperator.gen_inds_connected
+      ~MatrixProductOperator.gen_inds_loops
       ~MatrixProductOperator.gen_loops
       ~MatrixProductOperator.gen_site_coos
+      ~MatrixProductOperator.gen_sites_present
+      ~MatrixProductOperator.gen_tags_from_coos
       ~MatrixProductOperator.geometry_hash
       ~MatrixProductOperator.get_equation
+      ~MatrixProductOperator.get_hyperinds
       ~MatrixProductOperator.get_inputs_output_size_dict
+      ~MatrixProductOperator.get_multibonds
+      ~MatrixProductOperator.get_params
       ~MatrixProductOperator.get_symbol_map
       ~MatrixProductOperator.get_tree_span
       ~MatrixProductOperator.graph
@@ -131,15 +175,25 @@
       ~MatrixProductOperator.identity
       ~MatrixProductOperator.ind_size
       ~MatrixProductOperator.ind_sizes
+      ~MatrixProductOperator.inds_size
       ~MatrixProductOperator.inner_inds
+      ~MatrixProductOperator.insert_compressor_between_regions
+      ~MatrixProductOperator.insert_compressor_between_regions_
       ~MatrixProductOperator.insert_gauge
       ~MatrixProductOperator.insert_operator
       ~MatrixProductOperator.insert_operator_
       ~MatrixProductOperator.iscomplex
+      ~MatrixProductOperator.isconnected
       ~MatrixProductOperator.isel
       ~MatrixProductOperator.isel_
+      ~MatrixProductOperator.isometrize
+      ~MatrixProductOperator.isometrize_
+      ~MatrixProductOperator.istree
+      ~MatrixProductOperator.item
       ~MatrixProductOperator.largest_element
       ~MatrixProductOperator.least_central_tid
+      ~MatrixProductOperator.left_canonicalize
+      ~MatrixProductOperator.left_canonicalize_
       ~MatrixProductOperator.left_canonize
       ~MatrixProductOperator.left_canonize_site
       ~MatrixProductOperator.left_compress
@@ -157,16 +211,21 @@
       ~MatrixProductOperator.multiply_
       ~MatrixProductOperator.multiply_each
       ~MatrixProductOperator.multiply_each_
+      ~MatrixProductOperator.negate
+      ~MatrixProductOperator.negate_
+      ~MatrixProductOperator.new
       ~MatrixProductOperator.new_bond
       ~MatrixProductOperator.norm
       ~MatrixProductOperator.outer_dims_inds
       ~MatrixProductOperator.outer_inds
+      ~MatrixProductOperator.outer_size
       ~MatrixProductOperator.pair_simplify
       ~MatrixProductOperator.pair_simplify_
       ~MatrixProductOperator.partial_transpose
       ~MatrixProductOperator.partition
       ~MatrixProductOperator.partition_tensors
       ~MatrixProductOperator.permute_arrays
+      ~MatrixProductOperator.pop_tensor
       ~MatrixProductOperator.rand_state
       ~MatrixProductOperator.randomize
       ~MatrixProductOperator.randomize_
@@ -179,13 +238,19 @@
       ~MatrixProductOperator.reindex_lower_sites_
       ~MatrixProductOperator.reindex_upper_sites
       ~MatrixProductOperator.reindex_upper_sites_
+      ~MatrixProductOperator.remove_all_tensors
       ~MatrixProductOperator.replace_section_with_svd
       ~MatrixProductOperator.replace_with_identity
       ~MatrixProductOperator.replace_with_svd
       ~MatrixProductOperator.replace_with_svd_
+      ~MatrixProductOperator.reset_cached_properties
       ~MatrixProductOperator.retag
       ~MatrixProductOperator.retag_
+      ~MatrixProductOperator.retag_all
+      ~MatrixProductOperator.retag_all_
       ~MatrixProductOperator.retag_sites
+      ~MatrixProductOperator.right_canonicalize
+      ~MatrixProductOperator.right_canonicalize_
       ~MatrixProductOperator.right_canonize
       ~MatrixProductOperator.right_canonize_site
       ~MatrixProductOperator.right_compress
@@ -196,6 +261,7 @@
       ~MatrixProductOperator.select_local
       ~MatrixProductOperator.select_neighbors
       ~MatrixProductOperator.select_tensors
+      ~MatrixProductOperator.set_params
       ~MatrixProductOperator.shift_orthogonality_center
       ~MatrixProductOperator.show
       ~MatrixProductOperator.singular_values
@@ -210,17 +276,23 @@
       ~MatrixProductOperator.squeeze_
       ~MatrixProductOperator.strip_exponent
       ~MatrixProductOperator.subgraphs
+      ~MatrixProductOperator.sum_reduce
+      ~MatrixProductOperator.sum_reduce_
       ~MatrixProductOperator.tensors_sorted
       ~MatrixProductOperator.tids_are_connected
       ~MatrixProductOperator.to_dense
+      ~MatrixProductOperator.to_qarray
       ~MatrixProductOperator.trace
       ~MatrixProductOperator.unitize
       ~MatrixProductOperator.unitize_
       ~MatrixProductOperator.upper_ind
+      ~MatrixProductOperator.vector_reduce
+      ~MatrixProductOperator.vector_reduce_
       ~MatrixProductOperator.view_as
       ~MatrixProductOperator.view_as_
       ~MatrixProductOperator.view_like
       ~MatrixProductOperator.view_like_
+      ~MatrixProductOperator.visualize_tensors
    
    
 
@@ -236,6 +308,7 @@
       ~MatrixProductOperator.dtype
       ~MatrixProductOperator.lower_ind_id
       ~MatrixProductOperator.lower_inds
+      ~MatrixProductOperator.lower_inds_present
       ~MatrixProductOperator.n_sites
       ~MatrixProductOperator.nsites
       ~MatrixProductOperator.num_indices
@@ -244,10 +317,12 @@
       ~MatrixProductOperator.shape
       ~MatrixProductOperator.site_tag_id
       ~MatrixProductOperator.site_tags
+      ~MatrixProductOperator.site_tags_present
       ~MatrixProductOperator.sites
       ~MatrixProductOperator.tags
       ~MatrixProductOperator.tensors
       ~MatrixProductOperator.upper_ind_id
       ~MatrixProductOperator.upper_inds
+      ~MatrixProductOperator.upper_inds_present
    
    
